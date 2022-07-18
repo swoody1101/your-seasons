@@ -1,0 +1,44 @@
+.signup__container input,
+.signup__container textarea {
+  width: 65vw;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  background: transparent;
+  border: 2px solid var(--color-info-variant);
+  resize: none;
+  color: var(--color-white);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.signup__container {
+  display: flex;
+  flex-direction: column;
+  margin: 3rem 5rem;
+  align-items: center;
+}
+
+.signup__container>h2 {
+  margin-bottom: 1.2rem;
+}
+
+/* MEDIA QUERIES (MEDIUM DEVICE) */
+
+@media screen and (max-width:1024px) {
+  .container.contact__container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+/* MEDIA QUERIES (SMALL DEVICE) */
+
+@media screen and (max-width:600px) {
+  .container.contact__container {
+    width: var(--container-width-sm);
+  }
+}

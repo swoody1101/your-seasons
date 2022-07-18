@@ -1,0 +1,128 @@
+@font-face {
+  font-family: 'CBNUJIKJI';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2202@1.0/CBNUJIKJI.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+}
+
+:root {
+
+  --color-primary: #007bff;
+  --color-primary-variant: #007bff99;
+  --color-secondary: #6c757d;
+  --color-secondary-variant: #6c757d99;
+  --color-success: #28a745;
+  --color-success-variant: #28a74599;
+  --color-info: #17a2b8;
+  --color-info-variant: #17a2b8;
+  --color-warning: #ffc107;
+  --color-warning-variant: #ffc10799;
+  --color-danger: #dc3545;
+  --color-danger-variant: #dc354599;
+  --color-light: #f8f9fa;
+  --color-light-variant: #f8f9fa99;
+  --color-dark: #343a40;
+  --color-dark-variant: #343a4099;
+
+
+  --transition: all 400ms ease;
+
+  --container-width-lg: 75%;
+  --container-width-md: 86%;
+  --container-width-sm: 90%;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'CBNUJIKJI', sans-serif;
+  background: var(--color-dark);
+  color: var(--color-light);
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 500;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+a {
+  color: var(--color-primary);
+  transition: var(--transition);
+}
+
+
+a:hover {
+  color: var(--color-white);
+}
+
+.btn {
+  background: var(--color-dark-variant);
+  width: max-content;
+  display: inline-block;
+  color: var(--color-light);
+  padding: 0.25rem 0.25rem;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  border: 1px solid var(--color-light);
+  transition: var(--transition);
+}
+
+.btn:hover {
+  background: var(--color-light);
+  color: var(--color-dark);
+  border-color: var(--color-light);
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: var(--color-bg);
+}
+
+.app__container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.header__container {
+  background: var(--color-light-variant);
+  height: 10vh;
+}
+
+.body__container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+  overflow: auto;
+  max-height: min-content;
+}
+
+.footer__contatiner {
+  height: 10vh;
+}
+
+.content {
+  width: 85vw;
+}

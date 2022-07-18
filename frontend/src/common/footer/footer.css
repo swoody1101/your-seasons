@@ -1,0 +1,13 @@
+.footer__container {
+  width: 100vw;
+  height: 10vh;
+  background: var(--color-light-variant);
+  text-align: center;
+  align-items: center;
+  border-top: 1px solid var(--color-dark-variant);
+}
+
+.footer__content {
+  padding-top: 1rem;
+  bottom: 1rem;
+}
