@@ -10,12 +10,13 @@
     - Redux Persist
     ```
       npm install redux-persist
-    ``` 
+    ```
     - React Router
     ```
       npm install react-router-dom@6
     ```
     - Material UI
     ```
-      npm install @mui/material @emotion/react @emotion/styled
+      npm install @mui/material @emotion/react @emotion/styled @material/tabs @mui/icons-material @mui/lab
     ```
+
