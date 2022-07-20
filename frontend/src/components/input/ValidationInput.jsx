@@ -45,7 +45,7 @@ export default function ValidationInput({
       <Label>{label}</Label>
       <Input
         error={isError}
-        id="standard-error-helper-text"
+        id={label}
         helperText={helperText}
         variant="standard"
         type={type}

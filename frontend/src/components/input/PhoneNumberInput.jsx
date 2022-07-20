@@ -20,7 +20,7 @@ export default function PhoneNumberInput({
     if (maxValue && maxValue < e.target.value.length) return;
 
     if (e.target.value.length < 3) {
-      setValue('01');
+      setValue('010');
       setIsError(true);
       return setHelperText(defaultText);
     }
@@ -53,7 +53,7 @@ export default function PhoneNumberInput({
       <Label>{label}</Label>
       <Input
         error={isError}
-        id="standard-error-helper-text"
+        id={label}
         helperText={helperText}
         variant="standard"
         type={type}
