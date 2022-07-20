@@ -1,0 +1,13 @@
+@font-face {
+  font-family: 'GmarketSansTTFLight';
+  src: url(../fonts/gmarketsans-ttf/GmarketSansTTFLight.ttf);
+}
+
+@font-face {
+  font-family: 'GmarketSansTTFMedium';
+  src: url(../fonts/gmarketsans-ttf/GmarketSansTTFMedium.ttf);
+}
+
+* {
+  font-family: 'GmarketSansTTFMedium';
+}
