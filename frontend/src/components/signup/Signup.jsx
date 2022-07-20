@@ -2,13 +2,12 @@ import React, { useState } from 'react'
 import {
   Avatar,
   Button,
-  TextField,
-  Box,
   CssBaseline,
   FormControlLabel,
   Checkbox,
   Grid,
   Typography,
+  Container,
 } from '@mui/material'
 
 import ValidationInput from '../input/ValidationInput'
@@ -16,10 +15,10 @@ import ComparePasswordInput from '../input/ConfirmPasswordInput'
 import ConfirmValidationInput from '../input/ConfirmValidationInput'
 import PhoneNumberInput from '../input/PhoneNumberInput'
 import BirthSelectInput from '../input/BirthSelectInput'
-import policy from './privacy_policy.txt'
+import RoleSelectBox from '../input/RoleSelectBox'
+import Policy from './Policy'
 
 import regex from '../input/regex';
-import { createTheme, ThemeProvider } from '@mui/material/styles'
 
 const SignUp = () => {
   const [userEmail, setUserEmail] = useState('');
@@ -47,11 +46,6 @@ const SignUp = () => {
     birth: birth,
   }
 
-  const theme = createTheme({
-    typography: {
-      fontFamily: ''
-    }
-  }); // fontFamily 속성을 담을 위치만 넣어줘도 css에서 적용된 값으로 불러올 수 있다.
 
   const [agreeChecked, setAgreeChcked] = useState(false);
 
@@ -60,7 +54,7 @@ const SignUp = () => {
   }
 
   return (
-    <ThemeProvider theme={theme}>
+    <Container sx={{ xs: 'none', sm: 'block' }}>
       <Avatar sx={{
         m: "1rem auto", bgcolor: 'secondary.main'
       }} />
@@ -154,13 +148,16 @@ const SignUp = () => {
               successText="success"
               errorText="올바른 생년월일을 선택해주세요."
             />
+            <RoleSelectBox
+              label="사용자 유형" />
 
           </Grid>
         </Grid>
-        <Grid item xs={12}>
-
+        <Grid item xs={12} sx={{ alignItems: "center" }}>
+          <Policy />
           <FormControlLabel
-            control={<Checkbox value={agreeChecked} onChange={e => { setAgreeChcked(e.target.value) }} color="primary" />}
+            control={<Checkbox value={agreeChecked}
+              onChange={e => { setAgreeChcked(e.target.value) }} color="primary" />}
             label="회원가입 약관에 동의합니다."
           />
         </Grid>
@@ -175,7 +172,7 @@ const SignUp = () => {
           </Button>
         </Grid>
       </Grid>
-    </ThemeProvider >
+    </Container >
   )
 }
 
