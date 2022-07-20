@@ -1,7 +1,15 @@
 import React from "react";
 
-const ConsultantMyPage = () => {
+import ConsultantProfile from "./ConsultantProfile";
 
+import Container from '@mui/material/Container';
+
+const ConsultantMyPage = () => {
+    return (
+        <Container fixed>
+            <ConsultantProfile />
+        </Container>
+    )
 }
 
 export default ConsultantMyPage
