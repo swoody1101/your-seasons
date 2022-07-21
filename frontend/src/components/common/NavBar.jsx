@@ -5,11 +5,12 @@ import { AppBar, Box, Toolbar, Typography } from '@mui/material'
 import styled from '@emotion/styled'
 
 import { Pets } from '@mui/icons-material'
-import { getToken, deleteToken } from '../../api/JWToken'
+import { getToken } from '../../api/JWToken'
 
 
 const NavBar = () => {
   const logonUser = getToken();
+  console.log(logonUser)
   return (
     <AppBar position="sticky" variant='pupple'>
       <StyledToolbar>
@@ -48,7 +49,6 @@ export default NavBar
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
   justifyContent: "space-between",
-  color: "white"
 })
 
 const Navs = styled(Box)(({ theme }) => ({
@@ -56,6 +56,7 @@ const Navs = styled(Box)(({ theme }) => ({
   flexDirection: "row",
   alignItems: "center",
   gap: "1rem",
+  color: "white"
   // [theme.breakpoints.up("sm")]: {
   //   display: "flex"
   // }
