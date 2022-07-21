@@ -1,28 +1,29 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "@emotion/styled";
-import { TextField, RadioGroup, Radio } from "@mui/material";
+import { RadioGroup, Radio, FormControlLabel } from "@mui/material";
 
 export default function RoleSelectBox({
   label,
+  value,
   setValue,
 }) {
 
   const HandleOnChange = (e) => {
     setValue(e.target.value);
-
   };
 
   return (
     <Container>
       <Label>{label}</Label>
-      <RadioG
-        defaultValue="일반사용자"
-        name="role"
+      <StyledRadioGroup
+        aria-labelledby="radio-buttons-group-label"
+        value={value}
         onChange={HandleOnChange}
+        name="radio-buttons-group"
       >
-        <Radio value="mamber" label="일반사용자" >일반 사용자</Radio>
-        <Radio value="consultant" label="컨설턴트">컨설턴트</Radio>
-      </RadioG>
+        <FormControlLabel value="member" control={<Radio />} label="일반사용자" />
+        <FormControlLabel value="consultant" control={<Radio />} label="컨설턴트" />
+      </StyledRadioGroup>
     </Container>
   );
 }
@@ -41,9 +42,8 @@ const Label = styled.span`
   font-size: 1.2rem;
 `;
 
-const RadioG = styled(RadioGroup)({
-  width: "100%",
+const StyledRadioGroup = styled(RadioGroup)({
   display: "flex",
   flexDirection: "row",
-  justifyContent: "space-even"
-});
+  justifyContent: "even"
+})
