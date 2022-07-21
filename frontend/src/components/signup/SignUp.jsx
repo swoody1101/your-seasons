@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import {
@@ -49,13 +49,24 @@ const SignUp = () => {
 
   const [role, setRole] = useState('member');
 
-  const [licenseName, setLicenseName] = useState('');
+  const [licenseId, setLicenseId] = useState(1);
   const [licenseNumber, setLicenseNumber] = useState('');
 
   const [agreeChecked, setAgreeChcked] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const signUpStatus = useSelector(state => state.signup.status);
+
+  // useEffect(() => {
+  //   if (signUpStatus === 'succeeded') {
+  //     alert("가입에 성공하였습니다.");
+  //     navigate('/login');
+  //   }
+  //   if (signUpStatus === 'failed') {
+  //     alert("가입에 실패하였습니다.");
+  //   }
+  // }, [signUpStatus, navigate])
 
 
   const userInfo = {
@@ -66,11 +77,11 @@ const SignUp = () => {
     birth: birth,
     contact: phoneNumber,
     role: role,
-    licenseName: licenseName,
+    licenseId: licenseId,
     licenseNumber: licenseNumber
   }
-  const handleCheckEmail = (e) => {
 
+  const handleCheckEmail = (e) => {
     alert("인증완료");
     setIsEmailCheck(true);
 
@@ -113,15 +124,15 @@ const SignUp = () => {
     }
     console.log(data);
     dispatch(signUpMember(data))
-      .then((res) => {
-        console.log(res);
-        alert("가입에 성공하였습니다.");
-        // navigate('/login')
-      })
-      .catch((err) => {
-        console.log(err);
-        alert("가입에 실패하였습니다.");
-      })
+      .then(() => {
+        if (signUpStatus === 'succeeded') {
+          alert("가입에 성공하였습니다.");
+          navigate('/login');
+        }
+        if (signUpStatus === 'failed') {
+          alert("가입에 실패하였습니다.");
+        }
+      });
   }
 
   return (
@@ -243,8 +254,8 @@ const SignUp = () => {
               &&
               <LicenseInput
                 label="자격증 정보"
-                licenseName={licenseName}
-                setLicenseName={setLicenseName}
+                licenseId={licenseId}
+                setLicenseId={setLicenseId}
                 value={licenseNumber}
                 setValue={setLicenseNumber}
               />
