@@ -6,7 +6,6 @@ import thunk from 'redux-thunk';
 
 // import AuthReducer from '../feature/auth/authSlice';
 
-
 const reducers = combineReducers({
   // auth: AuthReducer,
 });

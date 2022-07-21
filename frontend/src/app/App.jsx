@@ -8,18 +8,25 @@ import './app.css'
 import Login from '../components/login/Login'
 import UserMyPage from '../components/usermypage/UserMyPage'
 
+import NavBar from '../components/common/NavBar'
+import SignUp from '../components/signup/SignUp'
+import { Box, Stack } from '@mui/material'
 
 const App = () => {
   return (
-    <div className='container app__container'>
-      <Routes>
-        <Route path='/home' element={<p>home</p>} />
-        <Route path='/history' element={<p>history</p>} />
-        <Route path='/login' element={<Login />} />
-        {/* <Route path='/:' element={<UserMyPage />} /> */}
-        <Route path='/signup' element={<p>signup</p>} />
-      </Routes>
-    </div>
+    <Box sx={{}}>
+      <NavBar />
+      <Stack direction="column" spacing={2} justifyContent="space-between">
+
+        <Routes>
+          <Route path='/home' element={<p>home</p>} />
+          <Route path='/history' element={<p>history</p>} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/:' element={<UserMyPage />} /> 
+          <Route path='/signup' element={<SignUp />} />
+        </Routes>
+      </Stack>
+    </Box>
   )
 }
 
