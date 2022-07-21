@@ -5,6 +5,8 @@ import {
 } from 'react-router-dom'
 
 import './app.css'
+import Login from '../components/login/Login'
+import UserMyPage from '../components/usermypage/UserMyPage'
 
 
 const App = () => {
@@ -13,7 +15,8 @@ const App = () => {
       <Routes>
         <Route path='/home' element={<p>home</p>} />
         <Route path='/history' element={<p>history</p>} />
-        <Route path='/login' element={<p>login</p>} />
+        <Route path='/login' element={<Login />} />
+        {/* <Route path='/:' element={<UserMyPage />} /> */}
         <Route path='/signup' element={<p>signup</p>} />
       </Routes>
     </div>

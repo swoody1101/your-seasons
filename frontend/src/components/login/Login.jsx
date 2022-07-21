@@ -1,38 +1,40 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux/es/exports';
-import { Button, Checkbox, FormControlLabel, TextField, Grid, Link, Typography, Avatar } from '@mui/material';
+import { Button, Checkbox, FormControlLabel, TextField, Grid, Link, Typography, Avatar, styled } from '@mui/material';
 import { Box, Container } from '@mui/system';
 import './login.css';
 import mainimg from '../../assets/images/mainimg.png';
 import kakaotalk_img from '../../assets/images/kakaotalk_img.png';
 import google_img from '../../assets/images/google_img.png';
-import SignUp from '../signup/SignUp';
 import { loginUser } from "./loginSlice"
-
-
-
 
 const Login = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const [checked, setChecked] = useState("");
+	const [checked, setChecked] = useState(false);
 	const dispatch = useDispatch();
+
 	const handleSubmit=(event) =>{
 		event.preventDefault();
 		dispatch(loginUser({email, password}))
 			.then(res => {
 				if (res.type === 'user/login/fulfilled'){
-					console.log('성공')
+					document.location.href = '/home'
 				}else{
-					console.log('실패')
+					alert('이메일 또는 비밀번호를 잘못 입력했습니다. 입력하신 내용을 다시 확인해주세요.')
 				}
 			}) 
-			
 	}
-
-  const saveAgree = (event) => {
-    setChecked(event.target.checked);
+  const saveAgree = ({target}) => {
+    target.checked ? setChecked(true) : setChecked(false);
+		console.log(checked)
+		if(checked === false){
+			sessionStorage.setItem('email', email)
+		}else{
+			sessionStorage.setItem('email', "")
+		}
   };
+
 
 	function handleEmail(event){
 		const { target: { value } } = event;
@@ -89,9 +91,10 @@ const Login = () => {
 					<TextField label="비밀번호" type="password" margin="normal" onChange={handlePassword}
 							name="password" autoComplete="current-password" required fullWidth/>
 					<FormControlLabel 
-						control={<Checkbox onChange={saveAgree} value="remember" color="primary" />}
+						control={<Checkbox onClick={saveAgree} value={checked} color="primary" />}
 						label="이메일 주소 저장"
 					/>
+
 					<Button type="submit" fullWidth variant="contained" 
 						sx={{ mt: 3, mb: 2 }}>login</Button>
 				</Box>
