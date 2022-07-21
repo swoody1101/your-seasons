@@ -1,17 +1,16 @@
 package com.yourseason.backend.member;
 
-import com.yourseason.backend.common.BaseTimeEntity;
+import com.yourseason.backend.common.domain.BaseTimeEntity;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @MappedSuperclass
 public abstract class Member extends BaseTimeEntity {
 
@@ -38,4 +37,15 @@ public abstract class Member extends BaseTimeEntity {
     private String contact;
 
     private String imageUrl;
+
+    public Member(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, String email, String password, String name, LocalDate birth, String nickname, String contact, String imageUrl) {
+        super(id, createdTime, lastModifiedTime);
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.birth = birth;
+        this.nickname = nickname;
+        this.contact = contact;
+        this.imageUrl = imageUrl;
+    }
 }
