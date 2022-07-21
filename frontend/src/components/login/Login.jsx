@@ -6,30 +6,28 @@ import './login.css';
 import mainimg from '../../assets/images/mainimg.png';
 import kakaotalk_img from '../../assets/images/kakaotalk_img.png';
 import google_img from '../../assets/images/google_img.png';
-// import SignUp from '../signup/SignUp';
-import { login } from "./loginSlice"
+import SignUp from '../signup/SignUp';
+import { loginUser } from "./loginSlice"
+
 
 
 
 const Login = () => {
-	const [userLogin, setUserLogin] = useState([]);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [checked, setChecked] = useState("");
 	const dispatch = useDispatch();
-
-	// 체크박스 이메일 저장
 	const handleSubmit=(event) =>{
 		event.preventDefault();
-		dispatch(login(userLogin));
-		if (saveAgree===true){
-			setUserLogin("")
-			setPassword("")
-		}else{
-			setUserLogin("")
-			setEmail("")
-			setPassword("")
-		}
+		dispatch(loginUser({email, password}))
+			.then(res => {
+				if (res.type === 'user/login/fulfilled'){
+					console.log('성공')
+				}else{
+					console.log('실패')
+				}
+			}) 
+			
 	}
 
   const saveAgree = (event) => {
@@ -37,11 +35,12 @@ const Login = () => {
   };
 
 	function handleEmail(event){
-		const { value } = event.target;
+		const { target: { value } } = event;
 		// value check
 		setEmail(value.replace(/\s/g, ''))
+		
 	}
-	console.log(email);
+
 	function handlePassword(event) {
 		const { value } = event.target;
     // value check
@@ -85,9 +84,9 @@ const Login = () => {
 					<Typography component="h1" variant="h5" id="login-text">
 						로그인
 					</Typography>
-					<TextField label="이메일 주소" name="email" margin="normal" onSubmit={handleEmail}
-							autoComplete="email" autoFocus	required fullWidth/>
-					<TextField label="비밀번호" type="password" margin="normal" onSubmit={handlePassword}
+					<TextField label="이메일 주소" name="email" margin="normal" onChange={handleEmail}
+							autoComplete="email" autoFocus	required fullWidth  />
+					<TextField label="비밀번호" type="password" margin="normal" onChange={handlePassword}
 							name="password" autoComplete="current-password" required fullWidth/>
 					<FormControlLabel 
 						control={<Checkbox onChange={saveAgree} value="remember" color="primary" />}
@@ -103,10 +102,10 @@ const Login = () => {
 						display: 'flex',
 						justifyContent: 'space-between',					
 					}}>
-						<Link href="#" variant="body2">
+						<Link href="/#" variant="body2">
 							비밀번호 찾기
 						</Link>
-						<span><Link href="#" variant="body2">{"퍼스널 컬러 찾으러 가기"}</Link></span>
+						<span><Link href="/signup" variant="body2">{"퍼스널 컬러 찾으러 가기"}</Link></span>
 				</Grid>
 
 				{/* 소셜 로그인 */}
@@ -117,11 +116,11 @@ const Login = () => {
 							justifyContent: 'center',	
 						}}>
 						<Grid item><Avatar sx={{ m: 1, bgcolor: '#eeeeee' }}>
-							<img className="login-icon" src={google_img} alt="loginicon"/>
+							<a href="/#"><img className="login-icon" src={google_img} alt="loginicon"/></a>
 						</Avatar></Grid>
 						<Grid item>
 						<Avatar sx={{ m: 1, bgcolor: '#ffea00' }}>
-							<img className="login-icon" src={kakaotalk_img} alt="loginicon"/>
+						<a href="/#"><img className="login-icon" src={kakaotalk_img} alt="loginicon"/></a>
 						</Avatar></Grid>
 					</Grid>
 				</div>
