@@ -12,7 +12,9 @@ const initialState = {
     role: '',
     licenseName: '',
     licenseNumber: ''
-  }
+  },
+  data: { memberId: '', message: '' },
+  status: 'idle' // 'idle' | 'loading' | 'succeeded' | 'failed'
 }
 
 export const signUpMember = createAsyncThunk(
@@ -20,6 +22,8 @@ export const signUpMember = createAsyncThunk(
   async (userInfo, { rejectWithValue }) => {
     try {
       const response = await Axios.post('members/signup', userInfo);
+      console.log("비동기 요청")
+      console.log(userInfo)
       return response.data;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -30,18 +34,16 @@ export const signUpMember = createAsyncThunk(
 const signUpSlice = createSlice({
   name: 'signup',
   initialState,
-  reducers: {
-
-  },
   extraReducers: {
     [signUpMember.pending]: (state) => {
-      state.isLoading = 'pending';
+      state.status = 'loading';
     },
-    [signUpMember.fulfilled]: (state) => {
-      state.isLoading = 'succeeded';
+    [signUpMember.fulfilled]: (state, { payload }) => {
+      state.status = 'succeeded';
+      state.data = payload
     },
     [signUpMember.rejected]: (state) => {
-      state.isLoading = 'failed';
+      state.status = 'failed';
     },
   }
 });
