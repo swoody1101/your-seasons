@@ -1,0 +1,39 @@
+.login{
+	display:flex;
+	flex-direction: row; 
+	justify-content: center;
+	align-items: center;
+	background-color: rgb(255, 255, 255);
+	
+}
+
+.mainimg{
+	width: 300px;
+	padding:15px;
+}
+
+.v-line {
+	border-left : 2px solid #6d6d6d;
+  height : 500px;
+	margin: 20px;
+}
+/* ############################################# */
+#login-text{
+	display: inline;
+	text-align: center;
+}
+
+.login-icon{
+	width: 25px;
+}
+
+@media screen and (max-width: 768px) {
+  .mobile-hidden {
+    display: none;
+  }
+}
+
+.social-login{
+	text-align: center;
+	padding: 15px;
+}
