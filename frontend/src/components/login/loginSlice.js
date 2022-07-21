@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { saveToken } from '../../common/api/JWToken'
-import testAxios from '../../common/api/testAxios';
+import { saveToken } from '../../api/JWToken'
+import Axios from '../../api/Axios';
 
 const initialState = {
   logonUser: {
@@ -22,13 +22,13 @@ export const loginUser = createAsyncThunk(
   'user/login',
   async (userInfo, { rejectWithValue }) => {
     try {
-			console.log(userInfo)
-			// start
-			const userInfo2 = {username:userInfo.email, password:userInfo.password}
-      const response = await testAxios.post('v1/accounts/login/', userInfo2);
-			const token = response.data.key;
+      console.log(userInfo)
+      // start
+      const userInfo2 = { username: userInfo.email, password: userInfo.password }
+      const response = await Axios.post('v1/accounts/login/', userInfo2);
+      const token = response.data.key;
       // const { data: { token } } = response;
-			//end
+      //end
       console.log(token);
       saveToken(token);
       return response;
