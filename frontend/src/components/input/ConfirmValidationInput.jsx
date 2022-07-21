@@ -73,7 +73,9 @@ export default function ConfirmValidationInput({
       {isCheck ? (
         <CheckSuccessBnt>확인</CheckSuccessBnt>
       ) : (
-        <CheckBnt isOnCheck={{ isOnCheck }} disabled={!isOnCheck ? true : false} onClick={handleCheck}>
+        <CheckBnt
+          // isOnCheck={{ isOnCheck }}
+          disabled={!isOnCheck ? true : false} onClick={handleCheck}>
           중복확인
         </CheckBnt>
       )}
@@ -113,8 +115,8 @@ const CheckBnt = styled(Button)`
   height: 1.8rem;
   right: 0;
   top: 1rem;
-  border: ${({ isOnCheck }) => (isOnCheck ? "1px solid #ff7775;" : "1px solid #d9d9d9")};
-  color: ${({ isOnCheck }) => (isOnCheck ? "#FF7775" : "#3C3C3C")};
+  border: ${(isOnCheck) => (isOnCheck ? "1px solid #ff7775;" : "1px solid #d9d9d9")};
+  color: ${(isOnCheck) => (isOnCheck ? "#FF7775" : "#3C3C3C")};
   font-size: 1rem;
   border-radius: 2rem;
 `;

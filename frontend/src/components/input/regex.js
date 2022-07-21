@@ -11,6 +11,8 @@ const password = /^[a-z0-9_-]{8,20}$/;
 
 const phone = /^[0-9\b -]{0,13}$/;
 
-const regex = { nickname, email, password, phone };
+const name = /^[가-힣]{2,10}$/;
+
+const regex = { nickname, email, password, phone, name };
 
 export default regex;
