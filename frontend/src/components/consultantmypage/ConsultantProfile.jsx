@@ -15,7 +15,7 @@ const ConsultantProfile = () => {
     const [nickname, setNickname] = useState('익명의');
     const [selfIntroduction, setSelfIntroduction] = useState('등록한 자기소개가 없습니다.');
     const [cost, setCost] = useState('30,000');
-    const [starRate, setStarRate] = useState(3.6)
+    const [starRate, setStarRate] = useState(4.7)
 
     console.log(setNickname, setSelfIntroduction, setCost, setStarRate)
     return (
@@ -36,11 +36,11 @@ const ConsultantProfile = () => {
                     <h3>
                         {nickname} 컨설턴트님
                     </h3>
-                    <Box sx={{ display: 'flex', gap: 2 }}>
-                        <h3>
-                            평점 {starRate}
-                        </h3>
+                    <Box sx={{ display: 'flex', gap: 1 }}>
                         <StarRating starrating={starRate} />
+                        <h3>
+                            {starRate}
+                        </h3>
                     </Box>
 
                     <h3>
