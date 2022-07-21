@@ -4,10 +4,10 @@ import { combineReducers } from 'redux';
 import { persistReducer } from 'redux-persist';
 import thunk from 'redux-thunk';
 
-// import AuthReducer from '../feature/auth/authSlice';
+import SignUpReducer from '../components/signup/signUpSlice'
 
 const reducers = combineReducers({
-  // auth: AuthReducer,
+  signup: SignUpReducer,
 });
 
 const persistConfig = {
