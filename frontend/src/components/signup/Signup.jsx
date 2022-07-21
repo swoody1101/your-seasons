@@ -12,8 +12,8 @@ import {
   Container,
 } from '@mui/material'
 
-import LockIcon from '@mui/icons-material/Lock'
 import regex from '../input/regex';
+import LockIcon from '@mui/icons-material/Lock'
 
 import ValidationInput from '../input/ValidationInput'
 import ComparePasswordInput from '../input/ConfirmPasswordInput'

@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { saveToken } from '../../api/JWToken'
 import Axios from '../../api/Axios';
-
+import { saveToken } from '../../api/JWToken'
 const initialState = {
   logonUser: {
     userId: '',
