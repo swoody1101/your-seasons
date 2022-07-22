@@ -21,8 +21,8 @@ export default function RoleSelectBox({
         onChange={HandleOnChange}
         name="radio-buttons-group"
       >
-        <FormControlLabel value="member" control={<Radio />} label="일반사용자" />
-        <FormControlLabel value="consultant" control={<Radio />} label="컨설턴트" />
+        <FormControlLabel value="CUSTOMER" control={<Radio />} label="일반사용자" />
+        <FormControlLabel value="CONSULTANT" control={<Radio />} label="컨설턴트" />
       </StyledRadioGroup>
     </Container>
   );
