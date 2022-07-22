@@ -21,7 +21,11 @@ const ConsultantProfile = () => {
     return (
         <Container fixed>
             <Grid container item spacing={2}>
-                <Grid item xs={12} sm={2} sx={{ display: 'block' }}>
+                <Grid item xs={12} sm={3} sx={{
+					display: 'flex',
+					bgcolor: 'white',
+					justifyContent: 'center',
+				}}>
                     <Avatar
                         alt="프로필 사진"
                         src={ProfileImage}
