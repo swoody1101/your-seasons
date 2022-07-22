@@ -37,6 +37,7 @@ const ConsultantProfile = () => {
                     </IconButton>
                 </Grid>
                 <Grid item xs={12} sm={9}>
+		<ProfileText>
                     <h3>
                         {nickname} 컨설턴트님
                     </h3>
@@ -57,6 +58,7 @@ const ConsultantProfile = () => {
                         <Button variant="contained">내 정보 수정</Button>
                         <Button variant="contained">프로필 수정</Button>
                     </Stack>
+	        </ProfileText>
                 </Grid>
             </Grid>
         </Container>
