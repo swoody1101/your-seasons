@@ -21,11 +21,11 @@ public abstract class BaseTimeEntity {
     private Long id;
 
     @CreatedDate
-    private LocalDateTime createdTime;
+    private LocalDateTime createdDate;
 
     @LastModifiedDate
-    private LocalDateTime lastModifiedTime;
+    private LocalDateTime lastModifiedDate;
 
-    private LocalDateTime deletedTime;
+    private LocalDateTime deletedDate;
     private boolean isActive;
 }
