@@ -19,8 +19,8 @@ public class BestColorSet extends BaseTimeEntity {
     private ColorSet colorSet;
 
     @Builder
-    public BestColorSet(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, ColorSet colorSet) {
-        super(id, createdTime, lastModifiedTime);
+    public BestColorSet(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDateTime deletedDate, boolean isActive, ColorSet colorSet) {
+        super(id, createdTime, lastModifiedTime, deletedDate, isActive);
         this.colorSet = colorSet;
     }
 }

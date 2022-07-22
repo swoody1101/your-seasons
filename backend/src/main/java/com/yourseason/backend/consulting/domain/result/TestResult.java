@@ -27,9 +27,9 @@ public class TestResult extends BaseTimeEntity {
     private Tone tone;
 
     @Builder
-    public TestResult(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime,
+    public TestResult(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDateTime deletedDate, boolean isActive,
                       BestColorSet bestColorSet, WorstColorSet wortColorSet, Tone tone) {
-        super(id, createdTime, lastModifiedTime);
+        super(id, createdTime, lastModifiedTime, deletedDate, isActive);
         this.bestColorSet = bestColorSet;
         this.wortColorSet = wortColorSet;
         this.tone = tone;

@@ -18,8 +18,8 @@ public class License extends BaseTimeEntity {
     private String name;
 
     @Builder
-    public License(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, String name) {
-        super(id, createdTime, lastModifiedTime);
+    public License(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDateTime deletedDate, boolean isActive, String name) {
+        super(id, createdTime, lastModifiedTime, deletedDate, isActive);
         this.name = name;
     }
 }

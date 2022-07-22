@@ -21,8 +21,8 @@ public class ClosedDay extends BaseTimeEntity {
     private LocalDate date;
 
     @Builder
-    public ClosedDay(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDate date) {
-        super(id, createdTime, lastModifiedTime);
+    public ClosedDay(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDateTime deletedDate, boolean isActive, LocalDate date) {
+        super(id, createdTime, lastModifiedTime, deletedDate, isActive);
         this.date = date;
     }
 }

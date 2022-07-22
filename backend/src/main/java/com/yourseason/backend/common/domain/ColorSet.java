@@ -18,7 +18,7 @@ public class ColorSet extends BaseTimeEntity {
     private List<Color> colors = new ArrayList<>();
 
     @Builder
-    public ColorSet(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime) {
-        super(id, createdTime, lastModifiedTime);
+    public ColorSet(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDateTime deletedDate, boolean isActive) {
+        super(id, createdTime, lastModifiedTime, deletedDate, isActive);
     }
 }

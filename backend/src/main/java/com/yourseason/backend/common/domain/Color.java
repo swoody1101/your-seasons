@@ -22,8 +22,8 @@ public class Color extends BaseTimeEntity {
     private Tone tone;
 
     @Builder
-    public Color(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, String hex, Tone tone) {
-        super(id, createdTime, lastModifiedTime);
+    public Color(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDateTime deletedDate, boolean isActive, String hex, Tone tone) {
+        super(id, createdTime, lastModifiedTime, deletedDate, isActive);
         this.hex = hex;
         this.tone = tone;
     }

@@ -27,9 +27,9 @@ public class Review extends BaseTimeEntity {
     private String comment;
 
     @Builder
-    public Review(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime,
+    public Review(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDateTime deletedDate, boolean isActive,
                   Customer customer, Consultant consultant, double star, String comment) {
-        super(id, createdTime, lastModifiedTime);
+        super(id, createdTime, lastModifiedTime, deletedDate, isActive);
         this.customer = customer;
         this.consultant = consultant;
         this.star = star;

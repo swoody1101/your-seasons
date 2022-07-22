@@ -19,8 +19,8 @@ public class WorstColorSet extends BaseTimeEntity {
     private ColorSet colorSet;
 
     @Builder
-    public WorstColorSet(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, ColorSet colorSet) {
-        super(id, createdTime, lastModifiedTime);
+    public WorstColorSet(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDateTime deletedDate, boolean isActive, ColorSet colorSet) {
+        super(id, createdTime, lastModifiedTime, deletedDate, isActive);
         this.colorSet = colorSet;
     }
 }

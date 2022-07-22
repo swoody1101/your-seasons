@@ -21,9 +21,11 @@ import java.util.List;
 public class Customer extends Member {
 
     @Builder
-    public Customer(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime,
+    public Customer(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDateTime deletedDate, boolean isActive,
                     String email, String password, String name, LocalDate birth, String nickname, String contact, String imageUrl,
                     List<Consulting> consultings, List<Reservation> reservations, List<Review> reviews) {
-        super(id, createdTime, lastModifiedTime, email, password, name, birth, nickname, contact, imageUrl, consultings, reservations, reviews);
+        super(id, createdTime, lastModifiedTime, deletedDate, isActive,
+                email, password, name, birth, nickname, contact, imageUrl,
+                consultings, reservations, reviews);
     }
 }

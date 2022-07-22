@@ -54,8 +54,10 @@ public abstract class Member extends BaseTimeEntity {
     @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Review> reviews = new ArrayList<>();
 
-    public Member(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, String email, String password, String name, LocalDate birth, String nickname, String contact, String imageUrl, List<Consulting> consultings, List<Reservation> reservations, List<Review> reviews) {
-        super(id, createdTime, lastModifiedTime);
+    public Member(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDateTime deletedDate, boolean isActive,
+                  String email, String password, String name, LocalDate birth, String nickname, String contact, String imageUrl,
+                  List<Consulting> consultings, List<Reservation> reservations, List<Review> reviews) {
+        super(id, createdTime, lastModifiedTime, deletedDate, isActive);
         this.email = email;
         this.password = password;
         this.name = name;

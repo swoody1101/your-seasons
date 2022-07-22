@@ -39,11 +39,11 @@ public class Consultant extends Member {
     private List<ClosedDay> closedDays;
 
     @Builder
-    public Consultant(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime,
+    public Consultant(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDateTime deletedDate, boolean isActive,
                       String email, String password, String name, LocalDate birth, String nickname, String contact, String imageUrl,
                       List<Consulting> consultings, List<Reservation> reservations, List<Review> reviews,
                       String introduction, String cost, double starAverage, int reviewCount, License license, String licenseNumber, List<ClosedDay> closedDays) {
-        super(id, createdTime, lastModifiedTime, email, password, name, birth, nickname, contact, imageUrl, consultings, reservations, reviews);
+        super(id, createdTime, lastModifiedTime, deletedDate, isActive, email, password, name, birth, nickname, contact, imageUrl, consultings, reservations, reviews);
         this.introduction = introduction;
         this.cost = cost;
         this.starAverage = starAverage;

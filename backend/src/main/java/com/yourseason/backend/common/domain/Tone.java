@@ -19,8 +19,8 @@ public class Tone extends BaseTimeEntity {
     private String name;
 
     @Builder
-    public Tone(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, String name) {
-        super(id, createdTime, lastModifiedTime);
+    public Tone(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDateTime deletedDate, boolean isActive, String name) {
+        super(id, createdTime, lastModifiedTime, deletedDate, isActive);
         this.name = name;
     }
 }
