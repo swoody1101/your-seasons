@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import {
@@ -25,7 +25,7 @@ import LicenseInput from '../input/LicenseInput'
 
 import Policy from './Policy'
 
-import { signUpMember } from './signUpSlice';
+import { nicknameCheck, emailCheck, signUpMember } from './signUpSlice';
 
 
 const SignUp = () => {
@@ -49,13 +49,24 @@ const SignUp = () => {
 
   const [role, setRole] = useState('member');
 
-  const [licenseName, setLicenseName] = useState('');
+  const [licenseId, setLicenseId] = useState(1);
   const [licenseNumber, setLicenseNumber] = useState('');
 
   const [agreeChecked, setAgreeChcked] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const signUpStatus = useSelector(state => state.signup.status);
+
+  // useEffect(() => {
+  //   if (signUpStatus === 'succeeded') {
+  //     alert("가입에 성공하였습니다.");
+  //     navigate('/login');
+  //   }
+  //   if (signUpStatus === 'failed') {
+  //     alert("가입에 실패하였습니다.");
+  //   }
+  // }, [signUpStatus, navigate])
 
 
   const userInfo = {
@@ -66,14 +77,40 @@ const SignUp = () => {
     birth: birth,
     contact: phoneNumber,
     role: role,
-    licenseName: licenseName,
+    licenseId: licenseId,
     licenseNumber: licenseNumber
   }
-  const handleCheckEmail = (e) => {
 
-    alert("인증완료");
-    setIsEmailCheck(true);
+  const handleCheckEmail = () => {
+    console.log(userEmail);
+    dispatch(emailCheck(userEmail))
+      .then((res) => {
+        console.log(res.payload);
+        let msg = res.payload;
+        if (msg === 'succeeded') {
+          alert("인증완료");
+          setIsEmailCheck(true);
+        }
+        if (msg === 'failed') {
+          alert("이미 존재하는 이메일입니다.");
+        }
+      })
+  }
 
+  const handleCheckNickname = () => {
+    console.log(nickname);
+    dispatch(nicknameCheck(nickname))
+      .then((res) => {
+        console.log(res.payload);
+        let msg = res.payload;
+        if (msg === 'succeeded') {
+          alert("인증완료");
+          setIsNicknameCheck(true);
+        }
+        if (msg === 'failed') {
+          alert("이미 존재하는 닉네임입니다.");
+        }
+      })
   }
 
   const handleSubmit = (data) => {
@@ -114,14 +151,16 @@ const SignUp = () => {
     console.log(data);
     dispatch(signUpMember(data))
       .then((res) => {
-        console.log(res);
-        alert("가입에 성공하였습니다.");
-        // navigate('/login')
-      })
-      .catch((err) => {
-        console.log(err);
-        alert("가입에 실패하였습니다.");
-      })
+        console.log(res.payload) // 응답 msg  확인
+        let msg = res.payload;
+        if (msg === 'succeeded') {
+          alert("가입에 성공하였습니다.");
+          navigate('/login');
+        }
+        if (msg === 'failed') {
+          alert("가입에 실패하였습니다.");
+        }
+      });
   }
 
   return (
@@ -184,10 +223,7 @@ const SignUp = () => {
               setValue={setNickname}
               isCheck={isNicknameCheck}
               setIsCheck={setIsNicknameCheck}
-              handleValueCheck={() => {
-                alert("인증완료");
-                setIsNicknameCheck(true);
-              }}
+              handleValueCheck={handleCheckNickname}
               regexCheck={regex.nickname}
               defaultText="닉네임을 입력해주세요."
               successText="success"
@@ -243,8 +279,8 @@ const SignUp = () => {
               &&
               <LicenseInput
                 label="자격증 정보"
-                licenseName={licenseName}
-                setLicenseName={setLicenseName}
+                licenseId={licenseId}
+                setLicenseId={setLicenseId}
                 value={licenseNumber}
                 setValue={setLicenseNumber}
               />
