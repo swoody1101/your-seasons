@@ -25,7 +25,7 @@ import LicenseInput from '../input/LicenseInput'
 
 import Policy from './Policy'
 
-import { signUpMember } from './signUpSlice';
+import { nicknameCheck, emailCheck, signUpMember } from './signUpSlice';
 
 
 const SignUp = () => {
@@ -81,10 +81,36 @@ const SignUp = () => {
     licenseNumber: licenseNumber
   }
 
-  const handleCheckEmail = (e) => {
-    alert("인증완료");
-    setIsEmailCheck(true);
+  const handleCheckEmail = () => {
+    console.log(userEmail);
+    dispatch(emailCheck(userEmail))
+      .then((res) => {
+        console.log(res.payload);
+        let msg = res.payload;
+        if (msg === 'succeeded') {
+          alert("인증완료");
+          setIsEmailCheck(true);
+        }
+        if (msg === 'failed') {
+          alert("이미 존재하는 이메일입니다.");
+        }
+      })
+  }
 
+  const handleCheckNickname = () => {
+    console.log(nickname);
+    dispatch(nicknameCheck(nickname))
+      .then((res) => {
+        console.log(res.payload);
+        let msg = res.payload;
+        if (msg === 'succeeded') {
+          alert("인증완료");
+          setIsNicknameCheck(true);
+        }
+        if (msg === 'failed') {
+          alert("이미 존재하는 닉네임입니다.");
+        }
+      })
   }
 
   const handleSubmit = (data) => {
@@ -124,12 +150,14 @@ const SignUp = () => {
     }
     console.log(data);
     dispatch(signUpMember(data))
-      .then(() => {
-        if (signUpStatus === 'succeeded') {
+      .then((res) => {
+        console.log(res.payload) // 응답 msg  확인
+        let msg = res.payload;
+        if (msg === 'succeeded') {
           alert("가입에 성공하였습니다.");
           navigate('/login');
         }
-        if (signUpStatus === 'failed') {
+        if (msg === 'failed') {
           alert("가입에 실패하였습니다.");
         }
       });
@@ -195,10 +223,7 @@ const SignUp = () => {
               setValue={setNickname}
               isCheck={isNicknameCheck}
               setIsCheck={setIsNicknameCheck}
-              handleValueCheck={() => {
-                alert("인증완료");
-                setIsNicknameCheck(true);
-              }}
+              handleValueCheck={handleCheckNickname}
               regexCheck={regex.nickname}
               defaultText="닉네임을 입력해주세요."
               successText="success"

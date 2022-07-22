@@ -10,7 +10,7 @@ const initialState = {
     birth: '',
     contact: '',
     role: '',
-    licenseName: '',
+    licenseId: '',
     licenseNumber: ''
   },
   data: { memberId: '', message: '' },
@@ -18,18 +18,50 @@ const initialState = {
 }
 
 export const signUpMember = createAsyncThunk(
-  'member/signup',
+  'members/signup',
   async (userInfo, { rejectWithValue }) => {
     try {
+      console.log("비동기 요청 회원가입") // 비동기 위치표시
       const response = await Axios.post('members/signup', userInfo);
-      console.log("비동기 요청")
-      console.log(userInfo)
+      console.log(response) // 응답체크
       return response.data;
     } catch (err) {
-      return rejectWithValue(err.response.data);
+      console.log(err)
+      return rejectWithValue(err);
     }
   }
 )
+
+export const emailCheck = createAsyncThunk(
+  'member/emailcheck',
+  async (email, { rejectWithValue }) => {
+    try {
+      console.log("비동기 요청 이메일 중복확인") // 비동기 위치표시
+      const response = await Axios.get(`members/${email}/emailcheck`);
+      console.log(response) // 응답체크
+      return response.data;
+    } catch (err) {
+      console.log(err);
+      return rejectWithValue(err)
+    }
+  }
+);
+
+export const nicknameCheck = createAsyncThunk(
+  'member/nicknamecheck',
+  async (nickname, { rejectWithValue }) => {
+    try {
+      console.log("비동기 요청 이메일 중복확인") // 비동기 위치표시
+      const response = await Axios.get(`members/${nickname}/nickcheck`);
+      console.log(response) // 응답체크
+      return response.data;
+    } catch (err) {
+      console.log(err);
+      return rejectWithValue(err)
+    }
+  }
+);
+
 
 const signUpSlice = createSlice({
   name: 'signup',
