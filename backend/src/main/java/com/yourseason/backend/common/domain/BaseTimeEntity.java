@@ -25,4 +25,7 @@ public abstract class BaseTimeEntity {
 
     @LastModifiedDate
     private LocalDateTime lastModifiedTime;
+
+    private LocalDateTime deletedTime;
+    private boolean isActive;
 }
