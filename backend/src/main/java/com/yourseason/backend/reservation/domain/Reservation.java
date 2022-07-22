@@ -25,9 +25,11 @@ public class Reservation extends BaseTimeEntity {
     private Consultant consultant;
 
     @NotNull
+    @Column(name = "reservation_date")
     private LocalDateTime date;
 
     @NotNull
+    @Column(name = "reservation_time")
     private LocalDateTime time;
 
     private String request;
