@@ -32,7 +32,7 @@ const ConsultantProfile = () => {
                         <PhotoCamera />
                     </IconButton>
                 </Grid>
-                <Grid item xs={12} sm={10}>
+                <Grid item xs={12} sm={9}>
                     <h3>
                         {nickname} 컨설턴트님
                     </h3>
