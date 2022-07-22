@@ -9,7 +9,7 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 
 const ConsultantMyPageTab = () => {
-  const [value, setValue] = React.useState('1');
+  const [value, setValue] = useState('1');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
