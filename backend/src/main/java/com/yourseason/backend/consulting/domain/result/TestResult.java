@@ -20,7 +20,7 @@ public class TestResult extends BaseTimeEntity {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "best_color_set_id")
-    private WorstColorSet wortColorSet;
+    private WorstColorSet worstColorSet;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tone_id")
@@ -28,10 +28,10 @@ public class TestResult extends BaseTimeEntity {
 
     @Builder
     public TestResult(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDateTime deletedDate, boolean isActive,
-                      BestColorSet bestColorSet, WorstColorSet wortColorSet, Tone tone) {
+                      BestColorSet bestColorSet, WorstColorSet worstColorSet, Tone tone) {
         super(id, createdTime, lastModifiedTime, deletedDate, isActive);
         this.bestColorSet = bestColorSet;
-        this.wortColorSet = wortColorSet;
+        this.worstColorSet = worstColorSet;
         this.tone = tone;
     }
 }
