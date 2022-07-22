@@ -51,7 +51,7 @@ export const nicknameCheck = createAsyncThunk(
   'member/nicknamecheck',
   async (nickname, { rejectWithValue }) => {
     try {
-      console.log("비동기 요청 이메일 중복확인") // 비동기 위치표시
+      console.log("비동기 요청 닉네임 중복확인") // 비동기 위치표시
       const response = await Axios.get(`members/${nickname}/nickcheck`);
       console.log(response) // 응답체크
       return response.data;
