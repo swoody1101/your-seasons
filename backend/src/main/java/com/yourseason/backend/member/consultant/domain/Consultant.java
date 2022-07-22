@@ -29,9 +29,8 @@ public class Consultant extends Member {
     private int reviewCount;
 
     @NotNull
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "license_id")
-    private License license;
+    @OneToMany(mappedBy = "consultant")
+    private List<License> licenses = new ArrayList<>();
 
     @NotNull
     private String licenseNumber;
@@ -43,13 +42,13 @@ public class Consultant extends Member {
     public Consultant(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDateTime deletedDate, boolean isActive,
                       String email, String password, String name, LocalDate birth, String nickname, String contact, String imageUrl,
                       List<Consulting> consultings, List<Reservation> reservations, List<Review> reviews,
-                      String introduction, String cost, double starAverage, int reviewCount, License license, String licenseNumber, List<ClosedDay> closedDays) {
+                      String introduction, String cost, double starAverage, int reviewCount, List<License> licenses, String licenseNumber, List<ClosedDay> closedDays) {
         super(id, createdTime, lastModifiedTime, deletedDate, isActive, email, password, name, birth, nickname, contact, imageUrl, consultings, reservations, reviews);
         this.introduction = introduction;
         this.cost = cost;
         this.starAverage = starAverage;
         this.reviewCount = reviewCount;
-        this.license = license;
+        this.licenses = licenses;
         this.licenseNumber = licenseNumber;
         this.closedDays = closedDays;
     }
