@@ -9,7 +9,7 @@ import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import Container from '@mui/material/Container';
 import StarRating from "./StarRating";
 import Box from '@mui/material/Box';
-
+import styled from '@emotion/styled' 
 
 const ConsultantProfile = () => {
     const [nickname, setNickname] = useState('익명의');
