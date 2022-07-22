@@ -27,6 +27,7 @@ public class Consultant extends Member {
 
     private double starAverage;
     private int reviewCount;
+    private String consultingFile;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
@@ -42,13 +43,14 @@ public class Consultant extends Member {
     @Builder
     public Consultant(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDateTime deletedDate, boolean isActive,
                       String email, String password, String name, LocalDate birth, String nickname, String contact, String imageUrl,
-                      List<Consulting> consultings, List<Reservation> reservations, List<Review> reviews,
+                      List<Consulting> consultings, List<Reservation> reservations, List<Review> reviews, String consultingFile,
                       String introduction, String cost, double starAverage, int reviewCount, License license, String licenseNumber, List<ClosedDay> closedDays) {
         super(id, createdTime, lastModifiedTime, deletedDate, isActive, email, password, name, birth, nickname, contact, imageUrl, consultings, reservations, reviews);
         this.introduction = introduction;
         this.cost = cost;
         this.starAverage = starAverage;
         this.reviewCount = reviewCount;
+        this.consultingFile = consultingFile;
         this.license = license;
         this.licenseNumber = licenseNumber;
         this.closedDays = closedDays;

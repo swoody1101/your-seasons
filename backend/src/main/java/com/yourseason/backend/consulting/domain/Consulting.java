@@ -19,13 +19,10 @@ public class Consulting extends BaseTimeEntity {
     private TestResult testResult;
 
     private String comment;
-    private String consultingFile;
 
     @Builder
-    public Consulting(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDateTime deletedDate, boolean isActive,
-                      String comment, String consultingFile) {
+    public Consulting(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDateTime deletedDate, boolean isActive, String comment) {
         super(id, createdTime, lastModifiedTime, deletedDate, isActive);
         this.comment = comment;
-        this.consultingFile = consultingFile;
     }
 }
