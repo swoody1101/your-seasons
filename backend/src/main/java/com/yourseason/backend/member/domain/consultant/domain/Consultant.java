@@ -1,7 +1,7 @@
-package com.yourseason.backend.member.consultant.domain;
+package com.yourseason.backend.member.domain.consultant.domain;
 
 import com.yourseason.backend.consulting.domain.Consulting;
-import com.yourseason.backend.member.Member;
+import com.yourseason.backend.member.domain.Member;
 import com.yourseason.backend.reservation.domain.Reservation;
 import com.yourseason.backend.review.domain.Review;
 import lombok.AccessLevel;

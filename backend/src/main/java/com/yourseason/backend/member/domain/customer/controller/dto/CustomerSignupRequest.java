@@ -1,6 +1,6 @@
-package com.yourseason.backend.member.customer.controller.dto;
+package com.yourseason.backend.member.domain.customer.controller.dto;
 
-import com.yourseason.backend.member.customer.domain.Customer;
+import com.yourseason.backend.member.domain.customer.domain.Customer;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

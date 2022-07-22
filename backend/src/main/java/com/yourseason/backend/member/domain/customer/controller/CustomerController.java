@@ -1,8 +1,7 @@
-package com.yourseason.backend.member.customer.controller;
+package com.yourseason.backend.member.domain.customer.controller;
 
-import com.yourseason.backend.member.customer.controller.dto.CustomerSignupRequest;
-import com.yourseason.backend.member.customer.domain.Customer;
-import com.yourseason.backend.member.customer.service.CustomerService;
+import com.yourseason.backend.member.domain.customer.controller.dto.CustomerSignupRequest;
+import com.yourseason.backend.member.domain.customer.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

@@ -1,4 +1,4 @@
-package com.yourseason.backend.member.customer.domain;
+package com.yourseason.backend.member.domain.customer.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
