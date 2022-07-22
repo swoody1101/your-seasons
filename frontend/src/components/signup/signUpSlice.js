@@ -10,38 +10,72 @@ const initialState = {
     birth: '',
     contact: '',
     role: '',
-    licenseName: '',
+    licenseId: '',
     licenseNumber: ''
-  }
+  },
+  data: { memberId: '', message: '' },
+  status: 'idle' // 'idle' | 'loading' | 'succeeded' | 'failed'
 }
 
 export const signUpMember = createAsyncThunk(
-  'member/signup',
+  'members/signup',
   async (userInfo, { rejectWithValue }) => {
     try {
+      console.log("비동기 요청 회원가입") // 비동기 위치표시
       const response = await Axios.post('members/signup', userInfo);
+      console.log(response) // 응답체크
       return response.data;
     } catch (err) {
-      return rejectWithValue(err.response.data);
+      console.log(err)
+      return rejectWithValue(err);
     }
   }
 )
 
+export const emailCheck = createAsyncThunk(
+  'member/emailcheck',
+  async (email, { rejectWithValue }) => {
+    try {
+      console.log("비동기 요청 이메일 중복확인") // 비동기 위치표시
+      const response = await Axios.get(`members/${email}/emailcheck`);
+      console.log(response) // 응답체크
+      return response.data;
+    } catch (err) {
+      console.log(err);
+      return rejectWithValue(err)
+    }
+  }
+);
+
+export const nicknameCheck = createAsyncThunk(
+  'member/nicknamecheck',
+  async (nickname, { rejectWithValue }) => {
+    try {
+      console.log("비동기 요청 닉네임 중복확인") // 비동기 위치표시
+      const response = await Axios.get(`members/${nickname}/nickcheck`);
+      console.log(response) // 응답체크
+      return response.data;
+    } catch (err) {
+      console.log(err);
+      return rejectWithValue(err)
+    }
+  }
+);
+
+
 const signUpSlice = createSlice({
   name: 'signup',
   initialState,
-  reducers: {
-
-  },
   extraReducers: {
     [signUpMember.pending]: (state) => {
-      state.isLoading = 'pending';
+      state.status = 'loading';
     },
-    [signUpMember.fulfilled]: (state) => {
-      state.isLoading = 'succeeded';
+    [signUpMember.fulfilled]: (state, { payload }) => {
+      state.status = 'succeeded';
+      state.data = payload
     },
     [signUpMember.rejected]: (state) => {
-      state.isLoading = 'failed';
+      state.status = 'failed';
     },
   }
 });
