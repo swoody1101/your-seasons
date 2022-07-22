@@ -10,7 +10,7 @@ import { getToken } from '../../api/JWToken'
 
 const NavBar = () => {
   const logonUser = getToken();
-  console.log(logonUser)
+  // console.log(logonUser)
   return (
     <AppBar position="sticky" variant='pupple'>
       <StyledToolbar>
