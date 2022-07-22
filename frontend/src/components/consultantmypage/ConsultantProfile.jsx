@@ -66,3 +66,11 @@ const ConsultantProfile = () => {
 }
 
 export default ConsultantProfile
+
+const ProfileText = styled.div`
+	display:flex;
+	flex-direction:column;
+	padding-top: 20px;
+	padding-left: 20px;
+	line-height: 230%;
+`
