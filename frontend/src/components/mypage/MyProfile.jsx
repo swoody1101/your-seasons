@@ -11,7 +11,7 @@ import axios from 'axios';
 
 const MyProfile = () => {
     const [nickname, setNickname] = useState('치당');
-    const [lastDiagnosis, setlastDiagnosis] = useState('Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ratione in sunt quaerat dignissimos exercitationem reprehenderit reiciendis quod ipsam. Atque eos ipsum inventore, ea distinctio itaque nulla alias vero explicabo facilis.');
+    const [lastDiagnosis, setlastDiagnosis] = useState('');
 		const [userImg, setUserImg] = useState('')
 		// const userId = useParams().customerId;
 		const logonUser = getToken();
