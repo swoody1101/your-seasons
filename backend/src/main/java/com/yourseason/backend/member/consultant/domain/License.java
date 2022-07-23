@@ -3,6 +3,7 @@ package com.yourseason.backend.member.consultant.domain;
 import com.yourseason.backend.common.domain.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.AttributeOverride;
@@ -10,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.time.LocalDateTime;
 
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AttributeOverride(name = "id", column = @Column(name = "license_id"))
 @Entity
