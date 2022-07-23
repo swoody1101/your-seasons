@@ -1,4 +1,4 @@
-package com.yourseason.backend.member.domain.customer.domain;
+package com.yourseason.backend.member.customer.domain;
 
 import com.yourseason.backend.consulting.domain.Consulting;
 import com.yourseason.backend.member.domain.Member;

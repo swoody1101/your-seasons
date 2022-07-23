@@ -1,6 +1,6 @@
-package com.yourseason.backend.member.domain.consultant.controller.dto;
+package com.yourseason.backend.member.consultant.controller.dto;
 
-import com.yourseason.backend.member.domain.consultant.domain.Consultant;
+import com.yourseason.backend.member.consultant.domain.Consultant;
 import lombok.*;
 
 import java.time.LocalDate;

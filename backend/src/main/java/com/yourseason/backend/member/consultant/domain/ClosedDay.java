@@ -1,4 +1,4 @@
-package com.yourseason.backend.member.domain.consultant.domain;
+package com.yourseason.backend.member.consultant.domain;
 
 import com.yourseason.backend.common.domain.BaseTimeEntity;
 import lombok.AccessLevel;
