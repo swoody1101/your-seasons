@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
 
 import './app.css'
 import Login from '../components/login/Login'
-import UserMyPage from '../components/usermypage/UserMyPage'
+import MyPage from '../components/mypage/MyPage'
 import ConsultantMyPage from '../components/consultantmypage/ConsultantMyPage'
 
 import NavBar from '../components/common/NavBar'
@@ -22,7 +22,6 @@ const App = () => {
     <Box>
       <NavBar />
       <Stack direction="column" spacing={2} justifyContent="space-between">
-
         <Routes>
           <Route path='/' element={<p>WelcomePage</p>} />
           <Route path='/home' element={<p>home</p>} />

@@ -17,7 +17,8 @@
     ```
     - Material UI
     ```
-      npm install @mui/material @emotion/react @emotion/styled @material/tabs @mui/icons-material @mui/lab
+      npm install @mui/material @emotion/react @emotion/styled @material/tabs @mui/icons-material @mui/lab @mui/x-data-grid
+      npm install @mui/x-data-grid
     ```
     - React Cookie
     ```
