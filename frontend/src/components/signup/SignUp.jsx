@@ -24,7 +24,7 @@ import RoleSelectBox from '../input/RoleSelectBox'
 import LicenseInput from '../input/LicenseInput'
 
 import Policy from './Policy'
-
+import { CUSTOMER } from '../../api/CustomConst'
 import { nicknameCheck, emailCheck, signUpMember } from './signUpSlice';
 
 
@@ -47,7 +47,7 @@ const SignUp = () => {
 
   const [phoneNumber, setPhoneNumber] = useState('010');
 
-  const [role, setRole] = useState("CUSTOMER");
+  const [role, setRole] = useState(CUSTOMER);
 
   const [licenseId, setLicenseId] = useState(1);
   const [licenseNumber, setLicenseNumber] = useState('');
