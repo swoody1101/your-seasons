@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 public class ConsultantService {
 
     private static final String CONSULTANT_NOT_FOUND = "해당 컨설턴트를 찾을 수 없습니다.";
-    private static final String IMAGE_NOT_FOUND = "해당 이미지를 찾을 수 없습니다.";
 
     private final ConsultantRepository consultantRepository;
     private final ReservationRepository reservationRepository;
