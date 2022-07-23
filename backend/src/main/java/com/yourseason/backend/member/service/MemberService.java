@@ -1,5 +1,6 @@
 package com.yourseason.backend.member.service;
 
+import com.yourseason.backend.common.exception.DuplicatedException;
 import com.yourseason.backend.member.consultant.domain.ConsultantRepository;
 import com.yourseason.backend.member.customer.domain.CustomerRepository;
 import lombok.RequiredArgsConstructor;
@@ -9,20 +10,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class MemberService {
 
+    private static final String EMAIL_DUPLICATED = "이메일이 중복됩니다.";
+    private static final String NICKNAME_DUPLICATED = "닉네임이 중복됩니다.";
+
     private final CustomerRepository customerRepository;
     private final ConsultantRepository consultantRepository;
 
-    public boolean validateEmail(String email) {
+    public void validateEmail(String email) {
         if (customerRepository.existsByEmail(email) || consultantRepository.existsByEmail(email)) {
-            return true;
+            throw new DuplicatedException(EMAIL_DUPLICATED);
         }
-        return false;
     }
 
-    public boolean validateNickname(String nickname) {
+    public void validateNickname(String nickname) {
         if (customerRepository.existsByNickname(nickname) || consultantRepository.existsByNickname(nickname)) {
-            return true;
+            throw new DuplicatedException(NICKNAME_DUPLICATED);
         }
-        return false;
     }
 }

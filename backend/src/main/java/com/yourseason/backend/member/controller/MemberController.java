@@ -17,19 +17,15 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("/validation")
-    public ResponseEntity<Message> validateEmail(@RequestParam("email") String email) throws DuplicateEmailException {
-        if (memberService.validateEmail(email)) {
-            throw new DuplicateEmailException();
-        }
+    public ResponseEntity<Message> validateEmail(@RequestParam("email") String email) {
+        memberService.validateEmail(email);
         return ResponseEntity.ok()
                 .body(new Message("succeeded"));
     }
 
     @GetMapping("/validation")
     public ResponseEntity<Message> validateNickname(@RequestParam("nickname") String nickname) {
-        if (memberService.validateNickname(nickname)) {
-            throw new DuplicateNicknameException();
-        }
+        memberService.validateNickname(nickname);
         return ResponseEntity.ok().
                 body(new Message("succeeded"));
     }
