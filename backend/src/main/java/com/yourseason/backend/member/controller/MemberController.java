@@ -8,20 +8,20 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/members")
+@RequestMapping("/api/v1/members")
 public class MemberController {
 
     private final MemberService memberService;
 
     @GetMapping("/validation")
-    public ResponseEntity<Message> validateEmail(@RequestParam("email") String email) {
+    public ResponseEntity<Message> validateEmail(@RequestParam String email) {
         memberService.validateEmail(email);
         return ResponseEntity.ok()
                 .body(new Message("succeeded"));
     }
 
     @GetMapping("/validation")
-    public ResponseEntity<Message> validateNickname(@RequestParam("nickname") String nickname) {
+    public ResponseEntity<Message> validateNickname(@RequestParam String nickname) {
         memberService.validateNickname(nickname);
         return ResponseEntity.ok().
                 body(new Message("succeeded"));
