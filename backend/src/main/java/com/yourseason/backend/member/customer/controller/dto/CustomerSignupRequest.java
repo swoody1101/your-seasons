@@ -18,7 +18,6 @@ public class CustomerSignupRequest {
     private LocalDate birth;
     private String nickname;
     private String contact;
-    // 역할 어떻게 하지!
 
     @Builder
     public CustomerSignupRequest(String email, String password, String name, LocalDate birth, String nickname, String contact) {
