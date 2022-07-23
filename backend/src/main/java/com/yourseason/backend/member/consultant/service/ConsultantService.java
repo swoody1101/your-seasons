@@ -23,8 +23,8 @@ public class ConsultantService {
     private final ReservationRepository reservationRepository;
 
     public List<ConsultantListResponse> getConsultants() {
-        List<Consultant> consultants = consultantRepository.findAll();
-        return consultants.stream()
+        return consultantRepository.findAll()
+                .stream()
                 .map(consultant ->
                         ConsultantListResponse.builder()
                                 .consultantId(consultant.getId())
