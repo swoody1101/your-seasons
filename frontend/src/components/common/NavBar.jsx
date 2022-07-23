@@ -1,18 +1,40 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom'
 
-import { AppBar, Box, Toolbar, Typography } from '@mui/material'
+import {
+  AppBar, Box,
+  Button,
+  Toolbar, Typography,
+} from '@mui/material'
 import styled from '@emotion/styled'
-
 import { Pets } from '@mui/icons-material'
-import { getToken } from '../../api/JWToken'
+
+import { logoutUser, resetUser } from '../login/loginSlice';
 
 
 const NavBar = () => {
-  const logonUser = getToken();
-  // console.log(logonUser)
+  const logonUser = useSelector((state) => state.login.logonUser)
+  const { nickname, role } = useSelector((state) => state.login.logonUser)
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+
+  const logout = () => {
+    dispatch(logoutUser()).unwrap()
+      .then(() => {
+        alert(role + "인 " + logonUser.nickname + "님이 로그아웃 되었습니다.")
+        dispatch(resetUser())
+        navigate('/')
+      }).catch((err) => {
+        console.log(err)
+      })
+  }
+
   return (
-    <AppBar position="sticky" variant='pupple'>
+    <AppBar position="sticky" variant='white'>
       <StyledToolbar>
         <Typography
           variant="h5"
@@ -22,20 +44,39 @@ const NavBar = () => {
         </Typography>
         <Pets
           sx={{ display: { xs: "block", sm: "none" } }} />
-        <Navs>
-          <Typography
-            variant="h6"
-            sx={{ display: { xs: "none", sm: "block" } }}
-          >
-            <Link to="login">로그인</Link>
-          </Typography>
-          <Typography
-            variant="h6"
-            sx={{ display: { xs: "none", sm: "block" } }}
-          >
-            <Link to="signup">회원가입</Link>
-          </Typography>
-        </Navs>
+
+        {
+          nickname === undefined || nickname === ''
+            ?
+            <Navs>
+              <Typography
+                variant="h6"
+                sx={{ display: { xs: "none", sm: "block" } }}
+              >
+                <Link to="login">로그인</Link>
+              </Typography>
+              <Typography
+                variant="h6"
+                sx={{ display: { xs: "none", sm: "block" } }}
+              >
+                <Link to="signup">회원가입</Link>
+              </Typography>
+            </Navs>
+            :
+            <Navs>
+              <Typography
+                variant="h6"
+                sx={{ display: { xs: "none", sm: "block" } }}
+              >
+                <Link to="mypage">마이페이지</Link>
+              </Typography>
+              <Typography
+                variant="h6"
+                sx={{ display: { xs: "none", sm: "block" } }}
+              ><StyledA onClick={logout}>로그아웃</StyledA>
+              </Typography>
+            </Navs>
+        }
         <UserBox>
           메뉴
         </UserBox>
@@ -56,10 +97,9 @@ const Navs = styled(Box)(({ theme }) => ({
   flexDirection: "row",
   alignItems: "center",
   gap: "1rem",
-  color: "white"
-  // [theme.breakpoints.up("sm")]: {
-  //   display: "flex"
-  // }
+  a: {
+    color: "white"
+  }
 }))
 
 const UserBox = styled(Box)(({ theme }) => ({
@@ -67,7 +107,8 @@ const UserBox = styled(Box)(({ theme }) => ({
   flexDirection: "row",
   alignItems: "center",
   gap: "1rem",
-  // [theme.breakpoints.up("sm")]: {
-  //   display: "none"
-  // }
 }))
+
+const StyledA = styled('a')({
+  ":hover": [{ cursor: "pointer" }]
+})

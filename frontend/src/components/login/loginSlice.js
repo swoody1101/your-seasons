@@ -1,59 +1,81 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { saveToken, deleteToken } from '../../api/JWToken'
 import Axios from '../../api/Axios';
-import { saveToken } from '../../api/JWToken'
+
 const initialState = {
   logonUser: {
-    userId: '',
     nickname: '',
-    email: '',
-  },
-  userInfo: {
-    userId: '',
-    password: '',
-    nickname: '',
-    email: ''
+    role: '',
+    imageUrl: '',
   },
   isLoading: false,
   isAuthenticated: false,
 }
 
 export const loginUser = createAsyncThunk(
-  'user/login',
+  'members/login',
   async (userInfo, { rejectWithValue }) => {
     try {
-      console.log(userInfo)
       // start
-      const userInfo2 = { username: userInfo.email, password: userInfo.password }
-      const response = await Axios.post('v1/accounts/login/', userInfo2);
-      const token = response.data.key;
-      // const { data: { token } } = response;
-      //end
-      console.log(token);
+      const response = await Axios.post('members/login', userInfo);
+      //const token = response.headers.get("Authorization"); // 헤더로 받을 때
+      const token = response.data['X-Auth-Token'];
       saveToken(token);
       return response;
     } catch (err) {
+      // 에러 자체를 반환해서 jsx에서 처리하는 방법
       return rejectWithValue(err.response);
     }
   }
 );
+export const logoutUser = createAsyncThunk(
+  'members/logout',
+  async (arg, { rejectWithValue }) => {
+    try {
+      const response = await Axios.get('members/logout');
+      deleteToken();
+      return response;
+    } catch (err) {
+      // 에러 자체를 반환해서 jsx에서 처리하는 방법
+      return rejectWithValue(err.response);
+    }
+  }
+)
 
-
-const authSlice = createSlice({
-  name: 'auth',
+const loginSlice = createSlice({
+  name: 'login',
   initialState,
   reducers: {
-    loginUser(state, action) {
-      // axios로 정보 받아와서 비동기 처리 후에 로그온 처리하기
-      state.logonUser = action.payload;
-    },
+    resetUser: (state) => {
+      state.logonUser = {
+        nickname: '',
+        role: '',
+        imageUrl: '',
+      }
+    }
   },
   extraReducers: {
-    [loginUser.fulfilled]: (state) => {
+    [loginUser.fulfilled]: (state, { payload }) => {
+      state.logonUser = {
+        nickname: payload.data.nickname,
+        role: payload.data.role,
+        imageUrl: payload.data.imageUrl
+      }
       state.isAuthenticated = true;
     },
     [loginUser.rejected]: (state) => {
       state.isAuthenticated = false;
     },
+    [logoutUser.fulfilled]: (state) => {
+      state.logonUser = {
+        nickname: '',
+        role: '',
+        imageUrl: ''
+      }
+      state.isAuthenticated = false;
+    },
   }
 });
-export default authSlice.reducer
+
+export const { resetUser } = loginSlice.actions;
+export default loginSlice.reducer
