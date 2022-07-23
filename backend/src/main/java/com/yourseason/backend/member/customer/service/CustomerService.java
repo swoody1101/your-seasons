@@ -4,10 +4,8 @@ import com.yourseason.backend.member.customer.controller.dto.CustomerSignupReque
 import com.yourseason.backend.member.customer.domain.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
-@Transactional
 @Service
 public class CustomerService {
 
