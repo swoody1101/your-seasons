@@ -1,10 +1,16 @@
 package com.yourseason.backend.member.consultant.controller;
 
-import com.yourseason.backend.member.consultant.service.ConsultantService;
 import com.yourseason.backend.member.consultant.controller.dto.ConsultantSignupRequest;
+import com.yourseason.backend.member.consultant.service.ConsultantService;
+import com.yourseason.backend.member.customer.controller.Message;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.net.URI;
 
 @RequiredArgsConstructor
 @RestController
@@ -14,8 +20,9 @@ public class ConsultantController {
     private final ConsultantService consultantService;
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public void signup(@RequestBody ConsultantSignupRequest consultantSignupRequest) {
+    public ResponseEntity<Message> signup(@RequestBody ConsultantSignupRequest consultantSignupRequest) {
         consultantService.createConsultant(consultantSignupRequest);
+        return ResponseEntity.created(URI.create("/login"))
+                .body(new Message("succeeded"));
     }
 }
