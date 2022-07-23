@@ -16,19 +16,19 @@ public class ConsultantSignupRequest {
     private LocalDate birth;
     private String nickname;
     private String contact;
-    private Long licenseId;
+    private String licenseName;
     private String licenseNumber;
 
     @Builder
     public ConsultantSignupRequest(String email, String password, String name, LocalDate birth,
-                                   String nickname, String contact, Long licenseId, String licenseNumber) {
+                                   String nickname, String contact, String licenseName, String licenseNumber) {
         this.email = email;
         this.password = password;
         this.name = name;
         this.birth = birth;
         this.nickname = nickname;
         this.contact = contact;
-        this.licenseId = licenseId;
+        this.licenseName = licenseName;
         this.licenseNumber = licenseNumber;
     }
 
