@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ConsultantResponse {
+public class ConsultantListResponse {
 
     private Long consultantId;
     private String nickname;
