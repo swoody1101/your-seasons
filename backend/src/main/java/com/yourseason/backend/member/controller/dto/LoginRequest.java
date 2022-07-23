@@ -3,14 +3,14 @@ package com.yourseason.backend.member.controller.dto;
 import lombok.*;
 
 @Getter
-@NoArgsConstructor
-public class LoginRequestDto {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class LoginRequest {
 
     private String email;
     private String password;
 
     @Builder
-    public LoginRequestDto(String email, String password) {
+    public LoginRequest(String email, String password) {
         this.email = email;
         this.password = password;
     }
