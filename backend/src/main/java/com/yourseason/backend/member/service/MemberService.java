@@ -1,6 +1,6 @@
 package com.yourseason.backend.member.service;
 
-import com.yourseason.backend.common.exception.DuplicatedException;
+import com.yourseason.backend.common.exception.DuplicateException;
 import com.yourseason.backend.member.consultant.domain.ConsultantRepository;
 import com.yourseason.backend.member.customer.domain.CustomerRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,13 +18,13 @@ public class MemberService {
 
     public void validateEmail(String email) {
         if (customerRepository.existsByEmail(email) || consultantRepository.existsByEmail(email)) {
-            throw new DuplicatedException(EMAIL_DUPLICATED);
+            throw new DuplicateException(EMAIL_DUPLICATED);
         }
     }
 
     public void validateNickname(String nickname) {
         if (customerRepository.existsByNickname(nickname) || consultantRepository.existsByNickname(nickname)) {
-            throw new DuplicatedException(NICKNAME_DUPLICATED);
+            throw new DuplicateException(NICKNAME_DUPLICATED);
         }
     }
 }
