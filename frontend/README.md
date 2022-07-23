@@ -19,4 +19,8 @@
     ```
       npm install @mui/material @emotion/react @emotion/styled @material/tabs @mui/icons-material @mui/lab
     ```
+    - React Cookie
+    ```
+      npm install react-cookie
+    ```
 
