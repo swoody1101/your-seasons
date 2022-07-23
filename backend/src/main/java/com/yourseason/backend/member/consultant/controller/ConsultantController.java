@@ -25,7 +25,7 @@ public class ConsultantController {
                 .body(consultantService.getConsultants());
     }
 
-    @GetMapping("/{consultantId}")
+    @GetMapping("/{consultantId}/1")
     public ResponseEntity<ConsultantResponse> getConsultant(@PathVariable Long consultantId) {
         return ResponseEntity.ok()
                 .body(consultantService.getConsultant(consultantId));
