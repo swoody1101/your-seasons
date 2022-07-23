@@ -4,6 +4,7 @@ import com.yourseason.backend.common.exception.NotFoundException;
 import com.yourseason.backend.member.consultant.controller.dto.ConsultantListResponse;
 import com.yourseason.backend.member.consultant.controller.dto.ConsultantResponse;
 import com.yourseason.backend.member.consultant.controller.dto.ReservationListResponse;
+import com.yourseason.backend.member.consultant.controller.dto.ReviewListResponse;
 import com.yourseason.backend.member.consultant.domain.Consultant;
 import com.yourseason.backend.member.consultant.domain.ConsultantRepository;
 import lombok.RequiredArgsConstructor;
@@ -57,5 +58,19 @@ public class ConsultantService {
                 .licenseName(consultant.getLicense().getName())
                 .reservations(reservations)
                 .build();
+    }
+
+    public List<ReviewListResponse> getReviews(Long consultantId) {
+        Consultant consultant = consultantRepository.findById(consultantId)
+                .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
+        return consultant.getReviews()
+                .stream()
+                .map(review -> ReviewListResponse.builder()
+                        .nickname(consultant.getNickname())
+                        .star(review.getStar())
+                        .comment(review.getComment())
+                        .createdDate(review.getCreatedDate().toLocalDate())
+                        .build())
+                .collect(Collectors.toList());
     }
 }

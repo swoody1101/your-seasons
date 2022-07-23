@@ -2,6 +2,7 @@ package com.yourseason.backend.member.consultant.controller;
 
 import com.yourseason.backend.member.consultant.controller.dto.ConsultantListResponse;
 import com.yourseason.backend.member.consultant.controller.dto.ConsultantResponse;
+import com.yourseason.backend.member.consultant.controller.dto.ReviewListResponse;
 import com.yourseason.backend.member.consultant.service.ConsultantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -29,5 +30,11 @@ public class ConsultantController {
     public ResponseEntity<ConsultantResponse> getConsultant(@PathVariable Long consultantId) {
         return ResponseEntity.ok()
                 .body(consultantService.getConsultant(consultantId));
+    }
+
+    @GetMapping("/{consultantId}/2")
+    public ResponseEntity<List<ReviewListResponse>> getReviews(@PathVariable Long consultantId) {
+        return ResponseEntity.ok()
+                .body(consultantService.getReviews(consultantId));
     }
 }
