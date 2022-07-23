@@ -1,7 +1,8 @@
 package com.yourseason.backend.member.controller;
 
-import com.yourseason.backend.member.exception.DuplicateEmailException;
-import com.yourseason.backend.member.exception.DuplicateNicknameException;
+import com.yourseason.backend.common.exception.DuplicateEmailException;
+import com.yourseason.backend.common.exception.DuplicateNicknameException;
+import com.yourseason.backend.member.customer.controller.Message;
 import com.yourseason.backend.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,18 +17,20 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("/validation")
-    public ResponseEntity<HttpStatus> validateEmail(@RequestParam("email") String email) throws DuplicateEmailException {
+    public ResponseEntity<Message> validateEmail(@RequestParam("email") String email) throws DuplicateEmailException {
         if (memberService.validateEmail(email)) {
             throw new DuplicateEmailException();
         }
-        return new ResponseEntity<HttpStatus>(HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body(new Message("succeeded"));
     }
 
     @GetMapping("/validation")
-    public ResponseEntity<HttpStatus> validateNickname(@RequestParam("nickname") String nickname) {
+    public ResponseEntity<Message> validateNickname(@RequestParam("nickname") String nickname) {
         if (memberService.validateNickname(nickname)) {
             throw new DuplicateNicknameException();
         }
-        return new ResponseEntity<HttpStatus>(HttpStatus.OK);
+        return ResponseEntity.ok().
+                body(new Message("succeeded"));
     }
 }
