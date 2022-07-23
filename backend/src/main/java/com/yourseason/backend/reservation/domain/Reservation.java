@@ -1,8 +1,8 @@
 package com.yourseason.backend.reservation.domain;
 
 import com.yourseason.backend.common.domain.BaseTimeEntity;
-import com.yourseason.backend.member.domain.consultant.domain.Consultant;
-import com.yourseason.backend.member.domain.customer.domain.Customer;
+import com.yourseason.backend.member.consultant.domain.Consultant;
+import com.yourseason.backend.member.customer.domain.Customer;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
