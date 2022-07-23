@@ -6,7 +6,6 @@ import com.yourseason.backend.member.consultant.controller.dto.ConsultantRespons
 import com.yourseason.backend.member.consultant.controller.dto.ReservationListResponse;
 import com.yourseason.backend.member.consultant.domain.Consultant;
 import com.yourseason.backend.member.consultant.domain.ConsultantRepository;
-import com.yourseason.backend.reservation.domain.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +19,6 @@ public class ConsultantService {
     private static final String CONSULTANT_NOT_FOUND = "해당 컨설턴트를 찾을 수 없습니다.";
 
     private final ConsultantRepository consultantRepository;
-    private final ReservationRepository reservationRepository;
 
     public List<ConsultantListResponse> getConsultants() {
         return consultantRepository.findAll()
@@ -39,7 +37,7 @@ public class ConsultantService {
         Consultant consultant = consultantRepository.findById(consultantId)
                 .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
 
-        List<ReservationListResponse> reservations = reservationRepository.findAllById(consultantId)
+        List<ReservationListResponse> reservations = consultant.getReservations()
                 .stream()
                 .map(reservation -> ReservationListResponse.builder()
                         .reservationId(reservation.getId())
