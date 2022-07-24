@@ -25,8 +25,6 @@ export default function PhoneNumberInput({
       return setHelperText(defaultText);
     }
 
-
-
     if (regexCheck) {
       if (regexCheck.test(e.target.value)) {
         setNum(e.target.value);
@@ -46,6 +44,9 @@ export default function PhoneNumberInput({
     }
     if (num.length === 13) {
       setValue(num.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'));
+    }
+    if (num.length < 10) {
+      setValue(num.replace(/-/g, ''))
     }
   }
   return (
