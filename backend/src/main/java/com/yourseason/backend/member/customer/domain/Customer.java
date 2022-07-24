@@ -19,9 +19,6 @@ import java.util.List;
 @Entity
 public class Customer extends Member {
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Consulting> consultings = new ArrayList<>();
-
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reservation> reservations = new ArrayList<>();
 
@@ -33,8 +30,7 @@ public class Customer extends Member {
                     String email, String password, String name, LocalDate birth, String nickname, String contact, String imageUrl,
                     List<Consulting> consultings, List<Reservation> reservations, List<Review> reviews) {
         super(id, createdTime, lastModifiedTime, deletedDate, isActive,
-                email, password, name, birth, nickname, contact, imageUrl);
-        this.consultings = consultings;
+                email, password, name, birth, nickname, contact, imageUrl, consultings);
         this.reservations = reservations;
         this.reviews = reviews;
     }
