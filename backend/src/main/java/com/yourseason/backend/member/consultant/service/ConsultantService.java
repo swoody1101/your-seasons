@@ -67,6 +67,7 @@ public class ConsultantService {
                 .stream()
                 .map(review -> ReviewListResponse.builder()
                         .nickname(consultant.getNickname())
+                        .imageUrl(consultant.getImageUrl())
                         .star(review.getStar())
                         .comment(review.getComment())
                         .createdDate(review.getCreatedDate().toLocalDate())
