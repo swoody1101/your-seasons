@@ -1,8 +1,8 @@
-package com.yourseason.backend.member.consultant.domain;
+package com.yourseason.backend.member.customer.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ConsultantRepository extends JpaRepository<Consultant, Long> {
+public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
     boolean existsByEmail(String email);
 
