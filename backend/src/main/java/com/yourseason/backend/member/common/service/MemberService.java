@@ -34,7 +34,7 @@ public class MemberService {
 
         Member loginMember;
         Role role = Role.CUSTOMER;
-        Member customer = customerRepository.getByEmailAndPassword(email, password);
+        Member customer = customerRepository.findByEmailAndPassword(email, password);
         Member consultant = consultantRepository.getByEmailAndPassword(email, password);
         if (customer == null && consultant != null) {
             loginMember = consultant;
