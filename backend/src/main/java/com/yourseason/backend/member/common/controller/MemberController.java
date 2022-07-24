@@ -1,7 +1,7 @@
-package com.yourseason.backend.member.controller;
+package com.yourseason.backend.member.common.controller;
 
 import com.yourseason.backend.member.customer.controller.Message;
-import com.yourseason.backend.member.service.MemberService;
+import com.yourseason.backend.member.common.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

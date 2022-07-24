@@ -1,4 +1,4 @@
-package com.yourseason.backend.member.service;
+package com.yourseason.backend.member.common.service;
 
 import com.yourseason.backend.common.exception.DuplicationException;
 import com.yourseason.backend.member.consultant.domain.ConsultantRepository;
