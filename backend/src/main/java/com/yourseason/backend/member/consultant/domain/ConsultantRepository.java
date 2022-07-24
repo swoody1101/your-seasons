@@ -7,7 +7,9 @@ import java.util.Optional;
 
 public interface ConsultantRepository extends JpaRepository<Consultant, Long> {
 
-    Member getByEmailAndPassword(String email, String password);
+    Member findByEmailAndPassword(String email, String password);
+
+    Optional<Member> findByEmail(String email);
 
     boolean existsByEmail(String email);
 
