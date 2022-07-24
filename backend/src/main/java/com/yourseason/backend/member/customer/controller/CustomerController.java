@@ -31,21 +31,21 @@ public class CustomerController {
                 .body(customerService.getCustomer(0L));
     }
     @GetMapping("/1")
-    public ResponseEntity<List<ReservationListResponse>> getCustomerReservations() {
+    public ResponseEntity<List<ReservationListResponse>> getMyReservations() {
         return ResponseEntity.ok()
-                .body(customerService.getCustomerReservations(0L));
+                .body(customerService.getMyReservations(0L));
     }
 
     @GetMapping("/2")
-    public ResponseEntity<List<ConsultingListResponse>> getCustomerConsultings() {
+    public ResponseEntity<List<ConsultingListResponse>> getMyConsultings() {
         return ResponseEntity.ok()
-                .body(customerService.getCustomerConsultings(0L));
+                .body(customerService.getMyConsultings(0L));
     }
 
     @GetMapping("/3")
-    public ResponseEntity<List<ReviewListResponse>> getCustomerReviews() {
+    public ResponseEntity<List<ReviewListResponse>> getMyReviews() {
         return ResponseEntity.ok()
-                .body(customerService.getCustomerReviews(0L));
+                .body(customerService.getMyReviews(0L));
     }
 
     @PatchMapping
