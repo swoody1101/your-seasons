@@ -1,15 +1,14 @@
 package com.yourseason.backend.member.customer.controller;
 
 import com.yourseason.backend.member.customer.controller.dto.CustomerSignupRequest;
+import com.yourseason.backend.member.customer.controller.dto.ReservationListResponse;
 import com.yourseason.backend.member.customer.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -23,5 +22,11 @@ public class CustomerController {
         customerService.createCustomer(request);
         return ResponseEntity.created(URI.create("/login"))
                 .body(new Message("succeeded"));
+    }
+
+    @GetMapping("/1")
+    public ResponseEntity<List<ReservationListResponse>> getCustomerReservations() {
+        return ResponseEntity.ok()
+                .body(customerService.getCustomerReservations(0L));
     }
 }
