@@ -3,7 +3,7 @@ package com.yourseason.backend.member.consultant.controller;
 import com.yourseason.backend.member.consultant.controller.dto.ConsultantSignupRequest;
 import com.yourseason.backend.member.consultant.controller.dto.ConsultantResponse;
 import com.yourseason.backend.member.consultant.service.ConsultantService;
-import com.yourseason.backend.member.customer.controller.Message;
+import com.yourseason.backend.common.domain.Message;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

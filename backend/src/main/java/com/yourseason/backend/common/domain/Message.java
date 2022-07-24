@@ -1,4 +1,4 @@
-package com.yourseason.backend.member.customer.controller;
+package com.yourseason.backend.common.domain;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
