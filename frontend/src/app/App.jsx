@@ -28,7 +28,7 @@ const App = () => {
           <Route path='/history' element={<p>history</p>} />
           <Route path='/mypage' element={
             role === CUSTOMER
-              ? <UserMyPage /> : <ConsultantMyPage />
+              ? <MyPage /> : <ConsultantMyPage />
           } />
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<SignUp />} />
