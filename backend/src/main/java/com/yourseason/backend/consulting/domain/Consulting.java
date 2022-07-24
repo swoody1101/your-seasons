@@ -4,11 +4,13 @@ import com.yourseason.backend.common.domain.BaseTimeEntity;
 import com.yourseason.backend.consulting.domain.result.TestResult;
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AttributeOverride(name = "id", column = @Column(name = "consulting_id"))
 @Entity
