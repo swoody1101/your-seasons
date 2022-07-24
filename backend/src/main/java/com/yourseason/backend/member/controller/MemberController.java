@@ -21,6 +21,12 @@ public class MemberController {
                 .body(memberService.login(loginRequest));
     }
 
+    @GetMapping("/logout")
+    public ResponseEntity<Message> logout() {
+        return ResponseEntity.ok()
+                .body(new Message("로그아웃이 성공적으로 완료되었습니다."));
+    }
+
     @GetMapping("/validation")
     public ResponseEntity<Message> validateEmail(@RequestParam String email) {
         memberService.validateEmail(email);
@@ -32,6 +38,6 @@ public class MemberController {
     public ResponseEntity<Message> validateNickname(@RequestParam String nickname) {
         memberService.validateNickname(nickname);
         return ResponseEntity.ok()
-                        .body(new Message("succeeded"));
+                .body(new Message("succeeded"));
     }
 }
