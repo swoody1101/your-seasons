@@ -1,18 +1,13 @@
 package com.yourseason.backend.member.customer.service;
 
 import com.yourseason.backend.common.exception.NotFoundException;
-import com.yourseason.backend.member.customer.controller.dto.ConsultingListResponse;
-import com.yourseason.backend.member.customer.controller.dto.CustomerSignupRequest;
-import com.yourseason.backend.member.customer.controller.dto.ReservationListResponse;
-import com.yourseason.backend.member.customer.controller.dto.ReviewListResponse;
+import com.yourseason.backend.member.customer.controller.dto.*;
 import com.yourseason.backend.member.customer.domain.Customer;
 import com.yourseason.backend.member.customer.domain.CustomerRepository;
 import com.yourseason.backend.reservation.domain.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -81,6 +76,18 @@ public class CustomerService {
                         .comment(consulting.getComment())
                         .build())
                 .collect(Collectors.toList());
+    }
 
+    public CustomerInfoResponse getCustomerInfo(Long tokenId) {
+        Customer customer = customerRepository.findById(tokenId)
+                .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
+
+        return CustomerInfoResponse.builder()
+                .name(customer.getName())
+                .nickname(customer.getNickname())
+                .birth(customer.getBirth())
+                .contact(customer.getContact())
+                .email(customer.getEmail())
+                .build();
     }
 }

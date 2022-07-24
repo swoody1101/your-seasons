@@ -1,9 +1,6 @@
 package com.yourseason.backend.member.customer.controller;
 
-import com.yourseason.backend.member.customer.controller.dto.ConsultingListResponse;
-import com.yourseason.backend.member.customer.controller.dto.CustomerSignupRequest;
-import com.yourseason.backend.member.customer.controller.dto.ReservationListResponse;
-import com.yourseason.backend.member.customer.controller.dto.ReviewListResponse;
+import com.yourseason.backend.member.customer.controller.dto.*;
 import com.yourseason.backend.member.customer.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +23,11 @@ public class CustomerController {
                 .body(new Message("succeeded"));
     }
 
+    @GetMapping
+    public ResponseEntity<CustomerInfoResponse> getCustomerInfo() {
+        return ResponseEntity.ok()
+                .body(customerService.getCustomerInfo(0L));
+    }
     @GetMapping("/1")
     public ResponseEntity<List<ReservationListResponse>> getCustomerReservations() {
         return ResponseEntity.ok()
