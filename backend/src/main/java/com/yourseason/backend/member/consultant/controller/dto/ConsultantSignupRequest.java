@@ -6,7 +6,6 @@ import lombok.*;
 import java.time.LocalDate;
 
 @Getter
-@RequiredArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ConsultantSignupRequest {
 
