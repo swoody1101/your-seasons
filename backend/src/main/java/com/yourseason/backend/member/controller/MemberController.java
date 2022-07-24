@@ -21,14 +21,14 @@ public class MemberController {
                 .body(memberService.login(loginRequest));
     }
 
-    @GetMapping("/validation")
+    @GetMapping("/validation/1")
     public ResponseEntity<Message> validateEmail(@RequestParam String email) {
         memberService.validateEmail(email);
         return ResponseEntity.ok()
                 .body(new Message("succeeded"));
     }
 
-    @GetMapping("/validation")
+    @GetMapping("/validation/2")
     public ResponseEntity<Message> validateNickname(@RequestParam String nickname) {
         memberService.validateNickname(nickname);
         return ResponseEntity.ok()
