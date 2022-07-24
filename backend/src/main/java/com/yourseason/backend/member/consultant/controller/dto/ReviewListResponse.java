@@ -5,19 +5,17 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.time.LocalDate;
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ConsultantResponse {
+public class ReviewListResponse {
 
-    private Long consultantId;
+    private Long reviewId;
     private String nickname;
-    private String contact;
     private String imageUrl;
-    private String introduction;
-    private String cost;
-    private String licenseName;
-    private List<ReservationListResponse> reservations;
+    private double star;
+    private String comment;
+    private LocalDate createdDate;
 }
