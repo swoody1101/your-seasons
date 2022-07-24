@@ -2,6 +2,7 @@ package com.yourseason.backend.member.customer.controller;
 
 import com.yourseason.backend.member.customer.controller.dto.CustomerSignupRequest;
 import com.yourseason.backend.member.customer.controller.dto.ReservationListResponse;
+import com.yourseason.backend.member.customer.controller.dto.ReviewListResponse;
 import com.yourseason.backend.member.customer.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -28,5 +29,11 @@ public class CustomerController {
     public ResponseEntity<List<ReservationListResponse>> getCustomerReservations() {
         return ResponseEntity.ok()
                 .body(customerService.getCustomerReservations(0L));
+    }
+
+    @GetMapping("/3")
+    public ResponseEntity<List<ReviewListResponse>> getCustomerReviews() {
+        return ResponseEntity.ok()
+                .body(customerService.getCustomerReviews(0L));
     }
 }
