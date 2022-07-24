@@ -71,10 +71,10 @@ export default function ConfirmValidationInput({
         value={value}
       />
       {isCheck ? (
-        <CheckSuccessBnt>확인</CheckSuccessBnt>
+        <CheckSuccessBnt label={label}>확인</CheckSuccessBnt>
       ) : (
         <CheckBnt
-          // isOnCheck={{ isOnCheck }}
+          label={label}
           disabled={!isOnCheck ? true : false} onClick={handleCheck}>
           중복확인
         </CheckBnt>
@@ -112,9 +112,9 @@ const Input = styled(TextField)`
 const CheckBnt = styled(Button)`
   position: absolute;
   width: 6rem;
-  height: 1.8rem;
+  height: ${props => (props.label === '' ? '1.8rem' : '2rem')};
   right: 0;
-  top: 1rem;
+  top: ${props => (props.label === '' ? '0' : '1rem')};
   border: ${(isOnCheck) => (isOnCheck ? "1px solid #ff7775;" : "1px solid #d9d9d9")};
   color: ${(isOnCheck) => (isOnCheck ? "#FF7775" : "#3C3C3C")};
   font-size: 1rem;
@@ -126,9 +126,9 @@ const CheckSuccessBnt = styled(Button)`
   align-items: center;
   position: absolute;
   width: 6rem;
-  height: 2rem;
+  height: ${props => (props.label === '' ? '1.8rem' : '2rem')};
   right: 0;
-  top: 1rem;
+  top: ${props => (props.label === '' ? '0' : '1rem')};
   border: 1px solid #6b95ff;
   font-size: 1rem;
   border-radius: 2rem;
