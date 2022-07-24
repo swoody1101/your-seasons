@@ -23,7 +23,7 @@ public class MemberController {
     @GetMapping("/validation")
     public ResponseEntity<Message> validateNickname(@RequestParam String nickname) {
         memberService.validateNickname(nickname);
-        return ResponseEntity.ok().
-                body(new Message("succeeded"));
+        return ResponseEntity.ok()
+                        .body(new Message("succeeded"));
     }
 }
