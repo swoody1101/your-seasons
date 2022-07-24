@@ -1,6 +1,7 @@
 package com.yourseason.backend.member.customer.service;
 
 import com.yourseason.backend.common.exception.NotFoundException;
+import com.yourseason.backend.member.customer.controller.dto.ConsultingListResponse;
 import com.yourseason.backend.member.customer.controller.dto.CustomerSignupRequest;
 import com.yourseason.backend.member.customer.controller.dto.ReservationListResponse;
 import com.yourseason.backend.member.customer.controller.dto.ReviewListResponse;
@@ -60,6 +61,25 @@ public class CustomerService {
                         .star(review.getStar())
                         .comment(review.getComment())
                         .reviewDate(review.getCreatedDate().toLocalDate())
+                        .build())
+                .collect(Collectors.toList());
+
+    }
+
+    public List<ConsultingListResponse> getCustomerConsultings(Long tokenId) {
+        Customer customer = customerRepository.findById(tokenId)
+                .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
+
+        return customer.getConsultings()
+                .stream()
+                .map(consulting -> ConsultingListResponse.builder()
+                        .consultantNickname(consulting.getConsultant().getNickname())
+                        .consultantImageUrl(consulting.getConsultant().getImageUrl())
+                        .consultingDate(consulting.getCreatedDate().toLocalDate())
+                        .bestColorSet(consulting.getTestResult().getBestColorSet())
+                        .worstColorSet(consulting.getTestResult().getWorstColorSet())
+                        .resultImageUrl(consulting.getTestResult().getConsultingFile())
+                        .comment(consulting.getComment())
                         .build())
                 .collect(Collectors.toList());
 
