@@ -40,7 +40,7 @@ public class Reservation extends BaseTimeEntity {
 
     @Builder
     public Reservation(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate, boolean isActive,
-                       Customer customer, Consultant consultant, LocalDateTime date, LocalDateTime time, String request) {
+                       Customer customer, Consultant consultant, LocalDate date, LocalTime time, String request) {
         super(id, createdDate, lastModifiedDate, deletedDate, isActive);
         this.customer = customer;
         this.consultant = consultant;
