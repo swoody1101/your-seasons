@@ -19,6 +19,7 @@ public class MemberController {
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
         return ResponseEntity.ok()
                 .body(memberService.login(loginRequest));
+    }
 
     @GetMapping("/validation")
     public ResponseEntity<Message> validateEmail(@RequestParam String email) {
