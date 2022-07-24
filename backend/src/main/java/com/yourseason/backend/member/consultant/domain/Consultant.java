@@ -1,7 +1,7 @@
 package com.yourseason.backend.member.consultant.domain;
 
 import com.yourseason.backend.consulting.domain.Consulting;
-import com.yourseason.backend.member.Member;
+import com.yourseason.backend.member.domain.Member;
 import com.yourseason.backend.reservation.domain.Reservation;
 import com.yourseason.backend.review.domain.Review;
 import lombok.AccessLevel;
@@ -56,5 +56,9 @@ public class Consultant extends Member {
         this.license = license;
         this.licenseNumber = licenseNumber;
         this.closedDays = closedDays;
+    }
+
+    public void registerLicense(License license) {
+        this.license = license;
     }
 }
