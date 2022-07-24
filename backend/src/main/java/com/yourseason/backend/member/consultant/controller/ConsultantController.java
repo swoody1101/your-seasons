@@ -27,6 +27,7 @@ public class ConsultantController {
         consultantService.createConsultant(consultantSignupRequest);
         return ResponseEntity.created(URI.create("/login"))
                 .body(new Message("succeeded"));
+    }
 
     @GetMapping
     public ResponseEntity<List<ConsultantResponse>> getConsultants() {
