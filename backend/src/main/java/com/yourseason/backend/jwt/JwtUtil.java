@@ -58,7 +58,7 @@ public class JwtUtil {
         return String.valueOf(getAllClaims(token).get("nickname"));
     }
 
-    private String getRoleFromToken(String token) {
+    public String getRoleFromToken(String token) {
         return String.valueOf(getAllClaims(token).get("role"));
     }
 

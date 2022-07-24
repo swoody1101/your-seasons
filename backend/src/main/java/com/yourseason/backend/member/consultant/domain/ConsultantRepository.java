@@ -9,7 +9,7 @@ public interface ConsultantRepository extends JpaRepository<Consultant, Long> {
 
     Member findByEmailAndPassword(String email, String password);
 
-    Optional<Member> findByEmail(String email);
+    Member findByEmail(String email);
 
     boolean existsByEmail(String email);
 

@@ -1,6 +1,7 @@
 package com.yourseason.backend.member.service;
 
 import com.yourseason.backend.common.exception.DuplicationException;
+import com.yourseason.backend.jwt.JwtUtil;
 import com.yourseason.backend.member.consultant.domain.ConsultantRepository;
 import com.yourseason.backend.member.controller.dto.LoginRequest;
 import com.yourseason.backend.member.controller.dto.LoginResponse;
@@ -29,6 +30,7 @@ public class MemberService implements UserDetailsService {
 
     private final CustomerRepository customerRepository;
     private final ConsultantRepository consultantRepository;
+    private final JwtUtil jwtUtil;
 
     public LoginResponse login(LoginRequest loginRequest) {
         String email = loginRequest.getEmail();
@@ -37,6 +39,7 @@ public class MemberService implements UserDetailsService {
             throw new WrongFormException(NOT_FOUND_LOGIN_INFO);
         }
 
+        String token;
         Member loginMember;
         Role role = Role.ROLE_CUSTOMER;
         Member customer = customerRepository.findByEmailAndPassword(email, password);
@@ -49,30 +52,49 @@ public class MemberService implements UserDetailsService {
         } else {
             throw new NotFoundException(NOT_FOUND_USER);
         }
+        token = jwtUtil.generateToken(loginMember, role);
         return LoginResponse.builder()
                 .nickname(loginMember.getNickname())
                 .imageUrl(loginMember.getImageUrl())
                 .role(role)
                 .message("succeeded")
+                .token(token)
                 .build();
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Optional<Member> findMember;
+    public Member getMemberByEmail(String email) {
+        Member findMember;
         Role role = Role.ROLE_CUSTOMER;
-        Optional<Member> customer = customerRepository.findByEmail(email);
-        Optional<Member> consultant = consultantRepository.findByEmail(email);
+        Member customer = customerRepository.findByEmail(email);
+        Member consultant = consultantRepository.findByEmail(email);
 
-        if (customer.isPresent() && !consultant.isPresent()) {
+        if (customer == null && consultant != null) {
             findMember = customer;
-        } else if (!customer.isPresent() && consultant.isPresent()) {
+        } else if (customer != null && consultant == null) {
             findMember = consultant;
             role = Role.ROLE_CONSULTANT;
         } else {
             throw new UsernameNotFoundException("가입되지 않는 email입니다.");
         }
-        return new SecurityMember(findMember.get(), role);
+        return findMember;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Member findMember;
+        Role role = Role.ROLE_CUSTOMER;
+        Member customer = customerRepository.findByEmail(email);
+        Member consultant = consultantRepository.findByEmail(email);
+
+        if (customer == null && consultant != null) {
+            findMember = customer;
+        } else if (customer != null && consultant == null) {
+            findMember = consultant;
+            role = Role.ROLE_CONSULTANT;
+        } else {
+            throw new UsernameNotFoundException("가입되지 않는 email입니다.");
+        }
+        return new SecurityMember(findMember, role);
     }
 
     public void validateEmail(String email) {
