@@ -24,6 +24,19 @@ public class CustomerService {
         customerRepository.save(request.toEntity());
     }
 
+    public CustomerInfoResponse getCustomerInfo(Long tokenId) {
+        Customer customer = customerRepository.findById(tokenId)
+                .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
+
+        return CustomerInfoResponse.builder()
+                .name(customer.getName())
+                .nickname(customer.getNickname())
+                .birth(customer.getBirth())
+                .contact(customer.getContact())
+                .email(customer.getEmail())
+                .build();
+    }
+
     public List<ReservationListResponse> getCustomerReservations(Long tokenId) {
         Customer customer = customerRepository.findById(tokenId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
