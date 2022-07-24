@@ -66,4 +66,10 @@ public abstract class Member extends BaseTimeEntity {
         this.reservations = reservations;
         this.reviews = reviews;
     }
+
+    protected void updateProfile(String nickname, String contact, String imageUrl) {
+        this.nickname = nickname;
+        this.contact = contact;
+        this.imageUrl = imageUrl;
+    }
 }

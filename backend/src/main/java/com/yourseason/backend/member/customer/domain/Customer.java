@@ -33,4 +33,8 @@ public class Customer extends Member {
                 reservations, reviews);
         this.consultings = consultings;
     }
+
+    public void updateProfile(String nickname, String contact, String imageUrl) {
+        super.updateProfile(nickname, contact, imageUrl);
+    }
 }

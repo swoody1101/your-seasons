@@ -1,5 +1,6 @@
 package com.yourseason.backend.member.customer.service;
 
+import com.yourseason.backend.common.exception.ImageUploadException;
 import com.yourseason.backend.common.exception.NotFoundException;
 import com.yourseason.backend.member.customer.controller.dto.*;
 import com.yourseason.backend.member.customer.domain.Customer;
@@ -7,7 +8,11 @@ import com.yourseason.backend.member.customer.domain.CustomerRepository;
 import com.yourseason.backend.reservation.domain.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,6 +21,7 @@ import java.util.stream.Collectors;
 public class CustomerService {
 
     private static final String CUSTOMER_NOT_FOUND = "해당 회원을 찾을 수 없습니다.";
+    private static final String IMAGE_UPLOAD_FAIL = "이미지 업로드에 실패하였습니다.";
 
     private final CustomerRepository customerRepository;
     private final ReservationRepository reservationRepository;
@@ -91,16 +97,33 @@ public class CustomerService {
                 .collect(Collectors.toList());
     }
 
-    public CustomerInfoResponse getCustomerInfo(Long tokenId) {
+    public void updateCustomer(Long tokenId, CustomerUpdateRequest customerUpdateRequest, MultipartFile multipartFile) {
         Customer customer = customerRepository.findById(tokenId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
 
-        return CustomerInfoResponse.builder()
-                .name(customer.getName())
-                .nickname(customer.getNickname())
-                .birth(customer.getBirth())
-                .contact(customer.getContact())
-                .email(customer.getEmail())
-                .build();
+        String imageUrl = customer.getImageUrl();
+        if(customer.getImageUrl() == null) {
+            String filePath = System.getProperty("user.dir") + "/src/main/resources/static/img/";
+            String fileName = customer.getImageUrl();
+            imageUrl = filePath + fileName;
+        }
+        try {
+            byte[] bytes = multipartFile.getBytes();
+            File file = new File(imageUrl);
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            fileOutputStream.write(bytes);
+            fileOutputStream.flush();
+            fileOutputStream.close();
+        } catch (IOException e) {
+            throw new ImageUploadException(IMAGE_UPLOAD_FAIL);
+        }
+
+        customer.updateProfile(
+                customerUpdateRequest.getNickname(),
+                customerUpdateRequest.getContact(),
+                imageUrl
+        );
+        customerRepository.save(customer);
     }
+
 }
