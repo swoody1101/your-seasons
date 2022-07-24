@@ -6,11 +6,11 @@ import {
 import { useSelector } from 'react-redux'
 
 import './app.css'
-import Login from '../components/login/Login'
+import NavBar from '../components/common/NavBar'
 import MyPage from '../components/mypage/MyPage'
 import ConsultantMyPage from '../components/consultantmypage/ConsultantMyPage'
-
-import NavBar from '../components/common/NavBar'
+import ModifyProfile from '../components/mypage/modify/ModifyProfile'
+import Login from '../components/login/Login'
 import SignUp from '../components/signup/SignUp'
 import { Box, Stack } from '@mui/material'
 import { CUSTOMER, CONSULTANT } from '../api/CustomConst'
@@ -28,8 +28,9 @@ const App = () => {
           <Route path='/history' element={<p>history</p>} />
           <Route path='/mypage' element={
             role === CUSTOMER
-              ? <UserMyPage /> : <ConsultantMyPage />
+              ? <MyPage /> : <ConsultantMyPage />
           } />
+          <Route path='/modify' element={<ModifyProfile />} />
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<SignUp />} />
         </Routes>
