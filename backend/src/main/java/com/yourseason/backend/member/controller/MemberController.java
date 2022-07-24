@@ -1,5 +1,7 @@
 package com.yourseason.backend.member.controller;
 
+import com.yourseason.backend.member.controller.dto.LoginRequest;
+import com.yourseason.backend.member.controller.dto.LoginResponse;
 import com.yourseason.backend.member.customer.controller.Message;
 import com.yourseason.backend.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +14,11 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
 
     private final MemberService memberService;
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
+        return ResponseEntity.ok()
+                .body(memberService.login(loginRequest));
 
     @GetMapping("/validation")
     public ResponseEntity<Message> validateEmail(@RequestParam String email) {
