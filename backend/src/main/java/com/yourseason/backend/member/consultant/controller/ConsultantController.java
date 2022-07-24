@@ -1,9 +1,6 @@
 package com.yourseason.backend.member.consultant.controller;
 
-import com.yourseason.backend.member.consultant.controller.dto.ConsultantListResponse;
-import com.yourseason.backend.member.consultant.controller.dto.ConsultantSignupRequest;
-import com.yourseason.backend.member.consultant.controller.dto.ConsultantResponse;
-import com.yourseason.backend.member.consultant.controller.dto.ReviewListResponse;
+import com.yourseason.backend.member.consultant.controller.dto.*;
 import com.yourseason.backend.member.consultant.service.ConsultantService;
 import com.yourseason.backend.member.customer.controller.Message;
 import lombok.RequiredArgsConstructor;
@@ -48,5 +45,11 @@ public class ConsultantController {
     public ResponseEntity<List<ReviewListResponse>> getReviews(@PathVariable Long consultantId) {
         return ResponseEntity.ok()
                 .body(consultantService.getReviews(consultantId));
+    }
+
+    @GetMapping("/1")
+    public ResponseEntity<ConsultantReservationResponse> getMyReservations() {
+        return ResponseEntity.ok()
+                .body(consultantService.getMyReservations(1L));
     }
 }

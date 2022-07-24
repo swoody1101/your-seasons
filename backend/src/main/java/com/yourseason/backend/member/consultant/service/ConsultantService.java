@@ -1,11 +1,7 @@
 package com.yourseason.backend.member.consultant.service;
 
 import com.yourseason.backend.common.exception.NotFoundException;
-import com.yourseason.backend.member.consultant.controller.dto.ConsultantListResponse;
-import com.yourseason.backend.member.consultant.controller.dto.ConsultantSignupRequest;
-import com.yourseason.backend.member.consultant.controller.dto.ConsultantResponse;
-import com.yourseason.backend.member.consultant.controller.dto.ReservationListResponse;
-import com.yourseason.backend.member.consultant.controller.dto.ReviewListResponse;
+import com.yourseason.backend.member.consultant.controller.dto.*;
 import com.yourseason.backend.member.consultant.domain.Consultant;
 import com.yourseason.backend.member.consultant.domain.ConsultantRepository;
 import com.yourseason.backend.member.consultant.domain.License;
@@ -86,5 +82,28 @@ public class ConsultantService {
                         .createdDate(review.getCreatedDate().toLocalDate())
                         .build())
                 .collect(Collectors.toList());
+    }
+
+    public ConsultantReservationResponse getMyReservations(long consultantId) {
+        Consultant consultant = consultantRepository.findById(consultantId)
+                .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
+
+        List<ReservationDetailListResponse> reservationDetailListResponses = consultant.getReservations()
+                .stream()
+                .map(reservation -> ReservationDetailListResponse.builder()
+                        .reservationId(reservation.getId())
+                        .reservationDate(reservation.getCreatedDate().toLocalDate())
+                        .reservationTime(reservation.getCreatedDate().toLocalTime())
+                        .customerNickname(reservation.getCustomer().getNickname())
+                        .customerImageUrl(reservation.getCustomer().getImageUrl())
+                        .request(reservation.getRequest())
+                        .isActive(reservation.isActive())
+                        .build())
+                .collect(Collectors.toList());
+
+        return ConsultantReservationResponse.builder()
+                .starAverage(consultant.getStarAverage())
+                .reservations(reservationDetailListResponses)
+                .build();
     }
 }
