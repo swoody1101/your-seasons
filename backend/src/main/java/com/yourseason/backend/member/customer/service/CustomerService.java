@@ -43,7 +43,7 @@ public class CustomerService {
                 .build();
     }
 
-    public List<ReservationListResponse> getCustomerReservations(Long tokenId) {
+    public List<ReservationListResponse> getMyReservations(Long tokenId) {
         Customer customer = customerRepository.findById(tokenId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
 
@@ -61,7 +61,7 @@ public class CustomerService {
                 .collect(Collectors.toList());
     }
 
-    public List<ReviewListResponse> getCustomerReviews(Long tokenId) {
+    public List<ReviewListResponse> getMyReviews(Long tokenId) {
         // 리뷰 테이블에서 이 고객이 쓴 리뷰를 찾는 게 아니고, 이 고객이 쓴 리뷰를 가져 오면 되잖아.
         Customer customer = customerRepository.findById(tokenId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
@@ -79,7 +79,7 @@ public class CustomerService {
                 .collect(Collectors.toList());
     }
 
-    public List<ConsultingListResponse> getCustomerConsultings(Long tokenId) {
+    public List<ConsultingListResponse> getMyConsultings(Long tokenId) {
         Customer customer = customerRepository.findById(tokenId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
 
