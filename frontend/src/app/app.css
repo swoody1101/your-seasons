@@ -9,7 +9,7 @@
 }
 
 * {
-  font-family: 'GmarketSansTTFMedium';
+  font-family: 'GmarketSansTTFMedium' !important;
   margin: 0;
   padding: 0;
   border: 0;

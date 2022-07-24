@@ -2,11 +2,14 @@ package com.yourseason.backend.member.consultant.service;
 
 import com.yourseason.backend.common.exception.NotFoundException;
 import com.yourseason.backend.member.consultant.controller.dto.ConsultantListResponse;
+import com.yourseason.backend.member.consultant.controller.dto.ConsultantSignupRequest;
 import com.yourseason.backend.member.consultant.controller.dto.ConsultantResponse;
 import com.yourseason.backend.member.consultant.controller.dto.ReservationListResponse;
 import com.yourseason.backend.member.consultant.controller.dto.ReviewListResponse;
 import com.yourseason.backend.member.consultant.domain.Consultant;
 import com.yourseason.backend.member.consultant.domain.ConsultantRepository;
+import com.yourseason.backend.member.consultant.domain.License;
+import com.yourseason.backend.member.consultant.domain.LicenseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +21,18 @@ import java.util.stream.Collectors;
 public class ConsultantService {
 
     private static final String CONSULTANT_NOT_FOUND = "해당 컨설턴트를 찾을 수 없습니다.";
+    private static final String LICENSE_NOT_FOUND = "자격증이 존재하지 않습니다.";
 
     private final ConsultantRepository consultantRepository;
+    private final LicenseRepository licenseRepository;
+
+    public void createConsultant(ConsultantSignupRequest consultantSignupRequest) {
+        Consultant consultant = consultantSignupRequest.toEntity();
+        License license = licenseRepository.findByName(consultantSignupRequest.getLicenseName())
+                .orElseThrow(() -> new NotFoundException(LICENSE_NOT_FOUND));
+        consultant.registerLicense(license);
+        consultantRepository.save(consultant);
+    }
 
     public List<ConsultantListResponse> getConsultants() {
         return consultantRepository.findAll()

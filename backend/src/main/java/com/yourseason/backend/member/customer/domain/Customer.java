@@ -1,11 +1,12 @@
 package com.yourseason.backend.member.customer.domain;
 
 import com.yourseason.backend.consulting.domain.Consulting;
-import com.yourseason.backend.member.Member;
+import com.yourseason.backend.member.domain.Member;
 import com.yourseason.backend.reservation.domain.Reservation;
 import com.yourseason.backend.review.domain.Review;
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AttributeOverride(name = "id", column = @Column(name = "customer_id"))
 @Entity

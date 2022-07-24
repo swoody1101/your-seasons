@@ -1,4 +1,4 @@
-package com.yourseason.backend.member;
+package com.yourseason.backend.member.domain;
 
 import com.yourseason.backend.common.domain.BaseTimeEntity;
 import com.yourseason.backend.consulting.domain.Consulting;
