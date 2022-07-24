@@ -6,10 +6,12 @@ import thunk from 'redux-thunk';
 
 import SignUpReducer from '../components/signup/signUpSlice'
 import LoginReducer from '../components/login/loginSlice'
+import UserReviewReducer from '../components/consultantmypage/userReviewSlice'
 
 const reducers = combineReducers({
   signup: SignUpReducer,
   login: LoginReducer,
+  review: UserReviewReducer
 });
 
 const persistConfig = {
