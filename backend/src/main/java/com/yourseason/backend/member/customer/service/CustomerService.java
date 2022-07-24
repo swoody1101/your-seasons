@@ -63,7 +63,6 @@ public class CustomerService {
                         .reviewDate(review.getCreatedDate().toLocalDate())
                         .build())
                 .collect(Collectors.toList());
-
     }
 
     public List<ConsultingListResponse> getCustomerConsultings(Long tokenId) {
