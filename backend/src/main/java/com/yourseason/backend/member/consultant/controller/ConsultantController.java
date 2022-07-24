@@ -52,4 +52,10 @@ public class ConsultantController {
         return ResponseEntity.ok()
                 .body(consultantService.getMyReservations(1L));
     }
+
+    @GetMapping("/2")
+    public ResponseEntity<ConsultantReviewResponse> getMyReviews() {
+        return ResponseEntity.ok()
+                .body(consultantService.getMyReviews(1L));
+    }
 }

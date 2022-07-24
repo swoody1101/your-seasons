@@ -94,8 +94,8 @@ public class ConsultantService {
                         .reservationId(reservation.getId())
                         .reservationDate(reservation.getCreatedDate().toLocalDate())
                         .reservationTime(reservation.getCreatedDate().toLocalTime())
-                        .customerNickname(reservation.getCustomer().getNickname())
-                        .customerImageUrl(reservation.getCustomer().getImageUrl())
+                        .nickname(reservation.getCustomer().getNickname())
+                        .imageUrl(reservation.getCustomer().getImageUrl())
                         .request(reservation.getRequest())
                         .isActive(reservation.isActive())
                         .build())
@@ -104,6 +104,28 @@ public class ConsultantService {
         return ConsultantReservationResponse.builder()
                 .starAverage(consultant.getStarAverage())
                 .reservations(reservationDetailListResponses)
+                .build();
+    }
+
+    public ConsultantReviewResponse getMyReviews(long consultantId) {
+        Consultant consultant = consultantRepository.findById(consultantId)
+                .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
+
+        List<ReviewListResponse> reviewsListResponses = consultant.getReviews()
+                .stream()
+                .map(review -> ReviewListResponse.builder()
+                        .reviewId(review.getId())
+                        .nickname(consultant.getNickname())
+                        .imageUrl(consultant.getImageUrl())
+                        .star(review.getStar())
+                        .comment(review.getComment())
+                        .createdDate(review.getCreatedDate().toLocalDate())
+                        .build())
+                .collect(Collectors.toList());
+
+        return ConsultantReviewResponse.builder()
+                .starAverage(consultant.getStarAverage())
+                .reviews(reviewsListResponses)
                 .build();
     }
 }
