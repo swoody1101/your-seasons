@@ -30,11 +30,11 @@ public class CustomerService {
         customerRepository.save(request.toEntity());
     }
 
-    public CustomerInfoResponse getCustomerInfo(Long tokenId) {
+    public CustomerResponse getCustomer(Long tokenId) {
         Customer customer = customerRepository.findById(tokenId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
 
-        return CustomerInfoResponse.builder()
+        return CustomerResponse.builder()
                 .name(customer.getName())
                 .nickname(customer.getNickname())
                 .birth(customer.getBirth())

@@ -26,9 +26,9 @@ public class CustomerController {
     }
 
     @GetMapping
-    public ResponseEntity<CustomerInfoResponse> getCustomerInfo() {
+    public ResponseEntity<CustomerResponse> getCustomer() {
         return ResponseEntity.ok()
-                .body(customerService.getCustomerInfo(0L));
+                .body(customerService.getCustomer(0L));
     }
     @GetMapping("/1")
     public ResponseEntity<List<ReservationListResponse>> getCustomerReservations() {

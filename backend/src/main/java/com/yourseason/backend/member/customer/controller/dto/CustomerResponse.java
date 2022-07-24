@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class CustomerInfoResponse {
+public class CustomerResponse {
 
     private String name;
     private String nickname;
