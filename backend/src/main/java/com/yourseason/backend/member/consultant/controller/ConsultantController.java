@@ -60,4 +60,10 @@ public class ConsultantController {
         return ResponseEntity.ok()
                 .body(consultantService.updateConsultant(1L, consultantUpdateRequest, multipartFile));
     }
+
+    @DeleteMapping
+    public ResponseEntity<Message> deleteConsultant() {
+        return ResponseEntity.ok()
+                .body(consultantService.deleteConsultant(1L));
+    }
 }

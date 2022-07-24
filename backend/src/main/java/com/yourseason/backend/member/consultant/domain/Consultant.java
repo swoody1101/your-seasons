@@ -75,4 +75,8 @@ public class Consultant extends Member {
         this.introduction = introduction;
         this.cost = cost;
     }
+
+    public void withdraw() {
+        super.withdraw();
+    }
 }

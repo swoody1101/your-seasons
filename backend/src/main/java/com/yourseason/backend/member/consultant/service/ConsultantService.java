@@ -10,6 +10,7 @@ import com.yourseason.backend.member.consultant.domain.License;
 import com.yourseason.backend.member.consultant.domain.LicenseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -164,6 +165,13 @@ public class ConsultantService {
                 consultantUpdateRequest.getIntroduction(),
                 consultantUpdateRequest.getCost());
         consultantRepository.save(consultant);
+        return new Message("succeeded");
+    }
+
+    public Message deleteConsultant(long consultantId) {
+        Consultant consultant = consultantRepository.findById(consultantId)
+                .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
+        consultant.withdraw();
         return new Message("succeeded");
     }
 }

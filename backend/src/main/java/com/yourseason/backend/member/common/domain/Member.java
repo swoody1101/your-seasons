@@ -66,4 +66,8 @@ public abstract class Member extends BaseTimeEntity {
         this.nickname = nickname;
         this.contact = contact;
     }
+
+    protected void withdraw() {
+        super.delete();
+    }
 }
