@@ -72,4 +72,8 @@ public abstract class Member extends BaseTimeEntity {
         this.contact = contact;
         this.imageUrl = imageUrl;
     }
+
+    protected void withdraw() {
+        super.delete();
+    }
 }

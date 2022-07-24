@@ -126,4 +126,9 @@ public class CustomerService {
         customerRepository.save(customer);
     }
 
+    public void deleteCustomer(Long tokenId) {
+        Customer customer = customerRepository.findById(tokenId)
+                .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
+        customer.withdraw();
+    }
 }

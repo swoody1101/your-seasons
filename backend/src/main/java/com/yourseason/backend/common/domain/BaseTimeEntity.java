@@ -30,4 +30,9 @@ public abstract class BaseTimeEntity {
 
     private LocalDateTime deletedDate;
     private boolean isActive;
+
+    protected void delete() {
+        this.isActive = false;
+        this.deletedDate = LocalDateTime.now();
+    }
 }
