@@ -40,4 +40,8 @@ public class Customer extends Member {
         this.reservations = reservations;
         this.reviews = reviews;
     }
+
+    public void updateProfile(String nickname, String contact, String imageUrl) {
+        super.updateProfile(nickname, contact, imageUrl);
+    }
 }
