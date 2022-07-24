@@ -60,6 +60,7 @@ public class MemberService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<Member> findMember;
+        Role role = Role.ROLE_CUSTOMER;
         Optional<Member> customer = customerRepository.findByEmail(email);
         Optional<Member> consultant = consultantRepository.findByEmail(email);
 
@@ -67,10 +68,11 @@ public class MemberService implements UserDetailsService {
             findMember = customer;
         } else if (!customer.isPresent() && consultant.isPresent()) {
             findMember = consultant;
+            role = Role.ROLE_CONSULTANT;
         } else {
             throw new UsernameNotFoundException("가입되지 않는 email입니다.");
         }
-        return new SecurityMember(findMember.get());
+        return new SecurityMember(findMember.get(), role);
     }
 
     public void validateEmail(String email) {

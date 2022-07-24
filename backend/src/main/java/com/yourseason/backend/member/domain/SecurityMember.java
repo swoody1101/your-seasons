@@ -8,11 +8,11 @@ import org.springframework.security.core.userdetails.User;
 @Getter
 public class SecurityMember extends User {
 
-    private LoginResponse loginResponse;
+    private Member member;
+    private Role role;
 
-    public SecurityMember(Member loginResponse) {
-        super(loginResponse.getEmail(), loginResponse.getPassword(),
-                AuthorityUtils.createAuthorityList(loginResponse.getRole().toString()));
-        this.loginResponse = loginResponse;
+    public SecurityMember(Member member, Role role) {
+        super(member.getEmail(), member.getPassword(),
+                AuthorityUtils.createAuthorityList(role.toString()));
     }
 }
