@@ -10,7 +10,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -28,17 +30,17 @@ public class Reservation extends BaseTimeEntity {
 
     @NotNull
     @Column(name = "reservation_date")
-    private LocalDateTime date;
+    private LocalDate date;
 
     @NotNull
     @Column(name = "reservation_time")
-    private LocalDateTime time;
+    private LocalTime time;
 
     private String request;
 
     @Builder
     public Reservation(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate, boolean isActive,
-                       Customer customer, Consultant consultant, LocalDateTime date, LocalDateTime time, String request) {
+                       Customer customer, Consultant consultant, LocalDate date, LocalTime time, String request) {
         super(id, createdDate, lastModifiedDate, deletedDate, isActive);
         this.customer = customer;
         this.consultant = consultant;
