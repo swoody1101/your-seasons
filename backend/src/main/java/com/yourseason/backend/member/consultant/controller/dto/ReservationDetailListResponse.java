@@ -16,8 +16,8 @@ public class ReservationDetailListResponse {
     private Long reservationId;
     private LocalDate reservationDate;
     private LocalTime reservationTime;
-    private String customerNickname;
-    private String customerImageUrl;
+    private String nickname;
+    private String imageUrl;
     private String request;
     private boolean isActive;
 }
