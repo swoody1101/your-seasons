@@ -8,12 +8,14 @@ import SignUpReducer from '../components/signup/signUpSlice'
 import LoginReducer from '../components/login/loginSlice'
 import ModifyReducer from '../components/mypage/modify/modifySlice'
 import UserReviewReducer from '../components/consultantmypage/userReviewSlice'
+import consultantProfileReducer from '../components/consultantmypage/consultantProfileSlice'
 
 const reducers = combineReducers({
   signup: SignUpReducer,
   login: LoginReducer,
   modify: ModifyReducer,
-  review: UserReviewReducer
+  review: UserReviewReducer,
+  consultantprofile: consultantProfileReducer
 });
 
 const persistConfig = {
