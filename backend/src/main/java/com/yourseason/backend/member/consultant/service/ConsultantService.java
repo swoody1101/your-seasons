@@ -1,5 +1,7 @@
 package com.yourseason.backend.member.consultant.service;
 
+import com.yourseason.backend.common.domain.Message;
+import com.yourseason.backend.common.exception.ImageUploadException;
 import com.yourseason.backend.common.exception.NotFoundException;
 import com.yourseason.backend.member.consultant.controller.dto.*;
 import com.yourseason.backend.member.consultant.domain.Consultant;

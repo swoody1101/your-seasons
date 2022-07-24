@@ -1,5 +1,6 @@
 package com.yourseason.backend.member.consultant.controller;
 
+import com.yourseason.backend.common.domain.Message;
 import com.yourseason.backend.member.consultant.controller.dto.*;
 import com.yourseason.backend.member.consultant.service.ConsultantService;
 import com.yourseason.backend.member.customer.controller.Message;
