@@ -5,11 +5,13 @@ import com.yourseason.backend.member.consultant.domain.Consultant;
 import com.yourseason.backend.member.customer.domain.Customer;
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AttributeOverride(name = "id", column = @Column(name = "review_id"))
 @Entity
