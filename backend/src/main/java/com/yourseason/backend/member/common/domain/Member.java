@@ -60,4 +60,10 @@ public abstract class Member extends BaseTimeEntity {
         this.imageUrl = imageUrl;
         this.consultings = consultings;
     }
+
+    protected void updateProfile(String nickname, String contact, String imageUrl) {
+        this.imageUrl = imageUrl;
+        this.nickname = nickname;
+        this.contact = contact;
+    }
 }

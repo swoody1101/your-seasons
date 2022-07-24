@@ -69,4 +69,10 @@ public class Consultant extends Member {
     public void registerLicense(License license) {
         this.license = license;
     }
+
+    public void updateProfile(String nickname, String contact, String imageUrl, String introduction, String cost) {
+        super.updateProfile(nickname, contact, imageUrl);
+        this.introduction = introduction;
+        this.cost = cost;
+    }
 }
