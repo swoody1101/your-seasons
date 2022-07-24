@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import Axios from '../../api/Axios'
+import { CREATED, OK, CUSTOMER, CONSULTANT } from '../../api/CustomConst'
 
 const initialState = {
   userInfo: {
@@ -22,12 +23,20 @@ export const signUpMember = createAsyncThunk(
   async (userInfo, { rejectWithValue }) => {
     try {
       console.log("비동기 요청 회원가입") // 비동기 위치표시
-      const response = await Axios.post('members/signup', userInfo);
-      console.log(response) // 응답체크
-      return response.data;
+      let response
+
+      if (userInfo.role === CUSTOMER) {
+        response = await Axios.post('customers', userInfo);
+      } else if (userInfo.role === CONSULTANT) {
+        response = await Axios.post('consultants', userInfo);
+      }
+
+      if (response.status === CREATED) {
+        return true;
+      }
     } catch (err) {
-      console.log(err)
-      return rejectWithValue(err);
+      // 에러 아무거나 떠도 그냥 false로 반환하는 방법
+      return false;
     }
   }
 )
@@ -37,12 +46,12 @@ export const emailCheck = createAsyncThunk(
   async (email, { rejectWithValue }) => {
     try {
       console.log("비동기 요청 이메일 중복확인") // 비동기 위치표시
-      const response = await Axios.get(`members/${email}/emailcheck`);
-      console.log(response) // 응답체크
-      return response.data;
+      const response = await Axios.get(`members/validation?email=${email}`);
+      if (response.status === OK) {
+        return true;
+      }
     } catch (err) {
-      console.log(err);
-      return rejectWithValue(err)
+      return false;
     }
   }
 );
@@ -52,12 +61,12 @@ export const nicknameCheck = createAsyncThunk(
   async (nickname, { rejectWithValue }) => {
     try {
       console.log("비동기 요청 닉네임 중복확인") // 비동기 위치표시
-      const response = await Axios.get(`members/${nickname}/nickcheck`);
-      console.log(response) // 응답체크
-      return response.data;
+      const response = await Axios.get(`members/validation?nickname=${nickname}`);
+      if (response.status === OK) {
+        return true;
+      }
     } catch (err) {
-      console.log(err);
-      return rejectWithValue(err)
+      return false;
     }
   }
 );

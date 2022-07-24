@@ -5,6 +5,7 @@ import com.yourseason.backend.consulting.domain.Consulting;
 import com.yourseason.backend.reservation.domain.Reservation;
 import com.yourseason.backend.review.domain.Review;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.CascadeType;
@@ -17,6 +18,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @MappedSuperclass
 public abstract class Member extends BaseTimeEntity {

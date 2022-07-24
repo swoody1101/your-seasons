@@ -24,7 +24,7 @@ import RoleSelectBox from '../input/RoleSelectBox'
 import LicenseInput from '../input/LicenseInput'
 
 import Policy from './Policy'
-
+import { CUSTOMER } from '../../api/CustomConst'
 import { nicknameCheck, emailCheck, signUpMember } from './signUpSlice';
 
 
@@ -47,7 +47,7 @@ const SignUp = () => {
 
   const [phoneNumber, setPhoneNumber] = useState('010');
 
-  const [role, setRole] = useState('member');
+  const [role, setRole] = useState(CUSTOMER);
 
   const [licenseId, setLicenseId] = useState(1);
   const [licenseNumber, setLicenseNumber] = useState('');
@@ -57,17 +57,6 @@ const SignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const signUpStatus = useSelector(state => state.signup.status);
-
-  // useEffect(() => {
-  //   if (signUpStatus === 'succeeded') {
-  //     alert("가입에 성공하였습니다.");
-  //     navigate('/login');
-  //   }
-  //   if (signUpStatus === 'failed') {
-  //     alert("가입에 실패하였습니다.");
-  //   }
-  // }, [signUpStatus, navigate])
-
 
   const userInfo = {
     email: userEmail,
@@ -82,18 +71,16 @@ const SignUp = () => {
   }
 
   const handleCheckEmail = () => {
-    console.log(userEmail);
     dispatch(emailCheck(userEmail))
       .then((res) => {
-        console.log(res.payload);
-        let msg = res.payload;
-        if (msg === 'succeeded') {
+        if (res.payload) {
           alert("인증완료");
           setIsEmailCheck(true);
-        }
-        if (msg === 'failed') {
+        } else {
           alert("이미 존재하는 이메일입니다.");
         }
+      }).catch((err) => {
+        console.log(err)
       })
   }
 
@@ -101,19 +88,17 @@ const SignUp = () => {
     console.log(nickname);
     dispatch(nicknameCheck(nickname))
       .then((res) => {
-        console.log(res.payload);
-        let msg = res.payload;
-        if (msg === 'succeeded') {
+        if (res.payload) {
           alert("인증완료");
           setIsNicknameCheck(true);
-        }
-        if (msg === 'failed') {
+        } else {
           alert("이미 존재하는 닉네임입니다.");
         }
       })
   }
 
   const handleSubmit = (data) => {
+    console.log(userInfo);
     if (!isEmailCheck) {
       alert("이메일 중복확인을 해주세요.")
       return;
@@ -151,15 +136,14 @@ const SignUp = () => {
     console.log(data);
     dispatch(signUpMember(data))
       .then((res) => {
-        console.log(res.payload) // 응답 msg  확인
-        let msg = res.payload;
-        if (msg === 'succeeded') {
+        if (res) {
           alert("가입에 성공하였습니다.");
           navigate('/login');
-        }
-        if (msg === 'failed') {
+        } else {
           alert("가입에 실패하였습니다.");
         }
+      }).catch((res) => {
+        console.log(res);
       });
   }
 

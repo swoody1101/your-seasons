@@ -5,9 +5,11 @@ import { persistReducer } from 'redux-persist';
 import thunk from 'redux-thunk';
 
 import SignUpReducer from '../components/signup/signUpSlice'
+import LoginReducer from '../components/login/loginSlice'
 
 const reducers = combineReducers({
   signup: SignUpReducer,
+  login: LoginReducer,
 });
 
 const persistConfig = {
@@ -19,7 +21,6 @@ const persistedReducer = persistReducer(persistConfig, reducers);
 
 const store = configureStore({
   reducer: persistedReducer,
-  devTools: process.env.NODE_ENV !== 'production',
   middleware: [thunk],
 });
 
