@@ -1,7 +1,6 @@
 package com.yourseason.backend.member.domain;
 
 import com.yourseason.backend.common.domain.BaseTimeEntity;
-import com.yourseason.backend.consulting.domain.Consulting;
 import com.yourseason.backend.reservation.domain.Reservation;
 import com.yourseason.backend.review.domain.Review;
 import lombok.AccessLevel;
@@ -48,9 +47,6 @@ public abstract class Member extends BaseTimeEntity {
     private String imageUrl;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Consulting> consultings = new ArrayList<>();
-
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reservation> reservations = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST, orphanRemoval = true)
@@ -58,7 +54,7 @@ public abstract class Member extends BaseTimeEntity {
 
     public Member(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDateTime deletedDate, boolean isActive,
                   String email, String password, String name, LocalDate birth, String nickname, String contact, String imageUrl,
-                  List<Consulting> consultings, List<Reservation> reservations, List<Review> reviews) {
+                  List<Reservation> reservations, List<Review> reviews) {
         super(id, createdTime, lastModifiedTime, deletedDate, isActive);
         this.email = email;
         this.password = password;
@@ -67,7 +63,6 @@ public abstract class Member extends BaseTimeEntity {
         this.nickname = nickname;
         this.contact = contact;
         this.imageUrl = imageUrl;
-        this.consultings = consultings;
         this.reservations = reservations;
         this.reviews = reviews;
     }

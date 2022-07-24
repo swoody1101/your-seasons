@@ -42,12 +42,15 @@ public class Consultant extends Member {
     @OneToMany(mappedBy = "consultant", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ClosedDay> closedDays = new ArrayList<>();
 
+    @OneToMany(mappedBy = "consultant", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Consulting> consultings = new ArrayList<>();
+
     @Builder
     public Consultant(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDateTime deletedDate, boolean isActive,
                       String email, String password, String name, LocalDate birth, String nickname, String contact, String imageUrl,
                       List<Consulting> consultings, List<Reservation> reservations, List<Review> reviews, String consultingFile,
                       String introduction, String cost, double starAverage, int reviewCount, License license, String licenseNumber, List<ClosedDay> closedDays) {
-        super(id, createdTime, lastModifiedTime, deletedDate, isActive, email, password, name, birth, nickname, contact, imageUrl, consultings, reservations, reviews);
+        super(id, createdTime, lastModifiedTime, deletedDate, isActive, email, password, name, birth, nickname, contact, imageUrl, reservations, reviews);
         this.introduction = introduction;
         this.cost = cost;
         this.starAverage = starAverage;
@@ -56,6 +59,7 @@ public class Consultant extends Member {
         this.license = license;
         this.licenseNumber = licenseNumber;
         this.closedDays = closedDays;
+        this.consultings = consultings;
     }
 
     public void registerLicense(License license) {
