@@ -2,8 +2,8 @@ package com.yourseason.backend.member.domain;
 
 public enum Role {
 
-    CUSTOMER("고객"),
-    CONSULTANT("컨설턴트");
+    ROLE_CUSTOMER("고객"),
+    ROLE_CONSULTANT("컨설턴트");
 
     private String value;
 
