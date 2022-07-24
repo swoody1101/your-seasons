@@ -18,7 +18,7 @@ export const loginUser = createAsyncThunk(
     try {
       // start
       const response = await Axios.post('members/login', userInfo);
-      //const token = response.headers.get("Authorization"); // 헤더로 받을 때
+      //const { token } = response.headers.get("Authorization"); // 헤더로 받을 때
       const token = response.data['X-Auth-Token'];
       saveToken(token);
       return response;
