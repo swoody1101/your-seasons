@@ -8,4 +8,8 @@ import java.util.Optional;
 public interface ConsultantRepository extends JpaRepository<Consultant, Long> {
 
     Member getByEmailAndPassword(String email, String password);
+
+    boolean existsByEmail(String email);
+
+    boolean existsByNickname(String nickname);
 }

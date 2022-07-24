@@ -57,4 +57,8 @@ public class Consultant extends Member {
         this.licenseNumber = licenseNumber;
         this.closedDays = closedDays;
     }
+
+    public void registerLicense(License license) {
+        this.license = license;
+    }
 }
