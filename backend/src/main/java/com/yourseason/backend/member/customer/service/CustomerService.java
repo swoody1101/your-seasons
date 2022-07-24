@@ -32,6 +32,7 @@ public class CustomerService {
         return customer.getReservations()
                 .stream()
                 .map(reservation -> ReservationListResponse.builder()
+                        .reservationId(reservation.getId())
                         .reservationDate(reservation.getDate())
                         .reservationTime(reservation.getTime())
                         .consultantNickname(reservation.getConsultant().getNickname())

@@ -13,19 +13,11 @@ import java.time.LocalTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ReservationListResponse {
 
+    private Long reservationId;
     private LocalDate reservationDate;
     private LocalTime reservationTime;
     private String consultantNickname;
     private String consultantImageUrl;
     private String request;
     private boolean isActive;
-
-    public ReservationListResponse(Reservation reservation, Consultant consultant) {
-        this.reservationDate = reservation.getDate();
-        this.reservationTime = reservation.getTime();
-        this.consultantNickname = consultant.getNickname();
-        this.consultantImageUrl = consultant.getImageUrl();
-        this.request = reservation.getRequest();
-        this.isActive = reservation.isActive();
-    }
 }
