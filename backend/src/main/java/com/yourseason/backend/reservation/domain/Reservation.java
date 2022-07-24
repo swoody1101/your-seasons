@@ -10,7 +10,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -28,11 +30,11 @@ public class Reservation extends BaseTimeEntity {
 
     @NotNull
     @Column(name = "reservation_date")
-    private LocalDateTime date;
+    private LocalDate date;
 
     @NotNull
     @Column(name = "reservation_time")
-    private LocalDateTime time;
+    private LocalTime time;
 
     private String request;
 
