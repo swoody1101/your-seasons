@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { loadMember } from './modify/modifySlice'
+import { loadMember } from '../modify/modifySlice'
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import DefaultImg from '../../assets/images/default_profile.jpg';

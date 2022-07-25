@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { CUSTOMER, CONSULTANT } from '../../../api/CustomConst'
-import Axios from '../../../api/Axios'
+import { CUSTOMER, CONSULTANT } from '../../api/CustomConst'
+import Axios from '../../api/Axios'
 
 const initialState = {
   common: {
@@ -8,7 +8,9 @@ const initialState = {
     nickname: '',
     birth: '',
     contact: '',
-    email: ''
+    email: '',
+    introduction: '',
+    cost: ''
   },
   status: 'idle' // 'idle' | 'loading' | 'succeeded' | 'failed'
 }
@@ -49,6 +51,28 @@ export const modifyMember = createAsyncThunk(
     }
   }
 );
+
+export const modifyConsultant = createAsyncThunk(
+  'modify/modifyConsultant',
+  async (payload, { rejectWithValue }) => {
+    try {
+      let response;
+      const data = {
+        beforePassword: payload.beforePassword,
+        afterPassword: payload.afterPassword
+      }
+      if (payload.role === CUSTOMER) {
+        response = await Axios.patch('customers/password', data);
+      } else if (payload.role === CONSULTANT) {
+        response = await Axios.patch('consultants/password', data);
+      }
+      console.log(response)
+      return response;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+)
 
 export const modifyPass = createAsyncThunk(
   'modify/modifypass',

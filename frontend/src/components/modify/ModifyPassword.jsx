@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { Grid, Button, ButtonGroup, Container } from '@mui/material'
 
-import ValidationInput from '../../input/ValidationInput'
-import ComparePasswordInput from '../../input/ConfirmPasswordInput'
+import ValidationInput from '../input/ValidationInput'
+import ComparePasswordInput from '../input/ConfirmPasswordInput'
 
-import regex from '../../input/regex';
-import { BAD_REQUEST, NOT_FOUND, CONFLICT } from '../../../api/CustomConst'
+import regex from '../input/regex';
+import { BAD_REQUEST, NOT_FOUND, CONFLICT } from '../../api/CustomConst'
 
 import { modifyPass } from './modifySlice'
 
