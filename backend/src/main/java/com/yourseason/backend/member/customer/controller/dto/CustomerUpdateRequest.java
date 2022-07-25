@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CustomerUpdateRequest {
 
-    String nickname;
-    String contact;
+    private String nickname;
+    private String contact;
 }
