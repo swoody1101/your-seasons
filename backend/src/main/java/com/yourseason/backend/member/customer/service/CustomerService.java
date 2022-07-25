@@ -62,7 +62,6 @@ public class CustomerService {
     }
 
     public List<ReviewListResponse> getMyReviews(Long tokenId) {
-        // 리뷰 테이블에서 이 고객이 쓴 리뷰를 찾는 게 아니고, 이 고객이 쓴 리뷰를 가져 오면 되잖아.
         Customer customer = customerRepository.findById(tokenId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
 
