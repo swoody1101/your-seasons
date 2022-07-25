@@ -1,12 +1,14 @@
 package com.yourseason.backend.member.consultant.controller.dto;
 
 import com.yourseason.backend.member.consultant.domain.Consultant;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Getter
-@RequiredArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ConsultantSignupRequest {
 

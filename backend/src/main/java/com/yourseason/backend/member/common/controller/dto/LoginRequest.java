@@ -1,4 +1,4 @@
-package com.yourseason.backend.member.controller.dto;
+package com.yourseason.backend.member.common.controller.dto;
 
 import lombok.*;
 

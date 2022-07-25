@@ -1,5 +1,6 @@
 package com.yourseason.backend.member.customer.controller;
 
+import com.yourseason.backend.common.domain.Message;
 import com.yourseason.backend.member.customer.controller.dto.CustomerSignupRequest;
 import com.yourseason.backend.member.customer.service.CustomerService;
 import lombok.RequiredArgsConstructor;
