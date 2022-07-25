@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { ButtonGroup, Button, Container, Grid, styled } from '@mui/material'
+import { ButtonGroup, Button, Container, Grid, styled, TextField } from '@mui/material'
 import { BAD_REQUEST, NOT_FOUND, CONFLICT } from '../../api/CustomConst'
 import { modifyConsultant, loadMember } from './modifySlice'
 
@@ -10,8 +10,8 @@ const ModifyConsultant = () => {
   const common = useSelector((state) => state.modify.common)
   const { introduction, cost } = useSelector((state) => state.modify.common)
   // const { introduction } = 'asdf';
-  const [newIntroduction, setNewIntroduction] = useState('asdfasdfasdfadfasdvasdvdsavasdvasdvasdvasdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaㅁㄴㄹㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ');
-  const [newCost, setNewCost] = useState(12345);
+  const [newIntroduction, setNewIntroduction] = useState(introduction);
+  const [newCost, setNewCost] = useState(cost);
 
   // 수정여부
   const [isModiIntro, setIsModiIntro] = useState(false);
@@ -46,13 +46,13 @@ const ModifyConsultant = () => {
         <h2>컨설턴트 소개글</h2>
         {
           isModiIntro ?
-            <StyledGrid xs={12}>
-              <Textarea>
-                {introduction}
-              </Textarea>
-            </StyledGrid>
+            <IntromGrid item xs={12}>
+              <Textarea
+                value={newIntroduction}
+                onChange={e => setNewIntroduction(e.target.value)} />
+            </IntromGrid>
             :
-            <StyledGrid xs={12}>
+            <IntromGrid item xs={12}>
               {introduction}
               <Button
                 onClick={
@@ -61,14 +61,35 @@ const ModifyConsultant = () => {
               >
                 수정
               </Button>
-            </StyledGrid>
+            </IntromGrid>
         }
         <h2>컨설팅 비용</h2>
         <Grid xs={12}>
           <Grid xs={3}>
           </Grid>
           <Grid xs={8}>
-
+            {
+              isModiCost ?
+                <Grid item xs={12}>
+                  <TextField
+                    value={newIntroduction}
+                    onChange={e => setNewIntroduction(e.target.value)} />
+                </Grid>
+                :
+                <CostGrid item xs={12}>
+                  <StyledSpan >
+                    금액 :
+                  </StyledSpan>
+                  {cost}
+                  <Button
+                    onClick={
+                      () => setIsModiIntro(true)
+                    }
+                  >
+                    수정
+                  </Button>
+                </CostGrid>
+            }
           </Grid>
         </Grid>
       </Grid>
@@ -99,11 +120,22 @@ const ModifyConsultant = () => {
 
 export default ModifyConsultant
 
-const StyledGrid = styled(Grid)({
+const IntromGrid = styled(Grid)({
   border: '1px solid #00000070',
   borderRadius: '0.4rem',
   padding: '0.4rem',
   minHeight: '200px',
+  position: 'relative',
+  button: {
+    position: 'absolute',
+    bottom: '0.2rem',
+    right: '0.4rem',
+  }
+})
+
+const CostGrid = styled(Grid)({
+  padding: '0.4rem',
+  minHeight: '3rem',
   position: 'relative',
   button: {
     position: 'absolute',
@@ -117,4 +149,9 @@ const Textarea = styled('textarea')({
   height: '100%',
   resize: 'none',
   fontSize: '1.2rem'
+})
+
+const StyledSpan = styled('span')({
+  fontSize: '1.6rem',
+  justifyContent: 'end'
 })

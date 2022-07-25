@@ -9,8 +9,8 @@ const initialState = {
     birth: '',
     contact: '',
     email: '',
-    introduction: '',
-    cost: ''
+    introduction: '안녕하세요?',
+    cost: '10000'
   },
   status: 'idle' // 'idle' | 'loading' | 'succeeded' | 'failed'
 }
