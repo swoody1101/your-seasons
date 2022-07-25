@@ -9,7 +9,6 @@ import com.yourseason.backend.member.common.domain.Member;
 import com.yourseason.backend.member.common.domain.Role;
 import com.yourseason.backend.member.consultant.domain.ConsultantRepository;
 import com.yourseason.backend.member.customer.domain.CustomerRepository;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
