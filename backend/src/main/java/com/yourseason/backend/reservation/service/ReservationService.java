@@ -30,13 +30,11 @@ public class ReservationService {
                 .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
 
         Reservation reservation = reservationCreateRequest.toEntity();
-        reservation.registerCustomerAndConsultant(customer, consultant);
+        reservation.registerCustomer(customer);
+        reservation.registerConsultant(consultant);
         reservationRepository.save(reservation);
 
-        customer.getReservations().add(reservation);
-        consultant.getReservations().add(reservation);
-
-       return ReservationCreateResponse.builder()
+        return ReservationCreateResponse.builder()
                 .reservationId(reservation.getId())
                 .message("succeeded")
                 .build();
