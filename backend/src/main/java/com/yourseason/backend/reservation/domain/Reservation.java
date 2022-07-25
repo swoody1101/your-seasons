@@ -48,4 +48,8 @@ public class Reservation extends BaseTimeEntity {
         this.time = time;
         this.request = request;
     }
+
+    public void cancel() {
+        super.delete();
+    }
 }
