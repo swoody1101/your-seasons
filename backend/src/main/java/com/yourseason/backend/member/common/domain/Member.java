@@ -1,4 +1,4 @@
-package com.yourseason.backend.member.domain;
+package com.yourseason.backend.member.common.domain;
 
 import com.yourseason.backend.common.domain.BaseTimeEntity;
 import com.yourseason.backend.consulting.domain.Consulting;
@@ -59,5 +59,15 @@ public abstract class Member extends BaseTimeEntity {
         this.contact = contact;
         this.imageUrl = imageUrl;
         this.consultings = consultings;
+    }
+
+    protected void updateProfile(String nickname, String contact, String imageUrl) {
+        this.imageUrl = imageUrl;
+        this.nickname = nickname;
+        this.contact = contact;
+    }
+
+    protected void withdraw() {
+        super.delete();
     }
 }

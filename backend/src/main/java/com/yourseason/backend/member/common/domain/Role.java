@@ -1,4 +1,4 @@
-package com.yourseason.backend.member.domain;
+package com.yourseason.backend.member.common.domain;
 
 public enum Role {
 

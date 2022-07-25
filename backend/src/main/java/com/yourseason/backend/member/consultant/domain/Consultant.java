@@ -1,7 +1,7 @@
 package com.yourseason.backend.member.consultant.domain;
 
 import com.yourseason.backend.consulting.domain.Consulting;
-import com.yourseason.backend.member.domain.Member;
+import com.yourseason.backend.member.common.domain.Member;
 import com.yourseason.backend.reservation.domain.Reservation;
 import com.yourseason.backend.review.domain.Review;
 import lombok.AccessLevel;
@@ -68,5 +68,15 @@ public class Consultant extends Member {
 
     public void registerLicense(License license) {
         this.license = license;
+    }
+
+    public void updateProfile(String nickname, String contact, String imageUrl, String introduction, String cost) {
+        super.updateProfile(nickname, contact, imageUrl);
+        this.introduction = introduction;
+        this.cost = cost;
+    }
+
+    public void withdraw() {
+        super.withdraw();
     }
 }

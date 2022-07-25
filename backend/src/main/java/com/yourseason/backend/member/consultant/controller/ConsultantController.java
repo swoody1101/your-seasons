@@ -1,19 +1,12 @@
 package com.yourseason.backend.member.consultant.controller;
 
-import com.yourseason.backend.member.consultant.controller.dto.ConsultantListResponse;
-import com.yourseason.backend.member.consultant.controller.dto.ConsultantSignupRequest;
-import com.yourseason.backend.member.consultant.controller.dto.ConsultantResponse;
-import com.yourseason.backend.member.consultant.controller.dto.ReviewListResponse;
+import com.yourseason.backend.common.domain.Message;
+import com.yourseason.backend.member.consultant.controller.dto.*;
 import com.yourseason.backend.member.consultant.service.ConsultantService;
-import com.yourseason.backend.member.customer.controller.Message;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URI;
 import java.util.List;
@@ -48,5 +41,29 @@ public class ConsultantController {
     public ResponseEntity<List<ReviewListResponse>> getReviews(@PathVariable Long consultantId) {
         return ResponseEntity.ok()
                 .body(consultantService.getReviews(consultantId));
+    }
+
+    @GetMapping("/1")
+    public ResponseEntity<ConsultantReservationResponse> getMyReservations() {
+        return ResponseEntity.ok()
+                .body(consultantService.getMyReservations(1L));
+    }
+
+    @GetMapping("/2")
+    public ResponseEntity<ConsultantReviewResponse> getMyReviews() {
+        return ResponseEntity.ok()
+                .body(consultantService.getMyReviews(1L));
+    }
+
+    @PatchMapping
+    public ResponseEntity<Message> updateConsultant(@RequestPart ConsultantUpdateRequest consultantUpdateRequest, @RequestPart MultipartFile multipartFile) {
+        return ResponseEntity.ok()
+                .body(consultantService.updateConsultant(1L, consultantUpdateRequest, multipartFile));
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Message> deleteConsultant() {
+        return ResponseEntity.ok()
+                .body(consultantService.deleteConsultant(1L));
     }
 }

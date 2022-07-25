@@ -1,6 +1,6 @@
-package com.yourseason.backend.member.controller.dto;
+package com.yourseason.backend.member.common.controller.dto;
 
-import com.yourseason.backend.member.domain.Role;
+import com.yourseason.backend.member.common.domain.Role;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
