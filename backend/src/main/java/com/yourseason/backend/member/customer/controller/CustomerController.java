@@ -1,5 +1,6 @@
 package com.yourseason.backend.member.customer.controller;
 
+import com.yourseason.backend.member.customer.controller.dto.ConsultingListResponse;
 import com.yourseason.backend.common.domain.Message;
 import com.yourseason.backend.member.customer.controller.dto.CustomerSignupRequest;
 import com.yourseason.backend.member.customer.controller.dto.ReservationListResponse;
@@ -30,6 +31,12 @@ public class CustomerController {
     public ResponseEntity<List<ReservationListResponse>> getCustomerReservations() {
         return ResponseEntity.ok()
                 .body(customerService.getCustomerReservations(0L));
+    }
+
+    @GetMapping("/2")
+    public ResponseEntity<List<ConsultingListResponse>> getCustomerConsultings() {
+        return ResponseEntity.ok()
+                .body(customerService.getCustomerConsultings(0L));
     }
 
     @GetMapping("/3")
