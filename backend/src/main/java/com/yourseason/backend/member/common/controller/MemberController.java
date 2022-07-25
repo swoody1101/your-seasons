@@ -32,6 +32,6 @@ public class MemberController {
     public ResponseEntity<Message> validateNickname(@RequestParam String nickname) {
         memberService.validateNickname(nickname);
         return ResponseEntity.ok()
-                        .body(new Message("succeeded"));
+                .body(new Message("succeeded"));
     }
 }
