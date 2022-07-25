@@ -1,5 +1,6 @@
 package com.yourseason.backend.member.customer.service;
 
+import com.yourseason.backend.common.domain.Message;
 import com.yourseason.backend.common.exception.ImageUploadException;
 import com.yourseason.backend.common.exception.NotFoundException;
 import com.yourseason.backend.member.customer.controller.dto.*;
@@ -96,7 +97,7 @@ public class CustomerService {
                 .collect(Collectors.toList());
     }
 
-    public void updateCustomer(Long customerId, CustomerUpdateRequest customerUpdateRequest, MultipartFile multipartFile) {
+    public Message updateCustomer(Long customerId, CustomerUpdateRequest customerUpdateRequest, MultipartFile multipartFile) {
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
 
@@ -119,11 +120,13 @@ public class CustomerService {
 
         customer.updateProfile(customerUpdateRequest.getNickname(), customerUpdateRequest.getContact(), imageUrl);
         customerRepository.save(customer);
+        return new Message("succeeded");
     }
 
-    public void deleteCustomer(Long customerId) {
+    public Message deleteCustomer(Long customerId) {
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
         customer.withdraw();
+        return new Message("succeeded");
     }
 }

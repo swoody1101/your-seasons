@@ -49,16 +49,15 @@ public class CustomerController {
     }
 
     @PatchMapping
-    public ResponseEntity<Message> updateCustomer(@RequestPart CustomerUpdateRequest customerUpdateRequest, @RequestPart MultipartFile multipartFile) {
-        customerService.updateCustomer(0L, customerUpdateRequest, multipartFile);
+    public ResponseEntity<Message> updateCustomer(@RequestPart CustomerUpdateRequest customerUpdateRequest,
+                                                  @RequestPart MultipartFile multipartFile) {
         return ResponseEntity.ok()
-                .body(new Message("succeeded"));
+                .body(customerService.updateCustomer(0L, customerUpdateRequest, multipartFile));
     }
 
     @DeleteMapping
     public ResponseEntity<Message> deleteCustomer() {
-        customerService.deleteCustomer(0L);
         return ResponseEntity.ok()
-                .body(new Message("succeeded"));
+                .body(customerService.deleteCustomer(0L));
     }
 }
