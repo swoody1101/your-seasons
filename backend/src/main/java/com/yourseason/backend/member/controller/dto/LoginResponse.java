@@ -14,14 +14,12 @@ public class LoginResponse {
     private String imageUrl;
     private Role role;
     private String message;
-    private String token;
 
     @Builder
-    public LoginResponse(String nickname, String imageUrl, Role role, String message, String token) {
+    public LoginResponse(String nickname, String imageUrl, Role role, String message) {
         this.nickname = nickname;
         this.imageUrl = imageUrl;
         this.role = role;
         this.message = message;
-        this.token = token;
     }
 }
