@@ -4,8 +4,8 @@ import { Box, MenuItem, Select, TextField } from "@mui/material";
 
 export default function LicenseInput({
   label,
-  licenseId,
-  setLicenseId,
+  licenseName,
+  setLicenseName,
   value,
   setValue,
 }) {
@@ -15,7 +15,7 @@ export default function LicenseInput({
 
   };
   const HandleLicenseIdChange = (e) => {
-    setLicenseId(e.target.value);
+    setLicenseName(e.target.value);
   }
   return (
     <Container>
@@ -23,13 +23,13 @@ export default function LicenseInput({
       <StyledBox>
         <StyledSelect
           id="select-license"
-          value={licenseId}
+          value={licenseName}
           onChange={HandleLicenseIdChange}
         >
-          <MenuItem value={1}>컬러리스트</MenuItem>
-          <MenuItem value={2}>퍼스널컬러 컨설턴트</MenuItem>
-          <MenuItem value={3}>NPO 퍼스널컬러</MenuItem>
-          <MenuItem value={4}>NCNS 퍼스널컬러리스트</MenuItem>
+          <MenuItem value={"컬러리스트"}>컬러리스트</MenuItem>
+          <MenuItem value={"퍼스널컬러 컨설턴트"}>퍼스널컬러 컨설턴트</MenuItem>
+          <MenuItem value={"NPO 퍼스널컬러"}>NPO 퍼스널컬러</MenuItem>
+          <MenuItem value={"NCNS 퍼스널컬러리스트"}>NCNS 퍼스널컬러리스트</MenuItem>
         </StyledSelect>
         <StyledTextField
           id={label}
