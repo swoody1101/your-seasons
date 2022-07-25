@@ -2,13 +2,13 @@ package com.yourseason.backend.member.common.service;
 
 import com.yourseason.backend.common.exception.DuplicationException;
 import com.yourseason.backend.common.exception.NotFoundException;
-import com.yourseason.backend.member.consultant.domain.ConsultantRepository;
+import com.yourseason.backend.common.exception.WrongFormException;
 import com.yourseason.backend.member.common.controller.dto.LoginRequest;
 import com.yourseason.backend.member.common.controller.dto.LoginResponse;
-import com.yourseason.backend.member.customer.domain.CustomerRepository;
 import com.yourseason.backend.member.common.domain.Member;
 import com.yourseason.backend.member.common.domain.Role;
-import com.yourseason.backend.common.exception.WrongFormException;
+import com.yourseason.backend.member.consultant.domain.ConsultantRepository;
+import com.yourseason.backend.member.customer.domain.CustomerRepository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
