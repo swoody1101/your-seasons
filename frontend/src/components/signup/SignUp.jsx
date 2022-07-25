@@ -24,8 +24,9 @@ import RoleSelectBox from '../input/RoleSelectBox'
 import LicenseInput from '../input/LicenseInput'
 
 import Policy from './Policy'
+import { CONSULTANT } from '../../api/CustomConst';
 
-import { nicknameCheck, emailCheck, signUpMember } from './signUpSlice';
+import { signUpMember } from './signUpSlice';
 
 
 const SignUp = () => {
@@ -47,9 +48,9 @@ const SignUp = () => {
 
   const [phoneNumber, setPhoneNumber] = useState('010');
 
-  const [role, setRole] = useState("CUSTOMER");
+  const [role, setRole] = useState('member');
 
-  const [licenseId, setLicenseId] = useState(1);
+  const [licenseName, setLicenseName] = useState('선택안함');
   const [licenseNumber, setLicenseNumber] = useState('');
 
   const [agreeChecked, setAgreeChcked] = useState(false);
@@ -57,6 +58,7 @@ const SignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const signUpStatus = useSelector(state => state.signup.status);
+
 
   const userInfo = {
     email: userEmail,
@@ -66,39 +68,17 @@ const SignUp = () => {
     birth: birth,
     contact: phoneNumber,
     role: role,
-    licenseId: licenseId,
+    licenseName: licenseName,
     licenseNumber: licenseNumber
   }
 
-  const handleCheckEmail = () => {
-    dispatch(emailCheck(userEmail))
-      .then((res) => {
-        if (res.payload) {
-          alert("인증완료");
-          setIsEmailCheck(true);
-        } else {
-          alert("이미 존재하는 이메일입니다.");
-        }
-      }).catch((err) => {
-        console.log(err)
-      })
-  }
+  const handleCheckEmail = (e) => {
+    alert("인증완료");
+    setIsEmailCheck(true);
 
-  const handleCheckNickname = () => {
-    console.log(nickname);
-    dispatch(nicknameCheck(nickname))
-      .then((res) => {
-        if (res.payload) {
-          alert("인증완료");
-          setIsNicknameCheck(true);
-        } else {
-          alert("이미 존재하는 닉네임입니다.");
-        }
-      })
   }
 
   const handleSubmit = (data) => {
-    console.log(userInfo);
     if (!isEmailCheck) {
       alert("이메일 중복확인을 해주세요.")
       return;
@@ -124,7 +104,7 @@ const SignUp = () => {
       return;
     }
 
-    if (role === 'consultant' && licenseNumber.length < 1) {
+    if (role === CONSULTANT && licenseNumber.length < 1) {
       alert("자격증 번호를 입력하거나, 일반 사용자로 가입해주세요.");
       return;
     }
@@ -134,16 +114,15 @@ const SignUp = () => {
       return;
     }
     console.log(data);
-    dispatch(signUpMember(data))
-      .then((res) => {
-        if (res) {
+    dispatch(signUpMember({ data }))
+      .then(() => {
+        if (signUpStatus === 'succeeded') {
           alert("가입에 성공하였습니다.");
-          navigate('/login');
-        } else {
+          // navigate('/login'); // 잠시 테스트를 위해
+        }
+        if (signUpStatus === 'failed') {
           alert("가입에 실패하였습니다.");
         }
-      }).catch((res) => {
-        console.log(res);
       });
   }
 
@@ -207,7 +186,10 @@ const SignUp = () => {
               setValue={setNickname}
               isCheck={isNicknameCheck}
               setIsCheck={setIsNicknameCheck}
-              handleValueCheck={handleCheckNickname}
+              handleValueCheck={() => {
+                alert("인증완료");
+                setIsNicknameCheck(true);
+              }}
               regexCheck={regex.nickname}
               defaultText="닉네임을 입력해주세요."
               successText="success"
@@ -259,12 +241,12 @@ const SignUp = () => {
               setValue={setRole}
             />
             {
-              role === 'consultant'
+              role === CONSULTANT
               &&
               <LicenseInput
                 label="자격증 정보"
-                licenseId={licenseId}
-                setLicenseId={setLicenseId}
+                licenseName={licenseName}
+                setLicenseName={setLicenseName}
                 value={licenseNumber}
                 setValue={setLicenseNumber}
               />

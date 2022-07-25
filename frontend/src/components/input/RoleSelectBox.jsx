@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { RadioGroup, Radio, FormControlLabel } from "@mui/material";
-
+import { CUSTOMER, CONSULTANT } from '../../api/CustomConst'
 export default function RoleSelectBox({
   label,
   value,
@@ -21,8 +21,8 @@ export default function RoleSelectBox({
         onChange={HandleOnChange}
         name="radio-buttons-group"
       >
-        <FormControlLabel value="CUSTOMER" control={<Radio />} label="일반사용자" />
-        <FormControlLabel value="CONSULTANT" control={<Radio />} label="컨설턴트" />
+        <FormControlLabel value={CUSTOMER} control={<Radio />} label="일반사용자" />
+        <FormControlLabel value={CONSULTANT} control={<Radio />} label="컨설턴트" />
       </StyledRadioGroup>
     </Container>
   );

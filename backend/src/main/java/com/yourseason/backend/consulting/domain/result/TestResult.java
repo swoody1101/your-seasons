@@ -19,7 +19,7 @@ public class TestResult extends BaseTimeEntity {
     private BestColorSet bestColorSet;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "best_color_set_id")
+    @JoinColumn(name = "worst_color_set_id")
     private WorstColorSet worstColorSet;
 
     @OneToOne(fetch = FetchType.LAZY)
