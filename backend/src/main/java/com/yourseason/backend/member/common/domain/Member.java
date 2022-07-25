@@ -45,11 +45,8 @@ public abstract class Member extends BaseTimeEntity {
 
     private String imageUrl;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Consulting> consultings = new ArrayList<>();
-
     public Member(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDateTime deletedDate, boolean isActive,
-                  String email, String password, String name, LocalDate birth, String nickname, String contact, String imageUrl, List<Consulting> consultings) {
+                  String email, String password, String name, LocalDate birth, String nickname, String contact, String imageUrl) {
         super(id, createdTime, lastModifiedTime, deletedDate, isActive);
         this.email = email;
         this.password = password;
@@ -58,7 +55,6 @@ public abstract class Member extends BaseTimeEntity {
         this.nickname = nickname;
         this.contact = contact;
         this.imageUrl = imageUrl;
-        this.consultings = consultings;
     }
 
     protected void updateProfile(String nickname, String contact, String imageUrl) {
