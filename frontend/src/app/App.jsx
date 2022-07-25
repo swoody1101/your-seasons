@@ -9,7 +9,7 @@ import './app.css'
 import NavBar from '../components/common/NavBar'
 import MyPage from '../components/mypage/MyPage'
 import ConsultantMyPage from '../components/consultantmypage/ConsultantMyPage'
-import ModifyProfile from '../components/mypage/modify/ModifyProfile'
+import ModifyProfile from '../components/modify/ModifyProfile'
 import Login from '../components/login/Login'
 import SignUp from '../components/signup/SignUp'
 import { Box, Stack } from '@mui/material'
@@ -27,7 +27,7 @@ const App = () => {
           <Route path='/home' element={<p>home</p>} />
           <Route path='/history' element={<p>history</p>} />
           <Route path='/mypage' element={
-            role !== CUSTOMER
+            role === CUSTOMER
               ? <MyPage /> : <ConsultantMyPage />
           } />
           <Route path='/modify' element={<ModifyProfile />} />

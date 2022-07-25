@@ -4,11 +4,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Box, Button, ButtonGroup, Container, Grid } from '@mui/material'
 import { styled } from '@mui/system'
 
-import regex from '../../input/regex';
-import { BAD_REQUEST, NOT_FOUND, CONFLICT } from '../../../api/CustomConst'
-import ConfirmValidation from '../../input/ConfirmValidationInput'
-import PhoneNumberInput from '../../input/PhoneNumberInput';
-import { nicknameCheck } from '../../signup/signUpSlice';
+import regex from '../input/regex';
+import { BAD_REQUEST, NOT_FOUND, CONFLICT } from '../../api/CustomConst'
+import ConfirmValidation from '../input/ConfirmValidationInput'
+import PhoneNumberInput from '../input/PhoneNumberInput';
+import { nicknameCheck } from '../signup/signUpSlice';
 import { modifyMember, loadMember } from './modifySlice'
 
 const ModifyCommon = () => {
@@ -64,7 +64,7 @@ const ModifyCommon = () => {
 
   return (
     <Container>
-      <h1>회원 정보</h1>
+      <h1>프로필 정보</h1>
       <Grid container m={2} gap={3} >
         <Grid container>
           <LabelGrid item xs={3}>
