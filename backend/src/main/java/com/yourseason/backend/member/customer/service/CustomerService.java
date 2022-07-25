@@ -102,7 +102,7 @@ public class CustomerService {
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
 
         String imageUrl = customer.getImageUrl();
-        if(customer.getImageUrl() == null) {
+        if(imageUrl == null) {
             String filePath = System.getProperty("user.dir") + "/src/main/resources/static/img/";
             String fileName = customer.getEmail();
             imageUrl = filePath + fileName;
