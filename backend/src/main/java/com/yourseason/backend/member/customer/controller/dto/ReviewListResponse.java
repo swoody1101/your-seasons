@@ -13,7 +13,7 @@ public class ReviewListResponse {
     private Long reviewId;
     private String consultantNickname;
     private String consultantImageUrl;
-    private int star;
+    private double star;
     private String comment;
     private LocalDate reviewDate;
 }
