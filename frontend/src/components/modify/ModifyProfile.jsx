@@ -14,6 +14,8 @@ import TabPanel from '@mui/lab/TabPanel';
 import ModifyCommon from './ModifyCommon';
 import ModifyPassword from './ModifyPassword';
 import SignOut from './SignOut';
+import { CONSULTANT } from '../../api/CustomConst';
+import ModifyConsultant from './ModifyConsultant';
 
 const ModifyProfile = () => {
   // 프로필 정보 가져오기
@@ -43,13 +45,19 @@ const ModifyProfile = () => {
               onChange={handleChange}
             >
               <Tab label="프로필 수정" value="profile" />
+              {role === CONSULTANT &&
+                <Tab label="컨설턴트 정보" value="consultant" />
+              }
               <Tab label="비밀번호 수정" value="password" />
               <Tab label="회원탈퇴" value="signout" />
             </StyledTabList>
           </Grid>
           <Grid item sm={6} >
             <TabPanel value="profile">
-              <ModifyCommon nickname={nickname} />
+              <ModifyCommon />
+            </TabPanel>
+            <TabPanel value="consultant">
+              <ModifyConsultant />
             </TabPanel>
             <TabPanel value="password">
               <ModifyPassword />
@@ -59,7 +67,7 @@ const ModifyProfile = () => {
             </TabPanel>
           </Grid>
           {
-            page === "profile"
+            (page === "profile" || page === "consultant")
             &&
             <Grid
               item sm={4}

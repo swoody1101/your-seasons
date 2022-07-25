@@ -4,7 +4,7 @@ import { combineReducers } from 'redux';
 import { persistReducer } from 'redux-persist';
 import thunk from 'redux-thunk';
 import LoginReducer from '../components/login/loginSlice'
-import ModifyReducer from '../components/mypage/modify/modifySlice'
+import ModifyReducer from '../components/modify/modifySlice'
 import UserReviewReducer from '../components/consultantmypage/userReviewSlice'
 import consultantProfileReducer from '../components/consultantmypage/consultantProfileSlice'
 import SignUpReducer from '../components/signup/signUpSlice'

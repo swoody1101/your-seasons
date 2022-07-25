@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Box, Typography, Button, ButtonGroup } from '@mui/material'
 
 
-import { BAD_REQUEST, NOT_FOUND, CONFLICT } from '../../../api/CustomConst'
+import { BAD_REQUEST, NOT_FOUND, CONFLICT } from '../../api/CustomConst'
 import { signOut } from './modifySlice'
 
 const SignOut = () => {
