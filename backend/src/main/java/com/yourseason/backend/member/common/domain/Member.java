@@ -66,10 +66,4 @@ public abstract class Member extends BaseTimeEntity {
     protected void withdraw() {
         super.delete();
     }
-
-    protected void updateProfile(String nickname, String contact, String imageUrl) {
-        this.nickname = nickname;
-        this.contact = contact;
-        this.imageUrl = imageUrl;
-    }
 }
