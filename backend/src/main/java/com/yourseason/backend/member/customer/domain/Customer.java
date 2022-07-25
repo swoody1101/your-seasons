@@ -44,4 +44,8 @@ public class Customer extends Member {
     public void updateProfile(String nickname, String contact, String imageUrl) {
         super.updateProfile(nickname, contact, imageUrl);
     }
+
+    public void withdraw() {
+        super.withdraw();
+    }
 }

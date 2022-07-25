@@ -54,4 +54,11 @@ public class CustomerController {
         return ResponseEntity.ok()
                 .body(new Message("succeeded"));
     }
+
+    @DeleteMapping
+    public ResponseEntity<Message> deleteCustomer() {
+        customerService.deleteCustomer(0L);
+        return ResponseEntity.ok()
+                .body(new Message("succeeded"));
+    }
 }
