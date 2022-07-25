@@ -27,7 +27,7 @@ public class JwtAuthenticateFilter extends OncePerRequestFilter {
     private final JwtUtil jwtUtil;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException, java.io.IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, java.io.IOException {
         String authorization = request.getHeader("Authorization");
 
         Role role = null;
@@ -40,19 +40,18 @@ public class JwtAuthenticateFilter extends OncePerRequestFilter {
         } else {
             filterChain.doFilter(request, response);
         }
-        if(email != null && SecurityContextHolder.getContext().getAuthentication() == null){
+        if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             Member member = memberService.getMemberByEmail(email);
             UserDetails userDetails = memberService.loadUserByUsername(email);
 
-            if(jwtUtil.isValidToken(token, member, role)){
+            if (jwtUtil.isValidToken(token, member, role)) {
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken
                         = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 usernamePasswordAuthenticationToken
                         .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
         }
-        filterChain.doFilter(request,response);
+        filterChain.doFilter(request, response);
     }
 }
