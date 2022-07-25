@@ -1,6 +1,5 @@
 package com.yourseason.backend.member.domain;
 
-import com.yourseason.backend.member.controller.dto.LoginResponse;
 import lombok.Getter;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
