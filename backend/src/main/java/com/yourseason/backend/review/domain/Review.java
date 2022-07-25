@@ -37,4 +37,9 @@ public class Review extends BaseTimeEntity {
         this.star = star;
         this.comment = comment;
     }
+
+    public void registCustomerAndCunsultant(Customer customer, Consultant consultant) {
+        this.customer = customer;
+        this.consultant = consultant;
+    }
 }
