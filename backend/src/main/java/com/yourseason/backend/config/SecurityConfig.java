@@ -23,14 +23,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers("api/v1/login").permitAll()
+                .antMatchers("api/v1/members/login").permitAll()
                 .anyRequest().authenticated();
         http.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtAuthenticateFilter, UsernamePasswordAuthenticationFilter.class);
-        http.formLogin().loginPage("/login").defaultSuccessUrl("/", true);
-        http.formLogin().loginProcessingUrl("api/v1/login").defaultSuccessUrl("/", true);
-        http.logout().logoutUrl("api/v1/logout").logoutSuccessUrl("/");
+        http.formLogin().loginPage("api/v1/members/login").defaultSuccessUrl("/", true);
+        http.formLogin().loginProcessingUrl("api/v1/members/login").defaultSuccessUrl("/", true);
+        http.logout().logoutUrl("api/v1/members/logout").logoutSuccessUrl("/");
         http.userDetailsService(memberService);
     }
 
