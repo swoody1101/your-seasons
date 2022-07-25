@@ -3,8 +3,6 @@ import MyProfile from './MyProfile'
 import MyResHistory from './MyResHistory'
 import MyDiagnosis from './MyDiagnosis'
 import MyReview from './MyReview'
-import SelfDiagnosis from './SelfDiagnosis'
-import ConsultantDiagnosis from './ConsultantDiagnosis'
 
 
 import Box from '@mui/material/Box';
@@ -21,7 +19,7 @@ const MyPage = () => {
 	};
 
 	return (<>
-		<Container fixed>
+		<Container fixed sx={{ display:'block' }}>
 		<Box sx={{ bgcolor: '#cfe8fc' }}>
             <MyProfile />
             <br />

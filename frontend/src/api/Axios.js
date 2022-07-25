@@ -2,6 +2,7 @@ import baseAxios from 'axios';
 import { getToken } from './JWToken';
 
 
+// const baseURL = 'http://localhost:8800/api/v1/';
 const baseURL = 'http://localhost:8800/api/v1/';
 
 const Axios = baseAxios.create({
