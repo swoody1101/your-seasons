@@ -33,6 +33,9 @@ public class ReservationService {
         reservation.registerCustomerAndConsultant(customer, consultant);
         reservationRepository.save(reservation);
 
+        customer.getReservations().add(reservation);
+        consultant.getReservations().add(reservation);
+
         return ReservationCreateResponse.builder()
                 .reservationId(reservation.getId())
                 .message("succeeded")
