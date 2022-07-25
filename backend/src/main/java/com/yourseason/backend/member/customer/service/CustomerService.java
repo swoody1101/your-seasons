@@ -117,11 +117,7 @@ public class CustomerService {
             throw new ImageUploadException(IMAGE_UPLOAD_FAIL);
         }
 
-        customer.updateProfile(
-                customerUpdateRequest.getNickname(),
-                customerUpdateRequest.getContact(),
-                imageUrl
-        );
+        customer.updateProfile(customerUpdateRequest.getNickname(), customerUpdateRequest.getContact(), imageUrl);
         customerRepository.save(customer);
     }
 
