@@ -48,4 +48,12 @@ public class Reservation extends BaseTimeEntity {
         this.time = time;
         this.request = request;
     }
+
+    public void registerCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public void registerConsultant(Consultant consultant) {
+        this.consultant = consultant;
+    }
 }
