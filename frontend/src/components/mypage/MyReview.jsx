@@ -89,7 +89,6 @@ const MyReview = () => {
 </>)
 }
 
-//  onchane 기본값, 수정 버튼....
 export default MyReview
 
 

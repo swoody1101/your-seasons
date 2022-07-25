@@ -62,4 +62,4 @@ const myConsultantDxSlice = createSlice({
 	reducers: {
 	}
 })
-export default myConsultantDxSlice
+export default myConsultantDxSlice.reducer
