@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux/es/exports';
-import { Button, CardActions, CardContent, CardHeader, Card, TextField,  Typography, Avatar, CardActionArea } from '@mui/material';
+import { Button, CardActions, CardContent, Card, Typography, Avatar, CardActionArea } from '@mui/material';
 import styled from '@emotion/styled'
-import BasicRating from './CountingStar'
+import BasicRating from './StarRating'
 import { myReviewFetch, deleteReviewFetch, updateReviewFetch } from './myReviewSlice'
-// Todo. 후기 수정
-// star 구현 및 수정 마무리하기
-// 현재 시간을 post로 보내야 하는지
+// post시 필요한 정보 추후 고려(date)
 
 
 var today = new Date();
@@ -25,19 +23,12 @@ var timeString = hours + ':' + minutes  + ':' + seconds;
 const MyReview = () => {
   const dispatch = useDispatch();
 	const reviews = useSelector(state=>state.myReviews.data);
-	const [isstar, setStar] = useState('')
 	const [iscomment, setComment] = useState('')
-
-	// useEffect(()=>{
-	// 	dispatch(myReviewFetch())
-	// }, [])
+	const [isstar, setStar] = useState('')
 	const [isReviewId, setIsReviewId] = useState(false)
 	const onSubmit = (event) => {
 		event.preventDefault();
-		console.log(event.target.isComment)
-		// event.target찍어보고, 
 		const data = {
-			// reviewId: isReviewId,
 			star: isstar,
 			comment: iscomment,     
 			reviewDate: dateString + ' ' + timeString,  
@@ -45,17 +36,15 @@ const MyReview = () => {
 			console.log('수정요청');
 			dispatch(updateReviewFetch(data))
 			console.log(data)
-			setIsReviewId('')
+			setIsReviewId(false)
 	}
-
-	
-
 	console.log(reviews)
+	
 	return (<>
 		<Div>
 		{reviews.map(({ reviewId, consultantNickname, consultantImageUrl, star, comment, reviewDate }, index)=>(
 		<form onSubmit={onSubmit}>
-    <Card sx={{ marginBottom:5, padding:1, borderRadius: 5 }} variant="outlined" className="history-card" key={index}>
+    <Card sx={{ marginBottom:5, padding:1, borderRadius: 5}} variant="outlined" className="history-card" key={index}>
 			<CardActionArea>
 				<CardContent>
 					{/* 컨설턴트정보, 날짜 */}
@@ -68,12 +57,12 @@ const MyReview = () => {
 							{reviewDate}일 
 						</Typography>
 					</Forflex>
-
 					<RequestBox>
-						<Typography sx={{marginBottom:1}}>후기 작성</Typography>
-						<BasicRating  star={star} onChange={e=>setStar(e.target.value)} key={index} /> 
-						<RequestText name="isComment" readOnly={isReviewId===reviewId ? false : true} defaultValue={comment} onChange={e=>setComment(e.target.value)}>
-							{/* {!comment ? '아직 후기가 없어요.' : comment} */}
+						{/* <Typography sx={{marginBottom:1}}>후기 작성</Typography> */}
+						<BasicRating star={star} reviewId={reviewId} isReviewId={isReviewId}
+							setstar={setStar}	key={star} /> 
+						<RequestText name="isComment" readOnly={isReviewId===reviewId ? false : true} defaultValue={comment}
+							onChange={(e)=>setComment(e.target.value)} style={{backgroundColor: isReviewId!==reviewId ? 'white' : '#cfe8fc'}}>
 						</RequestText>
 					</RequestBox>
 					
@@ -82,7 +71,9 @@ const MyReview = () => {
 			<CardActions>
 				<div id="request-submitbtn">
 					<Button color="primary" sx={{display: isReviewId===reviewId ? 'none' : 'inline-block'}}
-						onClick={(e) => { setIsReviewId(reviewId); e.stopPropagation(); }}>
+						disabled={isReviewId ? true : false}
+						onClick={(e) => { setIsReviewId(reviewId); e.stopPropagation(); 
+						setComment(!iscomment? comment: iscomment); setStar(!isstar ? star:isstar) }}>
 						수정
 					</Button>
 					<Button type="submit" sx={{display: isReviewId!==reviewId ? 'none' : 'inline-block'}}>수정완료</Button>
@@ -98,7 +89,7 @@ const MyReview = () => {
 </>)
 }
 
-
+//  onchane 기본값, 수정 버튼....
 export default MyReview
 
 
@@ -131,3 +122,10 @@ const RequestText = styled.textarea`
 	width: 100%;
 	resize: none;
 `
+
+// const RequestBox = styled(textarea)({
+// 	border: '1px dashed #ADBED2',
+// 	borderRadius: '5px',
+// 	padding: '10px',
+// })
+
