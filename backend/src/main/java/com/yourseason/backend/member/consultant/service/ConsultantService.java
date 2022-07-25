@@ -142,7 +142,7 @@ public class ConsultantService {
 
         String imageUrl = consultant.getImageUrl();
         if (consultant.getImageUrl() == null) {
-            String filePath = System.getProperty("user.dir") + "/src/min/resources/static/img/";
+            String filePath = System.getProperty("user.dir") + "/src/main/resources/static/img/";
             String fileName = consultant.getEmail();
             imageUrl = filePath + fileName;
         }
