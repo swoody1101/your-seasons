@@ -104,7 +104,7 @@ public class CustomerService {
         String imageUrl = customer.getImageUrl();
         if(customer.getImageUrl() == null) {
             String filePath = System.getProperty("user.dir") + "/src/main/resources/static/img/";
-            String fileName = customer.getImageUrl();
+            String fileName = customer.getEmail();
             imageUrl = filePath + fileName;
         }
         try {
