@@ -17,7 +17,7 @@ import { CUSTOMER, CONSULTANT } from '../api/CustomConst'
 
 const App = () => {
   const { role } = useSelector((state) => state.login.logonUser)
-
+  // const role = CONSULTANT;
   return (
     <Box>
       <NavBar />
@@ -27,7 +27,7 @@ const App = () => {
           <Route path='/home' element={<p>home</p>} />
           <Route path='/history' element={<p>history</p>} />
           <Route path='/mypage' element={
-            role === CUSTOMER
+            role !== CUSTOMER
               ? <MyPage /> : <ConsultantMyPage />
           } />
           <Route path='/modify' element={<ModifyProfile />} />
