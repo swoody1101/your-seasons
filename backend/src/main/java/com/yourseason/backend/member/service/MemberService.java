@@ -58,7 +58,6 @@ public class MemberService implements UserDetailsService {
                 .imageUrl(loginMember.getImageUrl())
                 .role(role)
                 .message("succeeded")
-                .token(token)
                 .build();
     }
 
