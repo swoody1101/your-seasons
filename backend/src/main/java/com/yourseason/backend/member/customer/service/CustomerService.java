@@ -30,8 +30,8 @@ public class CustomerService {
         customerRepository.save(request.toEntity());
     }
 
-    public CustomerResponse getCustomer(Long tokenId) {
-        Customer customer = customerRepository.findById(tokenId)
+    public CustomerResponse getCustomer(Long customerId) {
+        Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
 
         return CustomerResponse.builder()
@@ -43,8 +43,8 @@ public class CustomerService {
                 .build();
     }
 
-    public List<ReservationListResponse> getMyReservations(Long tokenId) {
-        Customer customer = customerRepository.findById(tokenId)
+    public List<ReservationListResponse> getMyReservations(Long customerId) {
+        Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
 
         return customer.getReservations()
@@ -61,8 +61,8 @@ public class CustomerService {
                 .collect(Collectors.toList());
     }
 
-    public List<ReviewListResponse> getMyReviews(Long tokenId) {
-        Customer customer = customerRepository.findById(tokenId)
+    public List<ReviewListResponse> getMyReviews(Long customerId) {
+        Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
 
         return customer.getReviews()
@@ -78,8 +78,8 @@ public class CustomerService {
                 .collect(Collectors.toList());
     }
 
-    public List<ConsultingListResponse> getMyConsultings(Long tokenId) {
-        Customer customer = customerRepository.findById(tokenId)
+    public List<ConsultingListResponse> getMyConsultings(Long customerId) {
+        Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
 
         return customer.getConsultings()
@@ -96,8 +96,8 @@ public class CustomerService {
                 .collect(Collectors.toList());
     }
 
-    public void updateCustomer(Long tokenId, CustomerUpdateRequest customerUpdateRequest, MultipartFile multipartFile) {
-        Customer customer = customerRepository.findById(tokenId)
+    public void updateCustomer(Long customerId, CustomerUpdateRequest customerUpdateRequest, MultipartFile multipartFile) {
+        Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
 
         String imageUrl = customer.getImageUrl();
@@ -121,8 +121,8 @@ public class CustomerService {
         customerRepository.save(customer);
     }
 
-    public void deleteCustomer(Long tokenId) {
-        Customer customer = customerRepository.findById(tokenId)
+    public void deleteCustomer(Long customerId) {
+        Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
         customer.withdraw();
     }
