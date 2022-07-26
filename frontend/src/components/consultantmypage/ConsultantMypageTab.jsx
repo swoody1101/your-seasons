@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import ConsultingResHistory from "./ConsultingResHistory";
-import ConsultingReview from "./ConsultingReview";
 
-import Box from '@mui/material/Box';
-import Tab from '@mui/material/Tab';
-import TabContext from '@mui/lab/TabContext';
-import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
+import { Box, Tab } from '@mui/material'
+import { TabContext, TabList, TabPanel } from '@mui/lab';
+
+import ConsultingReview from "./ConsultingReview";
+import ConsultingResHistory from "./ConsultingResHistory";
 
 const ConsultantMyPageTab = () => {
   const [value, setValue] = useState('1');
