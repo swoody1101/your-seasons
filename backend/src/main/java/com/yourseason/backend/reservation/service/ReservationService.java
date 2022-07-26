@@ -31,8 +31,6 @@ public class ReservationService {
         }
 
         reservation.cancel();
-        reservation.getCustomer().getReservations().remove(reservation);
-        reservation.getConsultant().getReservations().remove(reservation);
         return new Message("succeed");
     }
 }
