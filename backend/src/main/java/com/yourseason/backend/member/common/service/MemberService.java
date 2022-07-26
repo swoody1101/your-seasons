@@ -12,6 +12,9 @@ import com.yourseason.backend.member.customer.domain.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RequiredArgsConstructor
 @Service
 public class MemberService {
@@ -25,28 +28,11 @@ public class MemberService {
     private final ConsultantRepository consultantRepository;
 
     public LoginResponse login(LoginRequest loginRequest) {
-        String email = loginRequest.getEmail();
-        String password = loginRequest.getPassword();
-        if (email == null || password == null) {
-            throw new WrongFormException(NOT_FOUND_LOGIN_INFO);
-        }
-
-        Member loginMember;
-        Role role = Role.CUSTOMER;
-        Member customer = customerRepository.findByEmailAndPassword(email, password);
-        Member consultant = consultantRepository.getByEmailAndPassword(email, password);
-        if (customer == null && consultant != null) {
-            loginMember = consultant;
-            role = Role.CONSULTANT;
-        } else if (customer != null && consultant == null) {
-            loginMember = customer;
-        } else {
-            throw new NotFoundException(NOT_FOUND_USER);
-        }
+        Map<String, String> loginMember = getMember(loginRequest);
         return LoginResponse.builder()
-                .nickname(loginMember.getNickname())
-                .imageUrl(loginMember.getImageUrl())
-                .role(role)
+                .nickname(loginMember.get("nickname"))
+                .imageUrl(loginMember.get("imageUrl"))
+                .role(Role.valueOf(loginMember.get("role")))
                 .message("succeeded")
                 .build();
     }
@@ -61,5 +47,31 @@ public class MemberService {
         if (customerRepository.existsByNickname(nickname) || consultantRepository.existsByNickname(nickname)) {
             throw new DuplicationException(NICKNAME_DUPLICATED);
         }
+    }
+
+    public Map<String, String> getMember(LoginRequest loginRequest) {
+        String email = loginRequest.getEmail();
+        String password = loginRequest.getPassword();
+        if (email == null || password == null) {
+            throw new WrongFormException(NOT_FOUND_LOGIN_INFO);
+        }
+
+        HashMap<String, String> member = new HashMap<>();
+        Member loginMember;
+        Member customer = customerRepository.findByEmailAndPassword(email, password);
+        Member consultant = consultantRepository.getByEmailAndPassword(email, password);
+        if (customer != null && consultant == null) {
+            loginMember = customer;
+            member.put("role", String.valueOf(Role.CONSULTANT));
+        } else if (consultant != null && customer == null) {
+            loginMember = consultant;
+            member.put("role", String.valueOf(Role.CUSTOMER));
+        } else {
+            throw new NotFoundException(NOT_FOUND_USER);
+        }
+        member.put("id", String.valueOf(loginMember.getId()));
+        member.put("nickname", loginMember.getNickname());
+        member.put("imageUrl", loginMember.getImageUrl());
+        return member;
     }
 }
