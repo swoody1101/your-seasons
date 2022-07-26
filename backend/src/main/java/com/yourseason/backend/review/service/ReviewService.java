@@ -28,7 +28,7 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final ConsultingRepository consultingRepository;
 
-    public ReviewCreateResponse createReview(long customerId, long consultantId, long consultingId, ReviewCreateRequest reviewCreateRequest) {
+    public ReviewCreateResponse createReview(Long customerId, Long consultantId, ReviewCreateRequest reviewCreateRequest) {
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
         Consultant consultant = consultantRepository.findById(consultantId)
@@ -37,13 +37,6 @@ public class ReviewService {
         Review review = reviewCreateRequest.toEntity();
         review.register(customer, consultant);
         reviewRepository.save(review);
-
-        Consulting consulting = consultingRepository.findById(consultingId)
-                .orElseThrow(() -> new NotFoundException(CONSULTING_NOT_FOUND));
-        consulting.builder()
-                .hasReview(true)
-                .build();
-        consultingRepository.save(consulting);
 
         return ReviewCreateResponse.builder()
                 .reviewId(review.getId())
