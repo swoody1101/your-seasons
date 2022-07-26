@@ -47,6 +47,6 @@ public class Consulting extends BaseTimeEntity {
     }
 
     public void setReviewRegistration(boolean registration){
-        this.hasReview = registration;
+        hasReview = registration;
     }
 }
