@@ -37,4 +37,18 @@ public class Review extends BaseTimeEntity {
         this.star = star;
         this.comment = comment;
     }
+    public void register(Customer customer, Consultant consultant){
+        setCustomer(customer);
+        setConsultant(consultant);
+    }
+
+    public void setCustomer(Customer customer){
+        this.customer = customer;
+        customer.getReviews().add(this);
+    }
+
+    public void setConsultant(Consultant consultant){
+        this.consultant =consultant;
+        consultant.getReviews().add(this);
+    }
 }
