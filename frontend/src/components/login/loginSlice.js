@@ -28,24 +28,14 @@ export const loginUser = createAsyncThunk(
     }
   }
 );
-export const logoutUser = createAsyncThunk(
-  'members/logout',
-  async (arg, { rejectWithValue }) => {
-    try {
-      const response = await Axios.get('members/logout');
-      deleteToken();
-      return response;
-    } catch (err) {
-      // 에러 자체를 반환해서 jsx에서 처리하는 방법
-      return rejectWithValue(err.response);
-    }
-  }
-)
 
 const loginSlice = createSlice({
   name: 'login',
   initialState,
   reducers: {
+    logoutUser: () => {
+      deleteToken();
+    },
     resetUser: (state) => {
       state.logonUser = {
         nickname: '',
@@ -66,16 +56,8 @@ const loginSlice = createSlice({
     [loginUser.rejected]: (state) => {
       state.isAuthenticated = false;
     },
-    [logoutUser.fulfilled]: (state) => {
-      state.logonUser = {
-        nickname: '',
-        role: '',
-        imageUrl: ''
-      }
-      state.isAuthenticated = false;
-    },
   }
 });
 
-export const { resetUser } = loginSlice.actions;
+export const { logoutUser, resetUser } = loginSlice.actions;
 export default loginSlice.reducer
