@@ -3,7 +3,7 @@
 ### Crew
   - 🐵 [안성진](https://github.com/anveloper) [📧Mail](mailto:hitedin@gmail.com)
   - 🐶 [송상진](https://github.com/DebSang) [📧Mail](mailto:tkdwls180622@gmail.com)
-  - 🐮 [박다빈](https://github.com/elqla) [📧Mail](mailto:elqla19@gmail.com)
+  - 🐱 [박다빈](https://github.com/elqla) [📧Mail](mailto:elqla19@gmail.com)
 
 ### Stack - FE 
   - JavaScript, HTML5
