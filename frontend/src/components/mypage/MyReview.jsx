@@ -19,10 +19,17 @@ const MyReview = () => {
 			comment: iscomment,
 			reviewId: isReviewId
 		}
-			console.log('수정요청');
-			dispatch(updateReviewFetch(data))
-			console.log(data)
-			setIsReviewId(false)
+			if(data.comment.length<10){
+				alert('10자이상 입력해 주세요')
+			}else if(data.comment.length>1000){
+				alert('1000자 미만 입력해주세요.')
+			}else{
+				dispatch(updateReviewFetch(data))
+				console.log(data)
+				setIsReviewId(false)
+				setComment('')
+				setStar('')
+			}
 	}
 	
 	return (<>
@@ -58,7 +65,7 @@ const MyReview = () => {
 					<Button color="primary" sx={{display: isReviewId===reviewId ? 'none' : 'inline-block'}}
 						disabled={isReviewId ? true : false}
 						onClick={(e) => { setIsReviewId(reviewId); e.stopPropagation(); 
-						setComment(!iscomment? comment: iscomment); setStar(!isstar ? star:isstar) }}>
+						setComment(!iscomment? comment: iscomment); setStar(!isstar ? star:isstar); setIsReviewId(!isReviewId ? reviewId:isReviewId) }}>
 						수정
 					</Button>
 					<Button type="submit" sx={{display: isReviewId!==reviewId ? 'none' : 'inline-block'}}>수정완료</Button>

@@ -20,8 +20,8 @@ export default function BasicRating({ setstar, star, reviewId, isReviewId}) {
 					setstar={star}
 					onClick={e=> {
 						console.log(e.target.value); 
-						setValue(e.target.value)
-						setstar(e.target.value)
+						setValue(e.target.value);
+						setstar(Number(e.target.value));
 					}}
 
 					disabled={ isReviewId===reviewId ? false: true }

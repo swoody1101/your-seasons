@@ -4,7 +4,6 @@ import LyricsOutlinedIcon from '@mui/icons-material/LyricsOutlined';
 import styled from '@emotion/styled'
 import { deleteResFetch, updateResFetch } from './myResSlice';
 import { useDispatch } from 'react-redux/es/exports';
-//삭제할때 어떤 데이터 넘겨줘야 하는지 ? 
 
 const MyResHistoryItem = (reservation) => {
 	const [editNow, setEditNow] = useState(false)
@@ -29,7 +28,8 @@ const MyResHistoryItem = (reservation) => {
 
 					<RequestBox>
 						<Typography sx={{marginBottom:1}}>컨설턴트님께 요청드려요 <LyricsOutlinedIcon/> </Typography>
-						<RequestText name="isComment" readOnly={!editNow} defaultValue={reservation.request? reservation.request: '아직 요청사항이 없어요. 요청사항을 작성해주시면 상담에 도움이 됩니다 :)'}
+						<RequestText name="isComment" readOnly={!editNow} defaultValue={reservation.request? reservation.request: ''}
+							placeholder={'아직 요청사항이 없어요. 요청사항을 작성해주시면 상담에 도움이 됩니다 :)'}
 							style={{backgroundColor: editNow===true ? '#cfe8fc' : 'white'}}
 							onChange={(e)=> setIsRequest(e.target.value)}>
 						</RequestText>
@@ -40,7 +40,17 @@ const MyResHistoryItem = (reservation) => {
 				<div>
 					<Button color="primary" sx={{display: editNow? 'none': ''}} onClick={()=>{setEditNow(true)}} disabled={!reservation.isActive}>수정</Button>
 					<Button color="primary" sx={{display: editNow? '': 'none'}} 
-						onClick={()=>{setEditNow(false); dispatch(updateResFetch(isrequest))}} disabled={!reservation.isActive}>수정완료</Button>
+						onClick={()=>{
+						if(isrequest.length<10){
+							alert('10자이상 입력해 주세요')
+						}else if(isrequest.length>255){
+							alert('255자 미만 입력해주세요.')
+						}else{
+							setEditNow(false); 
+							dispatch(updateResFetch(isrequest))}} 
+						}
+						disabled={!reservation.isActive}		
+						>수정완료</Button>
 					<Button size="small" color="error" onClick={()=>{dispatch(deleteResFetch(reservation))}} disabled={!reservation.isActive}>
 						예약취소
 					</Button>

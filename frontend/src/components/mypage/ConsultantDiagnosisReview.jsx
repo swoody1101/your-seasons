@@ -6,12 +6,9 @@ import { red } from '@mui/material/colors';
 
 
 // 스타레이팅
-
 const BasicRating = ({setIsStar}) => {
 	const [value, setValue] = useState(5)
 	
-
-
   return (
     <Box
       sx={{
@@ -29,7 +26,6 @@ const BasicRating = ({setIsStar}) => {
 					}}
 					/>
 			</div>
-
     </Box>
   );
 }
@@ -50,25 +46,40 @@ const style = {
   p: 3,
 };
 
+
+// if(isrequest.length<10){
+// 	alert('10자이상 입력해 주세요')
+// }else if(isrequest.length>1000){
+// 	alert('1000자 미만 입력해주세요.')
+// }else{
+// 	setEditNow(false); 
+// 	dispatch(updateResFetch(isrequest))}} 
+// }
+
 const ConsultantDiagnosisReview = ({consultantNickname, consultantId, hasReview}) => {
   const [open, setOpen] = useState(false);
 	const [isComment, setComment] = useState('')
 	const [isStar, setIsStar] = useState(5)
 	
-
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const dispatch = useDispatch();
-
-	
 	const onSubmit = () => {
 		const data = {
-			star: isStar,
+			star: Number(isStar),
 			comment: isComment,
 			consultantId: consultantId,
 		}
 		console.log(data)
-		dispatch(createReviewFetch(data))
+		if(data.comment.length<10){
+			alert('10자이상 입력해 주세요')
+		}else if(data.comment.length>1000){
+			alert('1000자 미만 입력해주세요.')
+		}else{
+			dispatch(createReviewFetch(data))
+			setIsStar(5)
+			setComment('')
+		}
 	}
 
   return (
