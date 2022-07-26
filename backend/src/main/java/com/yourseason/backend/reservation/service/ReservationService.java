@@ -23,7 +23,7 @@ public class ReservationService {
     private final ConsultantRepository consultantRepository;
     private final ReservationRepository reservationRepository;
 
-    public ReservationCreateResponse createReservations(Long customerId, Long consultantId, ReservationCreateRequest reservationCreateRequest) {
+    public ReservationCreateResponse createReservation(Long customerId, Long consultantId, ReservationCreateRequest reservationCreateRequest) {
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
         Consultant consultant = consultantRepository.findById(consultantId)
