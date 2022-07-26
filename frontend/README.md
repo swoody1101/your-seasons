@@ -1,5 +1,5 @@
 # Front-end
-
+ 
 ### Crew
   - 🐵 [안성진](https://github.com/anveloper) [📧Mail](mailto:hitedin@gmail.com)
   - 🐶 [송상진](https://github.com/DebSang) [📧Mail](mailto:tkdwls180622@gmail.com)
@@ -33,4 +33,7 @@
       ```
         npm install react-cookie
       ```
-
+      - React-Calendar/Moment
+      ```
+      npm install react-calendar moment
+      ```
