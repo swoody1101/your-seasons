@@ -4,7 +4,7 @@ import LyricsOutlinedIcon from '@mui/icons-material/LyricsOutlined';
 import styled from '@emotion/styled'
 import { deleteResFetch, updateResFetch } from './myResSlice';
 import { useDispatch } from 'react-redux/es/exports';
-//삭제할때 어떤 데이터 넘겨줘야 하는지 ? 현 reservation 넘겨줌
+//삭제할때 어떤 데이터 넘겨줘야 하는지 ? 
 
 const MyResHistoryItem = (reservation) => {
 	const [editNow, setEditNow] = useState(false)

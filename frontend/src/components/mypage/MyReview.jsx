@@ -4,20 +4,6 @@ import { Button, CardActions, CardContent, Card, Typography, Avatar, CardActionA
 import styled from '@emotion/styled'
 import BasicRating from './StarRating'
 import { myReviewFetch, deleteReviewFetch, updateReviewFetch } from './myReviewSlice'
-// post시 필요한 정보 추후 고려(date)
-
-
-var today = new Date();
-
-var year = today.getFullYear();
-var month = ('0' + (today.getMonth() + 1)).slice(-2);
-var day = ('0' + today.getDate()).slice(-2);
-var dateString = year + '-' + month  + '-' + day;
-
-var hours = ('0' + today.getHours()).slice(-2); 
-var minutes = ('0' + today.getMinutes()).slice(-2);
-var seconds = ('0' + today.getSeconds()).slice(-2); 
-var timeString = hours + ':' + minutes  + ':' + seconds;
 
 
 const MyReview = () => {
@@ -30,28 +16,27 @@ const MyReview = () => {
 		event.preventDefault();
 		const data = {
 			star: isstar,
-			comment: iscomment,     
-			reviewDate: dateString + ' ' + timeString,  
+			comment: iscomment,
+			reviewId: isReviewId
 		}
 			console.log('수정요청');
 			dispatch(updateReviewFetch(data))
 			console.log(data)
 			setIsReviewId(false)
 	}
-	console.log(reviews)
 	
 	return (<>
 		<Div>
-		{reviews.map(({ reviewId, consultantNickname, consultantImageUrl, star, comment, reviewDate }, index)=>(
+		{reviews.map(({ reviewId, nickname, imageUrl, star, comment, reviewDate }, index)=>(
 		<form onSubmit={onSubmit}>
     <Card sx={{ marginBottom:5, padding:1, borderRadius: 5}} variant="outlined" className="history-card" key={index}>
 			<CardActionArea>
 				<CardContent>
 					{/* 컨설턴트정보, 날짜 */}
-					<Avatar src={consultantImageUrl} sx={{ width: 100, height: 100, marginBottom:1 }} alt="컨설턴트프로필"/>
+					<Avatar src={imageUrl} sx={{ width: 100, height: 100, marginBottom:1 }} alt="컨설턴트프로필"/>
 					<Forflex>
 						<Typography gutterBottom variant="h6" component="div">
-							{consultantNickname} 컨설턴트님
+							{nickname} 컨설턴트님
 						</Typography>
 						<Typography gutterBottom variant="h6" component="div" >
 							{reviewDate}일 
