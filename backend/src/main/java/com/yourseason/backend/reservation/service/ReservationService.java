@@ -26,7 +26,7 @@ public class ReservationService {
                 .orElseThrow(() -> new NotFoundException(RESERVATION_NOT_FOUND));
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
-        if (customer != reservation.getCustomer()) {
+        if (!customer.equals(reservation.getCustomer())) {
             throw new WrongAccessException(WRONG_ACCESS);
         }
 
