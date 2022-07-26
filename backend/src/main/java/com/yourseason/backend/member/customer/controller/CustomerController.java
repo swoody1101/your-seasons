@@ -55,6 +55,12 @@ public class CustomerController {
                 .body(customerService.updateCustomer(0L, customerUpdateRequest, multipartFile));
     }
 
+    @PatchMapping("/password")
+    public ResponseEntity<Message> updateCustomerPassword(@RequestBody CustomerPasswordUpdateRequest customerPasswordUpdateRequest) {
+        return ResponseEntity.ok()
+                .body(customerService.updateCustomerPassword(0L, customerPasswordUpdateRequest));
+    }
+
     @DeleteMapping
     public ResponseEntity<Message> deleteCustomer() {
         return ResponseEntity.ok()

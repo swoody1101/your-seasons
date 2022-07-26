@@ -61,4 +61,8 @@ public abstract class Member extends BaseTimeEntity {
     protected void withdraw() {
         super.delete();
     }
+
+    protected void changePassword(String afterPassword) {
+        this.password = afterPassword;
+    }
 }
