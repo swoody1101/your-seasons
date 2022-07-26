@@ -1,9 +1,12 @@
 package com.yourseason.backend.reservation.service;
 
+import com.yourseason.backend.common.domain.Message;
 import com.yourseason.backend.member.customer.domain.Customer;
 import com.yourseason.backend.member.customer.domain.CustomerRepository;
 import com.yourseason.backend.reservation.domain.Reservation;
 import com.yourseason.backend.reservation.domain.ReservationRepository;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,12 +33,21 @@ public class ReservationServiceTest {
     @Autowired
     private ReservationRepository reservationRepository;
 
-    @Test
-    public void 고객이_같은지() throws Exception {
+    @Autowired
+    private ReservationService reservationService;
+
+    private Customer loginCustomer;
+    private Customer badCustomer;
+    private Reservation reservation;
+
+    @BeforeEach
+    void setUp() {
+
         LocalDate birth = LocalDate.now();
 
-        Customer loginCustomer = customerRepository.save(Customer.builder()
-                        .email("asdf")
+        loginCustomer = customerRepository.save(
+                Customer.builder()
+                        .email("a1234")
                         .password("asdfasdf")
                         .name("박태이")
                         .birth(birth)
@@ -44,24 +56,36 @@ public class ReservationServiceTest {
                         .imageUrl("asdf")
                         .build());
 
-        Customer badCustomer = customerRepository.save(Customer.builder()
-                .email("asdf")
+        badCustomer = customerRepository.save(Customer.builder()
+                .email("b1234")
                 .password("asdfasdf")
                 .name("박태이")
                 .birth(birth)
                 .nickname("박태태")
-                .contact("0106486492811")
+                .contact("0106486492812")
                 .imageUrl("asdf")
                 .build());
 
 
-        Reservation reservation = reservationRepository.save(Reservation.builder()
-                        .customer(loginCustomer)
-                        .date(LocalDate.now())
-                        .time(LocalTime.now())
-                        .request("예쁘게 해주세요")
-                        .build());
+        reservation = reservationRepository.save(Reservation.builder()
+                .customer(loginCustomer)
+                .date(LocalDate.now())
+                .time(LocalTime.now())
+                .request("예쁘게 해주세요")
+                .build());
+    }
 
-        System.out.println(loginCustomer == reservation.getCustomer());
+    @DisplayName("view_reservation_customer_success")
+    @Test
+    public void view_reservation_customer_success() throws Exception {
+//        System.out.println(loginCustomer == reservation.getCustomer());
+        assertEquals(new Message("succeed"), reservationService.deleteReservation(loginCustomer.getId(), reservation.getId()));
+    }
+
+    @DisplayName("view_reservation_customer_fail")
+    @Test
+    public void view_reservation_customer_fail() throws Exception {
+//        System.out.println(loginCustomer == reservation.getCustomer());
+        assertNotEquals(badCustomer, reservation.getCustomer());
     }
 }
