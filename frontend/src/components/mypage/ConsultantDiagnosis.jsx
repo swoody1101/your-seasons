@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux/es/exports';
 import { Button, Grid, Box, Modal, CardContent,Card, Typography } from '@mui/material';
 import styled from '@emotion/styled'
 import './mypage.css'
-
+import ConsultantDiagnosisReview from './ConsultantDiagnosisReview';
 // Todo. 리뷰 작성하기 버튼 활성화
 
 // 진단결과사진 모달
@@ -47,22 +47,18 @@ export const BasicModal = ({resultImageUrl}) => {
 }
 
 
+
 const ConsultantDiagnosis = () => {
-  const dispatch = useDispatch();
 	const results = useSelector(state=>state.myConsultantDx.data);
 	// useEffect(()=>{
 		// 	dispatch(myConsultantDxFetch())
 		// }, [])
-	const goReview = (e) => {
-		e.stopPropagation();
-		e.preventDefault();
-		// 리뷰작성하러 가기
-		// 리뷰작성여부 false면 리뷰작성버튼 활성화 기능 고려
-	}
+
+
 
 	return (<>
 		<Div>
-		{results.map( ({consultantNickname, consultantImageUrl, consultingDate, bestColorSet, worstColorSet, resultImageUrl, comment } , index) => (
+		{results.map( ({consultantId, consultingId, tone, consultantNickname, consultantImageUrl, consultingDate, bestColorSet, worstColorSet, resultImageUrl, comment, hasReview } , index) => (
 			<div style={{display:'flex', justifyContent:'center'}}>
 			{/* 카드1 */}
 				<Card sx={{ textAlign:'center', display:'flex', justifyContent:'center', maxWidth:700, width: 700,
@@ -84,7 +80,8 @@ const ConsultantDiagnosis = () => {
 						{/* 날짜 */}
 						<Forflex>
 							<div></div>
-							<Typography gutterBottom variant="span" component="div" >
+							<Typography gutterBottom component="div" >
+								<span>{tone} |   </span>
 								{consultingDate}일 
 							</Typography>
 						</Forflex>
@@ -93,7 +90,6 @@ const ConsultantDiagnosis = () => {
 							{/* best */}
 							<Grid container spacing={2} >
 								<Grid item xs={3} sx={{marginTop:1 }}>베스트 컬러</Grid>
-								{/* style={{display:'flex', justifyContent:'center', border: '1px solid', maxWidth:200 }} */}
 								<Grid item xs={9} sx={{display:'flex', justifyContent:'start', alignContent: 'center', maxWidth:200}}>
 									{bestColorSet.map(color=>
 										<div style={{background: color, width:30, height:30, borderRadius: 15, margin: 5}} key={color}></div>)}
@@ -102,7 +98,6 @@ const ConsultantDiagnosis = () => {
 							{/* worst */}
 							<Grid container spacing={2}>
 								<Grid item xs={3} sx={{marginTop:1 }}>워스트 컬러</Grid>
-								{/* style={{display:'flex', justifyContent:'center', border: '1px solid', maxWidth:200 }} */}
 								<Grid item xs={9} sx={{display:'flex', justifyContent:'start', alignContent: 'flex-end',maxWidth:200}}>
 									{worstColorSet.map(color=>
 										<div style={{background: color, width:30, height:30, borderRadius: 15, margin: 5}} key={color}></div>)}
@@ -111,11 +106,11 @@ const ConsultantDiagnosis = () => {
 						</Pallete>
 					</CardContent>
 
-					{/* 모달 */}
+					{/* 이미지 모달 */}
 					<BasicModal resultImageUrl={resultImageUrl}/>
 
-					{/* 버튼 */}
-					<Button size="medieum" color="primary" onClick={goReview}>리뷰작성하기</Button>
+					{/* 리뷰작성 모달 */}
+					<ConsultantDiagnosisReview consultantId={consultantId} consultantNickname={consultantNickname} hasReview={hasReview}/>
 			</Card>
 		</div>
 		))}
