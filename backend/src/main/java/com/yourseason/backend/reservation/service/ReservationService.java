@@ -31,6 +31,6 @@ public class ReservationService {
         }
 
         reservation.cancel();
-        return new Message("succeed");
+        return new Message("succeeded");
     }
 }
