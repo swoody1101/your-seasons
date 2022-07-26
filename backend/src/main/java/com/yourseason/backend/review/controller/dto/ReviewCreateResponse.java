@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ReviewCreateResponse {
 
-    private long reviewId;
+    private Long reviewId;
     private String message;
 }
