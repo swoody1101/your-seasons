@@ -4,7 +4,6 @@ import com.yourseason.backend.review.domain.Review;
 import lombok.*;
 
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ReviewCreateRequest {
 
