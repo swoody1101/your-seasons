@@ -24,7 +24,6 @@ public class Consulting extends BaseTimeEntity {
     private TestResult testResult;
 
     private String comment;
-
     private boolean hasReview;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -45,5 +44,9 @@ public class Consulting extends BaseTimeEntity {
         this.hasReview = hasReview;
         this.consultant = consultant;
         this.customer = customer;
+    }
+
+    public void setReviewRegistration(boolean registration){
+        this.hasReview = registration;
     }
 }
