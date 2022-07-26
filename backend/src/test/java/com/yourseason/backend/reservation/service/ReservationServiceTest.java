@@ -1,6 +1,7 @@
 package com.yourseason.backend.reservation.service;
 
 import com.yourseason.backend.common.domain.Message;
+import com.yourseason.backend.common.exception.WrongAccessException;
 import com.yourseason.backend.member.customer.domain.Customer;
 import com.yourseason.backend.member.customer.domain.CustomerRepository;
 import com.yourseason.backend.reservation.domain.Reservation;
@@ -16,7 +17,8 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ReservationServiceTest {
@@ -56,36 +58,38 @@ public class ReservationServiceTest {
                         .imageUrl("asdf")
                         .build());
 
-        badCustomer = customerRepository.save(Customer.builder()
-                .email("b1234")
-                .password("asdfasdf")
-                .name("박태이")
-                .birth(birth)
-                .nickname("박태태")
-                .contact("0106486492812")
-                .imageUrl("asdf")
-                .build());
+        badCustomer = customerRepository.save(
+                Customer.builder()
+                        .email("b1234")
+                        .password("asdfasdf")
+                        .name("박태이")
+                        .birth(birth)
+                        .nickname("박태태")
+                        .contact("0106486492812")
+                        .imageUrl("asdf")
+                        .build());
 
-
-        reservation = reservationRepository.save(Reservation.builder()
-                .customer(loginCustomer)
-                .date(LocalDate.now())
-                .time(LocalTime.now())
-                .request("예쁘게 해주세요")
-                .build());
+        reservation = reservationRepository.save(
+                Reservation.builder()
+                        .customer(loginCustomer)
+                        .date(LocalDate.now())
+                        .time(LocalTime.now())
+                        .request("예쁘게 해주세요")
+                        .build());
     }
 
-    @DisplayName("view_reservation_customer_success")
+    @DisplayName("예약 취소 성공")
     @Test
-    public void view_reservation_customer_success() throws Exception {
-//        System.out.println(loginCustomer == reservation.getCustomer());
-        assertEquals(new Message("succeed"), reservationService.deleteReservation(loginCustomer.getId(), reservation.getId()));
+    public void cancel_reservation_success() throws Exception {
+        assertThat(reservationService.deleteReservation(1L, 1L))
+                .isEqualTo(new Message("succeeded"));
     }
 
-    @DisplayName("view_reservation_customer_fail")
+    @DisplayName("예약 취소 실패")
     @Test
-    public void view_reservation_customer_fail() throws Exception {
-//        System.out.println(loginCustomer == reservation.getCustomer());
-        assertNotEquals(badCustomer, reservation.getCustomer());
+    public void cancel_reservation_fail() throws Exception {
+        assertThatThrownBy(() -> reservationService.deleteReservation(2L, reservation.getId()))
+                .isInstanceOf(WrongAccessException.class)
+                .hasMessage("잘못된 접근입니다.");
     }
 }
