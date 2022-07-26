@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { ButtonGroup, Button, Container, Grid, styled, TextField } from '@mui/material'
+import { ButtonGroup, Button, Container, Box, Grid, styled, TextField } from '@mui/material'
 import { BAD_REQUEST, NOT_FOUND, CONFLICT } from '../../api/CustomConst'
-import { modifyConsultant, loadMember } from './modifySlice'
+import { modifyMember, loadMember } from './modifySlice'
 
 const ModifyConsultant = () => {
   const { role } = useSelector((state) => state.login.logonUser)
@@ -12,17 +12,34 @@ const ModifyConsultant = () => {
   // const { introduction } = 'asdf';
   const [newIntroduction, setNewIntroduction] = useState(introduction);
   const [newCost, setNewCost] = useState(cost);
-
+  const [helperText, setHelperText] = useState('');
   // 수정여부
   const [isModiIntro, setIsModiIntro] = useState(false);
   const [isModiCost, setIsModiCost] = useState(false);
 
   const dispatch = useDispatch();
 
+  const handleCost = (e) => {
+    let c = e.target.value.replace(/,/g, '');
+    setHelperText('')
+    if (/^[0-9\b ,]{0,6}$/.test(c)) {
+      if (c.length === 4) {
+        c = c.replace(/(\d{1})(\d{3})/, '$1,$2')
+      } else if (c.length === 5) {
+        c = c.replace(/(\d{2})(\d{3})/, '$1,$2')
+      } else if (c.length === 6) {
+        c = c.replace(/(\d{3})(\d{3})/, '$1,$2')
+      }
+      setNewCost(c)
+    } else {
+      setHelperText('100만원을 초과할 수 없습니다.')
+    }
+  }
+
   const handleModify = () => {
     common.introduction = newIntroduction ? newIntroduction : introduction;
     common.cost = newCost ? newCost : cost;
-    dispatch(modifyConsultant(common))
+    dispatch(modifyMember(common))
       .unwrap()
       .then((res) => {
         alert("수정이 완료되었습니다.")
@@ -46,13 +63,13 @@ const ModifyConsultant = () => {
         <h2>컨설턴트 소개글</h2>
         {
           isModiIntro ?
-            <IntromGrid item xs={12}>
+            <IntroGrid item xs={12}>
               <Textarea
                 value={newIntroduction}
                 onChange={e => setNewIntroduction(e.target.value)} />
-            </IntromGrid>
+            </IntroGrid>
             :
-            <IntromGrid item xs={12}>
+            <IntroGrid item xs={12}>
               {introduction}
               <Button
                 onClick={
@@ -61,38 +78,32 @@ const ModifyConsultant = () => {
               >
                 수정
               </Button>
-            </IntromGrid>
+            </IntroGrid>
         }
         <h2>컨설팅 비용</h2>
-        <Grid xs={12}>
-          <Grid xs={3}>
-          </Grid>
-          <Grid xs={8}>
+        <Grid item xs={12}>
+          <Grid item xs={8}>
             {
               isModiCost ?
-                <Grid item xs={12}>
-                  <TextField
-                    value={newIntroduction}
-                    onChange={e => setNewIntroduction(e.target.value)} />
-                </Grid>
+                <TextField
+                  helperText={helperText}
+                  value={newCost}
+                  onChange={handleCost} />
                 :
-                <CostGrid item xs={12}>
-                  <StyledSpan >
-                    금액 :
-                  </StyledSpan>
-                  {cost}
+                <Grid item>
+                  <StyledSpan >{cost}원</StyledSpan>
                   <Button
                     onClick={
-                      () => setIsModiIntro(true)
+                      () => setIsModiCost(true)
                     }
                   >
                     수정
                   </Button>
-                </CostGrid>
+                </Grid>
             }
           </Grid>
         </Grid>
-      </Grid>
+      </Grid >
       {
         (isModiIntro || isModiCost)
         &&
@@ -105,6 +116,8 @@ const ModifyConsultant = () => {
         >
           <Button
             onClick={() => {
+              setNewIntroduction(introduction);
+              setNewCost(cost);
               setIsModiIntro(false);
               setIsModiCost(false);
             }}
@@ -120,12 +133,13 @@ const ModifyConsultant = () => {
 
 export default ModifyConsultant
 
-const IntromGrid = styled(Grid)({
+const IntroGrid = styled(Grid)({
   border: '1px solid #00000070',
   borderRadius: '0.4rem',
   padding: '0.4rem',
   minHeight: '200px',
   position: 'relative',
+  pontSize: '2rem',
   button: {
     position: 'absolute',
     bottom: '0.2rem',

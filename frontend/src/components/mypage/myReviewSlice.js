@@ -106,4 +106,4 @@ export const myReviewSlice = createSlice({
 	}
 })
 
-export default myReviewSlice
+export default myReviewSlice.reducer

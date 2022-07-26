@@ -76,6 +76,7 @@ export const deleteResFetch = createAsyncThunk(
 export const updateResFetch = createAsyncThunk(
 	'myResSlice/updateResFetch',
 	async (reservation) => {
+		console.log(reservation)
 		return Axios.put('customers/'+ `${reservation.id}`, reservation)
 		.then(res=>res.data)
 		.catch(error=>false)
@@ -100,4 +101,4 @@ export const myResSlice = createSlice({
 	}
 })
 
-export default myResSlice
+export default myResSlice.reducer
