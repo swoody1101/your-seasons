@@ -83,4 +83,8 @@ public class Consultant extends Member {
     public void withdraw() {
         super.withdraw();
     }
+
+    public void changePassword(String afterPassword) {
+        super.changePassword(afterPassword);
+    }
 }
