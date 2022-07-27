@@ -61,7 +61,7 @@ public class Review extends BaseTimeEntity {
         consultant.getReviews().add(this);
     }
 
-    public void update(int star, String comment) {
+    public void updateReview(int star, String comment) {
         this.star = star;
         this.comment = comment;
     }
