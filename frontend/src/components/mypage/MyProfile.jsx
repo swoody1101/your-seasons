@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { loadMember } from '../modify/modifySlice'
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
+import { useNavigate, Link } from 'react-router-dom';
+
+import { Stack, Button, Grid, styled } from '@mui/material';
+
 import DefaultImg from '../../assets/images/default_profile.jpg';
-import Grid from '@mui/material/Grid';
-import styled from '@emotion/styled'
-import { Link } from '@mui/material'
+
+import { loadMember } from '../modify/modifySlice'
 import { getToken } from '../../api/JWToken';
 import axios from 'axios';
 // import { useParams } from "react-router";
@@ -43,7 +42,7 @@ const MyProfile = () => {
   const diagnosis = () => {
     if (lastDiagnosis === null || lastDiagnosis === undefined || lastDiagnosis === '') {
       return <>
-        <Link href="/consultants" variant="body2">진단하러 가기</Link></>
+        <Link to="/consultants" variant="body2">진단하러 가기</Link></>
     } else {
       return <>
         <Diagnosis>{lastDiagnosis}</Diagnosis></>
@@ -85,26 +84,26 @@ const MyProfile = () => {
     </Grid>
   )
 }
-export default MyProfile
+export default MyProfile;
 
-const ProfileImg = styled.img`
-		width: 140px;
-		height: 140px;
-		border-radius: 50%;
-`;
+const ProfileImg = styled('img')({
+  width: "140px",
+  height: "140px",
+  borderRadius: "50%",
+})
 
+const ProfileText = styled('div')({
+  display: "flex",
+  flexDirection: "column",
+  paddingTop: "20px",
+  paddingLeft: "20px",
+  height: "200px",
+  lineHeight: "250%",
+})
 
-const ProfileText = styled.div`
-	display:flex;
-	flex-direction:column;
-	padding-top: 20px;
-	padding-left: 20px;
-	height: 200px;
-	line-height: 250%;
-`
-const Diagnosis = styled.div`
-	display: -webkit-box;
-	-webkit-box-orient: vertical;
-	-webkit-line-clamp: 2;
-	overflow: hidden;
-`
+const Diagnosis = styled('div')({
+  display: "-webkit-box",
+  "-webkit-box-orient": "vertical",
+  "-webkit-line-clamp": "2",
+  overflow: "hidden"
+})

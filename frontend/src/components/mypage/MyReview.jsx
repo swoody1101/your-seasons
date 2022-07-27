@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux/es/exports';
-import { Button, CardActions, CardContent, Card, Typography, Avatar, CardActionArea } from '@mui/material';
-import styled from '@emotion/styled'
+import { Button, CardActions, CardContent, Card, Typography, Avatar, CardActionArea, styled } from '@mui/material';
 import BasicRating from './StarRating'
 import { myReviewFetch, deleteReviewFetch, updateReviewFetch } from './myReviewSlice'
 
@@ -84,27 +83,27 @@ const MyReview = () => {
 export default MyReview
 
 
-const Div = styled.div`
+const Div = styled('div')`
 	max-width:700px;
 	margin:auto;
 	display:flex;
 	flex-direction: column-reverse;
 `
 
-const RequestBox = styled.div`
+const RequestBox = styled('div')`
 	border: 1px dashed #ADBED2;
 	border-radius: 5px;
 	padding: 10px;
 `
 
-const Forflex = styled.div`
+const Forflex = styled('div')`
 	display:flex;
 	justify-content: space-between;
 	align-items: end;
 	padding: 10px;
 `
 
-const RequestText = styled.textarea`
+const RequestText = styled('textarea')`
 	font-family: Roboto;
 	font-size: 15px;
 	border: none;

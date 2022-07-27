@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import styled from "@emotion/styled";
-import { TextField } from "@mui/material";
+import { TextField, styled } from "@mui/material";
 
 export default function PhoneNumberInput({
   label,
@@ -71,18 +70,18 @@ PhoneNumberInput.defaultProps = {
   value: ""
 };
 
-const Container = styled.div`
-  position: relative;
-`;
+const Container = styled('div')({
+  position: "relative"
+})
 
-const Label = styled.span`
-  color: #878787;
-  font-size: 1.2rem;
-`;
+const Label = styled('span')({
+  color: "#878787",
+  fontSize: "1.2rem"
+})
 
-const Input = styled(TextField)`
-  width: 100%;
-  input {
-    width: calc(100% - 110px);
+const Input = styled(TextField)({
+  width: "100%",
+  input: {
+    width: "calc(100% - 110px)"
   }
-`;
+})

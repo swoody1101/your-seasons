@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux/es/exports';
-import { Button, Grid, Box, Modal, CardContent,Card, Typography } from '@mui/material';
-import styled from '@emotion/styled'
+import { Button, Grid, Box, Modal, CardContent, Card, Typography, styled } from '@mui/material';
 import './mypage.css'
 import ConsultantDiagnosisReview from './ConsultantDiagnosisReview';
 // Todo. 리뷰 작성하기 버튼 활성화
@@ -13,22 +12,22 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   maxWidth: 1000,
-	maxHeight: 700,
+  maxHeight: 700,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
-	overflow:'scroll',
+  overflow: 'scroll',
 };
 
-export const BasicModal = ({resultImageUrl}) => {
+export const BasicModal = ({ resultImageUrl }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   return (
-    <div style={{display:'flex', justifyContent:'center',}}>
-      <Button size="medieum" onClick={handleOpen} sx={{backgroundSize: 'cover', objectFit: 'cover'}}>진단결과 자세히보기</Button>
+    <div style={{ display: 'flex', justifyContent: 'center', }}>
+      <Button size="medieum" onClick={handleOpen} sx={{ backgroundSize: 'cover', objectFit: 'cover' }}>진단결과 자세히보기</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -39,7 +38,7 @@ export const BasicModal = ({resultImageUrl}) => {
           <Typography id="modal-modal-title" variant="span" component="h3">
             퍼스널컬러 진단결과
           </Typography>
-					<img src={resultImageUrl} style={{width: '100%'}}/>
+          <img src={resultImageUrl} style={{ width: '100%' }} />
         </Box>
       </Modal>
     </div>
@@ -121,29 +120,31 @@ const ConsultantDiagnosis = () => {
 export default ConsultantDiagnosis
 
 
-const Div = styled.div`
-	max-width:700px;
-	margin:auto;
-	display:flex;
-	flex-direction: column-reverse;
-`
-const ConImg = styled.img`
-	width: 100px;
-	height: 100px;
-	border-radius: 50%;
-`
-const Forflex = styled.div`
-	display:flex;
-	justify-content: space-between;
-	align-items: end;
-	padding: 10px;
-`
+const Div = styled('div')({
+  maxWidth: "700px",
+  margin: "auto",
+  display: "flex",
+  flexDirection: "column-reverse"
+})
 
-const Pallete = styled.div`
-	display: flex;
-	justify-content: start;
-	flex-direction: column;
-	border: 1px dashed #ADBED2;
-	border-radius: 5px;
-	padding: 10px;
-`
+const ConImg = styled('img')({
+  width: "100px",
+  height: "100px",
+  borderRadius: "50%"
+})
+
+const Forflex = styled('div')({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "end",
+  padding: "10px"
+})
+
+const Pallete = styled('div')({
+  display: "flex",
+  justifyContent: "start",
+  flexDirection: "column",
+  border: "1px dashed #ADBED2",
+  borderRadius: "5px",
+  padding: "10px",
+})
