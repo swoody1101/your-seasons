@@ -6,10 +6,7 @@ import com.yourseason.backend.common.exception.NotEqualException;
 import com.yourseason.backend.common.exception.NotFoundException;
 import com.yourseason.backend.member.common.controller.dto.PasswordUpdateRequest;
 import com.yourseason.backend.member.consultant.controller.dto.*;
-import com.yourseason.backend.member.consultant.domain.Consultant;
-import com.yourseason.backend.member.consultant.domain.ConsultantRepository;
-import com.yourseason.backend.member.consultant.domain.License;
-import com.yourseason.backend.member.consultant.domain.LicenseRepository;
+import com.yourseason.backend.member.consultant.domain.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,6 +28,7 @@ public class ConsultantService {
 
     private final ConsultantRepository consultantRepository;
     private final LicenseRepository licenseRepository;
+    private final ClosedDayRepository closedDayRepository;
 
     public void createConsultant(ConsultantSignupRequest consultantSignupRequest) {
         Consultant consultant = consultantSignupRequest.toEntity();
@@ -185,6 +183,24 @@ public class ConsultantService {
         Consultant consultant = consultantRepository.findById(consultantId)
                 .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
         consultant.withdraw();
+        return new Message("succeeded");
+    }
+
+    public Message registerClosedDays(Long consultantId, ClosedDaysRequest closedDaysRequest) {
+        Consultant consultant = consultantRepository.findById(consultantId)
+                .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
+
+        List<ClosedDay> closedDays = closedDaysRequest.getClosedDays()
+                .stream()
+                .map(closedDay -> ClosedDay.builder()
+                        .date(closedDay)
+                        .consultant(consultant)
+                        .build())
+                .collect(Collectors.toList());
+        consultant.getClosedDays().addAll(closedDays);
+        consultantRepository.save(consultant);
+        closedDayRepository.saveAll(closedDaysRequest.toEntityList());
+
         return new Message("succeeded");
     }
 }

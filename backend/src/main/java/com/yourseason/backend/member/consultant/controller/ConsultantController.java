@@ -74,4 +74,10 @@ public class ConsultantController {
         return ResponseEntity.ok()
                 .body(consultantService.deleteConsultant(1L));
     }
+
+    @PutMapping("/closed-days")
+    public ResponseEntity<Message> registerClosedDays(ClosedDaysRequest closedDaysRequest){
+        return ResponseEntity.ok()
+                .body(consultantService.registerClosedDays(2L, closedDaysRequest));
+    }
 }
