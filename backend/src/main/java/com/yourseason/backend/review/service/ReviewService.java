@@ -1,13 +1,12 @@
 package com.yourseason.backend.review.service;
 
-import com.yourseason.backend.common.domain.Message;
 import com.yourseason.backend.common.exception.NotFoundException;
 import com.yourseason.backend.member.consultant.domain.Consultant;
 import com.yourseason.backend.member.consultant.domain.ConsultantRepository;
 import com.yourseason.backend.member.customer.domain.Customer;
 import com.yourseason.backend.member.customer.domain.CustomerRepository;
-import com.yourseason.backend.review.controller.dto.ReviewCreateResponse;
 import com.yourseason.backend.review.controller.dto.ReviewRequest;
+import com.yourseason.backend.review.controller.dto.ReviewResponse;
 import com.yourseason.backend.review.domain.Review;
 import com.yourseason.backend.review.domain.ReviewRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +24,7 @@ public class ReviewService {
     private final ConsultantRepository consultantRepository;
     private final ReviewRepository reviewRepository;
 
-    public ReviewCreateResponse createReview(Long customerId, Long consultantId, ReviewRequest reviewRequest) {
+    public ReviewResponse createReview(Long customerId, Long consultantId, ReviewRequest reviewRequest) {
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
         Consultant consultant = consultantRepository.findById(consultantId)
@@ -35,19 +34,22 @@ public class ReviewService {
         review.register(customer, consultant);
         reviewRepository.save(review);
 
-        return ReviewCreateResponse.builder()
+        return ReviewResponse.builder()
                 .reviewId(review.getId())
                 .message("succeeded")
                 .build();
     }
 
-    public Message updateReview(Long reviewId, ReviewRequest reviewRequest) {
+    public ReviewResponse updateReview(Long reviewId, ReviewRequest reviewRequest) {
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new NotFoundException(REVIEW_NOT_FOUND));
 
-        review.update(reviewRequest.getStar(), reviewRequest.getComment());
+        review.updateReview(reviewRequest.getStar(), reviewRequest.getComment());
         reviewRepository.save(review);
 
-        return new Message("succeeded");
+        return ReviewResponse.builder()
+                .reviewId(review.getId())
+                .message("succeeded")
+                .build();
     }
 }
