@@ -2,7 +2,9 @@ package com.yourseason.backend.member.consultant.service;
 
 import com.yourseason.backend.common.domain.Message;
 import com.yourseason.backend.common.exception.ImageUploadException;
+import com.yourseason.backend.common.exception.NotEqualException;
 import com.yourseason.backend.common.exception.NotFoundException;
+import com.yourseason.backend.member.common.controller.dto.PasswordUpdateRequest;
 import com.yourseason.backend.member.consultant.controller.dto.*;
 import com.yourseason.backend.member.consultant.domain.Consultant;
 import com.yourseason.backend.member.consultant.domain.ConsultantRepository;
@@ -25,6 +27,7 @@ public class ConsultantService {
     private static final String CONSULTANT_NOT_FOUND = "해당 컨설턴트를 찾을 수 없습니다.";
     private static final String LICENSE_NOT_FOUND = "자격증이 존재하지 않습니다.";
     private static final String IMAGE_UPLOAD_FAIL = "이미지 업로드에 실패했습니다.";
+    private static final String PASSWORD_NOT_EQUAL = "비밀번호가 올바르지 않습니다.";
 
     private final ConsultantRepository consultantRepository;
     private final LicenseRepository licenseRepository;
@@ -163,6 +166,17 @@ public class ConsultantService {
                 imageUrl,
                 consultantUpdateRequest.getIntroduction(),
                 consultantUpdateRequest.getCost());
+        consultantRepository.save(consultant);
+        return new Message("succeeded");
+    }
+
+    public Message updateConsultantPassword(Long consultantId, PasswordUpdateRequest passwordUpdateRequest) {
+        Consultant consultant = consultantRepository.findById(consultantId)
+                .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
+        if (!passwordUpdateRequest.getBeforePassword().equals(consultant.getPassword())) {
+            throw new NotEqualException(PASSWORD_NOT_EQUAL);
+        }
+        consultant.changePassword(passwordUpdateRequest.getAfterPassword());
         consultantRepository.save(consultant);
         return new Message("succeeded");
     }

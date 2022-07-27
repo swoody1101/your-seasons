@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ReviewCreateResponse {
+public class ReviewResponse {
 
     private Long reviewId;
     private String message;
