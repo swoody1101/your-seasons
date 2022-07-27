@@ -1,5 +1,7 @@
 package com.yourseason.backend.review.controller;
 
+
+import com.yourseason.backend.common.domain.Message;
 import com.yourseason.backend.review.controller.dto.ReviewRequest;
 import com.yourseason.backend.review.controller.dto.ReviewResponse;
 import com.yourseason.backend.review.service.ReviewService;
@@ -26,5 +28,11 @@ public class ReviewController {
     public ResponseEntity<ReviewResponse> updateReview(@PathVariable Long reviewId, @RequestBody ReviewRequest reviewRequest) {
         return ResponseEntity.ok()
                 .body(reviewService.updateReview(reviewId, reviewRequest));
+    }
+
+    @DeleteMapping("/{reviewId}")
+    public ResponseEntity<Message> deleteReview(@PathVariable Long reviewId) {
+        return ResponseEntity.ok()
+                .body(reviewService.deleteReview(0L, reviewId));
     }
 }
