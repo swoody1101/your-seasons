@@ -16,10 +16,7 @@ public class Message {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Message message1 = (Message) o;
-        return message.equals(message1.getMessage());
+        return o instanceof Message && message.equals(((Message) o).getMessage());
     }
 
     @Override

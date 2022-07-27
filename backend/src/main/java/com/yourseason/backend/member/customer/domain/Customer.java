@@ -52,10 +52,7 @@ public class Customer extends Member {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Member member = (Member) o;
-        return this.getEmail().equals(member.getEmail());
+        return o instanceof Member && this.getEmail().equals(((Member) o).getEmail());
     }
 
     @Override
