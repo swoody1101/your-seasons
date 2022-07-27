@@ -5,6 +5,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Stack, Button, Grid, styled } from '@mui/material';
 
 import DefaultImg from '../../assets/images/default_profile.jpg';
+import MyAvatar from "../avatar/MyAvatar";
 
 import { loadMember } from '../modify/modifySlice'
 import { getToken } from '../../api/JWToken';
@@ -52,7 +53,7 @@ const MyProfile = () => {
     navigate('/modify')
     dispatch(loadMember(role)).unwrap()
       .then((res) => {
-        console.log(res)
+        // console.log(res)
       })
   }
   return (
@@ -60,11 +61,10 @@ const MyProfile = () => {
       {/* 이미지 */}
       <Grid item xs={12} sm={3} sx={{
         display: 'flex',
-        bgcolor: 'white',
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-        <ProfileImg src={userImg || DefaultImg} />
+        <MyAvatar setSize={16} />
       </Grid>
       {/* 프로필  TEXT */}
       <Grid item xs={12} sm={9}>

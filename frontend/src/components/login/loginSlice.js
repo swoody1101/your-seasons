@@ -6,7 +6,7 @@ const initialState = {
   logonUser: {
     nickname: '',
     role: '',
-    imageUrl: '',
+    imageUrl: '/images/default/avatar01.png',
   },
   isLoading: false,
   isAuthenticated: false,
@@ -42,7 +42,15 @@ const loginSlice = createSlice({
         role: '',
         imageUrl: '',
       }
-    }
+    },
+    modifyLogonUser: (state, { payload }) => {
+      console.log(payload)
+      state.logonUser = {
+        nickname: payload.nickname,
+        role: payload.role,
+        imageUrl: payload.imageUrl
+      }
+    },
   },
   extraReducers: {
     [loginUser.fulfilled]: (state, { payload }) => {
@@ -59,5 +67,5 @@ const loginSlice = createSlice({
   }
 });
 
-export const { logoutUser, resetUser } = loginSlice.actions;
+export const { logoutUser, resetUser, modifyLogonUser } = loginSlice.actions;
 export default loginSlice.reducer

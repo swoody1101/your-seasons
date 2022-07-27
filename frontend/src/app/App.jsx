@@ -17,7 +17,7 @@ import { CUSTOMER, CONSULTANT } from '../api/CustomConst'
 
 const App = () => {
   const { role } = useSelector((state) => state.login.logonUser)
-  // const role = CONSULTANT;
+  // const role = CUSTOMER;
   return (
     <Box>
       <NavBar />
