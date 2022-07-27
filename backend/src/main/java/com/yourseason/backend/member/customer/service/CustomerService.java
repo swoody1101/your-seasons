@@ -8,7 +8,6 @@ import com.yourseason.backend.member.common.controller.dto.PasswordUpdateRequest
 import com.yourseason.backend.member.customer.controller.dto.*;
 import com.yourseason.backend.member.customer.domain.Customer;
 import com.yourseason.backend.member.customer.domain.CustomerRepository;
-import com.yourseason.backend.reservation.domain.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
