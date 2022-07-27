@@ -1,6 +1,7 @@
 package com.yourseason.backend.review.domain;
 
 import com.yourseason.backend.common.domain.BaseTimeEntity;
+import com.yourseason.backend.consulting.domain.Consulting;
 import com.yourseason.backend.member.consultant.domain.Consultant;
 import com.yourseason.backend.member.customer.domain.Customer;
 import lombok.AccessLevel;
@@ -25,16 +26,38 @@ public class Review extends BaseTimeEntity {
     @JoinColumn(name = "consultant_id")
     private Consultant consultant;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "consulting_id")
+    private Consulting consulting;
+
     private double star;
     private String comment;
 
     @Builder
-    public Review(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDateTime deletedDate, boolean isActive,
-                  Customer customer, Consultant consultant, double star, String comment) {
-        super(id, createdTime, lastModifiedTime, deletedDate, isActive);
+    public Review(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate,
+                  boolean isActive, Customer customer, Consultant consultant, Consulting consulting, double star,
+                  String comment) {
+        super(id, createdDate, lastModifiedDate, deletedDate, isActive);
         this.customer = customer;
         this.consultant = consultant;
+        this.consulting = consulting;
         this.star = star;
         this.comment = comment;
+    }
+
+    public void register(Customer customer, Consultant consultant){
+        setCustomer(customer);
+        setConsultant(consultant);
+        consulting.registerReview();
+    }
+
+    public void setCustomer(Customer customer){
+        this.customer = customer;
+        customer.getReviews().add(this);
+    }
+
+    public void setConsultant(Consultant consultant){
+        this.consultant =consultant;
+        consultant.getReviews().add(this);
     }
 }
