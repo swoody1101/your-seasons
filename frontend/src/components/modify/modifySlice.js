@@ -2,6 +2,9 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { CUSTOMER, CONSULTANT } from '../../api/CustomConst'
 import Axios from '../../api/Axios'
 
+import { useDispatch } from 'react-redux/es/exports';
+import { modifyLogonUser } from '../login/loginSlice'
+
 const initialState = {
   common: {
     name: '',
@@ -16,7 +19,8 @@ const initialState = {
     licenseName: '',
     licenseNumber: ''
   },
-  status: 'idle' // 'idle' | 'loading' | 'succeeded' | 'failed'
+  status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
+  isModal: false
 }
 
 export const loadMember = createAsyncThunk(
@@ -29,8 +33,6 @@ export const loadMember = createAsyncThunk(
       } else if (role === CONSULTANT) {
         response = await Axios.get('consultants');
       }
-      console.log(response)
-      console.log(response.data)
       return response.data
     } catch (err) {
       return rejectWithValue(err);
@@ -47,19 +49,23 @@ export const modifyMember = createAsyncThunk(
       if (payload.role === CUSTOMER) {
         const modi = {
           nickname: payload.nickname,
-          contact: payload.contact
+          contact: payload.contact,
+          imageUrl: payload.imageUrl
         } // 고객 수정정보
+        console.log('수정 요청 정보', modi)
         response = await Axios.patch('customers', modi);
       } else if (payload.role === CONSULTANT) {
         const modi = {
           nickname: payload.nickname,
           contact: payload.contact,
+          imageUrl: payload.imageUrl,
           introduction: payload.introduction,
           cost: payload.cost
         } // 컨설턴트 수정정보
+        console.log('수정 요청 정보', modi)
         response = await Axios.patch('consultants', modi);
       }
-      console.log(response)
+      console.log('수정 후 응답', response)
       return response;
     } catch (err) {
       return rejectWithValue(err);
@@ -111,6 +117,14 @@ export const signOut = createAsyncThunk(
 const modifySlice = createSlice({
   name: 'modify',
   initialState,
+  reducers: {
+    modalOn: (state) => {
+      state.isModal = true;
+    },
+    modalOff: (state) => {
+      state.isModal = false;
+    }
+  },
   extraReducers: {
     [loadMember.pending]: (state) => {
       state.status = 'loading';
@@ -124,4 +138,5 @@ const modifySlice = createSlice({
     },
   }
 })
+export const { modalOn, modalOff } = modifySlice.actions;
 export default modifySlice.reducer;

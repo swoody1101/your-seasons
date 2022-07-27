@@ -5,20 +5,22 @@ import {
   Grid, Container, styled
 } from '@mui/material'
 
-import Tab from '@mui/material/Tab';
-import TabContext from '@mui/lab/TabContext';
-import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
+import { Tab } from '@mui/material';
+import { TabContext, TabList, TabPanel } from '@mui/lab';
 
 import ModifyCommon from './ModifyCommon';
+import ModifyConsultant from './ModifyConsultant';
 import ModifyPassword from './ModifyPassword';
 import SignOut from './SignOut';
+import ModifyAvatar from './ModifyAvatar';
+import Sample from './Sample';
+
 import { CONSULTANT } from '../../api/CustomConst';
-import ModifyConsultant from './ModifyConsultant';
 
 const ModifyProfile = () => {
   // 프로필 정보 가져오기
-  const { nickname, role, imageUrl } = useSelector((state) => state.login.logonUser)
+  const { role } = useSelector((state) => (state.login.logonUser))
+  const { isModal } = useSelector((state) => (state.modify))
 
 
   // 세부 페이지 이동 방식
@@ -30,6 +32,13 @@ const ModifyProfile = () => {
 
   return (
     <Container sx={{ xs: 'none', sm: 'block' }}>
+      {
+        isModal
+          ?
+          <Sample />
+          :
+          <></>
+      }
       <TabContext value={page}>
         <Grid container sx={{ mt: 10, height: '80%' }}>
           <Grid
@@ -68,16 +77,12 @@ const ModifyProfile = () => {
           {
             (page === "profile" || page === "consultant")
             &&
-            <Grid
-              item sm={4}
-              sx={{ backgroundColor: 'yellow' }}
-            >
-              프로필이미지
-            </Grid>
+            <ModifyAvatar />
           }
         </Grid>
       </TabContext>
-    </Container>
+
+    </Container >
   )
 }
 

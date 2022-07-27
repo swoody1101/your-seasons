@@ -8,10 +8,11 @@ import { BAD_REQUEST, NOT_FOUND, CONFLICT, CONSULTANT } from '../../api/CustomCo
 import ConfirmValidation from '../input/ConfirmValidationInput'
 import PhoneNumberInput from '../input/PhoneNumberInput';
 import { nicknameCheck } from '../signup/signUpSlice';
+import { modifyLogonUser } from '../login/loginSlice';
 import { modifyMember, loadMember } from './modifySlice'
 
 const ModifyCommon = () => {
-  const { name, nickname, birth, contact, email } = useSelector((state) => state.modify.common)
+  const { name, nickname, birth, contact, email, imageUrl } = useSelector((state) => state.modify.common)
   const { introduction, cost, consultingFile, licenseName, licenseNumber } = useSelector((state) => state.modify.common)
 
   const { role } = useSelector((state) => state.login.logonUser)
@@ -52,6 +53,7 @@ const ModifyCommon = () => {
       nickname: nick,
       contact: phone,
       introduction: introduction,
+      imageUrl: imageUrl,
       cost: cost
     } // client와 consultant 똑같이 수행, slice에서 한번더 정제함
     dispatch(modifyMember(modiData))
@@ -59,6 +61,17 @@ const ModifyCommon = () => {
       .then((res) => {
         alert("수정이 완료되었습니다.")
         dispatch(loadMember(role))
+        const modi = {
+          nickname: nickname,
+          role: role,
+          imageUrl: imageUrl
+        }
+        dispatch(modifyLogonUser(modi))
+        setNewNick('');
+        setIsNickCheck(false);
+        setNewPhone('');
+        setIsModiNick(false);
+        setIsModiPhone(false);
       })
       .catch((err) => {
         if (err.status === BAD_REQUEST) {
