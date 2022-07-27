@@ -131,7 +131,8 @@ public class CustomerService {
         if (!customerPasswordUpdateRequest.getBeforePassword().equals(customer.getPassword())) {
             throw new NotEqualException(PASSWORD_NOT_EQUAL);
         }
-        customer.changePassword(customerPasswordUpdateRequest.getAfterPassword());
+        customer.changePassword(passwordUpdateRequest.getAfterPassword());
+        customerRepository.save(customer);
         return new Message(("succeeded"));
     }
 
