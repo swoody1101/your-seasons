@@ -60,4 +60,8 @@ public class Review extends BaseTimeEntity {
         this.consultant =consultant;
         consultant.getReviews().add(this);
     }
+
+    public void deleteReview(){
+        super.delete();
+    }
 }
