@@ -1,6 +1,7 @@
 package com.yourseason.backend.member.customer.controller;
 
 import com.yourseason.backend.common.domain.Message;
+import com.yourseason.backend.member.common.controller.dto.PasswordUpdateRequest;
 import com.yourseason.backend.member.customer.controller.dto.*;
 import com.yourseason.backend.member.customer.service.CustomerService;
 import lombok.RequiredArgsConstructor;
@@ -56,9 +57,9 @@ public class CustomerController {
     }
 
     @PatchMapping("/password")
-    public ResponseEntity<Message> updateCustomerPassword(@RequestBody CustomerPasswordUpdateRequest customerPasswordUpdateRequest) {
+    public ResponseEntity<Message> updateCustomerPassword(@RequestBody PasswordUpdateRequest passwordUpdateRequest) {
         return ResponseEntity.ok()
-                .body(customerService.updateCustomerPassword(0L, customerPasswordUpdateRequest));
+                .body(customerService.updateCustomerPassword(0L, passwordUpdateRequest));
     }
 
     @DeleteMapping

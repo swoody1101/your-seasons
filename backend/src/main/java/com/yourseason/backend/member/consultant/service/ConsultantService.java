@@ -4,6 +4,7 @@ import com.yourseason.backend.common.domain.Message;
 import com.yourseason.backend.common.exception.ImageUploadException;
 import com.yourseason.backend.common.exception.NotEqualException;
 import com.yourseason.backend.common.exception.NotFoundException;
+import com.yourseason.backend.member.common.controller.dto.PasswordUpdateRequest;
 import com.yourseason.backend.member.consultant.controller.dto.*;
 import com.yourseason.backend.member.consultant.domain.Consultant;
 import com.yourseason.backend.member.consultant.domain.ConsultantRepository;
@@ -169,10 +170,10 @@ public class ConsultantService {
         return new Message("succeeded");
     }
 
-    public Message updateConsultantPassword(Long consultantId, ConsultantPasswordUpdateRequest consultantPasswordUpdateRequest) {
+    public Message updateConsultantPassword(Long consultantId, PasswordUpdateRequest passwordUpdateRequest) {
         Consultant consultant = consultantRepository.findById(consultantId)
                 .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
-        if (!consultantPasswordUpdateRequest.getBeforePassword().equals(consultant.getPassword())) {
+        if (!passwordUpdateRequest.getBeforePassword().equals(consultant.getPassword())) {
             throw new NotEqualException(PASSWORD_NOT_EQUAL);
         }
         consultant.changePassword(passwordUpdateRequest.getAfterPassword());
