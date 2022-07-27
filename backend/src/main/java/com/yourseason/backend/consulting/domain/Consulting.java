@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AttributeOverride(name = "id", column = @Column(name = "consulting_id"))
-@Converter(autoApply = true)
 @Entity
 public class Consulting extends BaseTimeEntity {
 
