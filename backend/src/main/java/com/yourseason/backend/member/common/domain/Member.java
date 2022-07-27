@@ -63,6 +63,6 @@ public abstract class Member extends BaseTimeEntity {
     }
 
     public void changePassword(String afterPassword) {
-        this.password = afterPassword;
+        password = afterPassword;
     }
 }
