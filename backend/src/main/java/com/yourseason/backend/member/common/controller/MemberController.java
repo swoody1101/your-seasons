@@ -4,6 +4,7 @@ import com.yourseason.backend.common.domain.Message;
 import com.yourseason.backend.member.common.controller.dto.LoginRequest;
 import com.yourseason.backend.member.common.controller.dto.LoginResponse;
 import com.yourseason.backend.member.common.service.MemberService;
+import com.yourseason.backend.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,7 @@ public class MemberController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
         return ResponseEntity.ok()
+                .header(JwtUtil.generateToken(memberService.getMember(loginRequest)))
                 .body(memberService.login(loginRequest));
     }
 

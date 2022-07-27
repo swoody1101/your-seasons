@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux/es/exports';
 import { Button, Grid, Box, Modal, CardContent, Card, Typography, styled } from '@mui/material';
 import './mypage.css'
-
+import ConsultantDiagnosisReview from './ConsultantDiagnosisReview';
 // Todo. 리뷰 작성하기 버튼 활성화
 
 // 진단결과사진 모달
@@ -46,82 +46,75 @@ export const BasicModal = ({ resultImageUrl }) => {
 }
 
 
+
 const ConsultantDiagnosis = () => {
-  const dispatch = useDispatch();
-  const results = useSelector(state => state.myConsultantDx.data);
-  // useEffect(()=>{
-  // 	dispatch(myConsultantDxFetch())
-  // }, [])
-  const goReview = (e) => {
-    e.stopPropagation();
-    e.preventDefault();
-    // 리뷰작성하러 가기
-    // 리뷰작성여부 false면 리뷰작성버튼 활성화 기능 고려
-  }
+	const results = useSelector(state=>state.myConsultantDx.data);
+	// useEffect(()=>{
+		// 	dispatch(myConsultantDxFetch())
+		// }, [])
 
-  return (<>
-    <Div>
-      {results.map(({ consultantNickname, consultantImageUrl, consultingDate, bestColorSet, worstColorSet, resultImageUrl, comment }, index) => (
-        <div style={{ display: 'flex', justifyContent: 'center' }} key={index}>
-          {/* 카드1 */}
-          <Card sx={{
-            textAlign: 'center', display: 'flex', justifyContent: 'center', maxWidth: 700, width: 700,
-            boxSizing: 'border-box', flexDirection: "column", marginBottom: 5, padding: 1, borderRadius: 5
-          }} variant="outlined" key={index}>
 
-            {/* 진단결과 */}
-            <CardContent sx={{ display: 'flex', textAlign: 'center', justifyContent: 'center', flexDirection: "column" }}>
-              {/* 컨설턴트정보 및 코멘트 */}
-              <Grid container >
-                <Grid item xs={3}>
-                  <ConImg src={consultantImageUrl} alt="컨설턴트프로필" />
-                  <Typography gutterBottom variant="span" component="div">
-                    {consultantNickname}
-                    <p>컨설턴트</p>
-                  </Typography>
-                </Grid>
-                <Grid item xs={9} className="task-tooltip">{comment}</Grid>
-              </Grid>
-              {/* 날짜 */}
-              <Forflex>
-                <div></div>
-                <Typography gutterBottom variant="span" component="div" >
-                  {consultingDate}일
-                </Typography>
-              </Forflex>
-              {/* 색상결과 */}
-              <Pallete>
-                {/* best */}
-                <Grid container spacing={2} >
-                  <Grid item xs={3} sx={{ marginTop: 1 }}>베스트 컬러</Grid>
-                  {/* style={{display:'flex', justifyContent:'center', border: '1px solid', maxWidth:200 }} */}
-                  <Grid item xs={9} sx={{ display: 'flex', justifyContent: 'start', alignContent: 'center', maxWidth: 200 }}>
-                    {bestColorSet.map(color =>
-                      <div style={{ background: color, width: 30, height: 30, borderRadius: 15, margin: 5 }} key={color}></div>)}
-                  </Grid>
-                </Grid>
-                {/* worst */}
-                <Grid container spacing={2}>
-                  <Grid item xs={3} sx={{ marginTop: 1 }}>워스트 컬러</Grid>
-                  {/* style={{display:'flex', justifyContent:'center', border: '1px solid', maxWidth:200 }} */}
-                  <Grid item xs={9} sx={{ display: 'flex', justifyContent: 'start', alignContent: 'flex-end', maxWidth: 200 }}>
-                    {worstColorSet.map(color =>
-                      <div style={{ background: color, width: 30, height: 30, borderRadius: 15, margin: 5 }} key={color}></div>)}
-                  </Grid>
-                </Grid>
-              </Pallete>
-            </CardContent>
 
-            {/* 모달 */}
-            <BasicModal resultImageUrl={resultImageUrl} />
+	return (<>
+		<Div>
+		{results.map( ({consultantId, consultingId, tone, consultantNickname, consultantImageUrl, consultingDate, bestColorSet, worstColorSet, resultImageUrl, comment, hasReview } , index) => (
+			<div style={{display:'flex', justifyContent:'center'}}>
+			{/* 카드1 */}
+				<Card sx={{ textAlign:'center', display:'flex', justifyContent:'center', maxWidth:700, width: 700,
+									boxSizing:'border-box', flexDirection:"column", marginBottom:5, padding:1, borderRadius: 5 }} variant="outlined" key={index}>
 
-            {/* 버튼 */}
-            <Button size="medieum" color="primary" onClick={goReview}>리뷰작성하기</Button>
-          </Card>
-        </div>
-      ))}
-    </Div>
-  </>)
+					{/* 진단결과 */}
+					<CardContent sx={{display:'flex', textAlign:'center', justifyContent:'center', flexDirection:"column"}}>
+						{/* 컨설턴트정보 및 코멘트 */}
+						<Grid container >
+							<Grid item xs={3}>
+								<ConImg src={consultantImageUrl} alt="컨설턴트프로필"/>
+								<Typography gutterBottom variant="span" component="div">
+									{consultantNickname}
+									<p>컨설턴트</p>
+								</Typography>
+							</Grid>
+							<Grid item xs={9} className="task-tooltip">{comment}</Grid>
+						</Grid>
+						{/* 날짜 */}
+						<Forflex>
+							<div></div>
+							<Typography gutterBottom component="div" >
+								<span>{tone} |   </span>
+								{consultingDate}일 
+							</Typography>
+						</Forflex>
+						{/* 색상결과 */}
+						<Pallete>
+							{/* best */}
+							<Grid container spacing={2} >
+								<Grid item xs={3} sx={{marginTop:1 }}>베스트 컬러</Grid>
+								<Grid item xs={9} sx={{display:'flex', justifyContent:'start', alignContent: 'center', maxWidth:200}}>
+									{bestColorSet.map(color=>
+										<div style={{background: color, width:30, height:30, borderRadius: 15, margin: 5}} key={color}></div>)}
+								</Grid>
+							</Grid>
+							{/* worst */}
+							<Grid container spacing={2}>
+								<Grid item xs={3} sx={{marginTop:1 }}>워스트 컬러</Grid>
+								<Grid item xs={9} sx={{display:'flex', justifyContent:'start', alignContent: 'flex-end',maxWidth:200}}>
+									{worstColorSet.map(color=>
+										<div style={{background: color, width:30, height:30, borderRadius: 15, margin: 5}} key={color}></div>)}
+								</Grid>
+							</Grid>
+						</Pallete>
+					</CardContent>
+
+					{/* 이미지 모달 */}
+					<BasicModal resultImageUrl={resultImageUrl}/>
+
+					{/* 리뷰작성 모달 */}
+					<ConsultantDiagnosisReview consultantId={consultantId} consultantNickname={consultantNickname} hasReview={hasReview}/>
+			</Card>
+		</div>
+		))}
+	</Div>
+	</>)
 }
 
 export default ConsultantDiagnosis
