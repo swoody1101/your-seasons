@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Box, Button, ButtonGroup, Container, Grid } from '@mui/material'
-import { styled } from '@mui/system'
+import { Box, Button, ButtonGroup, Container, Grid, styled } from '@mui/material'
 
 import regex from '../input/regex';
-import { BAD_REQUEST, NOT_FOUND, CONFLICT } from '../../api/CustomConst'
+import { BAD_REQUEST, NOT_FOUND, CONFLICT, CONSULTANT } from '../../api/CustomConst'
 import ConfirmValidation from '../input/ConfirmValidationInput'
 import PhoneNumberInput from '../input/PhoneNumberInput';
 import { nicknameCheck } from '../signup/signUpSlice';
@@ -13,6 +12,8 @@ import { modifyMember, loadMember } from './modifySlice'
 
 const ModifyCommon = () => {
   const { name, nickname, birth, contact, email } = useSelector((state) => state.modify.common)
+  const { introduction, cost, consultingFile, licenseName, licenseNumber } = useSelector((state) => state.modify.common)
+
   const { role } = useSelector((state) => state.login.logonUser)
 
   const [newNick, setNewNick] = useState('');
@@ -45,7 +46,15 @@ const ModifyCommon = () => {
     }
     const nick = newNick ? newNick : nickname;
     const phone = newPhone ? newPhone : contact;
-    dispatch(modifyMember({ role: role, nickname: nick, contact: phone }))
+
+    const modiData = {
+      role: role,
+      nickname: nick,
+      contact: phone,
+      introduction: introduction,
+      cost: cost
+    } // client와 consultant 똑같이 수행, slice에서 한번더 정제함
+    dispatch(modifyMember(modiData))
       .unwrap()
       .then((res) => {
         alert("수정이 완료되었습니다.")
@@ -63,120 +72,147 @@ const ModifyCommon = () => {
   }
 
   return (
-    <Container>
-      <h1>프로필 정보</h1>
-      <Grid container m={2} gap={3} >
-        <Grid container>
-          <LabelGrid item xs={3}>
-            <h2>이름</h2>
-          </LabelGrid>
-          <Grid item xs={8}>
-            <h2>{name}</h2>
+    <>
+      <Container>
+        <h1>프로필 정보</h1>
+        <Grid container m={2} gap={3} >
+          <Grid container>
+            <LabelGrid item xs={3}>
+              <h2>이름</h2>
+            </LabelGrid>
+            <Grid item xs={8}>
+              <h2>{name}</h2>
+            </Grid>
           </Grid>
-        </Grid>
-        <Grid container>
-          <LabelGrid item xs={3}>
-            <h2>닉네임</h2>
-          </LabelGrid>
-          <Grid item xs={8}>
-            {
-              isModiNick ?
-                <ConfirmValidation
-                  value={newNick}
-                  setValue={setNewNick}
-                  isCheck={isNickCheck}
-                  setIsCheck={setIsNickCheck}
-                  handleValueCheck={handleCheckNickname}
-                  regexCheck={regex.nickname}
-                  defaultText="닉네임을 입력해주세요."
-                  successText="success"
-                  errorText="닉네임 양식을 맞춰주세요."
-                />
-                :
-                <h2>
-                  {nickname}
-                  <Button
-                    sx={{ p: 0, ml: 1 }}
-                    onClick={
-                      () => setIsModiNick(true)
-                    }>닉네임 수정</Button>
-                </h2>
-            }
+          <Grid container>
+            <LabelGrid item xs={3}>
+              <h2>닉네임</h2>
+            </LabelGrid>
+            <Grid item xs={8}>
+              {
+                isModiNick ?
+                  <ConfirmValidation
+                    value={newNick}
+                    setValue={setNewNick}
+                    isCheck={isNickCheck}
+                    setIsCheck={setIsNickCheck}
+                    handleValueCheck={handleCheckNickname}
+                    regexCheck={regex.nickname}
+                    defaultText="닉네임을 입력해주세요."
+                    successText="success"
+                    errorText="닉네임 양식을 맞춰주세요."
+                  />
+                  :
+                  <h2>
+                    {nickname}
+                    <Button
+                      sx={{ p: 0, ml: 1 }}
+                      onClick={
+                        () => setIsModiNick(true)
+                      }>닉네임 수정</Button>
+                  </h2>
+              }
 
+            </Grid>
           </Grid>
-        </Grid>
-        <Grid container>
-          <LabelGrid item xs={3}>
-            <h2>생년월일</h2>
-          </LabelGrid>
-          <Grid item xs={8}>
-            <h2>{birth}</h2>
+          <Grid container>
+            <LabelGrid item xs={3}>
+              <h2>생년월일</h2>
+            </LabelGrid>
+            <Grid item xs={8}>
+              <h2>{birth}</h2>
+            </Grid>
           </Grid>
-        </Grid>
-        <Grid container>
-          <LabelGrid item xs={3}>
-            <h2>전화번호</h2>
-          </LabelGrid>
-          <Grid item xs={8}>
-            {
-              isModiPhone ?
-                <PhoneNumberInput
-                  type="text"
-                  value={newPhone}
-                  setValue={setNewPhone}
-                  maxValue={13}
-                  regexCheck={regex.phone}
-                  defaultText="전화번호를 입력해주세요."
-                  successText="success"
-                  errorText="올바른 전화번호를 입력해주세요."
-                />
-                :
-                <h2>
-                  {contact}
-                  <Button
-                    sx={{ p: 0, ml: 1 }}
-                    onClick={
-                      () => setIsModiPhone(true)
-                    }>전화번호 수정</Button>
-                </h2>
-            }
+          <Grid container>
+            <LabelGrid item xs={3}>
+              <h2>전화번호</h2>
+            </LabelGrid>
+            <Grid item xs={8}>
+              {
+                isModiPhone ?
+                  <PhoneNumberInput
+                    type="text"
+                    value={newPhone}
+                    setValue={setNewPhone}
+                    maxValue={13}
+                    regexCheck={regex.phone}
+                    defaultText="전화번호를 입력해주세요."
+                    successText="success"
+                    errorText="올바른 전화번호를 입력해주세요."
+                  />
+                  :
+                  <h2>
+                    {contact}
+                    <Button
+                      sx={{ p: 0, ml: 1 }}
+                      onClick={
+                        () => setIsModiPhone(true)
+                      }>전화번호 수정</Button>
+                  </h2>
+              }
 
+            </Grid>
+          </Grid>
+          <Grid container>
+            <LabelGrid item xs={3}>
+              <h2>이메일</h2>
+            </LabelGrid>
+            <Grid item xs={8}>
+              <h2>{email}</h2>
+            </Grid>
           </Grid>
         </Grid>
-        <Grid container>
-          <LabelGrid item xs={3}>
-            <h2>이메일</h2>
-          </LabelGrid>
-          <Grid item xs={8}>
-            <h2>{email}</h2>
-          </Grid>
-        </Grid>
-      </Grid>
-      {
-        (isModiNick || isModiPhone)
-        &&
-        <ButtonGroup
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "end"
-          }}
-        >
-          <Button
-            onClick={() => {
-              setNewNick('');
-              setIsNickCheck(false);
-              setNewPhone('');
-              setIsModiNick(false);
-              setIsModiPhone(false);
+        {
+          (isModiNick || isModiPhone)
+          &&
+          <ButtonGroup
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "end"
             }}
-          >취소</Button>
-          <Button
-            onClick={handleModify}
-          >확인</Button>
-        </ButtonGroup>
+          >
+            <Button
+              onClick={() => {
+                setNewNick('');
+                setIsNickCheck(false);
+                setNewPhone('');
+                setIsModiNick(false);
+                setIsModiPhone(false);
+              }}
+            >취소</Button>
+            <Button
+              onClick={handleModify}
+            >확인</Button>
+          </ButtonGroup>
+        }
+      </Container>
+      {
+        role === CONSULTANT
+        &&
+        <Container sx={{ marginTop: "3rem" }}>
+          <h1>자격증 정보</h1>
+          <Grid container m={2} gap={3} >
+            <Grid container>
+              <LabelGrid item xs={3}>
+                <h2>자격증</h2>
+              </LabelGrid>
+              <Grid item xs={8}>
+                <h2>{licenseName}</h2>
+              </Grid>
+            </Grid>
+            <Grid container>
+              <LabelGrid item xs={3}>
+                <h2>자격번호</h2>
+              </LabelGrid>
+              <Grid item xs={8}>
+                <h3>{licenseNumber}</h3>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Container>
       }
-    </Container>
+    </>
   )
 }
 

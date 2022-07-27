@@ -1,14 +1,11 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom';
 
 import {
   AppBar, Box,
-  Button,
-  Toolbar, Typography,
+  Toolbar, Typography, styled
 } from '@mui/material'
-import styled from '@emotion/styled'
 import { Pets } from '@mui/icons-material'
 
 import { logoutUser, resetUser } from '../login/loginSlice';
@@ -21,16 +18,11 @@ const NavBar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-
   const logout = () => {
-    dispatch(logoutUser()).unwrap()
-      .then(() => {
-        alert(role + "인 " + logonUser.nickname + "님이 로그아웃 되었습니다.")
-        dispatch(resetUser())
-        navigate('/')
-      }).catch((err) => {
-        console.log(err)
-      })
+    dispatch(logoutUser()) // deleteToken
+    alert(role + "인 " + logonUser.nickname + "님이 로그아웃 되었습니다.") // state 체크 용 추후 삭제
+    dispatch(resetUser()) // state 초기화, logout과 같이 할 지 토의 필요
+    navigate('/')
   }
 
   return (

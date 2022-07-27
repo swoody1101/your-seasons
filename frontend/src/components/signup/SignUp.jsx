@@ -50,7 +50,7 @@ const SignUp = () => {
 
   const [role, setRole] = useState('member');
 
-  const [licenseName, setLicenseName] = useState('선택안함');
+  const [licenseName, setLicenseName] = useState('');
   const [licenseNumber, setLicenseNumber] = useState('');
 
   const [agreeChecked, setAgreeChcked] = useState(false);

@@ -1,12 +1,8 @@
 import React from "react";
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import Divider from '@mui/material/Divider';
-import Avatar from '@mui/material/Avatar';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
+import { ListItem, ListItemText, Divider, Avatar, Box, ListItemAvatar } from '@mui/material'
+
 import ProfileImage from '../../assets/images/yourseasonlogo.png';
 import StarRating from "./StarRating";
-import Box from '@mui/material/Box';
 
 const UserReviewItem = props => {
 

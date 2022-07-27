@@ -91,7 +91,7 @@ public class ConsultantService {
                 .collect(Collectors.toList());
     }
 
-    public ConsultantReservationResponse getMyReservations(long consultantId) {
+    public ConsultantReservationResponse getMyReservations(Long consultantId) {
         Consultant consultant = consultantRepository.findById(consultantId)
                 .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
 
@@ -114,7 +114,7 @@ public class ConsultantService {
                 .build();
     }
 
-    public ConsultantReviewResponse getMyReviews(long consultantId) {
+    public ConsultantReviewResponse getMyReviews(Long consultantId) {
         Consultant consultant = consultantRepository.findById(consultantId)
                 .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
 
@@ -142,7 +142,7 @@ public class ConsultantService {
 
         String imageUrl = consultant.getImageUrl();
         if (consultant.getImageUrl() == null) {
-            String filePath = System.getProperty("user.dir") + "/src/min/resources/static/img/";
+            String filePath = System.getProperty("user.dir") + "/src/main/resources/static/img/";
             String fileName = consultant.getEmail();
             imageUrl = filePath + fileName;
         }
@@ -167,7 +167,7 @@ public class ConsultantService {
         return new Message("succeeded");
     }
 
-    public Message deleteConsultant(long consultantId) {
+    public Message deleteConsultant(Long consultantId) {
         Consultant consultant = consultantRepository.findById(consultantId)
                 .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
         consultant.withdraw();

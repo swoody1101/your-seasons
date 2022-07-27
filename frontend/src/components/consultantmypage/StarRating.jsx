@@ -1,7 +1,7 @@
 import React from "react";
 import whitestar from '../../assets/images/whitestar.png'
 import filledstar from '../../assets/images/filledstar.png'
-import './ConsultantProfile.css'
+import './starrating.css'
 
 const StarRating = props => {
   return (

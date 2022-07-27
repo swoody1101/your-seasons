@@ -1,6 +1,5 @@
 import React from "react";
-import styled from "@emotion/styled";
-import { RadioGroup, Radio, FormControlLabel } from "@mui/material";
+import { RadioGroup, Radio, FormControlLabel, styled } from "@mui/material";
 import { CUSTOMER, CONSULTANT } from '../../api/CustomConst'
 export default function RoleSelectBox({
   label,
@@ -33,14 +32,14 @@ RoleSelectBox.defaultProps = {
   value: ""
 };
 
-const Container = styled.div`
-  position: relative;
-`;
+const Container = styled('div')({
+  position: "relative"
+})
 
-const Label = styled.span`
-  color: #878787;
-  font-size: 1.2rem;
-`;
+const Label = styled('span')({
+  color: "#878787",
+  fontSize: "1.2rem"
+})
 
 const StyledRadioGroup = styled(RadioGroup)({
   display: "flex",

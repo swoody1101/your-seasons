@@ -1,13 +1,14 @@
 package com.yourseason.backend.reservation.controller;
 
 import com.yourseason.backend.common.domain.Message;
+import com.yourseason.backend.reservation.controller.dto.ReservationCreateRequest;
+import com.yourseason.backend.reservation.controller.dto.ReservationCreateResponse;
 import com.yourseason.backend.reservation.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
 
 @RequiredArgsConstructor
 @RestController
@@ -16,9 +17,15 @@ public class ReservationController {
 
     private final ReservationService reservationService;
 
+    @PostMapping("/{consultantId}")
+    public ResponseEntity<ReservationCreateResponse> createReservation(@PathVariable Long consultantId,
+                                                                       @RequestBody ReservationCreateRequest reservationCreateRequest) {
+        return ResponseEntity.created(URI.create("/consultants/" + consultantId + "/1"))
+                .body(reservationService.createReservation(0L, consultantId, reservationCreateRequest));
+    }
+
     @DeleteMapping("/{reservationId}")
     public ResponseEntity<Message> deleteReservation(@PathVariable Long reservationId) {
         return ResponseEntity.ok()
                 .body(reservationService.deleteReservation(0L, reservationId));
-    }
 }

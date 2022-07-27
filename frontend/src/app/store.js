@@ -8,15 +8,15 @@ import ModifyReducer from '../components/modify/modifySlice'
 import UserReviewReducer from '../components/consultantmypage/userReviewSlice'
 import consultantProfileReducer from '../components/consultantmypage/consultantProfileSlice'
 import SignUpReducer from '../components/signup/signUpSlice'
-import myConsultantDxSlice from "../components/mypage/myConsultantDxSlice";
-import myReviewSlice from "../components/mypage/myReviewSlice";
-import myResSlice from '../components/mypage/ReservationSlice';
+import myConsultantDxReducer from "../components/mypage/myConsultantDxSlice";
+import myReviewReducer from "../components/mypage/myReviewSlice";
+import myResReducer from '../components/mypage/myResSlice';
 
 
 const reducers = combineReducers({
-  myConsultantDx: myConsultantDxSlice.reducer,
-  myReviews: myReviewSlice.reducer,
-  myRes: myResSlice.reducer,
+	myConsultantDx: myConsultantDxReducer,
+	myReviews: myReviewReducer,
+	myRes: myResReducer,
   signup: SignUpReducer,
   login: LoginReducer,
   modify: ModifyReducer,

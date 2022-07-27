@@ -2,21 +2,47 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Axios from '../../api/Axios'
 // 지난 진단 기록 불러와서 프로필에도 적용하기 (마지막 진단 하나만)
 
+
 const consultantDiagnosis = [
-	{consultantNickname: "히사시부리",
+	{
+	consultantId: 2,
+	consultingId: 3,
+	tone: "가을웜톤",
+	consultantNickname: "히사시부리",
 	consultantImageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/aa/Joo_Won_in_August_2020.jpg",
-	consultingDate: "2022-01-19",
+	consultingDate: '2022-01-19',
 	bestColorSet: ["#0000FF", "#FF0000", "#00FF00"], 
 	worstColorSet: ["#C0C0C0", "#808080", "#00FF00"],
 	resultImageUrl: "https://cdn.imweb.me/thumbnail/20211226/af5ae627d9c53.png",
-	comment: "치당님은 웜톤입니다 ~~~ 베스트컬러는 비비드한게 잘어울리는~Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab architecto alias unde laudantium obcaecati numquam. Molestias iusto consequatur, officiis dolore ipsum enim minus similique iure veritatis tenetur repellat cumque neque!~~~~"},
-	{consultantNickname: "asdf",
+	comment: "치당님은 웜톤입니다 ~~~ 베스트컬러는 비비드한게 잘어울리는~Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab architecto alias unde laudantium obcaecati numquam. Molestias iusto consequatur, officiis dolore ipsum enim minus similique iure veritatis tenetur repellat cumque neque!~~~~",
+	hasReview: true,
+},
+	{
+	consultantId: 3,
+	consultingId: 4,
+	tone: "봄웜톤",
+	consultantNickname: "asdf",
 	consultantImageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/aa/Joo_Won_in_August_2020.jpg",
-	consultingDate: "2022-01-19",
+	consultingDate: '2022-01-19',
 	bestColorSet: ["#0000FF", "#FF0000", "#00FF00"], 
 	worstColorSet: ["#C0C0C0", "#808080", "#00FF00"],
 	resultImageUrl: "https://cdn.imweb.me/thumbnail/20211226/af5ae627d9c53.png",
-	comment: "치당님은 ㅏㅏ "},
+	comment: "치당님은 ㅏㅏ ",
+	hasReview: true,
+},
+	{
+	consultantId: 1,
+	consultingId: 6,
+	tone: "가을웜톤",
+	consultantNickname: "가나다라",
+	consultantImageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/aa/Joo_Won_in_August_2020.jpg",
+	consultingDate: '2022-01-19',
+	bestColorSet: ["#0000FF", "#FF0000", "#00FF00"], 
+	worstColorSet: ["#C0C0C0", "#808080", "#00FF00"],
+	resultImageUrl: "https://cdn.imweb.me/thumbnail/20211226/af5ae627d9c53.png",
+	comment: "가나다라마바사 ",
+	hasReview: false,
+},
 ]
 
 const initialState = {
@@ -62,4 +88,4 @@ const myConsultantDxSlice = createSlice({
 	reducers: {
 	}
 })
-export default myConsultantDxSlice
+export default myConsultantDxSlice.reducer
