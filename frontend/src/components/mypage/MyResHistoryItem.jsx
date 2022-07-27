@@ -1,30 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import { Button, CardActions, CardContent, Card, Typography, Avatar, CardActionArea } from '@mui/material';
+import { useDispatch } from 'react-redux/es/exports';
+
+import { Button, CardActions, CardContent, Card, Typography, Avatar, CardActionArea, styled } from '@mui/material';
 import LyricsOutlinedIcon from '@mui/icons-material/LyricsOutlined';
-import styled from '@emotion/styled'
+
 import { deleteResFetch, updateResFetch } from './myResSlice';
 import { useDispatch } from 'react-redux/es/exports';
 
 const MyResHistoryItem = (reservation) => {
-	const [editNow, setEditNow] = useState(false)
-	const dispatch = useDispatch()
-	const [isrequest, setIsRequest] = useState(reservation.request)
+  const [editNow, setEditNow] = useState(false)
+  const dispatch = useDispatch()
+  const [isrequest, setIsRequest] = useState(reservation.request)
 
-	return (
-		<Card sx={{ marginBottom:5, padding:1, borderRadius: 5 }} variant="outlined" className="history-card">
-			<CardActionArea>
-				<CardContent>
-					{/* 컨설턴트정보, 날짜 */}
-					<Avatar src={reservation.consultantImg} sx={{ width: 100, height: 100, marginBottom:1 }} alt="컨설턴트프로필"/>
-					<Forflex>
-						<Typography gutterBottom variant="h6" component="div">
-							{reservation.consultant} 컨설턴트님
-						</Typography>
-						<Typography gutterBottom variant="h6" component="div" >
-							예약일: {reservation.reservationDate}일 {reservation.reservationTime} 
-							<Typography gutterBottom variant="body2" component="span" sx={{paddingLeft:1}} color="error">{!reservation.isActive ? '예약불가' : ''}</Typography>
-						</Typography>
-					</Forflex>
+  return (
+    <Card sx={{ marginBottom: 5, padding: 1, borderRadius: 5 }} variant="outlined" className="history-card">
+      <CardActionArea>
+        <CardContent>
+          {/* 컨설턴트정보, 날짜 */}
+          <Avatar src={reservation.consultantImg} sx={{ width: 100, height: 100, marginBottom: 1 }} alt="컨설턴트프로필" />
+          <Forflex>
+            <Typography gutterBottom variant="h6" component="div">
+              {reservation.consultant} 컨설턴트님
+            </Typography>
+            <Typography gutterBottom variant="h6" component="div" >
+              예약일: {reservation.reservationDate}일 {reservation.reservationTime}
+              <Typography gutterBottom variant="body2" component="span" sx={{ paddingLeft: 1 }} color="error">{!reservation.isActive ? '예약불가' : ''}</Typography>
+            </Typography>
+          </Forflex>
 
 					<RequestBox>
 						<Typography sx={{marginBottom:1}}>컨설턴트님께 요청드려요 <LyricsOutlinedIcon/> </Typography>
@@ -63,20 +65,20 @@ const MyResHistoryItem = (reservation) => {
 export default MyResHistoryItem
 
 
-const RequestBox = styled.div`
+const RequestBox = styled('div')`
 	border: 1px dashed #ADBED2;
 	border-radius: 5px;
 	padding: 10px;
 `
 
-const Forflex = styled.div`
+const Forflex = styled('div')`
 	display:flex;
 	justify-content: space-between;
 	align-items: end;
 	padding: 10px;
 `
 
-const RequestText = styled.textarea`
+const RequestText = styled('textarea')`
 	font-family: Roboto;
 	font-size: 15px;
 	border: none;
