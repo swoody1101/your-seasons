@@ -27,7 +27,6 @@ public class ReviewService {
     private final ConsultantRepository consultantRepository;
     private final ReviewRepository reviewRepository;
 
-
     public ReviewCreateResponse createReview(Long customerId, Long consultantId, ReviewCreateRequest reviewCreateRequest) {
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
@@ -54,6 +53,7 @@ public class ReviewService {
         }
 
         review.deleteReview();
+        reviewRepository.save(review);
 
         return new Message("succeeded");
     }
