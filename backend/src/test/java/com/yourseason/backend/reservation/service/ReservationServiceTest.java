@@ -48,23 +48,23 @@ public class ReservationServiceTest {
 
         loginCustomer = customerRepository.save(
                 Customer.builder()
-                        .email("a1234")
-                        .password("asdfasdf")
-                        .name("박태이")
+                        .email("a1234@gmail.com")
+                        .password("aaaaaaaa")
+                        .name("우영우")
                         .birth(birth)
-                        .nickname("박태태")
-                        .contact("0106486492811")
+                        .nickname("우영우")
+                        .contact("010-1234-1234")
                         .imageUrl("asdf")
                         .build());
 
         badCustomer = customerRepository.save(
                 Customer.builder()
-                        .email("b1234")
-                        .password("asdfasdf")
-                        .name("박태이")
+                        .email("b1234@gmail.com")
+                        .password("bbbbbbbb")
+                        .name("우영우")
                         .birth(birth)
-                        .nickname("박태태")
-                        .contact("0106486492812")
+                        .nickname("동그라미")
+                        .contact("010-4321-4321")
                         .imageUrl("asdf")
                         .build());
 
