@@ -39,16 +39,16 @@ public class Consultant extends Member {
     @NotNull
     private String licenseNumber;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "consultant", cascade = CascadeType.PERSIST)
     private List<ClosedDay> closedDays = new ArrayList<>();
 
-    @OneToMany(mappedBy = "consultant", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "consultant", cascade = CascadeType.PERSIST)
     private List<Reservation> reservations = new ArrayList<>();
 
-    @OneToMany(mappedBy = "consultant", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "consultant", cascade = CascadeType.PERSIST)
     private List<Review> reviews = new ArrayList<>();
 
-    @OneToMany(mappedBy = "consultant", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "consultant", cascade = CascadeType.PERSIST)
     private List<Consulting> consultings = new ArrayList<>();
 
     @Builder

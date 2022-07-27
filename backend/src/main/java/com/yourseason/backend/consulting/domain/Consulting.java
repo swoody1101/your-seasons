@@ -22,7 +22,9 @@ public class Consulting extends BaseTimeEntity {
     @JoinColumn(name = "test_result_id")
     private TestResult testResult;
 
+    @Column(name = "consulting_comment")
     private String comment;
+
     private boolean hasReview;
 
     @ManyToOne(fetch = FetchType.LAZY)

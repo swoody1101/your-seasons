@@ -21,6 +21,10 @@ public class Color extends BaseTimeEntity {
     @JoinColumn(name = "tone_id")
     private Tone tone;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "color_set_id")
+    private ColorSet colorSet;
+
     @Builder
     public Color(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDateTime deletedDate, boolean isActive, String hex, Tone tone) {
         super(id, createdTime, lastModifiedTime, deletedDate, isActive);
