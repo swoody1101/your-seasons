@@ -1,7 +1,6 @@
 package com.yourseason.backend.member.consultant.controller.dto;
 
 import com.yourseason.backend.member.consultant.domain.ClosedDay;
-import com.yourseason.backend.member.consultant.domain.ClosedDayRepository;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
