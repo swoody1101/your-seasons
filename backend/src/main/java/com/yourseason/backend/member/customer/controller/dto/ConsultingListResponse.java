@@ -12,11 +12,15 @@ import java.time.LocalDate;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ConsultingListResponse {
 
+    private Long consultantId;
+    private Long consultingId;
     private String consultantNickname;
     private String consultantImageUrl;
     private LocalDate consultingDate;
+    private String tone;
     private BestColorSet bestColorSet;
     private WorstColorSet worstColorSet;
     private String resultImageUrl;
     private String comment;
+    private boolean hasReview;
 }

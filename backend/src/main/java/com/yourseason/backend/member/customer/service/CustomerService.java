@@ -89,13 +89,17 @@ public class CustomerService {
         return customer.getConsultings()
                 .stream()
                 .map(consulting -> ConsultingListResponse.builder()
+                        .consultantId(consulting.getConsultant().getId())
+                        .consultingId(consulting.getId())
                         .consultantNickname(consulting.getConsultant().getNickname())
                         .consultantImageUrl(consulting.getConsultant().getImageUrl())
                         .consultingDate(consulting.getCreatedDate().toLocalDate())
+                        .tone(consulting.getTestResult().getTone().getName())
                         .bestColorSet(consulting.getTestResult().getBestColorSet())
                         .worstColorSet(consulting.getTestResult().getWorstColorSet())
                         .resultImageUrl(consulting.getTestResult().getConsultingFile())
                         .comment(consulting.getComment())
+                        .hasReview(consulting.isHasReview())
                         .build())
                 .collect(Collectors.toList());
     }
