@@ -1,6 +1,8 @@
 package com.yourseason.backend.reservation.service;
 
+import com.yourseason.backend.common.domain.Message;
 import com.yourseason.backend.common.exception.NotFoundException;
+import com.yourseason.backend.common.exception.WrongAccessException;
 import com.yourseason.backend.member.consultant.domain.Consultant;
 import com.yourseason.backend.member.consultant.domain.ConsultantRepository;
 import com.yourseason.backend.member.customer.domain.Customer;
@@ -18,6 +20,8 @@ public class ReservationService {
 
     private static final String CUSTOMER_NOT_FOUND = "해당 고객을 찾을 수 없습니다.";
     private static final String CONSULTANT_NOT_FOUND = "해당 컨설턴트를 찾을 수 없습니다.";
+    private static final String RESERVATION_NOT_FOUND = "해당 예약을 찾을 수 없습니다.";
+    private static final String WRONG_ACCESS = "잘못된 접근입니다.";
 
     private final CustomerRepository customerRepository;
     private final ConsultantRepository consultantRepository;
@@ -37,5 +41,18 @@ public class ReservationService {
                 .reservationId(reservation.getId())
                 .message("succeeded")
                 .build();
+    }
+
+    public Message deleteReservation(Long customerId, Long reservationId) {
+        Reservation reservation = reservationRepository.findById(reservationId)
+                .orElseThrow(() -> new NotFoundException(RESERVATION_NOT_FOUND));
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
+        if (!customer.equals(reservation.getCustomer())) {
+            throw new WrongAccessException(WRONG_ACCESS);
+        }
+
+        reservation.cancel();
+        return new Message("succeeded");
     }
 }
