@@ -21,11 +21,12 @@ public class ReviewService {
     private static final String CUSTOMER_NOT_FOUND = "해당 고객을 찾을 수 없습니다.";
     private static final String CONSULTANT_NOT_FOUND = "해당 컨설턴트를 찾을 수 없습니다.";
     private static final String REVIEW_NOT_FOUND = "해당 리뷰를 찾을 수 없습니다.";
+    private static final String WRONG_ACCESS = "잘못된 접근입니다.";
 
     private final CustomerRepository customerRepository;
     private final ConsultantRepository consultantRepository;
     private final ReviewRepository reviewRepository;
-    private static final String WRONG_ACCESS = "잘못된 접근입니다.";
+
 
     public ReviewCreateResponse createReview(Long customerId, Long consultantId, ReviewCreateRequest reviewCreateRequest) {
         Customer customer = customerRepository.findById(customerId)
@@ -39,7 +40,7 @@ public class ReviewService {
 
         return ReviewCreateResponse.builder()
                 .reviewId(review.getId())
-                .message("후기 등록이 완료되었습니다.")
+                .message("succeeded")
                 .build();
     }
 
@@ -51,7 +52,9 @@ public class ReviewService {
         if (!customer.equals(review.getCustomer())) {
             throw new WrongAccessException(WRONG_ACCESS);
         }
+
         review.deleteReview();
-        return new Message("후기 삭제가 완료되었습니다.");
+
+        return new Message("succeeded");
     }
 }

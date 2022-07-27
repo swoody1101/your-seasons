@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -45,23 +46,27 @@ public class Review extends BaseTimeEntity {
         this.comment = comment;
     }
 
-    public void register(Customer customer, Consultant consultant){
+    public void register(Customer customer, Consultant consultant) {
         setCustomer(customer);
         setConsultant(consultant);
         consulting.registerReview();
     }
 
-    public void setCustomer(Customer customer){
+    public void setCustomer(Customer customer) {
         this.customer = customer;
         customer.getReviews().add(this);
     }
 
-    public void setConsultant(Consultant consultant){
-        this.consultant =consultant;
+    public void setConsultant(Consultant consultant) {
+        this.consultant = consultant;
         consultant.getReviews().add(this);
     }
 
-    public void deleteReview(){
+    public void deleteReview() {
         super.delete();
+        this.customer.getReviews()
+                .remove(this);
+        this.consultant.getReviews()
+                .remove(this);
     }
 }
