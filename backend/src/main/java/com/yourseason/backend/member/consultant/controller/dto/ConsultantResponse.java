@@ -19,5 +19,6 @@ public class ConsultantResponse {
     private String introduction;
     private String cost;
     private String licenseName;
+    private List<ClosedDayListResponse> closedDays;
     private List<ReservationListResponse> reservations;
 }
