@@ -55,6 +55,12 @@ public class ConsultantController {
                 .body(consultantService.getMyReviews(1L));
     }
 
+    @GetMapping("/3")
+    public ResponseEntity<ConsultantInfoResponse> getConsultantInfo() {
+        return ResponseEntity.ok()
+                .body(consultantService.getConsultantInfo(0L));
+    }
+
     @PatchMapping
     public ResponseEntity<Message> updateConsultant(@RequestBody ConsultantUpdateRequest consultantUpdateRequest) {
         return ResponseEntity.ok()

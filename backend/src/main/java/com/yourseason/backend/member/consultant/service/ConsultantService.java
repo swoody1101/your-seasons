@@ -133,6 +133,34 @@ public class ConsultantService {
                 .build();
     }
 
+    public ConsultantInfoResponse getConsultantInfo(Long consultantId) {
+        Consultant consultant = consultantRepository.findById(consultantId)
+                .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
+
+        List<ClosedDayListResponse> closedDayListResponses = consultant.getClosedDays()
+                .stream()
+                .map(closedDay -> ClosedDayListResponse.builder()
+                        .closedDayId(closedDay.getId())
+                        .date(closedDay.getDate())
+                        .build())
+                .collect(Collectors.toList());
+
+        return ConsultantInfoResponse.builder()
+                .name(consultant.getName())
+                .nickname(consultant.getNickname())
+                .birth(consultant.getBirth())
+                .contact(consultant.getContact())
+                .email(consultant.getEmail())
+                .introduction(consultant.getIntroduction())
+                .cost(consultant.getCost())
+                .imageUrl(consultant.getImageUrl())
+                .consultingFileUrl(consultant.getConsultingFile())
+                .licenseName(consultant.getLicense().getName())
+                .licenseNumber(consultant.getLicenseNumber())
+                .closedDays(closedDayListResponses)
+                .build();
+    }
+
     public Message updateConsultant(Long consultantId, ConsultantUpdateRequest consultantUpdateRequest) {
         Consultant consultant = consultantRepository.findById(consultantId)
                 .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
