@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import ConsultingResCalendar from "./ConsultingResCalendar";
-import ConsultingReview from "./ConsultingReview";
 
 import { Box, Tab } from '@mui/material'
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 
+import ConsultingResCalendar from "./ConsultingResCalendar";
 import ConsultingReview from "./ConsultingReview";
-import ConsultingResHistory from "./ConsultingResHistory";
 
 const ConsultantMyPageTab = () => {
   const [value, setValue] = useState('1');
