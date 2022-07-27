@@ -60,7 +60,7 @@ public class MemberService {
             throw new WrongFormException(NOT_FOUND_LOGIN_INFO);
         }
 
-        HashMap<String, String> member = new HashMap<>();
+        Map<String, String> member = new HashMap<>();
         Member loginMember;
         Member customer = customerRepository.findByEmail(email);
         Member consultant = consultantRepository.getByEmail(email);
