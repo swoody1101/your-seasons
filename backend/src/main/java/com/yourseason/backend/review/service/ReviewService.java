@@ -1,5 +1,6 @@
 package com.yourseason.backend.review.service;
 
+import com.yourseason.backend.common.domain.Message;
 import com.yourseason.backend.common.exception.NotFoundException;
 import com.yourseason.backend.member.consultant.domain.Consultant;
 import com.yourseason.backend.member.consultant.domain.ConsultantRepository;
@@ -36,17 +37,17 @@ public class ReviewService {
 
         return ReviewCreateResponse.builder()
                 .reviewId(review.getId())
-                .message("후기 등록이 완료되었습니다.")
+                .message("succeeded")
                 .build();
     }
 
-    public void updateReview(Long reviewId, ReviewRequest reviewRequest) {
+    public Message updateReview(Long reviewId, ReviewRequest reviewRequest) {
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new NotFoundException(REVIEW_NOT_FOUND));
-        review.builder()
-                .star(reviewRequest.getStar())
-                .comment(reviewRequest.getComment())
-                .build();
+
+        review.update(reviewRequest.getStar(), reviewRequest.getComment());
         reviewRepository.save(review);
+
+        return new Message("succeeded");
     }
 }

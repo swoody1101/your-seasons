@@ -24,10 +24,8 @@ public class ReviewController {
     }
 
     @PatchMapping("/{reviewId}")
-    public ResponseEntity<Message> updateReview(@PathVariable Long reviewId,
-                                                @RequestBody ReviewRequest reviewRequest) {
-        reviewService.updateReview(reviewId, reviewRequest);
+    public ResponseEntity<Message> updateReview(@PathVariable Long reviewId, @RequestBody ReviewRequest reviewRequest) {
         return ResponseEntity.ok()
-                .body(new Message("후기 수정이 완료되었습니다."));
+                .body(reviewService.updateReview(reviewId, reviewRequest));
     }
 }
