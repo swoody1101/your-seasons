@@ -8,8 +8,11 @@ import lombok.NoArgsConstructor;
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -20,9 +23,13 @@ public class Tone extends BaseTimeEntity {
     @NotNull
     private String name;
 
+    @OneToMany(mappedBy = "tone")
+    private List<Color> colors = new ArrayList<>();
+
     @Builder
-    public Tone(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDateTime deletedDate, boolean isActive, String name) {
-        super(id, createdTime, lastModifiedTime, deletedDate, isActive);
+    public Tone(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate, boolean isActive, String name, List<Color> colors) {
+        super(id, createdDate, lastModifiedDate, deletedDate, isActive);
         this.name = name;
+        this.colors = colors;
     }
 }

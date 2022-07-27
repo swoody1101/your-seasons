@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AttributeOverride(name = "id", column = @Column(name = "consulting_id"))
-@Converter(autoApply = true)
 @Entity
 public class Consulting extends BaseTimeEntity {
 
@@ -23,7 +22,9 @@ public class Consulting extends BaseTimeEntity {
     @JoinColumn(name = "test_result_id")
     private TestResult testResult;
 
+    @Column(name = "consulting_comment")
     private String comment;
+
     private boolean hasReview;
 
     @ManyToOne(fetch = FetchType.LAZY)
