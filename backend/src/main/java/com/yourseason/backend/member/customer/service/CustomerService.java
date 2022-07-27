@@ -38,6 +38,7 @@ public class CustomerService {
                 .birth(customer.getBirth())
                 .contact(customer.getContact())
                 .email(customer.getEmail())
+                .imageUrl(customer.getImageUrl())
                 .build();
     }
 
