@@ -87,7 +87,6 @@ public class Consultant extends Member {
 
     public void deleteClosedDay(ClosedDay closedDay) {
         closedDays.remove(closedDay);
-        closedDay.deleteConsultant(this);
     }
 
     @Override
