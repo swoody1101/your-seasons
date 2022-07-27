@@ -48,8 +48,4 @@ public class Customer extends Member {
     public void withdraw() {
         super.withdraw();
     }
-
-    public void changePassword(String afterPassword) {
-        super.changePassword(afterPassword);
-    }
 }
