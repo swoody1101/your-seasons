@@ -80,14 +80,14 @@ public class ReservationServiceTest {
     @DisplayName("예약 취소 성공")
     @Test
     public void cancel_reservation_success() throws Exception {
-        assertThat(reservationService.deleteReservation(loginCustomer.getId(), reservation.getId()))
+        assertThat(reservationService.deleteReservation(1L, 1L))
                 .isEqualTo(new Message("succeeded"));
     }
 
     @DisplayName("예약 취소 실패")
     @Test
     public void cancel_reservation_fail() throws Exception {
-        assertThatThrownBy(() -> reservationService.deleteReservation(badCustomer.getId(), reservation.getId()))
+        assertThatThrownBy(() -> reservationService.deleteReservation(2L, reservation.getId()))
                 .isInstanceOf(WrongAccessException.class)
                 .hasMessage("잘못된 접근입니다.");
     }
