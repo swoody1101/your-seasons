@@ -9,8 +9,12 @@ const initialState = {
     birth: '',
     contact: '',
     email: '',
-    introduction: '안녕하세요?',
-    cost: '10000'
+    imageUrl: '',
+    introduction: '',
+    cost: '',
+    consultingFile: '',
+    licenseName: '',
+    licenseNumber: ''
   },
   status: 'idle' // 'idle' | 'loading' | 'succeeded' | 'failed'
 }
@@ -38,33 +42,22 @@ export const modifyMember = createAsyncThunk(
   'modify/modifymember',
   async (payload, { rejectWithValue }) => {
     try {
+      console.log("수정 정보", payload)
       let response;
       if (payload.role === CUSTOMER) {
-        response = await Axios.patch('customers', payload);
+        const modi = {
+          nickname: payload.nickname,
+          contact: payload.contact
+        } // 고객 수정정보
+        response = await Axios.patch('customers', modi);
       } else if (payload.role === CONSULTANT) {
-        response = await Axios.patch('consultants', payload);
-      }
-      console.log(payload)
-      return response;
-    } catch (err) {
-      return rejectWithValue(err);
-    }
-  }
-);
-
-export const modifyConsultant = createAsyncThunk(
-  'modify/modifyConsultant',
-  async (payload, { rejectWithValue }) => {
-    try {
-      let response;
-      const data = {
-        beforePassword: payload.beforePassword,
-        afterPassword: payload.afterPassword
-      }
-      if (payload.role === CUSTOMER) {
-        response = await Axios.patch('customers/password', data);
-      } else if (payload.role === CONSULTANT) {
-        response = await Axios.patch('consultants/password', data);
+        const modi = {
+          nickname: payload.nickname,
+          contact: payload.contact,
+          introduction: payload.introduction,
+          cost: payload.cost
+        } // 컨설턴트 수정정보
+        response = await Axios.patch('consultants', modi);
       }
       console.log(response)
       return response;
@@ -72,7 +65,7 @@ export const modifyConsultant = createAsyncThunk(
       return rejectWithValue(err);
     }
   }
-)
+);
 
 export const modifyPass = createAsyncThunk(
   'modify/modifypass',

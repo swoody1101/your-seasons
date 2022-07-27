@@ -2,9 +2,8 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
 
 import {
-  Grid, Container
+  Grid, Container, styled
 } from '@mui/material'
-import { styled } from '@mui/system'
 
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';

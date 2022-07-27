@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import styled from "@emotion/styled";
-import { Button, TextField } from "@mui/material";
+import { Button, TextField, styled } from "@mui/material";
 
 //handleValueCheck는 중복확인을 할 수 있는 api함수를 담아주면 됩니다.
 //isCheck는 부모로부터 중복확인 여부 state 값을 받아온다.
@@ -93,22 +92,22 @@ ConfirmValidationInput.defaultProps = {
   handleValueCheck: () => { }
 };
 
-const Container = styled.div`
-  position: relative;
-`;
+const Container = styled('div')({
+  position: "relative"
+})
 
-const Label = styled.span`
-  color: #878787;
-  font-size: 1.2rem;
-`;
+const Label = styled('span')({
+  color: "#878787",
+  fontSize: "1.2rem"
+})
 
-const Input = styled(TextField)`
-  width: 100%;
-  input {
-    width: calc(100% - 110px);
+const Input = styled(TextField)({
+  width: "100%",
+  input: {
+    width: "calc(100% - 110px)"
   }
-`;
-
+})
+//props 받을 때는 ({객체}) 형식주는 것보다 백틱으로 하는게 짧습니다.
 const CheckBnt = styled(Button)`
   position: absolute;
   width: 6rem;

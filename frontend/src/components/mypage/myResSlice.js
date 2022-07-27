@@ -53,8 +53,6 @@ export const myResFetch = createAsyncThunk(
 	}
 )
 
-// post
-
 // delete
 export const deleteResFetch = createAsyncThunk(
 	'myResSlice/deleteResFetch',

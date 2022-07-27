@@ -1,6 +1,5 @@
 import React from "react";
-import styled from "@emotion/styled";
-import { Box, MenuItem, Select, TextField } from "@mui/material";
+import { Box, MenuItem, Select, TextField, styled } from "@mui/material";
 
 export default function LicenseInput({
   label,
@@ -55,10 +54,10 @@ const Container = styled('div')({
   width: "100%"
 })
 
-const Label = styled.span`
-  color: #878787;
-  font-size: 1.2rem;
-`;
+const Label = styled('span')({
+  color: "#878787",
+  fontSize: "1.2rem"
+})
 
 const StyledBox = styled(Box)({
   display: "flex",
