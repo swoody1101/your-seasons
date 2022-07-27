@@ -25,7 +25,7 @@ public class CustomerController {
                 .body(new Message("succeeded"));
     }
 
-    @GetMapping
+    @GetMapping("/4")
     public ResponseEntity<CustomerResponse> getCustomer() {
         return ResponseEntity.ok()
                 .body(customerService.getCustomer(0L));
