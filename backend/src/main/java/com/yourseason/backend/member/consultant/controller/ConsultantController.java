@@ -1,9 +1,11 @@
 package com.yourseason.backend.member.consultant.controller;
 
 import com.yourseason.backend.common.domain.Message;
+import com.yourseason.backend.member.common.controller.dto.PasswordUpdateRequest;
 import com.yourseason.backend.member.consultant.controller.dto.*;
 import com.yourseason.backend.member.consultant.service.ConsultantService;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -59,6 +61,12 @@ public class ConsultantController {
     public ResponseEntity<Message> updateConsultant(@RequestPart ConsultantUpdateRequest consultantUpdateRequest, @RequestPart MultipartFile multipartFile) {
         return ResponseEntity.ok()
                 .body(consultantService.updateConsultant(1L, consultantUpdateRequest, multipartFile));
+    }
+
+    @PatchMapping("/password")
+    public ResponseEntity<Message> updateConsultantPassword(@RequestBody PasswordUpdateRequest passwordUpdateRequest) {
+        return ResponseEntity.ok()
+                .body(consultantService.updateConsultantPassword(0L, passwordUpdateRequest));
     }
 
     @DeleteMapping
