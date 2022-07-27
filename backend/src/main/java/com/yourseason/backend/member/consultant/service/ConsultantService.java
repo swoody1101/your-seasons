@@ -1,7 +1,6 @@
 package com.yourseason.backend.member.consultant.service;
 
 import com.yourseason.backend.common.domain.Message;
-import com.yourseason.backend.common.exception.ImageUploadException;
 import com.yourseason.backend.common.exception.NotEqualException;
 import com.yourseason.backend.common.exception.NotFoundException;
 import com.yourseason.backend.member.common.controller.dto.PasswordUpdateRequest;
@@ -12,11 +11,7 @@ import com.yourseason.backend.member.consultant.domain.License;
 import com.yourseason.backend.member.consultant.domain.LicenseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,7 +21,6 @@ public class ConsultantService {
 
     private static final String CONSULTANT_NOT_FOUND = "해당 컨설턴트를 찾을 수 없습니다.";
     private static final String LICENSE_NOT_FOUND = "자격증이 존재하지 않습니다.";
-    private static final String IMAGE_UPLOAD_FAIL = "이미지 업로드에 실패했습니다.";
     private static final String PASSWORD_NOT_EQUAL = "비밀번호가 올바르지 않습니다.";
 
     private final ConsultantRepository consultantRepository;
@@ -139,31 +133,14 @@ public class ConsultantService {
                 .build();
     }
 
-    public Message updateConsultant(Long consultantId, ConsultantUpdateRequest consultantUpdateRequest, MultipartFile multipartFile) {
+    public Message updateConsultant(Long consultantId, ConsultantUpdateRequest consultantUpdateRequest) {
         Consultant consultant = consultantRepository.findById(consultantId)
                 .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
-
-        String imageUrl = consultant.getImageUrl();
-        if (consultant.getImageUrl() == null) {
-            String filePath = System.getProperty("user.dir") + "/src/main/resources/static/img/";
-            String fileName = consultant.getEmail();
-            imageUrl = filePath + fileName;
-        }
-        try {
-            byte[] bytes = multipartFile.getBytes();
-            File file = new File(imageUrl);
-            FileOutputStream fileOutputStream = new FileOutputStream(file);
-            fileOutputStream.write(bytes);
-            fileOutputStream.flush();
-            fileOutputStream.close();
-        } catch (IOException e) {
-            throw new ImageUploadException(IMAGE_UPLOAD_FAIL);
-        }
 
         consultant.updateProfile(
                 consultantUpdateRequest.getNickname(),
                 consultantUpdateRequest.getContact(),
-                imageUrl,
+                consultantUpdateRequest.getImageUrl(),
                 consultantUpdateRequest.getIntroduction(),
                 consultantUpdateRequest.getCost());
         consultantRepository.save(consultant);

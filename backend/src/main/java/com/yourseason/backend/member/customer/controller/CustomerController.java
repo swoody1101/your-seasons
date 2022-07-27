@@ -7,7 +7,6 @@ import com.yourseason.backend.member.customer.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URI;
 import java.util.List;
@@ -50,10 +49,9 @@ public class CustomerController {
     }
 
     @PatchMapping
-    public ResponseEntity<Message> updateCustomer(@RequestPart CustomerUpdateRequest customerUpdateRequest,
-                                                  @RequestPart MultipartFile multipartFile) {
+    public ResponseEntity<Message> updateCustomer(@RequestPart CustomerUpdateRequest customerUpdateRequest) {
         return ResponseEntity.ok()
-                .body(customerService.updateCustomer(0L, customerUpdateRequest, multipartFile));
+                .body(customerService.updateCustomer(0L, customerUpdateRequest));
     }
 
     @PatchMapping("/password")
