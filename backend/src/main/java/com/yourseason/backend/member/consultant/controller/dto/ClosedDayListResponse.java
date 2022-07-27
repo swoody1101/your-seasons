@@ -12,6 +12,6 @@ import java.time.LocalDate;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ClosedDayListResponse {
 
-    private long closedDayId;
+    private Long closedDayId;
     private LocalDate date;
 }
