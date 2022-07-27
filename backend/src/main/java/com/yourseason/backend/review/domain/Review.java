@@ -30,12 +30,12 @@ public class Review extends BaseTimeEntity {
     @JoinColumn(name = "consulting_id")
     private Consulting consulting;
 
-    private double star;
+    private int star;
     private String comment;
 
     @Builder
     public Review(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate,
-                  boolean isActive, Customer customer, Consultant consultant, Consulting consulting, double star,
+                  boolean isActive, Customer customer, Consultant consultant, Consulting consulting, int star,
                   String comment) {
         super(id, createdDate, lastModifiedDate, deletedDate, isActive);
         this.customer = customer;
@@ -59,5 +59,10 @@ public class Review extends BaseTimeEntity {
     public void setConsultant(Consultant consultant) {
         this.consultant = consultant;
         consultant.getReviews().add(this);
+    }
+
+    public void update(int star, String comment) {
+        this.star = star;
+        this.comment = comment;
     }
 }
