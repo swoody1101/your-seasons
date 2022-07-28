@@ -19,7 +19,7 @@ public class MemberController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
         return ResponseEntity.ok()
-                .header(JwtUtil.generateToken(memberService.getMember(loginRequest)))
+                .header("X-Auth-Token", JwtUtil.generateToken(memberService.getMember(loginRequest)))
                 .body(memberService.login(loginRequest));
     }
 
