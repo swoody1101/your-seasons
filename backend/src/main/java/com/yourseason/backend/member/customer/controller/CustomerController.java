@@ -7,6 +7,7 @@ import com.yourseason.backend.member.customer.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URI;
 import java.util.List;
@@ -25,12 +26,11 @@ public class CustomerController {
                 .body(new Message("succeeded"));
     }
 
-    @GetMapping("/4")
+    @GetMapping
     public ResponseEntity<CustomerResponse> getCustomer() {
         return ResponseEntity.ok()
                 .body(customerService.getCustomer(0L));
     }
-
     @GetMapping("/1")
     public ResponseEntity<List<ReservationListResponse>> getMyReservations() {
         return ResponseEntity.ok()
@@ -50,9 +50,10 @@ public class CustomerController {
     }
 
     @PatchMapping
-    public ResponseEntity<Message> updateCustomer(@RequestPart CustomerUpdateRequest customerUpdateRequest) {
+    public ResponseEntity<Message> updateCustomer(@RequestPart CustomerUpdateRequest customerUpdateRequest,
+                                                  @RequestPart MultipartFile multipartFile) {
         return ResponseEntity.ok()
-                .body(customerService.updateCustomer(0L, customerUpdateRequest));
+                .body(customerService.updateCustomer(0L, customerUpdateRequest, multipartFile));
     }
 
     @PatchMapping("/password")

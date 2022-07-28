@@ -7,6 +7,7 @@ import com.yourseason.backend.member.consultant.service.ConsultantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URI;
 import java.util.List;
@@ -55,16 +56,10 @@ public class ConsultantController {
                 .body(consultantService.getMyReviews(1L));
     }
 
-    @GetMapping("/3")
-    public ResponseEntity<ConsultantInfoResponse> getConsultantInfo() {
-        return ResponseEntity.ok()
-                .body(consultantService.getConsultantInfo(0L));
-    }
-
     @PatchMapping
-    public ResponseEntity<Message> updateConsultant(@RequestBody ConsultantUpdateRequest consultantUpdateRequest) {
+    public ResponseEntity<Message> updateConsultant(@RequestPart ConsultantUpdateRequest consultantUpdateRequest, @RequestPart MultipartFile multipartFile) {
         return ResponseEntity.ok()
-                .body(consultantService.updateConsultant(1L, consultantUpdateRequest));
+                .body(consultantService.updateConsultant(1L, consultantUpdateRequest, multipartFile));
     }
 
     @PatchMapping("/password")

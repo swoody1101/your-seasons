@@ -10,7 +10,6 @@ public class ConsultantUpdateRequest {
 
     private String nickname;
     private String contact;
-    private String imageUrl;
     private String introduction;
     private String cost;
 }

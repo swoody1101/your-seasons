@@ -15,5 +15,4 @@ public class CustomerResponse {
     private LocalDate birth;
     private String contact;
     private String email;
-    private String imageUrl;
 }
