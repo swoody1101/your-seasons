@@ -78,10 +78,4 @@ public class ConsultantController {
         return ResponseEntity.ok()
                 .body(consultantService.deleteConsultant(1L));
     }
-
-    @DeleteMapping("/closed-days/{closedDayId}")
-    public ResponseEntity<Message> deleteClosedDay(@PathVariable Long closedDayId) {
-        return ResponseEntity.ok()
-                .body(consultantService.deleteClosedDay(0L, closedDayId));
-    }
 }
