@@ -1,7 +1,8 @@
 import React from 'react'
 
-export default function ConsultingResBtn() {
-  return (
-    <div>ConsultingResBtn</div>
-  )
+const ConsultingResBtn = () => {
+ return (
+   <div>ConsultingResBtn</div>
+ )
 }
+export default ConsultingResBtn
