@@ -23,7 +23,7 @@ const MyAvatar = (
   return (
     <SetAvatar si={setSize}>
       <Button onClick={handleAvatar}>
-        <img src={imageUrl} alt='MyAvatar' />
+        <img src={imageUrl} alt='' />
       </Button>
     </SetAvatar>
   )
