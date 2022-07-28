@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -75,8 +76,8 @@ public class ConsultantController {
     }
 
     @PutMapping("/closed-days")
-    public ResponseEntity<Message> registerClosedDays(ClosedDaysRequest closedDaysRequest) {
+    public ResponseEntity<Message> registerClosedDays(@RequestBody LocalDate closedDay) {
         return ResponseEntity.ok()
-                .body(consultantService.registerClosedDays(2L, closedDaysRequest));
+                .body(consultantService.registerClosedDays(2L, closedDay));
     }
 }

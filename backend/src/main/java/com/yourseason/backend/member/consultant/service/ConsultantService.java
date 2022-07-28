@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -186,21 +187,15 @@ public class ConsultantService {
         return new Message("succeeded");
     }
 
-    public Message registerClosedDays(Long consultantId, ClosedDaysRequest closedDaysRequest) {
+    public Message registerClosedDays(Long consultantId, LocalDate closedDay) {
         Consultant consultant = consultantRepository.findById(consultantId)
                 .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
 
-        List<ClosedDay> closedDays = closedDaysRequest.getClosedDays()
-                .stream()
-                .map(closedDay -> ClosedDay.builder()
-                        .date(closedDay)
-                        .consultant(consultant)
-                        .build())
-                .collect(Collectors.toList());
-        consultant.getClosedDays().addAll(closedDays);
+        consultant.getClosedDays().add(ClosedDay.builder()
+                .date(closedDay)
+                .consultant(consultant)
+                .build());
         consultantRepository.save(consultant);
-        closedDayRepository.saveAll(closedDaysRequest.toEntityList());
-
         return new Message("succeeded");
     }
 }
