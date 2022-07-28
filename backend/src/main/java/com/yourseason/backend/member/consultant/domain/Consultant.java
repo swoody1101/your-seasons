@@ -94,4 +94,8 @@ public class Consultant extends Member {
     public int hashCode() {
         return Objects.hash(this.getEmail());
     }
+
+    public void addClosedDay(ClosedDay closedDay){
+        closedDays.add(closedDay);
+    }
 }
