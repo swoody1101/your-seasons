@@ -191,11 +191,11 @@ public class ConsultantService {
         Consultant consultant = consultantRepository.findById(consultantId)
                 .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
 
-        consultant.addClosedDay(ClosedDay
-                .builder()
-                .date(closedDay)
-                .consultant(consultant)
-                .build());
+        consultant.addClosedDay(
+                ClosedDay.builder()
+                        .date(closedDay)
+                        .consultant(consultant)
+                        .build());
         consultantRepository.save(consultant);
         return new Message("succeeded");
     }
