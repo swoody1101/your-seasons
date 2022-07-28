@@ -67,5 +67,4 @@ const ConsultingResCalendar = (props) => {
 const StyledDiv = styled('div')({
   backgroundColor: "#FFE0DF",
 })
-}
 export default ConsultingResCalendar
