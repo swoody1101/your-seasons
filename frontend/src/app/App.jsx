@@ -12,11 +12,13 @@ import ConsultantMyPage from '../components/consultantmypage/ConsultantMyPage'
 import ModifyProfile from '../components/modify/ModifyProfile'
 import Login from '../components/login/Login'
 import SignUp from '../components/signup/SignUp'
+import ConsultantList from '../components/consultantList/ConsultantList'
 import { Box, Stack } from '@mui/material'
 import { CUSTOMER, CONSULTANT } from '../api/CustomConst'
 
 const App = () => {
   const { role } = useSelector((state) => state.login.logonUser)
+  // const role = CONSULTANT;
   // const role = CUSTOMER;
   return (
     <Box>
@@ -26,6 +28,7 @@ const App = () => {
           <Route path='/' element={<p>WelcomePage</p>} />
           <Route path='/home' element={<p>home</p>} />
           <Route path='/history' element={<p>history</p>} />
+					<Route path='/consultants' element={<ConsultantList/>} />
           <Route path='/mypage' element={
             role === CUSTOMER
               ? <MyPage /> : <ConsultantMyPage />
