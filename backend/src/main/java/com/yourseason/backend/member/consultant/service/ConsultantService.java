@@ -10,9 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -59,8 +56,11 @@ public class ConsultantService {
                         ConsultantListResponse.builder()
                                 .consultantId(consultant.getId())
                                 .nickname(consultant.getNickname())
-                                .email(consultant.getEmail())
-                                .star(consultant.getStarAverage())
+                                .introduction(consultant.getIntroduction())
+                                .reviewCount(consultant.getReviewCount())
+                                .starAverage(consultant.getStarAverage())
+                                .cost(consultant.getCost())
+                                .imageUrl(consultant.getImageUrl())
                                 .build())
                 .collect(Collectors.toList());
     }
