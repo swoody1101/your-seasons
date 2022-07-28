@@ -76,8 +76,8 @@ public class ConsultantController {
     }
 
     @PostMapping("/closed-days")
-    public ResponseEntity<Message> registerClosedDay(@RequestBody LocalDate closedDay) {
+    public ResponseEntity<Message> createClosedDay(@RequestBody LocalDate closedDay) {
         return ResponseEntity.ok()
-                .body(consultantService.registerClosedDay(2L, closedDay));
+                .body(consultantService.createClosedDay(2L, closedDay));
     }
 }

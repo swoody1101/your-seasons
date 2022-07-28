@@ -187,11 +187,12 @@ public class ConsultantService {
         return new Message("succeeded");
     }
 
-    public Message registerClosedDay(Long consultantId, LocalDate closedDay) {
+    public Message createClosedDay(Long consultantId, LocalDate closedDay) {
         Consultant consultant = consultantRepository.findById(consultantId)
                 .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
 
-        consultant.addClosedDay(ClosedDay.builder()
+        consultant.addClosedDay(ClosedDay
+                .builder()
                 .date(closedDay)
                 .consultant(consultant)
                 .build());
