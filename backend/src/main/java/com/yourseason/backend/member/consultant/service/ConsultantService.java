@@ -10,6 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,6 +37,19 @@ public class ConsultantService {
                 .orElseThrow(() -> new NotFoundException(LICENSE_NOT_FOUND));
         consultant.registerLicense(license);
         consultantRepository.save(consultant);
+    }
+    
+    public Message createClosedDay(Long consultantId, LocalDate closedDay) {
+        Consultant consultant = consultantRepository.findById(consultantId)
+                .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
+
+        consultant.addClosedDay(
+                ClosedDay.builder()
+                        .date(closedDay)
+                        .consultant(consultant)
+                        .build());
+        consultantRepository.save(consultant);
+        return new Message("succeeded");
     }
 
     public List<ConsultantListResponse> getConsultants() {
