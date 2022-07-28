@@ -24,6 +24,7 @@ public class ConsultantService {
     private static final String CONSULTANT_NOT_FOUND = "해당 컨설턴트를 찾을 수 없습니다.";
     private static final String LICENSE_NOT_FOUND = "자격증이 존재하지 않습니다.";
     private static final String PASSWORD_NOT_EQUAL = "비밀번호가 올바르지 않습니다.";
+    private static final String CLOSED_DAY_NOT_FOUND = "해당 날짜는 휴무일이 아닙니다.";
 
     private final PasswordEncoder passwordEncoder;
     private final ConsultantRepository consultantRepository;
@@ -36,6 +37,19 @@ public class ConsultantService {
                 .orElseThrow(() -> new NotFoundException(LICENSE_NOT_FOUND));
         consultant.registerLicense(license);
         consultantRepository.save(consultant);
+    }
+    
+    public Message createClosedDay(Long consultantId, LocalDate closedDay) {
+        Consultant consultant = consultantRepository.findById(consultantId)
+                .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
+
+        consultant.addClosedDay(
+                ClosedDay.builder()
+                        .date(closedDay)
+                        .consultant(consultant)
+                        .build());
+        consultantRepository.save(consultant);
+        return new Message("succeeded");
     }
 
     public List<ConsultantListResponse> getConsultants() {
@@ -208,15 +222,13 @@ public class ConsultantService {
         return new Message("succeeded");
     }
 
-    public Message createClosedDay(Long consultantId, LocalDate closedDay) {
+    public Message deleteClosedDay(Long consultantId, Long closedDayId) {
         Consultant consultant = consultantRepository.findById(consultantId)
                 .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
+        ClosedDay closedDay = closedDayRepository.findById(closedDayId)
+                .orElseThrow(() -> new NotFoundException(CLOSED_DAY_NOT_FOUND));
 
-        consultant.addClosedDay(
-                ClosedDay.builder()
-                        .date(closedDay)
-                        .consultant(consultant)
-                        .build());
+        consultant.deleteClosedDay(closedDay);
         consultantRepository.save(consultant);
         return new Message("succeeded");
     }

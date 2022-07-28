@@ -25,6 +25,12 @@ public class ConsultantController {
         return ResponseEntity.created(URI.create("/login"))
                 .body(new Message("succeeded"));
     }
+    
+    @PostMapping("/closed-days")
+    public ResponseEntity<Message> createClosedDay(@RequestBody LocalDate closedDay) {
+        return ResponseEntity.ok()
+                .body(consultantService.createClosedDay(2L, closedDay));
+    }
 
     @GetMapping
     public ResponseEntity<List<ConsultantListResponse>> getConsultants() {
@@ -80,9 +86,9 @@ public class ConsultantController {
                 .body(consultantService.deleteConsultant(1L));
     }
 
-    @PostMapping("/closed-days")
-    public ResponseEntity<Message> createClosedDay(@RequestBody LocalDate closedDay) {
+    @DeleteMapping("/closed-days/{closedDayId}")
+    public ResponseEntity<Message> deleteClosedDay(@PathVariable Long closedDayId) {
         return ResponseEntity.ok()
-                .body(consultantService.createClosedDay(2L, closedDay));
+                .body(consultantService.deleteClosedDay(0L, closedDayId));
     }
 }
