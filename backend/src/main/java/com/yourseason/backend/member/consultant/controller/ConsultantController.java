@@ -23,7 +23,7 @@ public class ConsultantController {
     @PostMapping
     public ResponseEntity<Message> signup(@RequestBody ConsultantSignupRequest consultantSignupRequest) {
         consultantService.createConsultant(consultantSignupRequest);
-        return ResponseEntity.created(URI.create("/login"))
+        return ResponseEntity.ok()
                 .body(new Message("succeeded"));
     }
     

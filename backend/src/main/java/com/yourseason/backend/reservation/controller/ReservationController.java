@@ -22,8 +22,8 @@ public class ReservationController {
     public ResponseEntity<ReservationCreateResponse> createReservation(@RequestHeader("X-Auth-Token") String token,
                                                                        @PathVariable Long consultantId,
                                                                        @RequestBody ReservationCreateRequest reservationCreateRequest) {
-        return ResponseEntity.created(URI.create("/consultants/" + consultantId + "/1"))
-                .body(reservationService.createReservation(JwtUtil.getMemberId(token), consultantId, reservationCreateRequest));
+        return ResponseEntity.ok()
+                .body(reservationService.createReservation(0L, consultantId, reservationCreateRequest));
     }
 
     @DeleteMapping("/{reservationId}")
