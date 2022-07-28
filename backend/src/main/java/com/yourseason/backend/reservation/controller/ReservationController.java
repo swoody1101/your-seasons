@@ -28,4 +28,5 @@ public class ReservationController {
     public ResponseEntity<Message> deleteReservation(@PathVariable Long reservationId) {
         return ResponseEntity.ok()
                 .body(reservationService.deleteReservation(0L, reservationId));
+    }
 }

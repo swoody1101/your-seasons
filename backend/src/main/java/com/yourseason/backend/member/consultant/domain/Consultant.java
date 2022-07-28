@@ -24,10 +24,7 @@ import java.util.Objects;
 public class Consultant extends Member {
 
     private String introduction;
-
-    @NotNull
     private String cost;
-
     private double starAverage;
     private int reviewCount;
     private String consultingFile;

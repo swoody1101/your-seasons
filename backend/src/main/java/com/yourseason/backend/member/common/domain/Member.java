@@ -20,7 +20,6 @@ public abstract class Member extends BaseTimeEntity {
     private String email;
 
     @NotNull
-    @Size(min = 6, max = 20)
     private String password;
 
     @NotNull

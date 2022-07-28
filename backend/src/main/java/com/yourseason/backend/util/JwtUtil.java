@@ -17,7 +17,7 @@ import java.util.Map;
 @Component
 public class JwtUtil {
 
-    private static final String SECRET = "yourseason";
+    private static final String SECRET = "ssafy second semester first project - your season";
 
     public static String generateToken(Map<String, String> member) {
         Claims claims = Jwts.claims();
