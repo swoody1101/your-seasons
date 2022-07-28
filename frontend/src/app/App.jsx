@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux'
 
 import './app.css'
 import NavBar from '../components/common/NavBar'
+import YourSeason from '../components/main/YourSeason'
 import MyPage from '../components/mypage/MyPage'
 import ConsultantMyPage from '../components/consultantmypage/ConsultantMyPage'
 import ModifyProfile from '../components/modify/ModifyProfile'
@@ -27,9 +28,9 @@ const App = () => {
       <Stack direction="column" spacing={2} justifyContent="space-between">
         <Routes>
           <Route path='/' element={<p>WelcomePage</p>} />
-          <Route path='/home' element={<p>home</p>} />
+          <Route path='/home' element={<YourSeason />} />
           <Route path='/history' element={<p>history</p>} />
-					<Route path='/consultants' element={<ConsultantList/>} />
+          <Route path='/consultants' element={<ConsultantList />} />
           <Route path='/mypage' element={
             role === CUSTOMER
               ? <MyPage /> : <ConsultantMyPage />
