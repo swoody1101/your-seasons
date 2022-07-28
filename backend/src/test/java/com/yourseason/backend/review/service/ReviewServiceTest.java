@@ -8,6 +8,7 @@ import com.yourseason.backend.member.consultant.domain.LicenseRepository;
 import com.yourseason.backend.member.customer.domain.Customer;
 import com.yourseason.backend.member.customer.domain.CustomerRepository;
 import com.yourseason.backend.review.controller.dto.ReviewRequest;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -31,6 +32,7 @@ class ReviewServiceTest {
     @Autowired
     private LicenseRepository licenseRepository;
 
+    @DisplayName("리뷰 등록 성공")
     @Test
     public void test_register_review_success() {
         // given
@@ -53,6 +55,7 @@ class ReviewServiceTest {
                         .license(license)
                         .licenseNumber("sdkfjslkfjsf")
                         .build());
+
         Customer customer = customerRepository.save(
                 Customer.builder()
                         .email("a1234@gmail.com")
