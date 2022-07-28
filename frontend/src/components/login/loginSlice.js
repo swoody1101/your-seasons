@@ -18,10 +18,9 @@ export const loginUser = createAsyncThunk(
     try {
       // start
       const response = await Axios.post('members/login', userInfo);
-      console.log(response)
-      // const { token } = response.headers.get("Authorization"); // 헤더로 받을 때
-      // const token = response.data['X-Auth-Token'];
-      // saveToken(token);
+      console.log(response.headers["x-auth-token"])
+      const token = response.headers["x-auth-token"]; // 헤더로 받을 때      
+      saveToken(token);
       return response;
     } catch (err) {
       // 에러 자체를 반환해서 jsx에서 처리하는 방법
