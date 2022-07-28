@@ -11,16 +11,16 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ConsultantInfoResponse {
 
-    String name;
-    String nickname;
-    LocalDate birth;
-    String contact;
-    String email;
-    String introduction;
-    String cost;
-    String imageUrl;
-    String consultingFileUrl;
-    String licenseName;
-    String licenseNumber;
-    List<ClosedDayListResponse> closedDays;
+    private String name;
+    private String nickname;
+    private LocalDate birth;
+    private String contact;
+    private String email;
+    private String introduction;
+    private String cost;
+    private String imageUrl;
+    private String consultingFileUrl;
+    private String licenseName;
+    private String licenseNumber;
+    private List<ClosedDayListResponse> closedDays;
 }
