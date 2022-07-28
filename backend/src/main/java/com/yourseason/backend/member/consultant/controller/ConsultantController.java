@@ -75,9 +75,9 @@ public class ConsultantController {
                 .body(consultantService.deleteConsultant(1L));
     }
 
-    @PutMapping("/closed-days")
-    public ResponseEntity<Message> registerClosedDays(@RequestBody LocalDate closedDay) {
+    @PostMapping("/closed-days")
+    public ResponseEntity<Message> registerClosedDay(@RequestBody LocalDate closedDay) {
         return ResponseEntity.ok()
-                .body(consultantService.registerClosedDays(2L, closedDay));
+                .body(consultantService.registerClosedDay(2L, closedDay));
     }
 }
