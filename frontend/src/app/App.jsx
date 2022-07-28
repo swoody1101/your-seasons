@@ -10,6 +10,7 @@ import NavBar from '../components/common/NavBar'
 import MyPage from '../components/mypage/MyPage'
 import ConsultantMyPage from '../components/consultantmypage/ConsultantMyPage'
 import ModifyProfile from '../components/modify/ModifyProfile'
+import ConsultantResPage from '../components/consultantrespage/ConsultantResPage'
 import Login from '../components/login/Login'
 import SignUp from '../components/signup/SignUp'
 import ConsultantList from '../components/consultantList/ConsultantList'
@@ -33,6 +34,7 @@ const App = () => {
             role === CUSTOMER
               ? <MyPage /> : <ConsultantMyPage />
           } />
+          <Route path='/respage' element={<ConsultantResPage />} />
           <Route path='/modify' element={<ModifyProfile />} />
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<SignUp />} />
