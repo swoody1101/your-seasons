@@ -67,11 +67,11 @@ public class ConsultantService {
                         .request(reservation.getRequest())
                         .build())
                 .collect(Collectors.toList());
+
         List<ClosedDayListResponse> closedDays = consultant.getClosedDays()
                 .stream()
                 .filter(closedDay -> closedDay.getDate()
-                        .isAfter(LocalDate.now()
-                                .plusDays(1)))
+                        .isAfter(LocalDate.now()))
                 .map(closedDay -> ClosedDayListResponse.builder()
                         .closedDayId(closedDay.getId())
                         .date(closedDay.getDate())
