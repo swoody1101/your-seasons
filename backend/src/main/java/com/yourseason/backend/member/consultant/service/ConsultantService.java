@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -69,6 +70,16 @@ public class ConsultantService {
                         .build())
                 .collect(Collectors.toList());
 
+        List<ClosedDayListResponse> closedDays = consultant.getClosedDays()
+                .stream()
+                .filter(closedDay -> closedDay.getDate()
+                        .isAfter(LocalDate.now()))
+                .map(closedDay -> ClosedDayListResponse.builder()
+                        .closedDayId(closedDay.getId())
+                        .date(closedDay.getDate())
+                        .build())
+                .collect(Collectors.toList());
+
         return ConsultantResponse.builder()
                 .consultantId(consultantId)
                 .nickname(consultant.getNickname())
@@ -77,6 +88,7 @@ public class ConsultantService {
                 .introduction(consultant.getIntroduction())
                 .cost(consultant.getCost())
                 .licenseName(consultant.getLicense().getName())
+                .closedDays(closedDays)
                 .reservations(reservations)
                 .build();
     }
