@@ -79,7 +79,6 @@ const SignUp = () => {
     role: role,
     licenseId: licenseId,
     licenseNumber: licenseNumber,
-    imageUrl: "/images/default/avatar16.png"
   }
 
   const handleCheckEmail = () => {
