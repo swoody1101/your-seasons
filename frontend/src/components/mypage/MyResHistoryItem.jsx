@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux/es/exports';
 
 import { Button, CardActions, CardContent, Card, Typography, Avatar, CardActionArea, styled } from '@mui/material';
 import LyricsOutlinedIcon from '@mui/icons-material/LyricsOutlined';
-
-import { deleteResFetch, updateResFetch } from './myResSlice';
+import { deleteResFetch } from './myPageSlice';
 
 const MyResHistoryItem = (reservation) => {
-  const [editNow, setEditNow] = useState(false)
+	// 주석 삭제X
+  // const [editNow, setEditNow] = useState(false)
   const dispatch = useDispatch()
   const [isrequest, setIsRequest] = useState(reservation.request)
+	console.log(isrequest)
 
   return (
     <Card sx={{ marginBottom: 5, padding: 1, borderRadius: 5 }} variant="outlined" className="history-card">
@@ -29,17 +30,21 @@ const MyResHistoryItem = (reservation) => {
 
           <RequestBox>
             <Typography sx={{ marginBottom: 1 }}>컨설턴트님께 요청드려요 <LyricsOutlinedIcon /> </Typography>
-            <RequestText name="isComment" readOnly={!editNow} defaultValue={reservation.request ? reservation.request : ''}
-              placeholder={'아직 요청사항이 없어요. 요청사항을 작성해주시면 상담에 도움이 됩니다 :)'}
-              style={{ backgroundColor: editNow === true ? '#cfe8fc' : 'white' }}
-              onChange={(e) => setIsRequest(e.target.value)}>
+            <RequestText name="isComment"  defaultValue={reservation.request ? reservation.request : ''}
+              placeholder={'요청사항이 없습니다.'}
+							// 예약 request 수정버튼 필요시 주석처리 해제 
+							// readOnly={!editNow}
+              // style={{ backgroundColor: editNow === true ? '#cfe8fc' : 'white' }}
+              onChange={(e) => setIsRequest(e.target.value)}
+							>
             </RequestText>
           </RequestBox>
         </CardContent>
       </CardActionArea>
       <CardActions>
         <div>
-          <Button color="primary" sx={{ display: editNow ? 'none' : '' }} onClick={() => { setEditNow(true) }} disabled={!reservation.isActive}>수정</Button>
+					{/* 예약 request 수정버튼 필요시 주석처리 해제 */}
+          {/* <Button color="primary" sx={{ display: editNow ? 'none' : '' }} onClick={() => { setEditNow(true) }} disabled={!reservation.isActive}>수정</Button>
           <Button color="primary" sx={{ display: editNow ? '' : 'none' }}
             onClick={() => {
               if (isrequest.length < 10) {
@@ -51,10 +56,8 @@ const MyResHistoryItem = (reservation) => {
                 dispatch(updateResFetch(isrequest))
               }
             }
-            }
-            disabled={!reservation.isActive}
-          >수정완료</Button>
-          <Button size="small" color="error" onClick={() => { dispatch(deleteResFetch(reservation)) }} disabled={!reservation.isActive}>
+            } disabled={!reservation.isActive}>수정완료</Button> */}
+          <Button size="small" color="error" onClick={() => { dispatch(deleteResFetch(reservation.reservationId)) }} disabled={!reservation.isActive}>
             예약취소
           </Button>
         </div>
