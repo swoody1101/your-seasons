@@ -20,7 +20,6 @@ public abstract class Member extends BaseTimeEntity {
     private String email;
 
     @NotNull
-    @Size(min = 6, max = 20)
     private String password;
 
     @NotNull
@@ -60,5 +59,9 @@ public abstract class Member extends BaseTimeEntity {
 
     protected void withdraw() {
         super.delete();
+    }
+
+    public void changePassword(String afterPassword) {
+        password = afterPassword;
     }
 }

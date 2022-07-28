@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 
@@ -34,10 +35,10 @@ public class ConsultantSignupRequest {
         this.licenseNumber = licenseNumber;
     }
 
-    public Consultant toEntity() {
+    public Consultant toEntity(PasswordEncoder passwordEncoder) {
         return Consultant.builder()
                 .email(email)
-                .password(password)
+                .password(passwordEncoder.encode(password))
                 .name(name)
                 .birth(birth)
                 .nickname(nickname)

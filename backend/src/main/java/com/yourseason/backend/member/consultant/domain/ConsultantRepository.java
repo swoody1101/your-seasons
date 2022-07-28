@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ConsultantRepository extends JpaRepository<Consultant, Long> {
 
-    Member getByEmailAndPassword(String email, String password);
+    Member getByEmail(String email);
 
     boolean existsByEmail(String email);
 

@@ -7,8 +7,10 @@ import {
   Toolbar, Typography, styled
 } from '@mui/material'
 import { Pets } from '@mui/icons-material'
+// import LOGOIMAGE from ''
 
 import { logoutUser, resetUser } from '../login/loginSlice';
+import MyAvatar from '../avatar/MyAvatar';
 
 
 const NavBar = () => {
@@ -32,7 +34,9 @@ const NavBar = () => {
           variant="h5"
           sx={{ display: { xs: "none", sm: "block" } }}
         >
-          <Link to="home">당신의 계절</Link>
+          <Link to="home">
+            당신의 계절
+          </Link>
         </Typography>
         <Pets
           sx={{ display: { xs: "block", sm: "none" } }} />
@@ -62,6 +66,8 @@ const NavBar = () => {
             </Navs>
             :
             <Navs>
+              "{nickname}"
+              <MyAvatar setSize={4} />
               <Typography
                 variant="h6"
                 sx={{ display: { xs: "none", sm: "block" } }}
@@ -109,4 +115,9 @@ const UserBox = styled(Box)(({ theme }) => ({
 
 const StyledA = styled('a')({
   ":hover": [{ cursor: "pointer" }]
+})
+
+const Logo = styled('img')({
+  width: '5rem',
+  height: '5rem'
 })

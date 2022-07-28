@@ -8,6 +8,7 @@ import { loadMember } from '../modify/modifySlice'
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import ProfileImage from '../../assets/images/yourseasonlogo.png';
 import StarRating from "./StarRating";
+import MyAvatar from "../avatar/MyAvatar";
 
 
 const ConsultantProfile = () => {
@@ -37,15 +38,7 @@ const ConsultantProfile = () => {
           bgcolor: 'white',
           justifyContent: 'center',
         }}>
-          <Avatar
-            alt="프로필 사진"
-            src={ProfileImage}
-            sx={{ width: 140, height: 140 }}
-          />
-          <IconButton color="primary" aria-label="upload picture" component="label">
-            <input hidden accept="image/*" type="file" />
-            <PhotoCamera />
-          </IconButton>
+          <MyAvatar setSize={16} />
         </Grid>
         <Grid item xs={12} sm={9}>
           <ProfileText>

@@ -6,10 +6,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -19,9 +19,13 @@ public class License extends BaseTimeEntity {
 
     private String name;
 
+    @OneToMany(mappedBy = "license")
+    private List<Consultant> consultants = new ArrayList<>();
+
     @Builder
-    public License(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDateTime deletedDate, boolean isActive, String name) {
-        super(id, createdTime, lastModifiedTime, deletedDate, isActive);
+    public License(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate, boolean isActive, String name, List<Consultant> consultants) {
+        super(id, createdDate, lastModifiedDate, deletedDate, isActive);
         this.name = name;
+        this.consultants = consultants;
     }
 }

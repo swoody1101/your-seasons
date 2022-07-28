@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -23,10 +24,7 @@ import java.util.List;
 public class Consultant extends Member {
 
     private String introduction;
-
-    @NotNull
     private String cost;
-
     private double starAverage;
     private int reviewCount;
     private String consultingFile;
@@ -39,16 +37,16 @@ public class Consultant extends Member {
     @NotNull
     private String licenseNumber;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "consultant", cascade = CascadeType.PERSIST)
     private List<ClosedDay> closedDays = new ArrayList<>();
 
-    @OneToMany(mappedBy = "consultant", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "consultant", cascade = CascadeType.PERSIST)
     private List<Reservation> reservations = new ArrayList<>();
 
-    @OneToMany(mappedBy = "consultant", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "consultant", cascade = CascadeType.PERSIST)
     private List<Review> reviews = new ArrayList<>();
 
-    @OneToMany(mappedBy = "consultant", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "consultant", cascade = CascadeType.PERSIST)
     private List<Consulting> consultings = new ArrayList<>();
 
     @Builder
@@ -82,5 +80,15 @@ public class Consultant extends Member {
 
     public void withdraw() {
         super.withdraw();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof Member && this.getEmail().equals(((Member) o).getEmail());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getEmail());
     }
 }

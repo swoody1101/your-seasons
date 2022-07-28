@@ -2,13 +2,16 @@ package com.yourseason.backend.member.consultant.service;
 
 import com.yourseason.backend.common.domain.Message;
 import com.yourseason.backend.common.exception.ImageUploadException;
+import com.yourseason.backend.common.exception.NotEqualException;
 import com.yourseason.backend.common.exception.NotFoundException;
+import com.yourseason.backend.member.common.controller.dto.PasswordUpdateRequest;
 import com.yourseason.backend.member.consultant.controller.dto.*;
 import com.yourseason.backend.member.consultant.domain.Consultant;
 import com.yourseason.backend.member.consultant.domain.ConsultantRepository;
 import com.yourseason.backend.member.consultant.domain.License;
 import com.yourseason.backend.member.consultant.domain.LicenseRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,12 +28,14 @@ public class ConsultantService {
     private static final String CONSULTANT_NOT_FOUND = "해당 컨설턴트를 찾을 수 없습니다.";
     private static final String LICENSE_NOT_FOUND = "자격증이 존재하지 않습니다.";
     private static final String IMAGE_UPLOAD_FAIL = "이미지 업로드에 실패했습니다.";
+    private static final String PASSWORD_NOT_EQUAL = "비밀번호가 올바르지 않습니다.";
 
+    private final PasswordEncoder passwordEncoder;
     private final ConsultantRepository consultantRepository;
     private final LicenseRepository licenseRepository;
 
     public void createConsultant(ConsultantSignupRequest consultantSignupRequest) {
-        Consultant consultant = consultantSignupRequest.toEntity();
+        Consultant consultant = consultantSignupRequest.toEntity(passwordEncoder);
         License license = licenseRepository.findByName(consultantSignupRequest.getLicenseName())
                 .orElseThrow(() -> new NotFoundException(LICENSE_NOT_FOUND));
         consultant.registerLicense(license);
@@ -91,7 +96,7 @@ public class ConsultantService {
                 .collect(Collectors.toList());
     }
 
-    public ConsultantReservationResponse getMyReservations(long consultantId) {
+    public ConsultantReservationResponse getMyReservations(Long consultantId) {
         Consultant consultant = consultantRepository.findById(consultantId)
                 .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
 
@@ -114,7 +119,7 @@ public class ConsultantService {
                 .build();
     }
 
-    public ConsultantReviewResponse getMyReviews(long consultantId) {
+    public ConsultantReviewResponse getMyReviews(Long consultantId) {
         Consultant consultant = consultantRepository.findById(consultantId)
                 .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
 
@@ -167,7 +172,18 @@ public class ConsultantService {
         return new Message("succeeded");
     }
 
-    public Message deleteConsultant(long consultantId) {
+    public Message updateConsultantPassword(Long consultantId, PasswordUpdateRequest passwordUpdateRequest) {
+        Consultant consultant = consultantRepository.findById(consultantId)
+                .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
+        if (!passwordUpdateRequest.getBeforePassword().equals(consultant.getPassword())) {
+            throw new NotEqualException(PASSWORD_NOT_EQUAL);
+        }
+        consultant.changePassword(passwordUpdateRequest.getAfterPassword());
+        consultantRepository.save(consultant);
+        return new Message("succeeded");
+    }
+
+    public Message deleteConsultant(Long consultantId) {
         Consultant consultant = consultantRepository.findById(consultantId)
                 .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
         consultant.withdraw();

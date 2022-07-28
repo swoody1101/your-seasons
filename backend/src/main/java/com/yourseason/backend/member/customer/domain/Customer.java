@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -21,13 +22,13 @@ import java.util.List;
 @Entity
 public class Customer extends Member {
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST)
     private List<Consulting> consultings = new ArrayList<>();
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST)
     private List<Reservation> reservations = new ArrayList<>();
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST)
     private List<Review> reviews = new ArrayList<>();
 
     @Builder
@@ -47,5 +48,15 @@ public class Customer extends Member {
 
     public void withdraw() {
         super.withdraw();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof Member && this.getEmail().equals(((Member) o).getEmail());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getEmail());
     }
 }

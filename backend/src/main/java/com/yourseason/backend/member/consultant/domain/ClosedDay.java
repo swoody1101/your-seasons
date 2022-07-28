@@ -5,9 +5,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -20,9 +18,14 @@ public class ClosedDay extends BaseTimeEntity {
     @NotNull
     private LocalDate date;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "consultant_id")
+    private Consultant consultant;
+
     @Builder
-    public ClosedDay(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDateTime deletedDate, boolean isActive, LocalDate date) {
-        super(id, createdTime, lastModifiedTime, deletedDate, isActive);
+    public ClosedDay(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate, boolean isActive, LocalDate date, Consultant consultant) {
+        super(id, createdDate, lastModifiedDate, deletedDate, isActive);
         this.date = date;
+        this.consultant = consultant;
     }
 }

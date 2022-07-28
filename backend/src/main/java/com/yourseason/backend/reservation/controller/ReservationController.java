@@ -1,5 +1,6 @@
 package com.yourseason.backend.reservation.controller;
 
+import com.yourseason.backend.common.domain.Message;
 import com.yourseason.backend.reservation.controller.dto.ReservationCreateRequest;
 import com.yourseason.backend.reservation.controller.dto.ReservationCreateResponse;
 import com.yourseason.backend.reservation.service.ReservationService;
@@ -21,5 +22,11 @@ public class ReservationController {
                                                                        @RequestBody ReservationCreateRequest reservationCreateRequest) {
         return ResponseEntity.created(URI.create("/consultants/" + consultantId + "/1"))
                 .body(reservationService.createReservation(0L, consultantId, reservationCreateRequest));
+    }
+
+    @DeleteMapping("/{reservationId}")
+    public ResponseEntity<Message> deleteReservation(@PathVariable Long reservationId) {
+        return ResponseEntity.ok()
+                .body(reservationService.deleteReservation(0L, reservationId));
     }
 }
