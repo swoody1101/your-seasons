@@ -27,10 +27,11 @@ public class ReviewController {
     }
 
     @PatchMapping("/{reviewId}")
-    public ResponseEntity<ReviewResponse> updateReview(@PathVariable Long reviewId,
+    public ResponseEntity<ReviewResponse> updateReview(@RequestHeader("X-Auth-Token") String token,
+                                                       @PathVariable Long reviewId,
                                                        @RequestBody ReviewRequest reviewRequest) {
         return ResponseEntity.ok()
-                .body(reviewService.updateReview(reviewId, reviewRequest));
+                .body(reviewService.updateReview(JwtUtil.getMemberId(token), reviewId, reviewRequest));
     }
 
     @DeleteMapping("/{reviewId}")
