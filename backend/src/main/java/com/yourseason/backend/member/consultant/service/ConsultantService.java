@@ -5,14 +5,14 @@ import com.yourseason.backend.common.exception.NotEqualException;
 import com.yourseason.backend.common.exception.NotFoundException;
 import com.yourseason.backend.member.common.controller.dto.PasswordUpdateRequest;
 import com.yourseason.backend.member.consultant.controller.dto.*;
-import com.yourseason.backend.member.consultant.domain.Consultant;
-import com.yourseason.backend.member.consultant.domain.ConsultantRepository;
-import com.yourseason.backend.member.consultant.domain.License;
-import com.yourseason.backend.member.consultant.domain.LicenseRepository;
+import com.yourseason.backend.member.consultant.domain.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,6 +28,7 @@ public class ConsultantService {
     private final PasswordEncoder passwordEncoder;
     private final ConsultantRepository consultantRepository;
     private final LicenseRepository licenseRepository;
+    private final ClosedDayRepository closedDayRepository;
 
     public void createConsultant(ConsultantSignupRequest consultantSignupRequest) {
         Consultant consultant = consultantSignupRequest.toEntity(passwordEncoder);
@@ -204,6 +205,19 @@ public class ConsultantService {
         Consultant consultant = consultantRepository.findById(consultantId)
                 .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
         consultant.withdraw();
+        return new Message("succeeded");
+    }
+
+    public Message createClosedDay(Long consultantId, LocalDate closedDay) {
+        Consultant consultant = consultantRepository.findById(consultantId)
+                .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
+
+        consultant.addClosedDay(
+                ClosedDay.builder()
+                        .date(closedDay)
+                        .consultant(consultant)
+                        .build());
+        consultantRepository.save(consultant);
         return new Message("succeeded");
     }
 }
