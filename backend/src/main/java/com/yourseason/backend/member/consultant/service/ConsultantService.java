@@ -211,6 +211,7 @@ public class ConsultantService {
                 .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
         ClosedDay closedDay = closedDayRepository.findById(closedDayId)
                 .orElseThrow(() -> new NotFoundException(CLOSED_DAY_NOT_FOUND));
+
         consultant.deleteClosedDay(closedDay);
         consultantRepository.save(consultant);
         return new Message("succeeded");
