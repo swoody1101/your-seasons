@@ -5,10 +5,7 @@ import com.yourseason.backend.common.exception.NotEqualException;
 import com.yourseason.backend.common.exception.NotFoundException;
 import com.yourseason.backend.member.common.controller.dto.PasswordUpdateRequest;
 import com.yourseason.backend.member.consultant.controller.dto.*;
-import com.yourseason.backend.member.consultant.domain.Consultant;
-import com.yourseason.backend.member.consultant.domain.ConsultantRepository;
-import com.yourseason.backend.member.consultant.domain.License;
-import com.yourseason.backend.member.consultant.domain.LicenseRepository;
+import com.yourseason.backend.member.consultant.domain.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,10 +21,12 @@ public class ConsultantService {
     private static final String CONSULTANT_NOT_FOUND = "해당 컨설턴트를 찾을 수 없습니다.";
     private static final String LICENSE_NOT_FOUND = "자격증이 존재하지 않습니다.";
     private static final String PASSWORD_NOT_EQUAL = "비밀번호가 올바르지 않습니다.";
+    private static final String CLOSED_DAY_NOT_FOUND = "해당 날짜는 휴무일이 아닙니다.";
 
     private final PasswordEncoder passwordEncoder;
     private final ConsultantRepository consultantRepository;
     private final LicenseRepository licenseRepository;
+    private final ClosedDayRepository closedDayRepository;
 
     public void createConsultant(ConsultantSignupRequest consultantSignupRequest) {
         Consultant consultant = consultantSignupRequest.toEntity(passwordEncoder);
@@ -204,6 +203,16 @@ public class ConsultantService {
         Consultant consultant = consultantRepository.findById(consultantId)
                 .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
         consultant.withdraw();
+        return new Message("succeeded");
+    }
+
+    public Message deleteClosedDay(Long consultantId, Long closedDayId) {
+        Consultant consultant = consultantRepository.findById(consultantId)
+                .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
+        ClosedDay closedDay = closedDayRepository.findById(closedDayId)
+                .orElseThrow(() -> new NotFoundException(CLOSED_DAY_NOT_FOUND));
+        consultant.deleteClosedDay(closedDay);
+        consultantRepository.save(consultant);
         return new Message("succeeded");
     }
 }

@@ -37,7 +37,7 @@ public class Consultant extends Member {
     @NotNull
     private String licenseNumber;
 
-    @OneToMany(mappedBy = "consultant", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "consultant", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<ClosedDay> closedDays = new ArrayList<>();
 
     @OneToMany(mappedBy = "consultant", cascade = CascadeType.PERSIST)
@@ -80,6 +80,10 @@ public class Consultant extends Member {
 
     public void withdraw() {
         super.withdraw();
+    }
+
+    public void deleteClosedDay(ClosedDay closedDay) {
+        closedDays.remove(closedDay);
     }
 
     @Override
