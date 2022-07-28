@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -77,5 +78,11 @@ public class ConsultantController {
     public ResponseEntity<Message> deleteConsultant() {
         return ResponseEntity.ok()
                 .body(consultantService.deleteConsultant(1L));
+    }
+
+    @PostMapping("/closed-days")
+    public ResponseEntity<Message> createClosedDay(@RequestBody LocalDate closedDay) {
+        return ResponseEntity.ok()
+                .body(consultantService.createClosedDay(2L, closedDay));
     }
 }
