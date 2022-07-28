@@ -30,6 +30,7 @@ public class CustomerController {
         return ResponseEntity.ok()
                 .body(customerService.getCustomer(0L));
     }
+
     @GetMapping("/1")
     public ResponseEntity<List<ReservationListResponse>> getMyReservations() {
         return ResponseEntity.ok()
