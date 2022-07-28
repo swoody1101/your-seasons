@@ -29,9 +29,9 @@ export const loadMember = createAsyncThunk(
     try {
       let response
       if (role === CUSTOMER) {
-        response = await Axios.get('customers/4');
+        response = await Axios.get('customers/');
       } else if (role === CONSULTANT) {
-        response = await Axios.get('consultants/3');
+        response = await Axios.get('consultants/');
       }
       return response.data
     } catch (err) {
