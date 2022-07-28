@@ -57,9 +57,9 @@ public class ConsultantController {
     }
 
     @PatchMapping
-    public ResponseEntity<Message> updateConsultant(@RequestPart ConsultantUpdateRequest consultantUpdateRequest, @RequestPart MultipartFile multipartFile) {
+    public ResponseEntity<Message> updateConsultant(@RequestBody ConsultantUpdateRequest consultantUpdateRequest) {
         return ResponseEntity.ok()
-                .body(consultantService.updateConsultant(1L, consultantUpdateRequest, multipartFile));
+                .body(consultantService.updateConsultant(1L, consultantUpdateRequest));
     }
 
     @PatchMapping("/password")
