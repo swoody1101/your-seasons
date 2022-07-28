@@ -123,6 +123,7 @@ public class CustomerService {
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
         customer.withdraw();
+        customerRepository.save(customer);
         return new Message("succeeded");
     }
 }
