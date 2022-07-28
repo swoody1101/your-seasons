@@ -82,6 +82,10 @@ public class Consultant extends Member {
         super.withdraw();
     }
 
+    public void deleteClosedDay(ClosedDay closedDay) {
+        closedDays.remove(closedDay);
+    }
+
     @Override
     public boolean equals(Object o) {
         return o instanceof Member && this.getEmail().equals(((Member) o).getEmail());
