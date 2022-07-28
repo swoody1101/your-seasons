@@ -11,6 +11,7 @@ import com.yourseason.backend.member.consultant.domain.ConsultantRepository;
 import com.yourseason.backend.member.consultant.domain.License;
 import com.yourseason.backend.member.consultant.domain.LicenseRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,11 +30,12 @@ public class ConsultantService {
     private static final String IMAGE_UPLOAD_FAIL = "이미지 업로드에 실패했습니다.";
     private static final String PASSWORD_NOT_EQUAL = "비밀번호가 올바르지 않습니다.";
 
+    private final PasswordEncoder passwordEncoder;
     private final ConsultantRepository consultantRepository;
     private final LicenseRepository licenseRepository;
 
     public void createConsultant(ConsultantSignupRequest consultantSignupRequest) {
-        Consultant consultant = consultantSignupRequest.toEntity();
+        Consultant consultant = consultantSignupRequest.toEntity(passwordEncoder);
         License license = licenseRepository.findByName(consultantSignupRequest.getLicenseName())
                 .orElseThrow(() -> new NotFoundException(LICENSE_NOT_FOUND));
         consultant.registerLicense(license);

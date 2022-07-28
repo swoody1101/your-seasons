@@ -8,8 +8,8 @@ import com.yourseason.backend.member.common.controller.dto.PasswordUpdateRequest
 import com.yourseason.backend.member.customer.controller.dto.*;
 import com.yourseason.backend.member.customer.domain.Customer;
 import com.yourseason.backend.member.customer.domain.CustomerRepository;
-import com.yourseason.backend.reservation.domain.ReservationRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,11 +27,11 @@ public class CustomerService {
     private static final String IMAGE_UPLOAD_FAIL = "이미지 업로드에 실패하였습니다.";
     private static final String PASSWORD_NOT_EQUAL = "비밀번호가 올바르지 않습니다.";
 
+    private final PasswordEncoder passwordEncoder;
     private final CustomerRepository customerRepository;
-    private final ReservationRepository reservationRepository;
 
     public void createCustomer(CustomerSignupRequest request) {
-        customerRepository.save(request.toEntity());
+        customerRepository.save(request.toEntity(passwordEncoder));
     }
 
     public CustomerResponse getCustomer(Long customerId) {
