@@ -22,7 +22,6 @@ public class ConsultantService {
 
     private static final String CONSULTANT_NOT_FOUND = "해당 컨설턴트를 찾을 수 없습니다.";
     private static final String LICENSE_NOT_FOUND = "자격증이 존재하지 않습니다.";
-    private static final String IMAGE_UPLOAD_FAIL = "이미지 업로드에 실패했습니다.";
     private static final String PASSWORD_NOT_EQUAL = "비밀번호가 올바르지 않습니다.";
 
     private final PasswordEncoder passwordEncoder;
