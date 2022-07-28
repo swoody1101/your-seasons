@@ -14,6 +14,8 @@ import com.yourseason.backend.review.domain.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @RequiredArgsConstructor
 @Service
 public class ReviewService {
@@ -27,6 +29,7 @@ public class ReviewService {
     private final ConsultantRepository consultantRepository;
     private final ReviewRepository reviewRepository;
 
+    @Transactional
     public ReviewResponse createReview(Long customerId, Long consultantId, ReviewRequest reviewRequest) {
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
@@ -34,7 +37,7 @@ public class ReviewService {
                 .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
 
         Review review = reviewRequest.toEntity();
-        review.register(customer, consultant);
+        review.register(customer, consultant, review.getStar());
         reviewRepository.save(review);
 
         return ReviewResponse.builder()
@@ -43,6 +46,7 @@ public class ReviewService {
                 .build();
     }
 
+    @Transactional
     public ReviewResponse updateReview(Long reviewId, ReviewRequest reviewRequest) {
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new NotFoundException(REVIEW_NOT_FOUND));
@@ -56,12 +60,16 @@ public class ReviewService {
                 .build();
     }
 
+    @Transactional
     public Message deleteReview(Long customerId, Long reviewId) {
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new NotFoundException(REVIEW_NOT_FOUND));
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
         if (!customer.equals(review.getCustomer())) {
+            throw new WrongAccessException(WRONG_ACCESS);
+        }
+        if(review.getConsultant().getReviewCount() < 0) {
             throw new WrongAccessException(WRONG_ACCESS);
         }
 
