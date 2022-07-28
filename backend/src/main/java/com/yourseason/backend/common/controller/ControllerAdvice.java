@@ -1,10 +1,7 @@
 package com.yourseason.backend.common.controller;
 
 import com.yourseason.backend.common.domain.Message;
-import com.yourseason.backend.common.exception.DuplicationException;
-import com.yourseason.backend.common.exception.ImageUploadException;
-import com.yourseason.backend.common.exception.NotFoundException;
-import com.yourseason.backend.common.exception.WrongFormException;
+import com.yourseason.backend.common.exception.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -30,14 +27,14 @@ public class ControllerAdvice {
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(WrongFormException.class)
-    public Message WrongFormException(RuntimeException runtimeException) {
+    @ExceptionHandler({WrongFormException.class, NotEqualException.class})
+    public Message BadRequestException(RuntimeException runtimeException) {
         log.info(runtimeException.getMessage());
         return new Message(runtimeException.getMessage());
     }
 
-    @ResponseStatus(HttpStatus.CONFLICT)
-    @ExceptionHandler(ImageUploadException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ExceptionHandler(WrongAccessException.class)
     public Message ImageUploadException(RuntimeException runtimeException) {
         log.info(runtimeException.getMessage());
         return new Message(runtimeException.getMessage());
