@@ -22,7 +22,7 @@ public class ReviewController {
     public ResponseEntity<ReviewResponse> createReview(@RequestHeader("X-Auth-Token") String token,
                                                        @PathVariable Long consultantId,
                                                        @RequestBody ReviewRequest reviewRequest) {
-        return ResponseEntity.created(URI.create("/"))
+        return ResponseEntity.ok()
                 .body(reviewService.createReview(JwtUtil.getMemberId(token), consultantId, reviewRequest));
     }
 
