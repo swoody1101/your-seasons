@@ -46,7 +46,7 @@ export const emailCheck = createAsyncThunk(
   async (email, { rejectWithValue }) => {
     try {
       console.log("비동기 요청 이메일 중복확인") // 비동기 위치표시
-      const response = await Axios.get(`members/validation?email=${email}`);
+      const response = await Axios.get(`members/validation/1?email=${email}`);
       if (response.status === OK) {
         return true;
       }
@@ -61,7 +61,7 @@ export const nicknameCheck = createAsyncThunk(
   async (nickname, { rejectWithValue }) => {
     try {
       console.log("비동기 요청 닉네임 중복확인") // 비동기 위치표시
-      const response = await Axios.get(`members/validation?nickname=${nickname}`);
+      const response = await Axios.get(`members/validation/2?nickname=${nickname}`);
       if (response.status === OK) {
         return true;
       }
