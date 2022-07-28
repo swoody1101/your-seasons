@@ -7,7 +7,6 @@ import com.yourseason.backend.member.consultant.service.ConsultantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URI;
 import java.util.List;
@@ -54,6 +53,12 @@ public class ConsultantController {
     public ResponseEntity<ConsultantReviewResponse> getMyReviews() {
         return ResponseEntity.ok()
                 .body(consultantService.getMyReviews(1L));
+    }
+
+    @GetMapping("/3")
+    public ResponseEntity<ConsultantInfoResponse> getConsultantInfo() {
+        return ResponseEntity.ok()
+                .body(consultantService.getConsultantInfo(0L));
     }
 
     @PatchMapping
