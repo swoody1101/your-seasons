@@ -37,7 +37,7 @@ public class Consultant extends Member {
     @NotNull
     private String licenseNumber;
 
-    @OneToMany(mappedBy = "consultant", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "consultant", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ClosedDay> closedDays = new ArrayList<>();
 
     @OneToMany(mappedBy = "consultant", cascade = CascadeType.PERSIST)
