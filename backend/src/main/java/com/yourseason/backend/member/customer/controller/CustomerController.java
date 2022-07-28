@@ -21,9 +21,8 @@ public class CustomerController {
 
     @PostMapping
     public ResponseEntity<Message> signup(@RequestBody CustomerSignupRequest request) {
-        customerService.createCustomer(request);
         return ResponseEntity.ok()
-                .body(new Message("succeeded"));
+                .body(customerService.createCustomer(request));
     }
 
     @GetMapping("/4")

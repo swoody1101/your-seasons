@@ -25,15 +25,13 @@ public class MemberController {
 
     @GetMapping("/validation/1")
     public ResponseEntity<Message> validateEmail(@RequestParam String email) {
-        memberService.validateEmail(email);
         return ResponseEntity.ok()
-                .body(new Message("succeeded"));
+                .body(memberService.validateEmail(email));
     }
 
     @GetMapping("/validation/2")
     public ResponseEntity<Message> validateNickname(@RequestParam String nickname) {
-        memberService.validateNickname(nickname);
         return ResponseEntity.ok()
-                .body(new Message("succeeded"));
+                .body(memberService.validateNickname(nickname));
     }
 }
