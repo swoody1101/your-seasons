@@ -10,4 +10,5 @@ public class CustomerUpdateRequest {
 
     private String nickname;
     private String contact;
+    private String imageUrl;
 }
