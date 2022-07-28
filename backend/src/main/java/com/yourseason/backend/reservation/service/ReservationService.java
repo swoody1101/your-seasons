@@ -53,6 +53,7 @@ public class ReservationService {
         }
 
         reservation.cancel();
+        reservationRepository.save(reservation);
         return new Message("succeeded");
     }
 }
