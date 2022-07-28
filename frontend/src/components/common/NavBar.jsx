@@ -45,6 +45,12 @@ const NavBar = () => {
                 variant="h6"
                 sx={{ display: { xs: "none", sm: "block" } }}
               >
+                <Link to="consultants">컨설턴트 목록</Link>
+              </Typography>
+              <Typography
+                variant="h6"
+                sx={{ display: { xs: "none", sm: "block" } }}
+              >
                 <Link to="login">로그인</Link>
               </Typography>
               <Typography
