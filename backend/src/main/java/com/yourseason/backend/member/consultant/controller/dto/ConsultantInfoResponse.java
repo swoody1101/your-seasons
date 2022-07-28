@@ -1,10 +1,6 @@
 package com.yourseason.backend.member.consultant.controller.dto;
 
-import com.yourseason.backend.member.consultant.domain.ClosedDay;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
