@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import {Typography, Button, Box, Rating, Modal} from '@mui/material';
+import React, { useState } from 'react';
+import { Button, Box, Rating, Modal} from '@mui/material';
 import { useDispatch } from 'react-redux/es/exports';
-import { createReviewFetch } from './myReviewSlice';
-import { red } from '@mui/material/colors';
+import { createReviewFetch } from './myPageSlice';
 
 
 // 스타레이팅
@@ -46,15 +45,6 @@ const style = {
   p: 3,
 };
 
-
-// if(isrequest.length<10){
-// 	alert('10자이상 입력해 주세요')
-// }else if(isrequest.length>1000){
-// 	alert('1000자 미만 입력해주세요.')
-// }else{
-// 	setEditNow(false); 
-// 	dispatch(updateResFetch(isrequest))}} 
-// }
 
 const ConsultantDiagnosisReview = ({consultantNickname, consultantId, hasReview}) => {
   const [open, setOpen] = useState(false);

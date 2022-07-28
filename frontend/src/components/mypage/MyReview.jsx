@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux/es/exports';
 import { Button, CardActions, CardContent, Card, Typography, Avatar, CardActionArea, styled } from '@mui/material';
 import BasicRating from './StarRating'
-import { myReviewFetch, deleteReviewFetch, updateReviewFetch } from './myReviewSlice'
+import { deleteReviewFetch, updateReviewFetch } from './myPageSlice'
 
 
 const MyReview = () => {
   const dispatch = useDispatch();
-	const reviews = useSelector(state=>state.myReviews.data);
+	const reviews = useSelector(state=>state.customerMyPage.myReviewsData);
 	const [iscomment, setComment] = useState('')
 	const [isstar, setStar] = useState('')
 	const [isReviewId, setIsReviewId] = useState(false)
@@ -34,7 +34,7 @@ const MyReview = () => {
 	return (<>
 		<Div>
 		{reviews.map(({ reviewId, nickname, imageUrl, star, comment, reviewDate }, index)=>(
-		<form onSubmit={onSubmit}>
+		<form onSubmit={onSubmit} key={index}>
     <Card sx={{ marginBottom:5, padding:1, borderRadius: 5}} variant="outlined" className="history-card" key={index}>
 			<CardActionArea>
 				<CardContent>

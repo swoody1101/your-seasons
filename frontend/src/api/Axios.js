@@ -23,6 +23,8 @@ export const imgAxios = baseAxios.create({
 export default Axios;
 
 Axios.interceptors.request.use((config) => {
-  config.headers.Authorization = `Bearer ${getToken()}`;
+  if (getToken()) {
+    config.headers.Authorization = `Bearer ${getToken()}`;
+  }
   return config;
 });

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux/es/exports';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux/es/exports';
 import { Button, Grid, Box, Modal, CardContent, Card, Typography, styled } from '@mui/material';
 import './mypage.css'
 import ConsultantDiagnosisReview from './ConsultantDiagnosisReview';
@@ -46,22 +46,16 @@ export const BasicModal = ({ resultImageUrl }) => {
 }
 
 
-
 const ConsultantDiagnosis = () => {
-	const results = useSelector(state=>state.myConsultantDx.data);
-	// useEffect(()=>{
-		// 	dispatch(myConsultantDxFetch())
-		// }, [])
-
-
+	const results = useSelector(state=>state.customerMyPage.myConsultantDxData);
 
 	return (<>
 		<Div>
-		{results.map( ({consultantId, consultingId, tone, consultantNickname, consultantImageUrl, consultingDate, bestColorSet, worstColorSet, resultImageUrl, comment, hasReview } , index) => (
-			<div style={{display:'flex', justifyContent:'center'}}>
+		{results.map( ({consultantId, tone, consultantNickname, consultantImageUrl, consultingDate, bestColorSet, worstColorSet, resultImageUrl, comment, hasReview } , index) => (
+			<div style={{display:'flex', justifyContent:'center'}} key={index}> 
 			{/* 카드1 */}
 				<Card sx={{ textAlign:'center', display:'flex', justifyContent:'center', maxWidth:700, width: 700,
-									boxSizing:'border-box', flexDirection:"column", marginBottom:5, padding:1, borderRadius: 5 }} variant="outlined" key={index}>
+									boxSizing:'border-box', flexDirection:"column", marginBottom:5, padding:1, borderRadius: 5 }} variant="outlined" >
 
 					{/* 진단결과 */}
 					<CardContent sx={{display:'flex', textAlign:'center', justifyContent:'center', flexDirection:"column"}}>
