@@ -35,5 +35,9 @@
       ```
       - React-Calendar/Moment
       ```
-      npm install react-calendar moment
+        npm install react-calendar moment
+      ```
+      - react-material-ui-carousel
+      ```
+        npm install  react-material-ui-carousel
       ```
