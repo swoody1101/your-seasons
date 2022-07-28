@@ -20,7 +20,7 @@ public class ReservationController {
     @PostMapping("/{consultantId}")
     public ResponseEntity<ReservationCreateResponse> createReservation(@PathVariable Long consultantId,
                                                                        @RequestBody ReservationCreateRequest reservationCreateRequest) {
-        return ResponseEntity.created(URI.create("/consultants/" + consultantId + "/1"))
+        return ResponseEntity.ok()
                 .body(reservationService.createReservation(0L, consultantId, reservationCreateRequest));
     }
 

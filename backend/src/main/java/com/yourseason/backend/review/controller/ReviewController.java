@@ -20,7 +20,7 @@ public class ReviewController {
 
     @PostMapping("/{consultantId}")
     public ResponseEntity<ReviewResponse> createReview(@PathVariable Long consultantId, @RequestBody ReviewRequest reviewRequest) {
-        return ResponseEntity.created(URI.create("/"))
+        return ResponseEntity.ok()
                 .body(reviewService.createReview(2L, consultantId, reviewRequest));
     }
 
