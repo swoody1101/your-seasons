@@ -1,7 +1,6 @@
 package com.yourseason.backend.member.customer.service;
 
 import com.yourseason.backend.common.domain.Message;
-import com.yourseason.backend.common.exception.ImageUploadException;
 import com.yourseason.backend.common.exception.NotEqualException;
 import com.yourseason.backend.common.exception.NotFoundException;
 import com.yourseason.backend.member.common.controller.dto.PasswordUpdateRequest;
@@ -11,11 +10,7 @@ import com.yourseason.backend.member.customer.domain.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,7 +19,6 @@ import java.util.stream.Collectors;
 public class CustomerService {
 
     private static final String CUSTOMER_NOT_FOUND = "해당 회원을 찾을 수 없습니다.";
-    private static final String IMAGE_UPLOAD_FAIL = "이미지 업로드에 실패하였습니다.";
     private static final String PASSWORD_NOT_EQUAL = "비밀번호가 올바르지 않습니다.";
 
     private final PasswordEncoder passwordEncoder;
@@ -44,6 +38,7 @@ public class CustomerService {
                 .birth(customer.getBirth())
                 .contact(customer.getContact())
                 .email(customer.getEmail())
+                .imageUrl(customer.getImageUrl())
                 .build();
     }
 
@@ -104,28 +99,11 @@ public class CustomerService {
                 .collect(Collectors.toList());
     }
 
-    public Message updateCustomer(Long customerId, CustomerUpdateRequest customerUpdateRequest, MultipartFile multipartFile) {
+    public Message updateCustomer(Long customerId, CustomerUpdateRequest customerUpdateRequest) {
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
 
-        String imageUrl = customer.getImageUrl();
-        if(imageUrl == null) {
-            String filePath = System.getProperty("user.dir") + "/src/main/resources/static/img/";
-            String fileName = customer.getEmail();
-            imageUrl = filePath + fileName;
-        }
-        try {
-            byte[] bytes = multipartFile.getBytes();
-            File file = new File(imageUrl);
-            FileOutputStream fileOutputStream = new FileOutputStream(file);
-            fileOutputStream.write(bytes);
-            fileOutputStream.flush();
-            fileOutputStream.close();
-        } catch (IOException e) {
-            throw new ImageUploadException(IMAGE_UPLOAD_FAIL);
-        }
-
-        customer.updateProfile(customerUpdateRequest.getNickname(), customerUpdateRequest.getContact(), imageUrl);
+        customer.updateProfile(customerUpdateRequest.getNickname(), customerUpdateRequest.getContact(), customerUpdateRequest.getImageUrl());
         customerRepository.save(customer);
         return new Message("succeeded");
     }
