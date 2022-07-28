@@ -7,7 +7,7 @@ import { Stack, Box, styled, Grid } from '@mui/material';
 
 
 
-export default function ConsultingResCalendar(props) {
+const ConsultingResCalendar = (props) => {
   const today = new Date()
 
   let date = (today.getFullYear()) + '-' + ('0' + (today.getMonth() + 1)).slice(-2)
