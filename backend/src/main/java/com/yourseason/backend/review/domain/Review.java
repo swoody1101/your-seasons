@@ -64,12 +64,12 @@ public class Review extends BaseTimeEntity {
     }
 
     public void deleteReview() {
+        consultant.updateStarAverageByDeletedReview(star);
         super.delete();
         customer.getReviews()
                 .remove(this);
         consultant.getReviews()
                 .remove(this);
-        consultant.updateStarAverageByDeletedReview(star);
     }
 
     public void updateReview(int star, String comment) {
