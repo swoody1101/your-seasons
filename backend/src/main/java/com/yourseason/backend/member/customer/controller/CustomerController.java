@@ -21,7 +21,7 @@ public class CustomerController {
     @PostMapping
     public ResponseEntity<Message> signup(@RequestBody CustomerSignupRequest request) {
         customerService.createCustomer(request);
-        return ResponseEntity.created(URI.create("/login"))
+        return ResponseEntity.ok()
                 .body(new Message("succeeded"));
     }
 
