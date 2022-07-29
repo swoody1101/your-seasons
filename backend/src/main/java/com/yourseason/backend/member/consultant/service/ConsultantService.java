@@ -4,6 +4,7 @@ import com.yourseason.backend.common.domain.Message;
 import com.yourseason.backend.common.exception.NotEqualException;
 import com.yourseason.backend.common.exception.NotFoundException;
 import com.yourseason.backend.member.common.controller.dto.PasswordUpdateRequest;
+import com.yourseason.backend.member.common.service.MemberService;
 import com.yourseason.backend.member.consultant.controller.dto.*;
 import com.yourseason.backend.member.consultant.domain.*;
 import lombok.RequiredArgsConstructor;
@@ -27,8 +28,11 @@ public class ConsultantService {
     private final ConsultantRepository consultantRepository;
     private final LicenseRepository licenseRepository;
     private final ClosedDayRepository closedDayRepository;
+    private final MemberService memberService;
 
     public Message createConsultant(ConsultantSignupRequest consultantSignupRequest) {
+        memberService.validateEmail(consultantSignupRequest.getEmail());
+        memberService.validateNickname(consultantSignupRequest.getNickname());
         Consultant consultant = consultantSignupRequest.toEntity(passwordEncoder);
         License license = licenseRepository.findByName(consultantSignupRequest.getLicenseName())
                 .orElseThrow(() -> new NotFoundException(LICENSE_NOT_FOUND));

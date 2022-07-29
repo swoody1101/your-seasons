@@ -4,6 +4,7 @@ import com.yourseason.backend.common.domain.Message;
 import com.yourseason.backend.common.exception.NotEqualException;
 import com.yourseason.backend.common.exception.NotFoundException;
 import com.yourseason.backend.member.common.controller.dto.PasswordUpdateRequest;
+import com.yourseason.backend.member.common.service.MemberService;
 import com.yourseason.backend.member.customer.controller.dto.*;
 import com.yourseason.backend.member.customer.domain.Customer;
 import com.yourseason.backend.member.customer.domain.CustomerRepository;
@@ -23,8 +24,11 @@ public class CustomerService {
 
     private final PasswordEncoder passwordEncoder;
     private final CustomerRepository customerRepository;
+    private final MemberService memberService;
 
     public Message createCustomer(CustomerSignupRequest request) {
+        memberService.validateEmail(request.getEmail());
+        memberService.validateNickname(request.getNickname());
         customerRepository.save(request.toEntity(passwordEncoder));
         return new Message("succeeded");
     }
