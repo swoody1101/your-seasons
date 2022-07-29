@@ -6,13 +6,13 @@ import ConsultantMyPageTab from "./ConsultantMypageTab";
 
 const ConsultantMyPage = () => {
 
-    return (
-        <Container fixed>
-            <ConsultantProfile />
-            <br />
-            <ConsultantMyPageTab />
-        </Container>
-    )
+  return (
+    <Container fixed sx={{ mt: '5rem' }}>
+      <ConsultantProfile />
+      <br />
+      <ConsultantMyPageTab />
+    </Container>
+  )
 }
 
 export default ConsultantMyPage

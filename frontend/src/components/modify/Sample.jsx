@@ -60,7 +60,7 @@ const Sample = () => {
         + ('0' + i).slice(-2) + '.png'
       result.push(
         <SetAvatar si={12} key={i}>
-          <Button onClick={handleAvatar}>
+          <Button onClick={handleAvatar} >
             <img src={url} alt='MyAvatar' />
           </Button>
         </SetAvatar>
