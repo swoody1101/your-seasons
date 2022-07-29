@@ -212,9 +212,7 @@ public class ConsultantService {
     public Message updateConsultantPassword(Long consultantId, PasswordUpdateRequest passwordUpdateRequest) {
         Consultant consultant = consultantRepository.findById(consultantId)
                 .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
-        if (!passwordUpdateRequest.getBeforePassword().equals(consultant.getPassword())) {
-            throw new NotEqualException(PASSWORD_NOT_EQUAL);
-        }
+        checkValidPassword(passwordUpdateRequest.getBeforePassword(), consultant.getPassword());
         consultant.changePassword(passwordUpdateRequest.getAfterPassword());
         consultantRepository.save(consultant);
         return new Message("succeeded");
@@ -237,5 +235,11 @@ public class ConsultantService {
         consultant.deleteClosedDay(closedDay);
         consultantRepository.save(consultant);
         return new Message("succeeded");
+    }
+
+    private void checkValidPassword(String loginPassword, String password) {
+        if (!passwordEncoder.matches(loginPassword, password)) {
+            throw new NotEqualException(PASSWORD_NOT_EQUAL);
+        }
     }
 }

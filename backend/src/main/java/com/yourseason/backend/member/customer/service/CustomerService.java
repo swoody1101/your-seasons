@@ -116,9 +116,7 @@ public class CustomerService {
     public Message updateCustomerPassword(Long customerId, PasswordUpdateRequest passwordUpdateRequest) {
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
-        if (!passwordUpdateRequest.getBeforePassword().equals(customer.getPassword())) {
-            throw new NotEqualException(PASSWORD_NOT_EQUAL);
-        }
+        checkValidPassword(passwordUpdateRequest.getBeforePassword(), customer.getPassword());
         customer.changePassword(passwordUpdateRequest.getAfterPassword());
         customerRepository.save(customer);
         return new Message(("succeeded"));
@@ -130,5 +128,11 @@ public class CustomerService {
         customer.withdraw();
         customerRepository.save(customer);
         return new Message("succeeded");
+    }
+
+    private void checkValidPassword(String loginPassword, String password) {
+        if (!passwordEncoder.matches(loginPassword, password)) {
+            throw new NotEqualException(PASSWORD_NOT_EQUAL);
+        }
     }
 }
