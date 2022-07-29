@@ -15,7 +15,7 @@ public class ReviewListResponse {
     private Long reviewId;
     private String nickname;
     private String imageUrl;
-    private double star;
+    private int star;
     private String comment;
     private LocalDate createdDate;
 }
