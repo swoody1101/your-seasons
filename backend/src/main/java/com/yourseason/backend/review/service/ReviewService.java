@@ -47,9 +47,12 @@ public class ReviewService {
     }
 
     @Transactional
-    public ReviewResponse updateReview(Long reviewId, ReviewRequest reviewRequest) {
+    public ReviewResponse updateReview(Long customerId, Long reviewId, ReviewRequest reviewRequest) {
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new NotFoundException(REVIEW_NOT_FOUND));
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
+
         if (!customer.equals(review.getCustomer())) {
             throw new WrongAccessException(WRONG_ACCESS);
         }
