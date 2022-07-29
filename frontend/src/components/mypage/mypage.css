@@ -1,0 +1,41 @@
+.task-tooltip {
+	border: 1px dashed #ADBED2;
+  border-radius: 5px;
+  color: #000000;
+	text-align: left;
+  height: auto;
+  letter-spacing: -0.25px;
+  margin-top: 6.8px;
+  padding: 7px 15px;
+  position: relative;
+  width: fit-content;
+  z-index: 100;
+}
+
+.task-tooltip::after {
+  border-color: #ffffff transparent;
+  border-style: solid;
+  border-width: 0 6px 8px 6.5px;
+  content: '';
+  display: block;
+  position: absolute;
+  top: 20px;
+  left: -9px;
+  width: 0;
+  z-index: 0;
+	transform: rotate(270deg);
+}
+
+.task-tooltip::before {
+  border-color: #8abaf0 transparent;
+  border-style: solid;
+  border-width: 0 6px 8px 6.5px;
+  content: '';
+  display: block;
+  position: absolute;
+  top: 20px;
+  left: -10px;
+  width: 0;
+  z-index: 0;
+	transform: rotate(270deg);
+}
