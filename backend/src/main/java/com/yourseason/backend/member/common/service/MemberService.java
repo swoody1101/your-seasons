@@ -1,5 +1,6 @@
 package com.yourseason.backend.member.common.service;
 
+import com.yourseason.backend.common.domain.Message;
 import com.yourseason.backend.common.exception.DuplicationException;
 import com.yourseason.backend.common.exception.NotEqualException;
 import com.yourseason.backend.common.exception.NotFoundException;
@@ -41,16 +42,18 @@ public class MemberService {
                 .build();
     }
 
-    public void validateEmail(String email) {
+    public Message validateEmail(String email) {
         if (customerRepository.existsByEmail(email) || consultantRepository.existsByEmail(email)) {
             throw new DuplicationException(EMAIL_DUPLICATED);
         }
+        return new Message("succeeded");
     }
 
-    public void validateNickname(String nickname) {
+    public Message validateNickname(String nickname) {
         if (customerRepository.existsByNickname(nickname) || consultantRepository.existsByNickname(nickname)) {
             throw new DuplicationException(NICKNAME_DUPLICATED);
         }
+        return new Message("succeeded");
     }
 
     public Map<String, String> getMember(LoginRequest loginRequest) {

@@ -28,12 +28,13 @@ public class ConsultantService {
     private final LicenseRepository licenseRepository;
     private final ClosedDayRepository closedDayRepository;
 
-    public void createConsultant(ConsultantSignupRequest consultantSignupRequest) {
+    public Message createConsultant(ConsultantSignupRequest consultantSignupRequest) {
         Consultant consultant = consultantSignupRequest.toEntity(passwordEncoder);
         License license = licenseRepository.findByName(consultantSignupRequest.getLicenseName())
                 .orElseThrow(() -> new NotFoundException(LICENSE_NOT_FOUND));
         consultant.registerLicense(license);
         consultantRepository.save(consultant);
+        return new Message("succeeded");
     }
     
     public Message createClosedDay(Long consultantId, LocalDate closedDay) {

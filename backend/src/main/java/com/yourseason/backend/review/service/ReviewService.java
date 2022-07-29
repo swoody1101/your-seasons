@@ -50,6 +50,9 @@ public class ReviewService {
     public ReviewResponse updateReview(Long reviewId, ReviewRequest reviewRequest) {
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new NotFoundException(REVIEW_NOT_FOUND));
+        if (!customer.equals(review.getCustomer())) {
+            throw new WrongAccessException(WRONG_ACCESS);
+        }
 
         review.updateReview(reviewRequest.getStar(), reviewRequest.getComment());
         reviewRepository.save(review);
