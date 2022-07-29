@@ -4,6 +4,7 @@ import com.yourseason.backend.common.domain.Message;
 import com.yourseason.backend.reservation.controller.dto.ReservationCreateRequest;
 import com.yourseason.backend.reservation.controller.dto.ReservationCreateResponse;
 import com.yourseason.backend.reservation.service.ReservationService;
+import com.yourseason.backend.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,15 +19,17 @@ public class ReservationController {
     private final ReservationService reservationService;
 
     @PostMapping("/{consultantId}")
-    public ResponseEntity<ReservationCreateResponse> createReservation(@PathVariable Long consultantId,
+    public ResponseEntity<ReservationCreateResponse> createReservation(@RequestHeader("X-Auth-Token") String token,
+                                                                       @PathVariable Long consultantId,
                                                                        @RequestBody ReservationCreateRequest reservationCreateRequest) {
         return ResponseEntity.ok()
                 .body(reservationService.createReservation(0L, consultantId, reservationCreateRequest));
     }
 
     @DeleteMapping("/{reservationId}")
-    public ResponseEntity<Message> deleteReservation(@PathVariable Long reservationId) {
+    public ResponseEntity<Message> deleteReservation(@RequestHeader("X-Auth-Token") String token,
+                                                     @PathVariable Long reservationId) {
         return ResponseEntity.ok()
-                .body(reservationService.deleteReservation(0L, reservationId));
+                .body(reservationService.deleteReservation(JwtUtil.getMemberId(token), reservationId));
     }
 }

@@ -4,6 +4,7 @@ import com.yourseason.backend.common.domain.Message;
 import com.yourseason.backend.member.common.controller.dto.PasswordUpdateRequest;
 import com.yourseason.backend.member.customer.controller.dto.*;
 import com.yourseason.backend.member.customer.service.CustomerService;
+import com.yourseason.backend.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,50 +21,51 @@ public class CustomerController {
 
     @PostMapping
     public ResponseEntity<Message> signup(@RequestBody CustomerSignupRequest request) {
-        customerService.createCustomer(request);
         return ResponseEntity.ok()
-                .body(new Message("succeeded"));
+                .body(customerService.createCustomer(request));
     }
 
     @GetMapping("/4")
-    public ResponseEntity<CustomerResponse> getCustomer() {
+    public ResponseEntity<CustomerResponse> getCustomer(@RequestHeader("X-Auth-Token") String token) {
         return ResponseEntity.ok()
-                .body(customerService.getCustomer(0L));
+                .body(customerService.getCustomer(JwtUtil.getMemberId(token)));
     }
 
     @GetMapping("/1")
-    public ResponseEntity<List<ReservationListResponse>> getMyReservations() {
+    public ResponseEntity<List<ReservationListResponse>> getMyReservations(@RequestHeader("X-Auth-Token") String token) {
         return ResponseEntity.ok()
-                .body(customerService.getMyReservations(0L));
+                .body(customerService.getMyReservations(JwtUtil.getMemberId(token)));
     }
 
     @GetMapping("/2")
-    public ResponseEntity<List<ConsultingListResponse>> getMyConsultings() {
+    public ResponseEntity<List<ConsultingListResponse>> getMyConsultings(@RequestHeader("X-Auth-Token") String token) {
         return ResponseEntity.ok()
-                .body(customerService.getMyConsultings(0L));
+                .body(customerService.getMyConsultings(JwtUtil.getMemberId(token)));
     }
 
     @GetMapping("/3")
-    public ResponseEntity<List<ReviewListResponse>> getMyReviews() {
+    public ResponseEntity<List<ReviewListResponse>> getMyReviews(@RequestHeader("X-Auth-Token") String token) {
         return ResponseEntity.ok()
-                .body(customerService.getMyReviews(0L));
+                .body(customerService.getMyReviews(JwtUtil.getMemberId(token)));
     }
 
     @PatchMapping
-    public ResponseEntity<Message> updateCustomer(@RequestBody CustomerUpdateRequest customerUpdateRequest) {
+    public ResponseEntity<Message> updateCustomer(@RequestHeader("X-Auth-Token") String token,
+                                                  @RequestBody CustomerUpdateRequest customerUpdateRequest) {
         return ResponseEntity.ok()
-                .body(customerService.updateCustomer(0L, customerUpdateRequest));
+                .body(customerService.updateCustomer(JwtUtil.getMemberId(token), customerUpdateRequest));
     }
 
     @PatchMapping("/password")
-    public ResponseEntity<Message> updateCustomerPassword(@RequestBody PasswordUpdateRequest passwordUpdateRequest) {
+    public ResponseEntity<Message> updateCustomerPassword(@RequestHeader("X-Auth-Token") String token,
+                                                          @RequestBody PasswordUpdateRequest passwordUpdateRequest) {
         return ResponseEntity.ok()
-                .body(customerService.updateCustomerPassword(0L, passwordUpdateRequest));
+                .body(customerService.updateCustomerPassword(JwtUtil.getMemberId(token), passwordUpdateRequest));
     }
 
     @DeleteMapping
-    public ResponseEntity<Message> deleteCustomer() {
+    public ResponseEntity<Message> deleteCustomer(@RequestHeader("X-Auth-Token") String token) {
         return ResponseEntity.ok()
-                .body(customerService.deleteCustomer(0L));
+                .body(customerService.deleteCustomer(JwtUtil.getMemberId(token)));
     }
 }

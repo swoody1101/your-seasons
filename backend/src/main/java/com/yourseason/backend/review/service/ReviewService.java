@@ -43,9 +43,14 @@ public class ReviewService {
                 .build();
     }
 
-    public ReviewResponse updateReview(Long reviewId, ReviewRequest reviewRequest) {
+    public ReviewResponse updateReview(Long customerId, Long reviewId, ReviewRequest reviewRequest) {
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new NotFoundException(REVIEW_NOT_FOUND));
+        if (!customer.equals(review.getCustomer())) {
+            throw new WrongAccessException(WRONG_ACCESS);
+        }
 
         review.updateReview(reviewRequest.getStar(), reviewRequest.getComment());
         reviewRepository.save(review);
