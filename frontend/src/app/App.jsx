@@ -29,7 +29,7 @@ const App = () => {
           <Route path='/' element={<p>WelcomePage</p>} />
           <Route path='/home' element={<Yourseason />} />
           <Route path='/history' element={<p>history</p>} />
-					<Route path='/consultants' element={<ConsultantList />} />
+          <Route path='/consultants' element={<ConsultantList />} />
           <Route path='/mypage' element={
             role === CUSTOMER
               ? <MyPage /> : <ConsultantMyPage />

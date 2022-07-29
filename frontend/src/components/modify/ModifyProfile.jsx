@@ -5,7 +5,7 @@ import {
   Grid, Container, styled
 } from '@mui/material'
 
-import { Tab } from '@mui/material';
+import { Box, Tab } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 
 import ModifyCommon from './ModifyCommon';
@@ -30,8 +30,9 @@ const ModifyProfile = () => {
     setPage(newPage)
   })
 
+
   return (
-    <Container sx={{ xs: 'none', sm: 'block' }}>
+    <Container sx={{ xs: 'none', sm: 'block', }}>
       {
         isModal
           ?
@@ -39,49 +40,57 @@ const ModifyProfile = () => {
           :
           <></>
       }
-      <TabContext value={page}>
-        <Grid container sx={{ mt: 10, height: '80%' }}>
-          <Grid
-            item sm={2}
-            sx={{
-              borderRight: '2px solid #00000070',
-              height: '70vh'
-            }}
-          >
-            <StyledTabList
-              value={page}
-              onChange={handleChange}
+      <Box
+        sx={{
+          mt: '5rem',
+          backgroundColor: "#F1F1F190",
+          padding: '2rem',
+          borderRadius: '1rem',
+        }}
+      >
+        <TabContext value={page}  >
+          <Grid container sx={{ height: '80%' }}>
+            <Grid
+              item sm={2}
+              sx={{
+                borderRight: '2px solid #00000070',
+                height: '70vh'
+              }}
             >
-              <Tab label="프로필 수정" value="profile" />
-              {role === CONSULTANT &&
-                <Tab label="컨설턴트 정보" value="consultant" />
-              }
-              <Tab label="비밀번호 수정" value="password" />
-              <Tab label="회원탈퇴" value="signout" />
-            </StyledTabList>
+              <StyledTabList
+                value={page}
+                onChange={handleChange}
+              >
+                <Tab label="프로필 수정" value="profile" />
+                {role === CONSULTANT &&
+                  <Tab label="컨설턴트 정보" value="consultant" />
+                }
+                <Tab label="비밀번호 수정" value="password" />
+                <Tab label="회원탈퇴" value="signout" />
+              </StyledTabList>
+            </Grid>
+            <Grid item sm={6} >
+              <TabPanel value="profile">
+                <ModifyCommon />
+              </TabPanel>
+              <TabPanel value="consultant">
+                <ModifyConsultant />
+              </TabPanel>
+              <TabPanel value="password">
+                <ModifyPassword />
+              </TabPanel>
+              <TabPanel value="signout">
+                <SignOut />
+              </TabPanel>
+            </Grid>
+            {
+              (page === "profile" || page === "consultant")
+              &&
+              <ModifyAvatar />
+            }
           </Grid>
-          <Grid item sm={6} >
-            <TabPanel value="profile">
-              <ModifyCommon />
-            </TabPanel>
-            <TabPanel value="consultant">
-              <ModifyConsultant />
-            </TabPanel>
-            <TabPanel value="password">
-              <ModifyPassword />
-            </TabPanel>
-            <TabPanel value="signout">
-              <SignOut />
-            </TabPanel>
-          </Grid>
-          {
-            (page === "profile" || page === "consultant")
-            &&
-            <ModifyAvatar />
-          }
-        </Grid>
-      </TabContext>
-
+        </TabContext>
+      </Box>
     </Container >
   )
 }
@@ -105,4 +114,5 @@ const StyledTabList = styled(TabList)({
     },
     span: { display: 'none' }
   }
-}) 
+})
+

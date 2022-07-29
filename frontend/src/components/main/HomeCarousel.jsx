@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Carousel from 'react-material-ui-carousel'
-import { Paper, Button, styled, Typography, keyframes } from '@mui/material'
+import { Paper, Box, styled, Typography, keyframes } from '@mui/material'
 
 import IMG1 from '../../assets/images/homeSlide/slide01.jpg'
 import IMG2 from '../../assets/images/homeSlide/slide02.jpg'
@@ -12,19 +12,23 @@ const HomeCarousel = () => {
   const items = [
     {
       img: IMG1,
-      msg: "당신의 계절은 어떠한가요?"
+      msg1: "당신의 계절은",
+      msg2: "어떠한가요?"
     },
     {
       img: IMG2,
-      msg: `당신에게 맞는\n계절을 찾아보세요.`
+      msg1: "당신에게 맞는",
+      msg2: "계절을 찾아보세요."
     },
     {
       img: IMG3,
-      msg: "당신의 계절"
+      msg1: "당신의",
+      msg2: "계절"
     },
     {
       img: IMG4,
-      msg: "당신의 계절을 찾아드립니다."
+      msg1: "당신의 계절을",
+      msg2: "찾아드립니다."
     },
 
   ]
@@ -46,7 +50,10 @@ function Item(props) {
   return (
     <SetPaper>
       <SlideImg seq={props.index} src={props.item.img} />
-      <TEXT seq={props.index}> {props.item.msg}</TEXT>
+      <TEXT seq={props.index}>
+        {props.item.msg1}<br />
+        {props.item.msg2}
+      </TEXT>
     </SetPaper>
   )
 }
@@ -54,13 +61,15 @@ const SetPaper = styled(Paper)({
   position: "relative",
   height: "60vh",
   zIndex: "0",
+  backgroundColor: "transparent",
+  boxShadow: "none",
 })
 
 const dir = [
-  { s: "1", w: "36", top: "50", left: "10", },
-  { s: "1.2", w: "48", top: "50", left: "10", },
-  { s: "1", w: "20", top: "30", left: "50", },
-  { s: "1.3", w: "36", top: "30", left: "50", },
+  { top: "40", left: "20", },
+  { top: "40", left: "20", },
+  { top: "30", left: "50", },
+  { top: "30", left: "50", },
 ]
 
 const SlideImg = styled('img')({
@@ -74,27 +83,28 @@ const SlideImg = styled('img')({
   "@keyframes pulsate": {
     from: {
       transform: `scale(1)`,
-
     },
     to: {
-      transform: `scale(1.01)`,
+      transform: `scale(1.005)`,
     }
   },
   animation: "pulsate 1.8s infinite ease",
-  animationDirection: "alternate"
+  animationDirection: "alternate",
+  // "-webkit-mask-image": "linear-gradient(to top,  transparent 20%, black 60%, transparent 20%)",
+  maskImage: "linear-gradient(to top, transparent 10%, black )"
 })
 
 
 const TEXT = styled(Typography)((props) => (
   {
+    fontFamily: 'MYHaemalgeunSangsang !important',
     position: "absolute",
-    width: `${dir[props.seq].w}rem`,
     top: `${dir[props.seq].top}%`,
     left: `${dir[props.seq].left}%`,
-    fontSize: "5rem",
+    fontSize: "6rem",
     color: "#FFFFFF",
     textShadow: "#00000090 5px 5px",
-    zIndex: "3",
+    zIndex: "1100",
     "@keyframes textIn": {
       from: {
         transform: "translateX(-0.5rem)",

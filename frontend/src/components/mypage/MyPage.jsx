@@ -14,8 +14,8 @@ const MyPage = () => {
   };
 
   return (<>
-    <Container fixed sx={{ display: 'block' }}>
-      <Box sx={{ bgcolor: '#cfe8fc' }}>
+    <Container fixed sx={{ display: 'block', mt: '5rem' }}>
+      <Box sx={{}}>
         <MyProfile />
         <br />
         <Box sx={{ width: '100%', typography: 'body1' }}>
