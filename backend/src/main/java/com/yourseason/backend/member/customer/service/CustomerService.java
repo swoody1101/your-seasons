@@ -117,7 +117,7 @@ public class CustomerService {
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
         checkValidPassword(passwordUpdateRequest.getBeforePassword(), customer.getPassword());
-        customer.changePassword(passwordUpdateRequest.getAfterPassword());
+        customer.changePassword(passwordEncoder, passwordUpdateRequest.getAfterPassword());
         customerRepository.save(customer);
         return new Message(("succeeded"));
     }

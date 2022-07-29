@@ -213,7 +213,7 @@ public class ConsultantService {
         Consultant consultant = consultantRepository.findById(consultantId)
                 .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
         checkValidPassword(passwordUpdateRequest.getBeforePassword(), consultant.getPassword());
-        consultant.changePassword(passwordUpdateRequest.getAfterPassword());
+        consultant.changePassword(passwordEncoder, passwordUpdateRequest.getAfterPassword());
         consultantRepository.save(consultant);
         return new Message("succeeded");
     }
