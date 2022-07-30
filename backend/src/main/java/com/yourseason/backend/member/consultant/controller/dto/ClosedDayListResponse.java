@@ -4,6 +4,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 
+@Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
