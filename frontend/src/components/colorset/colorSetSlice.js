@@ -352,7 +352,6 @@ const ColorSetListSlice = createSlice({
 		})
 	},
 	reducers:{
-		// 색상팔레트에서 한번 더 클릭하면 선택 색상 없어짐
 		changeSelectColor: (state, action) => {
 			state.selectedColor = action.payload
 		},
