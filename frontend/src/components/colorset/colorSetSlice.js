@@ -1,7 +1,6 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import Axios from '../../api/Axios'
 import {OK} from '../../api/CustomConst'
-
 const colorset = [
 	{
 		spring_bright: [
@@ -362,22 +361,26 @@ const ColorSetListSlice = createSlice({
 			}
 		},
 		addBestColor: (state, action) => {
-			state.worstColor.push(action.payload);
+			if(state.bestColor.includes(action.payload)){
+				return alert('이미 존재하는 컬러입니다.')
+			}else{
+				state.bestColor.push(action.payload);
+			}
 		},
 		removeBestColor: (state, action) => {
-			state.worstColor.filter((color) => color !== action.payload[0])
-		},
+			state.bestColor = state.bestColor.filter((color) => color !== action.payload)
+		},		
 		addWorstColor: (state, action) => {
 			state.worstColor.push(action.payload);
 		},
 		removeWorstColor: (state, action) => {
-			state.worstColor.filter((color) => color !== action.payload[0])
-	},
+			state.worstColor = state.worstColor.filter((color) => color !== action.payload)
+		},
 	}
 })
 
 
-export const { changeSelectColor, addBestColor, removeBestColor, addWorstColor, removeWorstColor } = ColorSetListSlice.actions;
+export const { addBestColor, changeSelectColor, changeBestColor, removeBestColor, addWorstColor, removeWorstColor } = ColorSetListSlice.actions;
 
 
 

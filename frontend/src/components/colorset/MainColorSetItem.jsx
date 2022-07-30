@@ -12,7 +12,7 @@ const Pallete = ({colorset, tone}) => {
 	<Grid item sx={{display:'flex', flexDirection:'row', flexWrap: 'wrap', justifyContent: 'center'}}>
 			{colorset.map((item, index)=>(
 				<div style={{backgroundColor: item, width:50, height:50, margin:1 }} 
-					key={index} onClick={() => dispatch(changeSelectColor(item))}></div>
+					key={index} onClick={() => {dispatch(changeSelectColor(item)); }}></div>
 			))}
 	</Grid>
 
