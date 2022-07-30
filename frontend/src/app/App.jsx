@@ -14,6 +14,7 @@ import ConsultantResPage from '../components/consultantrespage/ConsultantResPage
 import Login from '../components/login/Login'
 import SignUp from '../components/signup/SignUp'
 import ConsultantList from '../components/consultantList/ConsultantList'
+import TemporaryRoom from '../components/colorset/TemporaryRoom'
 import { Box, Stack } from '@mui/material'
 import { CUSTOMER, CONSULTANT } from '../api/CustomConst'
 const App = () => {
@@ -37,6 +38,8 @@ const App = () => {
           <Route path='/modify' element={<ModifyProfile />} />
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<SignUp />} />
+          <Route path='/signup' element={<SignUp />} />
+          <Route path='/colorset' element={<TemporaryRoom />} />
         </Routes>
       </Stack>
     </Box>

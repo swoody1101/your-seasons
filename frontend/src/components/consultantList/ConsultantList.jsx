@@ -3,11 +3,8 @@ import ConsultantListItem from './ConsultantListItem'
 import { useSelector } from 'react-redux'
 import { Grid, Box, MenuItem, FormControl, Select, Pagination } from '@mui/material'
 
-import ReactPaginate from "react-paginate";
 
-
-
-const ConsultantList = ( {itemsPerPage} ) => {
+const ConsultantList = () => {
 	const consultants = useSelector(state=>state.consultantList.consultantsData)
 	const [value, setValue] = useState('popular')
 

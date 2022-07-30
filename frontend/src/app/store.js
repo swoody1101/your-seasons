@@ -11,7 +11,7 @@ import UserReviewReducer from '../components/consultantmypage/userReviewSlice';
 import consultantProfileReducer from '../components/consultantmypage/consultantProfileSlice';
 import ConsultantListReducer from '../components/consultantList/consultantListSlice'
 import AvatarReducer from "../components/avatar/avatarSlice";
-
+import ColorSetReducer from '../components/colorset/colorSetSlice'
 
 const reducers = combineReducers({
   signup: SignUpReducer,
@@ -22,6 +22,7 @@ const reducers = combineReducers({
 	customerMyPage: myPageReducer,
   consultantprofile: consultantProfileReducer,
 	consultantList: ConsultantListReducer,
+	colorSetList: ColorSetReducer,
 });
 
 const persistConfig = {
