@@ -29,7 +29,7 @@ public abstract class BaseTimeEntity {
     private LocalDateTime lastModifiedDate;
 
     private LocalDateTime deletedDate;
-    private boolean isActive = true;
+    private boolean isActive;
 
     protected void delete() {
         isActive = false;

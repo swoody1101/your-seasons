@@ -40,9 +40,9 @@ public abstract class Member extends BaseTimeEntity {
 
     private String imageUrl;
 
-    public Member(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDateTime deletedDate, boolean isActive,
+    public Member(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDateTime deletedDate,
                   String email, String password, String name, LocalDate birth, String nickname, String contact, String imageUrl) {
-        super(id, createdTime, lastModifiedTime, deletedDate, isActive);
+        super(id, createdTime, lastModifiedTime, deletedDate, true);
         this.email = email;
         this.password = password;
         this.name = name;

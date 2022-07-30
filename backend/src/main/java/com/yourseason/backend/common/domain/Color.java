@@ -26,8 +26,8 @@ public class Color extends BaseTimeEntity {
     private ColorSet colorSet;
 
     @Builder
-    public Color(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate, boolean isActive, String hex, Tone tone, ColorSet colorSet) {
-        super(id, createdDate, lastModifiedDate, deletedDate, isActive);
+    public Color(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate, String hex, Tone tone, ColorSet colorSet) {
+        super(id, createdDate, lastModifiedDate, deletedDate, true);
         this.hex = hex;
         this.tone = tone;
         this.colorSet = colorSet;
