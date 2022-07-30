@@ -1,17 +1,18 @@
 import React from 'react'
 import { Grid } from '@mui/material';
-
+import { useDispatch } from 'react-redux';
+import { changeSelectColor } from './colorSetSlice';
 
 const Pallete = ({colorset, tone}) => {
-	const selectColor = () => {
-		
-	}
+	const dispatch = useDispatch()	
+
 	return <>
 	{/* 한 팔레트당 색상 20개 씩 존재 */}
-	{tone}
-	<Grid item xs={12} sx={{display:'flex', flexDirection:'row', flexWrap: 'wrap', justifyContent: 'start'}}>
+	<p style={{padding:5, color: 'rainbow'}}>	{tone} </p>
+	<Grid item sx={{display:'flex', flexDirection:'row', flexWrap: 'wrap', justifyContent: 'center'}}>
 			{colorset.map((item, index)=>(
-				<div style={{backgroundColor: item, width:50, height:50 }} key={index} onClick={selectColor}></div>
+				<div style={{backgroundColor: item, width:50, height:50, margin:1 }} 
+					key={index} onClick={() => dispatch(changeSelectColor(item))}></div>
 			))}
 	</Grid>
 

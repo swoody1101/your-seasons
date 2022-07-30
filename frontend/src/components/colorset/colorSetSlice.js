@@ -311,6 +311,9 @@ const colorset = [
 
 const initialState = {
 	data: colorset,
+	selectedColor: '',
+	bestColor: [],
+	worstColor: [],
 	status: 'idle'
 }
 
@@ -332,6 +335,8 @@ export const ColorSetListFetch = createAsyncThunk(
 )
 
 
+
+
 const ColorSetListSlice = createSlice({
 	name: 'colorsetList',
 	initialState,
@@ -346,7 +351,34 @@ const ColorSetListSlice = createSlice({
 		builder.addCase(ColorSetListFetch.rejected, (state, action)=>{
 			state.status = 'failed';
 		})
+	},
+	reducers:{
+		changeSelectColor: (state, action) => {
+			if(state.selectedColor!==action.payload){
+				state.selectedColor = action.payload
+			}
+			else if(state.selectedColor===action.payload){
+				state.selectedColor = ''
+			}
+		},
+		addBestColor: (state, action) => {
+			state.worstColor.push(action.payload);
+		},
+		removeBestColor: (state, action) => {
+			state.worstColor.filter((color) => color !== action.payload[0])
+		},
+		addWorstColor: (state, action) => {
+			state.worstColor.push(action.payload);
+		},
+		removeWorstColor: (state, action) => {
+			state.worstColor.filter((color) => color !== action.payload[0])
+	},
 	}
 })
+
+
+export const { changeSelectColor, addBestColor, removeBestColor, addWorstColor, removeWorstColor } = ColorSetListSlice.actions;
+
+
 
 export default ColorSetListSlice.reducer
