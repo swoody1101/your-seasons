@@ -32,14 +32,14 @@ const TemporaryRoom = () => {
 				<Button sx={{ display: isBest ? 'none' : '' }}
 					onClick={()=> {dispatch(addBestColor(selectedColor)); }}>Add Best</Button>
 				<Button sx={{ display: isBest ? '' : 'none' }} 
-					onClick={()=>{setIsBest(false); dispatch(removeBestColor(selectedColor))}}>Remove Best</Button>
+					onClick={()=>{ dispatch(removeBestColor(selectedColor))}}>Remove Best</Button>
 			</div>
 
 
 		</Grid>
 		{/* 컬러셋 들어가는 부분 */}
 		<Grid item>
-			<MainColorSet />
+			<MainColorSet setIsBest={setIsBest}/>
 		</Grid>
 
 		<Grid item>

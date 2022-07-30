@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux/es/exports';
 import { Box, Card, CardActions, CardContent, Button, styled } from '@mui/material';
 import MainColorSetItem from './MainColorSetItem'
 
-const MainColorSet = () => {
+const MainColorSet = ({setIsBest}) => {
 	const colorSet = useSelector(state=>state.colorSetList.data)
 	const [season, setSeason] = useState('spring')
 
@@ -19,7 +19,7 @@ const MainColorSet = () => {
 		<ColorCard variant="outlined" >
 			{/* map돌려서 하나의 컬러셋씩 내려주기(계절별) */}
 				{seasonColorSet().map((seasonObj, index)=>(
-					<MainColorSetItem seasonObj={seasonObj} key={index}/>
+					<MainColorSetItem seasonObj={seasonObj} key={index} setIsBest={setIsBest}/>
 					))}
 		</ColorCard>
 		{/* 버튼 */}

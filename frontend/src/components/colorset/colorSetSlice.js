@@ -353,12 +353,7 @@ const ColorSetListSlice = createSlice({
 	},
 	reducers:{
 		changeSelectColor: (state, action) => {
-			if(state.selectedColor!==action.payload){
-				state.selectedColor = action.payload
-			}
-			else if(state.selectedColor===action.payload){
-				state.selectedColor = ''
-			}
+			state.selectedColor = action.payload
 		},
 		addBestColor: (state, action) => {
 			if(state.bestColor.includes(action.payload)){

@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Grid } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { changeSelectColor } from './colorSetSlice';
 
-const Pallete = ({colorset, tone}) => {
+const Pallete = ({colorset, tone, setIsBest}) => {
 	const dispatch = useDispatch()	
 
 	return <>
@@ -12,7 +12,7 @@ const Pallete = ({colorset, tone}) => {
 	<Grid item sx={{display:'flex', flexDirection:'row', flexWrap: 'wrap', justifyContent: 'center'}}>
 			{colorset.map((item, index)=>(
 				<div style={{backgroundColor: item, width:50, height:50, margin:1 }} 
-					key={index} onClick={() => {dispatch(changeSelectColor(item)); }}></div>
+					key={index} onClick={() => {dispatch(changeSelectColor(item)); setIsBest(false)}}></div>
 			))}
 	</Grid>
 
@@ -20,7 +20,7 @@ const Pallete = ({colorset, tone}) => {
 } 
 
 
-const MainColorSetItem = ({seasonObj}) => {
+const MainColorSetItem = ({seasonObj, setIsBest}) => {
 	// key 값 저장
 	const seasonTone = []
 
@@ -34,7 +34,7 @@ const MainColorSetItem = ({seasonObj}) => {
 	return ( <>
 	<Grid container sx={{display: 'flex', flexDirection:'column'}}>
 			{selectTone().map((tone, index) => (
-				<Pallete key={index} tone={tone} colorset={seasonObj[tone]}/>
+				<Pallete key={index} tone={tone} colorset={seasonObj[tone]} setIsBest={setIsBest}/>
 			))}
 	</Grid>
 </>)
