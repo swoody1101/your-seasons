@@ -67,11 +67,11 @@ public class MemberService {
         Member loginMember;
         Member customer = customerRepository.findByEmail(email);
         Member consultant = consultantRepository.getByEmail(email);
-        if (customer != null && consultant == null) {
+        if (customer != null && consultant == null && customer.isActive()) {
             checkValidPassword(password, customer.getPassword());
             loginMember = customer;
             member.put("role", String.valueOf(Role.CUSTOMER));
-        } else if (consultant != null && customer == null) {
+        } else if (consultant != null && customer == null && consultant.isActive()) {
             checkValidPassword(password, consultant.getPassword());
             loginMember = consultant;
             member.put("role", String.valueOf(Role.CONSULTANT));
