@@ -7,18 +7,19 @@ const BestColorSet = ({setIsBest}) => {
 	const dispatch = useDispatch()
 	
 
-	return (
-		<div stlye={{backgroundColor: '#f5f5f5', width: '100%', height: 60}}>
+	return (<>
+		<p>BEST COLOR SET</p>
+		<div style={{ display:'flex', justifyContent:'start', alignContent:'center', backgroundColor: '#f5f5f5', width: '100%',  height: 60, border: '1px solid black'}}>
 			{bestcolors.map((item, index)=>(
 				<div
-					onClick={()=>{
-						dispatch(changeSelectColor(item));
-						setIsBest(true)}}
-					style={{backgroundColor: item, width:50, height:50, margin:1 }}  
+				onClick={()=>{
+					dispatch(changeSelectColor(item));
+					setIsBest(true)}}
+					style={{backgroundColor: item, width:50, height:50, margin:5}}  
 					key={index}>{item}</div>
-		))}
+					))}
 		</div>
-	)
+</>)
 }
 
 export default BestColorSet

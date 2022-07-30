@@ -352,8 +352,12 @@ const ColorSetListSlice = createSlice({
 		})
 	},
 	reducers:{
+		// 색상팔레트에서 한번 더 클릭하면 선택 색상 없어짐
 		changeSelectColor: (state, action) => {
 			state.selectedColor = action.payload
+		},
+		removeSelectColor: (state, action) => {
+			state.selectedColor = ''
 		},
 		addBestColor: (state, action) => {
 			if(state.bestColor.includes(action.payload)){
@@ -366,7 +370,11 @@ const ColorSetListSlice = createSlice({
 			state.bestColor = state.bestColor.filter((color) => color !== action.payload)
 		},		
 		addWorstColor: (state, action) => {
-			state.worstColor.push(action.payload);
+			if(state.worstColor.includes(action.payload)){
+				return alert('이미 존재하는 컬러입니다.')
+			}else{
+				state.worstColor.push(action.payload);
+			}
 		},
 		removeWorstColor: (state, action) => {
 			state.worstColor = state.worstColor.filter((color) => color !== action.payload)
@@ -375,7 +383,7 @@ const ColorSetListSlice = createSlice({
 })
 
 
-export const { addBestColor, changeSelectColor, changeBestColor, removeBestColor, addWorstColor, removeWorstColor } = ColorSetListSlice.actions;
+export const { addBestColor, removeSelectColor, changeSelectColor, changeBestColor, removeBestColor, addWorstColor, removeWorstColor } = ColorSetListSlice.actions;
 
 
 
