@@ -19,10 +19,10 @@ const ConsultantListItem = ({consultantId, nickname, introduction, reviewCount, 
 			{/* <p>인덱스확인 : {consultantId}</p> */}
 			<CardContent>
 				{/* 닉네임 */}
-				<div style={{display:'flex', alignItems: 'center'}}>
-					<span>컨설턴트</span>
-					<Nickname>{nickname} </Nickname>
-				</div>
+				<Nickname>
+					컨설턴트
+					<span style={{fontSize:20}}>{nickname}</span>
+				</Nickname>
 				{/* 소개 */}
 				<Introduce>
 					{introduction}
@@ -63,7 +63,7 @@ const Nickname = styled('span')({
   "-webkit-box-orient": "vertical",
   "-webkit-line-clamp": "1",
   overflow: "hidden",
-	fontSize: 20,
+	fontSize: 15,
 })
 
 const Review = styled('span')({
