@@ -1,5 +1,6 @@
 package com.yourseason.backend.member.customer.service;
 
+import com.yourseason.backend.common.domain.Color;
 import com.yourseason.backend.common.domain.Message;
 import com.yourseason.backend.common.exception.NotEqualException;
 import com.yourseason.backend.common.exception.NotFoundException;
@@ -97,15 +98,11 @@ public class CustomerService {
                         .tone(consulting.getTestResult().getTone().getName())
                         .bestColorSet(consulting.getTestResult().getBestColorSet().getColorSet().getColors()
                                 .stream()
-                                .map(color -> ColorSetResponse.builder()
-                                        .hex(color.getHex())
-                                        .build())
+                                .map(Color::getHex)
                                 .collect(Collectors.toList()))
                         .worstColorSet(consulting.getTestResult().getWorstColorSet().getColorSet().getColors()
                                 .stream()
-                                .map(color -> ColorSetResponse.builder()
-                                        .hex(color.getHex())
-                                        .build())
+                                .map(Color::getHex)
                                 .collect(Collectors.toList()))
                         .resultImageUrl(consulting.getTestResult().getConsultingFile())
                         .comment(consulting.getComment())
