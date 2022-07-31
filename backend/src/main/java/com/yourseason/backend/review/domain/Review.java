@@ -62,16 +62,16 @@ public class Review extends BaseTimeEntity {
                 .add(this);
     }
 
+    public void updateReview(int star, String comment) {
+        this.star = star;
+        this.comment = comment;
+    }
+
     public void deleteReview() {
         super.delete();
         customer.getReviews()
                 .remove(this);
         consultant.getReviews()
                 .remove(this);
-    }
-
-    public void updateReview(int star, String comment) {
-        this.star = star;
-        this.comment = comment;
     }
 }
