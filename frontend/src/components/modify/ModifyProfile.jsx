@@ -32,7 +32,7 @@ const ModifyProfile = () => {
 
 
   return (
-    <Container sx={{ xs: 'none', sm: 'block', }}>
+    <Container sx={{ xs: 'none', sm: 'block'}}>
       {
         isModal
           ?
