@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux'
 import './app.css'
 import NavBar from '../components/common/NavBar'
 import Yourseason from '../components/main/YourSeason'
+import Consult from '../components/consult/Consult'
 import MyPage from '../components/mypage/MyPage'
 import ConsultantMyPage from '../components/consultantmypage/ConsultantMyPage'
 import ModifyProfile from '../components/modify/ModifyProfile'
@@ -28,7 +29,7 @@ const App = () => {
         <Routes>
           <Route path='/' element={<p>WelcomePage</p>} />
           <Route path='/home' element={<Yourseason />} />
-          <Route path='/history' element={<p>history</p>} />
+          <Route path='/consult' element={<Consult />} />
           <Route path='/consultants' element={<ConsultantList />} />
           <Route path='/mypage' element={
             role === CUSTOMER
