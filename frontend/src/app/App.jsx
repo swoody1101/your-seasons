@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux'
 import './app.css'
 import NavBar from '../components/common/NavBar'
 import Yourseason from '../components/main/YourSeason'
+import Consult from '../components/consult/Consult'
 import MyPage from '../components/mypage/MyPage'
 import ConsultantMyPage from '../components/consultantmypage/ConsultantMyPage'
 import ModifyProfile from '../components/modify/ModifyProfile'
@@ -15,7 +16,9 @@ import ConsultantResPage from '../components/consultantrespage/ConsultantResPage
 import Login from '../components/login/Login'
 import SignUp from '../components/signup/SignUp'
 import ConsultantList from '../components/consultantList/ConsultantList'
+import Footer from '../components/common/Footer'
 import TemporaryRoom from '../components/colorset/TemporaryRoom'
+
 import { Box, Stack } from '@mui/material'
 import { CUSTOMER, CONSULTANT } from '../api/CustomConst'
 const App = () => {
@@ -23,13 +26,13 @@ const App = () => {
   // const role = CONSULTANT;
   const role = CUSTOMER;
   return (
-    <Box>
+    <Box >
       <NavBar />
-      <Stack direction="column" spacing={2} justifyContent="space-between">
+      <Stack direction="column" spacing={2} justifyContent="space-between" sx={{ minHeight: "100vh" }}>
         <Routes>
           <Route path='/' element={<p>WelcomePage</p>} />
           <Route path='/home' element={<Yourseason />} />
-          <Route path='/history' element={<p>history</p>} />
+          <Route path='/consult' element={<Consult />} />
           <Route path='/consultants' element={<ConsultantList />} />
           <Route path='/mypage' element={
             role === CUSTOMER
@@ -43,6 +46,7 @@ const App = () => {
           <Route path='/colorset' element={<TemporaryRoom />} />
         </Routes>
       </Stack>
+      <Footer />
     </Box>
   )
 }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import { Button, Card, Container, styled, Typography } from '@mui/material'
+import { Link } from 'react-router-dom'
 
 const RecentDiagnosis = () => {
   return (
@@ -15,7 +16,9 @@ const NoRecentDiagnosis = () => {
   return (
     <RecentDiagnosisCard
       elevation={8}>
-      <Button>나의 계절 찾으러 가기</Button>
+      <Link to='/consult'>
+        <Button>나의 계절 찾으러 가기</Button>
+      </Link>
     </RecentDiagnosisCard>
   )
 }
