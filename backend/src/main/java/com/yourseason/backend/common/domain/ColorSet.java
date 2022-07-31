@@ -16,7 +16,7 @@ import java.util.List;
 @Entity
 public class ColorSet extends BaseTimeEntity {
 
-    @OneToMany
+    @OneToMany(mappedBy = "colorSet")
     private List<Color> colors = new ArrayList<>();
 
     @Builder
