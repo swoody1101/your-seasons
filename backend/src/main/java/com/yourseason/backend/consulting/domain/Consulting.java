@@ -50,4 +50,8 @@ public class Consulting extends BaseTimeEntity {
     public void registerReview(){
         hasReview = true;
     }
+
+    public void deleteReview() {
+        hasReview = false;
+    }
 }

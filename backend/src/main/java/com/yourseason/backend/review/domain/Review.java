@@ -73,5 +73,6 @@ public class Review extends BaseTimeEntity {
                 .remove(this);
         consultant.getReviews()
                 .remove(this);
+        consulting.deleteReview();
     }
 }
