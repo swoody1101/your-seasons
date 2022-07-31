@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Entity
 public class WorstColorSet extends BaseTimeEntity {
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "color_set_id")
     private ColorSet colorSet;
 

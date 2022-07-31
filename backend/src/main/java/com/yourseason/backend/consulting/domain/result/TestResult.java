@@ -16,11 +16,11 @@ import java.time.LocalDateTime;
 @Entity
 public class TestResult extends BaseTimeEntity {
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "best_color_set_id")
     private BestColorSet bestColorSet;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "worst_color_set_id")
     private WorstColorSet worstColorSet;
 
