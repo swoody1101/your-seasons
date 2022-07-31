@@ -9,7 +9,7 @@ const consultants = [
 		nickname: "ansi",
 		introduction: "안녕하세요, ansi입니다.안녕하세요, ansi입니다.안녕하세요, ansi입니다.안녕하세요, ansi입니다.안녕하세요, ansi입니다.안녕하세요, ansi입니다.안녕하세요, ansi입니다.",
 		reviewCount: 5,
-		starAverage: 5.0,
+		starAverage: 4.5,
 		cost: "30,000",
 		imageUrl: {tmpImg},
 	},
