@@ -19,7 +19,7 @@ const BestColorSet = ({setIsBest}) => {
 					key={index}>{item}</div>
 					))}
 		</div>
-</>)
+	</>)
 }
 
 export default BestColorSet

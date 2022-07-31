@@ -4,8 +4,9 @@ import { changeSelectColor } from './colorSetSlice'
 
 
 const WorstColorSet = ({setIsWorst}) => {
-	const wortcolors = useSelector(state => state.colorSetList.worstColor)
-	const dispatch = useDispatch()
+	const wortcolors = useSelector(state => state.colorSetList.worstColor);
+	const dispatch = useDispatch();
+
 
 	return (<>
 		<p>WORST COLOR SET</p>

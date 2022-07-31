@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux/es/exports';
-import { Box, Card, CardActions, CardContent, Button, styled } from '@mui/material';
+import { Card, CardActions, CardContent, Button, styled } from '@mui/material';
 import MainColorSetItem from './MainColorSetItem'
 
 const MainColorSet = ({setIsBest, setIsWorst}) => {
@@ -35,13 +35,6 @@ const MainColorSet = ({setIsBest, setIsWorst}) => {
 
 export default MainColorSet;
 
-// const ColorCard = styled(Card)((props)=>({
-// 	width: '330px',
-// 	height: '500px',
-// 	overflow: 'auto',
-
-// }
-// ))
 
 const ColorCard = styled(Card)((props)=>({
 	width: '300px',
