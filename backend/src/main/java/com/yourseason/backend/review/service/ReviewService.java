@@ -27,6 +27,7 @@ public class ReviewService {
     private static final String CONSULTING_NOT_FOUND = "해당 컨설팅을 찾을 수 없습니다.";
     private static final String WRONG_ACCESS = "잘못된 접근입니다.";
     private static final String REVIEW_EXISTS = "이미 리뷰를 등록하셨습니다.";
+    private static final String REVIEW_DELETED = "이미 삭제된 리뷰입니다.";
 
     private final CustomerRepository customerRepository;
     private final ConsultantRepository consultantRepository;
@@ -79,6 +80,9 @@ public class ReviewService {
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
         if (!customer.equals(review.getCustomer())) {
             throw new WrongAccessException(WRONG_ACCESS);
+        }
+        if (!review.isActive()) {
+            throw new NotFoundException(REVIEW_DELETED);
         }
 
         review.deleteReview();
