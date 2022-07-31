@@ -44,10 +44,11 @@ public class Review extends BaseTimeEntity {
         this.comment = comment;
     }
 
-    public void register(Customer customer, Consultant consultant) {
+    public void register(Customer customer, Consultant consultant, Consulting consulting) {
         setCustomer(customer);
         setConsultant(consultant);
-//        consulting.registerReview();
+        this.consulting = consulting;
+        consulting.registerReview();
     }
 
     public void setCustomer(Customer customer) {
