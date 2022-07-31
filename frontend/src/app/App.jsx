@@ -16,6 +16,8 @@ import ConsultantResPage from '../components/consultantrespage/ConsultantResPage
 import Login from '../components/login/Login'
 import SignUp from '../components/signup/SignUp'
 import ConsultantList from '../components/consultantList/ConsultantList'
+import Footer from '../components/common/Footer'
+  
 import { Box, Stack } from '@mui/material'
 import { CUSTOMER, CONSULTANT } from '../api/CustomConst'
 const App = () => {
@@ -41,6 +43,7 @@ const App = () => {
           <Route path='/signup' element={<SignUp />} />
         </Routes>
       </Stack>
+      <Footer/>
     </Box>
   )
 }
