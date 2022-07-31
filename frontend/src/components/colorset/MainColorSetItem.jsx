@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Grid } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { changeSelectColor } from './colorSetSlice';
