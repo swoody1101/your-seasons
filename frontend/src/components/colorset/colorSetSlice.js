@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Axios from '../../api/Axios'
 import {OK} from '../../api/CustomConst'
 const colorset = [
