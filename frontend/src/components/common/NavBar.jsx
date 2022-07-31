@@ -118,7 +118,7 @@ const Logos = styled(Box)(({ theme }) => ({
   gap: "1rem",
   a: {
     color: "white",
-    "text-shadow": '1px 1px 6px black'
+    textShadow: '1px 1px 6px black'
   }
 }))
 
@@ -130,7 +130,7 @@ const Navs = styled(Box)(({ theme }) => ({
   gap: "1rem",
   a: {
     color: "white",
-    "text-shadow": '1px 1px 6px black'
+    textShadow: '1px 1px 6px black'
   }
 }))
 
