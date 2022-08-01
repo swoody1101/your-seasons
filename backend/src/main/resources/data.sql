@@ -60,9 +60,12 @@ insert into worst_color_set(created_date, last_modified_date, is_active, color_s
 
 -- 진단결과
 insert into test_result(created_date, last_modified_date, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '', 1, 1, 1, 1);
+insert into test_result(created_date, last_modified_date, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '', 1, 1, 1, 1);
+insert into test_result(created_date, last_modified_date, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '', 1, 1, 1, 1);
+insert into test_result(created_date, last_modified_date, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '', 1, 1, 1, 1);
 
 -- 전문가진단
 insert into consulting(created_date, last_modified_date, consulting_comment, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), '봄 브라이트 톤으로 화사한 컬러를 선택하시고, 레이스가 잘 어울리십니다.', 0, 1, 1, 1, 1);
-insert into consulting(created_date, last_modified_date, consulting_comment, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), '너는 이다 겨울 쿨톤!', 0, 1, 1, 1, 1);
-insert into consulting(created_date, last_modified_date, consulting_comment, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), '너는 인가 가을 웜톤?', 0, 1, 1, 1, 1);
-insert into consulting(created_date, last_modified_date, consulting_comment, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), '나도 모르겠다 퍼스널컬러 이제', 0, 1, 1, 1, 1);
+insert into consulting(created_date, last_modified_date, consulting_comment, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), '여름 쿨톤과 봄 웜톤의 중간 정도라고 할 수 있습니다. 여름 쿨톤쪽에 조금 더 가깝지만 봄 웜톤 화장품을 사용하셔도 잘 어울리실 겁니다.', 0, 1, 1, 1, 2);
+insert into consulting(created_date, last_modified_date, consulting_comment, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), '보색은 피하시는 것이 좋을 것 같습니다.', 0, 1, 1, 1, 3);
+insert into consulting(created_date, last_modified_date, consulting_comment, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), '무채색보다는 비비드한 컬러의 옷을 입으시는 것을 추천드립니다.', 0, 1, 1, 1, 4);
