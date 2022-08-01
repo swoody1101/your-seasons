@@ -2,6 +2,7 @@ package com.yourseason.backend.member.customer.service;
 
 import com.yourseason.backend.common.domain.Color;
 import com.yourseason.backend.common.domain.Message;
+import com.yourseason.backend.common.exception.DuplicationException;
 import com.yourseason.backend.common.exception.NotEqualException;
 import com.yourseason.backend.common.exception.NotFoundException;
 import com.yourseason.backend.member.common.controller.dto.PasswordUpdateRequest;
@@ -22,6 +23,7 @@ public class CustomerService {
 
     private static final String CUSTOMER_NOT_FOUND = "해당 회원을 찾을 수 없습니다.";
     private static final String PASSWORD_NOT_EQUAL = "비밀번호가 올바르지 않습니다.";
+    private static final String PASSWORD_DUPLICATED = "변경할 비밀번호가 현재 비밀번호와 일치합니다.";
 
     private final PasswordEncoder passwordEncoder;
     private final CustomerRepository customerRepository;
@@ -124,6 +126,9 @@ public class CustomerService {
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
         checkValidPassword(passwordUpdateRequest.getBeforePassword(), customer.getPassword());
+        if (passwordUpdateRequest.getBeforePassword().equals(passwordUpdateRequest.getAfterPassword())) {
+            throw new DuplicationException(PASSWORD_DUPLICATED);
+        }
         customer.changePassword(passwordEncoder, passwordUpdateRequest.getAfterPassword());
         customerRepository.save(customer);
         return new Message(("succeeded"));
