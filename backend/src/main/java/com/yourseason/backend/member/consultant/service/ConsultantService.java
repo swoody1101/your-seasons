@@ -9,7 +9,6 @@ import com.yourseason.backend.member.common.service.MemberService;
 import com.yourseason.backend.member.consultant.controller.dto.*;
 import com.yourseason.backend.member.consultant.domain.*;
 import lombok.RequiredArgsConstructor;
-import net.bytebuddy.implementation.bytecode.Duplication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -44,18 +43,18 @@ public class ConsultantService {
         consultantRepository.save(consultant);
         return new Message("succeeded");
     }
-    
+
     public Message createClosedDay(Long consultantId, ClosedDayRequest closedDayRequest) {
         Consultant consultant = consultantRepository.findById(consultantId)
                 .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
 
         consultant.getClosedDays()
-                        .stream()
-                        .filter(closedDay -> closedDay.getDate().isEqual(closedDayRequest.getClosedDay()))
-                        .findAny()
-                        .ifPresent(closedDay -> {
-                            throw new DuplicationException(CLOSED_DAY_DUPLICATED);
-                        });
+                .stream()
+                .filter(closedDay -> closedDay.getDate().isEqual(closedDayRequest.getClosedDay()))
+                .findAny()
+                .ifPresent(closedDay -> {
+                    throw new DuplicationException(CLOSED_DAY_DUPLICATED);
+                });
 
         consultant.addClosedDay(
                 ClosedDay.builder()
