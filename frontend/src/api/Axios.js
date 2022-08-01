@@ -25,6 +25,7 @@ export default Axios;
 Axios.interceptors.request.use((config) => {
   if (getToken()) {
     config.headers.Authorization = `Bearer ${getToken()}`;
+    // config.headers["X-Auth-Token"] = `Bearer ${getToken()}`;
   }
   return config;
 });
