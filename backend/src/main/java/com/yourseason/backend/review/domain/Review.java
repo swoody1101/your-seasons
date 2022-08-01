@@ -44,10 +44,11 @@ public class Review extends BaseTimeEntity {
         this.comment = comment;
     }
 
-    public void register(Customer customer, Consultant consultant) {
+    public void register(Customer customer, Consultant consultant, int star) {
         setCustomer(customer);
         setConsultant(consultant);
         consulting.registerReview();
+        consultant.updateStarAverageByCreatedReview(star);
     }
 
     public void setCustomer(Customer customer) {
@@ -63,6 +64,7 @@ public class Review extends BaseTimeEntity {
     }
 
     public void deleteReview() {
+        consultant.updateStarAverageByDeletedReview(star);
         super.delete();
         customer.getReviews()
                 .remove(this);

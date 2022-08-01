@@ -24,8 +24,9 @@ public class CustomerService {
     private final PasswordEncoder passwordEncoder;
     private final CustomerRepository customerRepository;
 
-    public void createCustomer(CustomerSignupRequest request) {
+    public Message createCustomer(CustomerSignupRequest request) {
         customerRepository.save(request.toEntity(passwordEncoder));
+        return new Message("succeeded");
     }
 
     public CustomerResponse getCustomer(Long customerId) {

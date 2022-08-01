@@ -1,21 +1,103 @@
 import React, { useState } from 'react'
 import ConsultingResBtn from './ConsultingResBtn';
+import TimeTable from './TimeTable';
 import Calendar from 'react-calendar'
 import './ConsultingResCalendar.css';
 import moment from 'moment';
-import { Stack, Box, styled, Grid } from '@mui/material';
+import { Box, styled, Grid, Typography } from '@mui/material';
 
 
 
 const ConsultingResCalendar = (props) => {
   const today = new Date()
 
-  let date = (today.getFullYear()) + '-' + ('0' + (today.getMonth() + 1)).slice(-2)
+  let todaydate = (today.getFullYear()) + '-' + ('0' + (today.getMonth() + 1)).slice(-2)
     + '-' + ('0' + today.getDate()).slice(-2);
 
   const [dateState, setDateState] = useState(new Date())
-  const [pickedDate, setPickedDate] = useState(date)
+  const [pickedDate, setPickedDate] = useState(todaydate)
   const [dayOff, setDayOff] = useState(['2022-08-01', '2022-08-02', '2022-08-06'])
+
+  const timeTable = [
+    '09:00:00',
+    '10:00:00',
+    '11:00:00',
+    '13:00:00',
+    '14:00:00',
+    '15:00:00',
+    '16:00:00',
+    '17:00:00',
+    '18:00:00'
+  ]
+
+  const reservations = [
+    {
+      "reservationId": 1,
+      "reservationDate": '2022-08-04',
+      "reservationTime": '09:00:00',
+      "request": "요청사항"
+    },
+    {
+      "reservationId": 2,
+      "reservationDate": '2022-08-04',
+      "reservationTime": '10:00:00',
+      "request": "요청사항"
+    },
+    {
+      "reservationId": 3,
+      "reservationDate": '2022-08-04',
+      "reservationTime": '11:00:00',
+      "request": "요청사항"
+    },
+    {
+      "reservationId": 4,
+      "reservationDate": '2022-08-04',
+      "reservationTime": '13:00:00',
+      "request": "요청사항"
+    },
+    {
+      "reservationId": 5,
+      "reservationDate": '2022-08-05',
+      "reservationTime": '14:00:00',
+      "request": "요청사항"
+    },
+    {
+      "reservationId": 6,
+      "reservationDate": '2022-08-05',
+      "reservationTime": '15:00:00',
+      "request": "요청사항"
+    },
+    {
+      "reservationId": 7,
+      "reservationDate": '2022-08-05',
+      "reservationTime": '16:00:00',
+      "request": "요청사항"
+    },
+    {
+      "reservationId": 8,
+      "reservationDate": '2022-08-05',
+      "reservationTime": '17:00:00',
+      "request": "요청사항"
+    },
+    {
+      "reservationId": 9,
+      "reservationDate": '2022-08-07',
+      "reservationTime": '18:00:00',
+      "request": "요청사항"
+    },
+    {
+      "reservationId": 10,
+      "reservationDate": '2022-08-07',
+      "reservationTime": '11:00:00',
+      "request": "요청사항"
+    },
+    {
+      "reservationId": 11,
+      "reservationDate": '2022-08-07',
+      "reservationTime": '16:00:00',
+      "request": "요청사항"
+    }
+  ]
 
   const changeDate = (event) => {
     const date = (event.getFullYear()) + '-' + ('0' + (event.getMonth() + 1)).slice(-2)
@@ -25,14 +107,57 @@ const ConsultingResCalendar = (props) => {
     setDateState(event)
   }
 
-  const titleContent = ({ activeStartDate, date, view }) => (
-    (view === "month" && dayOff.includes(((date.getFullYear()) + '-' + ('0' + (date.getMonth() + 1)).slice(-2)
-      + '-' + ('0' + date.getDate()).slice(-2)))) && <StyledDiv>예약불가</StyledDiv>
-  )
+  const titleContent = ({ activeStartDate, date, view }) => {
+    let resTimeTable = []
+    const newdate = ((date.getFullYear()) + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2))
+    // 날짜가 일치할때 시간 정보만 빈 리스트에 저장
+    if (newdate === todaydate) {
+      return <StyledDiv>예약불가</StyledDiv>
+    }
+    if (newdate > todaydate) {
+      reservations.forEach(res => {
+        if (res.reservationDate === newdate) {
+          resTimeTable.push(res.reservationTime)
+        }
+      })
+      // 리스트가 빈 리스트라면 타임테이블 정보 props로 내려주고
+      if (view === "month" && dayOff.includes(newdate)) {
+        return <StyledDiv>휴무일</StyledDiv>
+      } else if (view === "month" && resTimeTable.length === 0) {
+        return <TimeTable timetable={timeTable} />
+        // 리스트가 빈리스트가 아니라면 기존의 타임테이블과 시간정보 비교해서 차집합을 구하고 props로 내려주기
+      } else if (view === "month" && resTimeTable.length > 0) {
+        const noResTimeTable = timeTable.filter(x => !resTimeTable.includes(x))
+        return <TimeTable timetable={noResTimeTable} />
+      };
+    }
+    resTimeTable = []
+  }
 
   const tileDisabled = ({ date, view }) =>
   (view === "month" && dayOff.includes(((date.getFullYear()) + '-' + ('0' + (date.getMonth() + 1)).slice(-2)
     + '-' + ('0' + date.getDate()).slice(-2))))
+
+  const filteredReservations = reservations.filter(res => {
+    return res.reservationDate === pickedDate
+  })
+
+  let resContent = ''
+
+  if (pickedDate === todaydate) {
+    resContent = <Typography
+      component="h1"
+      variant="h5"
+      id="login-text">
+      당일은 예약이 불가능합니다.
+    </Typography>
+  } else if (pickedDate !== todaydate) {
+    resContent = <ConsultingResBtn
+      pickedDate={pickedDate}
+      reservations={filteredReservations}
+    />
+  }
+
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -51,13 +176,10 @@ const ConsultingResCalendar = (props) => {
             next2Label={null}
             prev2Label={null} // 연 단위 이동 버튼 숨김
           />
-          <Stack sx={{ mt: 1, fontSize: 16 }} alignItems="center">
-            <p>선택하신 날짜는 {pickedDate} 입니다.</p>
-          </Stack>
 
         </Grid>
         <Grid item xs={12} sm={4}>
-          <ConsultingResBtn />
+          {resContent}
         </Grid>
       </Grid>
     </Box >
@@ -66,5 +188,7 @@ const ConsultingResCalendar = (props) => {
 
 const StyledDiv = styled('div')({
   backgroundColor: "#FFE0DF",
+  textAlign: "center",
+  fontSize: "0.7em",
 })
 export default ConsultingResCalendar

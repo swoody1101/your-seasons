@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 
 import {
-  AppBar, Box,
+  AppBar, Box, createTheme, ThemeProvider,
   Toolbar, Typography, styled
 } from '@mui/material'
 import { Pets } from '@mui/icons-material'
@@ -27,65 +27,79 @@ const NavBar = () => {
     navigate('/')
   }
 
-  return (
-    <AppBar position="sticky" variant='white'>
-      <StyledToolbar>
-        <Typography
-          variant="h5"
-          sx={{ display: { xs: "none", sm: "block" } }}
-        >
-          <Link to="home">
-            당신의 계절
-          </Link>
-        </Typography>
-        <Pets
-          sx={{ display: { xs: "block", sm: "none" } }} />
+  const transparentTheme = createTheme({
+    palette: {
+      primary: {
+        main: '#ffffff00'
+      }
+    }
+  })
 
-        {
-          nickname === undefined || nickname === ''
-            ?
-            <Navs>
+  return (
+    <ThemeProvider theme={transparentTheme} >
+      <AppBar position="fixed" variant="transparent">
+        <StyledToolbar>
+          <Logos>
+            <Link to="home" >
               <Typography
-                variant="h6"
-                sx={{ display: { xs: "none", sm: "block" } }}
-              >
-                <Link to="consultants">컨설턴트 목록</Link>
+                variant="h5"
+                sx={{ display: { xs: "none", sm: "block", color: 'white !important' } }}
+              > 당신의 계절
               </Typography>
-              <Typography
-                variant="h6"
-                sx={{ display: { xs: "none", sm: "block" } }}
-              >
-                <Link to="login">로그인</Link>
-              </Typography>
-              <Typography
-                variant="h6"
-                sx={{ display: { xs: "none", sm: "block" } }}
-              >
-                <Link to="signup">회원가입</Link>
-              </Typography>
-            </Navs>
-            :
-            <Navs>
-              "{nickname}"
-              <MyAvatar setSize={4} />
-              <Typography
-                variant="h6"
-                sx={{ display: { xs: "none", sm: "block" } }}
-              >
-                <Link to="mypage">마이페이지</Link>
-              </Typography>
-              <Typography
-                variant="h6"
-                sx={{ display: { xs: "none", sm: "block" } }}
-              ><StyledA onClick={logout}>로그아웃</StyledA>
-              </Typography>
-            </Navs>
-        }
-        <UserBox>
-          메뉴
-        </UserBox>
-      </StyledToolbar>
-    </AppBar>
+            </Link>
+            <Pets
+              sx={{ display: { xs: "block", sm: "none" } }} />
+          </Logos>
+          {
+            nickname === undefined || nickname === ''
+              ?
+              <Navs>
+                <Typography
+                  variant="h6"
+                  sx={{ display: { xs: "none", sm: "block" } }}
+                >
+                  <Link to="consultants">컨설턴트 목록</Link>
+                </Typography>
+                <Typography
+                  variant="h6"
+                  sx={{ display: { xs: "none", sm: "block" } }}
+                >
+                  <Link to="login">로그인</Link>
+                </Typography>
+                <Typography
+                  variant="h6"
+                  sx={{ display: { xs: "none", sm: "block" } }}
+                >
+                  <Link to="signup">회원가입</Link>
+                </Typography>
+              </Navs>
+              :
+              <Navs>
+                <Link to="mypage">
+                  <Box sx={{ display: 'flex', flexDirection: 'row', alignItem: 'center', gap: '3px' }}>
+                    <Typography variant="h6" sx={{ display: 'inline' }}>
+                      "{nickname}"
+                    </Typography>
+                    <MyAvatar setSize={4} />
+                  </Box>
+                </Link>
+                <Typography variant="h6" sx={{ display: { xs: "none", sm: "block" } }} >
+                  <Link to="consultants">컨설턴트 목록</Link>
+                </Typography>
+                <Typography variant="h6" sx={{ display: { xs: "none", sm: "block" } }} >
+                  <Link to="mypage">마이페이지</Link>
+                </Typography>
+                <Typography variant="h6" sx={{ display: { xs: "none", sm: "block" } }} >
+                  <StyledA onClick={logout}>로그아웃</StyledA>
+                </Typography>
+              </Navs>
+          }
+          <UserBox>
+            메뉴
+          </UserBox>
+        </StyledToolbar>
+      </AppBar>
+    </ThemeProvider>
   )
 }
 
@@ -93,8 +107,21 @@ export default NavBar
 
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
+  backgroundColor: "transparent !important",
   justifyContent: "space-between",
 })
+
+const Logos = styled(Box)(({ theme }) => ({
+  display: "flex",
+  flexDirection: "row",
+  alignItems: "center",
+  gap: "1rem",
+  a: {
+    color: "white",
+    textShadow: '1px 1px 6px black'
+  }
+}))
+
 
 const Navs = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -102,7 +129,8 @@ const Navs = styled(Box)(({ theme }) => ({
   alignItems: "center",
   gap: "1rem",
   a: {
-    color: "white"
+    color: "white",
+    textShadow: '1px 1px 6px black'
   }
 }))
 
