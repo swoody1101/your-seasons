@@ -27,9 +27,9 @@ public class ConsultantController {
     
     @PostMapping("/closed-days")
     public ResponseEntity<Message> createClosedDay(@RequestHeader("X-Auth-Token") String token,
-                                                   @RequestBody LocalDate closedDay) {
+                                                   @RequestBody ClosedDayRequest closedDayRequest) {
         return ResponseEntity.ok()
-                .body(consultantService.createClosedDay(JwtUtil.getMemberId(token), closedDay));
+                .body(consultantService.createClosedDay(JwtUtil.getMemberId(token), closedDayRequest));
     }
 
     @GetMapping

@@ -41,13 +41,13 @@ public class ConsultantService {
         return new Message("succeeded");
     }
     
-    public Message createClosedDay(Long consultantId, LocalDate closedDay) {
+    public Message createClosedDay(Long consultantId, ClosedDayRequest closedDayRequest) {
         Consultant consultant = consultantRepository.findById(consultantId)
                 .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
 
         consultant.addClosedDay(
                 ClosedDay.builder()
-                        .date(closedDay)
+                        .date(closedDayRequest.getClosedDay())
                         .consultant(consultant)
                         .build());
         consultantRepository.save(consultant);
