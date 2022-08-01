@@ -22,6 +22,7 @@ public class ReservationService {
     private static final String CONSULTANT_NOT_FOUND = "해당 컨설턴트를 찾을 수 없습니다.";
     private static final String RESERVATION_NOT_FOUND = "해당 예약을 찾을 수 없습니다.";
     private static final String WRONG_ACCESS = "잘못된 접근입니다.";
+    private static final String RESERVATION_DELETED = "이미 취소된 예약입니다.";
 
     private final CustomerRepository customerRepository;
     private final ConsultantRepository consultantRepository;
@@ -50,6 +51,9 @@ public class ReservationService {
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
         if (!customer.equals(reservation.getCustomer())) {
             throw new WrongAccessException(WRONG_ACCESS);
+        }
+        if (!reservation.isActive()) {
+            throw new NotFoundException(RESERVATION_DELETED);
         }
 
         reservation.cancel();
