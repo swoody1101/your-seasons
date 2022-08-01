@@ -19,7 +19,6 @@ export default function BasicRating({ setstar, star, reviewId, isReviewId}) {
 					value={value}
 					setstar={star}
 					onClick={e=> {
-						console.log(e.target.value); 
 						setValue(e.target.value);
 						setstar(Number(e.target.value));
 					}}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux/es/exports';
 
-import { Button, CardActions, CardContent, Card, Typography, Avatar, CardActionArea, styled } from '@mui/material';
+import { Button, Box, CardActions, CardContent, Card, Typography, Avatar, CardActionArea, styled } from '@mui/material';
 import LyricsOutlinedIcon from '@mui/icons-material/LyricsOutlined';
 import { deleteResFetch } from './myPageSlice';
 
@@ -9,11 +9,10 @@ const MyResHistoryItem = (reservation) => {
 	// 주석 삭제X
   // const [editNow, setEditNow] = useState(false)
   const dispatch = useDispatch()
-  const [isrequest, setIsRequest] = useState(reservation.request)
-	console.log(isrequest)
+  // const [isrequest, setIsRequest] = useState(reservation.request)
 
   return (
-    <Card sx={{ marginBottom: 5, padding: 1, borderRadius: 5 }} variant="outlined" className="history-card">
+    <SetCard variant="outlined" className="history-card">
       <CardActionArea>
         <CardContent>
           {/* 컨설턴트정보, 날짜 */}
@@ -35,7 +34,7 @@ const MyResHistoryItem = (reservation) => {
 							// 예약 request 수정버튼 필요시 주석처리 해제 
 							// readOnly={!editNow}
               // style={{ backgroundColor: editNow === true ? '#cfe8fc' : 'white' }}
-              onChange={(e) => setIsRequest(e.target.value)}
+              // onChange={(e) => setIsRequest(e.target.value)}
 							>
             </RequestText>
           </RequestBox>
@@ -62,18 +61,20 @@ const MyResHistoryItem = (reservation) => {
           </Button>
         </div>
       </CardActions>
-    </Card>
+    </SetCard>
   )
 }
 
 export default MyResHistoryItem
 
 
-const RequestBox = styled('div')`
-	border: 1px dashed #ADBED2;
-	border-radius: 5px;
-	padding: 10px;
-`
+const RequestBox = styled(Box)({
+	border: '1px dashed #ADBED2',
+	borderRadius: 5,
+	padding: 10,
+})
+
+
 
 const Forflex = styled('div')`
 	display:flex;
@@ -86,8 +87,17 @@ const RequestText = styled('textarea')`
 	font-family: Roboto;
 	font-size: 15px;
 	border: none;
-	background-color: white;
+	background-color: #FFFFFF00;
 	height: 100px;
 	width: 100%;
 	resize: none;
 `
+
+
+const SetCard = styled(Card)({
+	marginBottom: 5, 
+	// padding: 1, 
+	borderRadius: 5,
+  backgroundColor: "#F1F1F190",
+  borderRadius: '1rem',
+})
