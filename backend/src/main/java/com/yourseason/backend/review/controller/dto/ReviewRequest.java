@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ReviewRequest {
 
-    private Long consultingId;
     private int star;
     private String comment;
 
