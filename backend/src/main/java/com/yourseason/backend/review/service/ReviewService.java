@@ -16,6 +16,7 @@ import com.yourseason.backend.review.domain.Review;
 import com.yourseason.backend.review.domain.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -34,6 +35,7 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final ConsultingRepository consultingRepository;
 
+    @Transactional
     public ReviewResponse createReview(Long customerId, Long consultantId, ReviewRequest reviewRequest) {
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
@@ -55,6 +57,7 @@ public class ReviewService {
                 .build();
     }
 
+    @Transactional
     public ReviewResponse updateReview(Long customerId, Long reviewId, ReviewRequest reviewRequest) {
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
@@ -73,6 +76,7 @@ public class ReviewService {
                 .build();
     }
 
+    @Transactional
     public Message deleteReview(Long customerId, Long reviewId) {
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new NotFoundException(REVIEW_NOT_FOUND));
