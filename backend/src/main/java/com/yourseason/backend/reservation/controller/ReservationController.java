@@ -21,7 +21,7 @@ public class ReservationController {
                                                                        @PathVariable Long consultantId,
                                                                        @RequestBody ReservationCreateRequest reservationCreateRequest) {
         return ResponseEntity.ok()
-                .body(reservationService.createReservation(0L, consultantId, reservationCreateRequest));
+                .body(reservationService.createReservation(JwtUtil.getMemberId(token), consultantId, reservationCreateRequest));
     }
 
     @DeleteMapping("/{reservationId}")
