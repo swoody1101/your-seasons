@@ -1,6 +1,7 @@
 package com.yourseason.backend.member.consultant.service;
 
 import com.yourseason.backend.common.domain.Message;
+import com.yourseason.backend.common.exception.DuplicationException;
 import com.yourseason.backend.common.exception.NotEqualException;
 import com.yourseason.backend.common.exception.NotFoundException;
 import com.yourseason.backend.member.common.controller.dto.PasswordUpdateRequest;
@@ -23,6 +24,7 @@ public class ConsultantService {
     private static final String LICENSE_NOT_FOUND = "자격증이 존재하지 않습니다.";
     private static final String PASSWORD_NOT_EQUAL = "비밀번호가 올바르지 않습니다.";
     private static final String CLOSED_DAY_NOT_FOUND = "해당 날짜는 휴무일이 아닙니다.";
+    private static final String PASSWORD_DUPLICATED = "변경할 비밀번호가 현재 비밀번호와 일치합니다.";
 
     private final PasswordEncoder passwordEncoder;
     private final ConsultantRepository consultantRepository;
@@ -212,7 +214,12 @@ public class ConsultantService {
     public Message updateConsultantPassword(Long consultantId, PasswordUpdateRequest passwordUpdateRequest) {
         Consultant consultant = consultantRepository.findById(consultantId)
                 .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
+
         checkValidPassword(passwordUpdateRequest.getBeforePassword(), consultant.getPassword());
+        if (passwordUpdateRequest.getBeforePassword().equals(passwordUpdateRequest.getAfterPassword())) {
+            throw new DuplicationException(PASSWORD_DUPLICATED);
+        }
+
         consultant.changePassword(passwordEncoder, passwordUpdateRequest.getAfterPassword());
         consultantRepository.save(consultant);
         return new Message("succeeded");
