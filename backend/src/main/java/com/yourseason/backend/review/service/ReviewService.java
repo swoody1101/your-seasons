@@ -38,7 +38,7 @@ public class ReviewService {
                 .orElseThrow(() -> new NotFoundException(CONSULTING_NOT_FOUND));
         Consultant consultant = consulting.getConsultant();
 
-        if (consulting.isHasReview()) {
+        if (consulting.hasReview()) {
             throw new DuplicationException(REVIEW_EXISTS);
         }
         Review review = reviewRequest.toEntity();
