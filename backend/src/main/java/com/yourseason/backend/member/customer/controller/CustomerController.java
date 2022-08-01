@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -28,7 +27,7 @@ public class CustomerController {
     @GetMapping("/4")
     public ResponseEntity<CustomerResponse> getCustomer(@RequestHeader("X-Auth-Token") String token) {
         return ResponseEntity.ok()
-                .body(customerService.getCustomer(JwtUtil.getMemberId(token)));
+                .body(customerService.getCustomerInfo(JwtUtil.getMemberId(token)));
     }
 
     @GetMapping("/1")
@@ -52,8 +51,11 @@ public class CustomerController {
     @PatchMapping
     public ResponseEntity<Message> updateCustomer(@RequestHeader("X-Auth-Token") String token,
                                                   @RequestBody CustomerUpdateRequest customerUpdateRequest) {
+        Long customerId = JwtUtil.getMemberId(token);
+        Message message = customerService.updateCustomer(customerId, customerUpdateRequest);
         return ResponseEntity.ok()
-                .body(customerService.updateCustomer(JwtUtil.getMemberId(token), customerUpdateRequest));
+                .header("X-Auth-Token", JwtUtil.generateToken(customerService.getUpdatedCustomer(customerId)))
+                .body(message);
     }
 
     @PatchMapping("/password")

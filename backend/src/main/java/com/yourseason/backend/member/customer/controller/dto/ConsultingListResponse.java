@@ -1,10 +1,9 @@
 package com.yourseason.backend.member.customer.controller.dto;
 
-import com.yourseason.backend.consulting.domain.result.BestColorSet;
-import com.yourseason.backend.consulting.domain.result.WorstColorSet;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Builder
@@ -18,8 +17,8 @@ public class ConsultingListResponse {
     private String consultantImageUrl;
     private LocalDate consultingDate;
     private String tone;
-    private BestColorSet bestColorSet;
-    private WorstColorSet worstColorSet;
+    private List<String> bestColorSet;
+    private List<String> worstColorSet;
     private String resultImageUrl;
     private String comment;
     private boolean hasReview;
