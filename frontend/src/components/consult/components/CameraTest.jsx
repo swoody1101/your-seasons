@@ -33,7 +33,7 @@ const CameraTest = ({
                 비디오 확인하기
               </Typography>
               {/* <video ref={myVideo} /> */}
-              <Container sx={{ backgroundColor: "#555", height: '240px' }} />
+              <Container sx={{ backgroundColor: "#555", height: '180px' }} />
               <Typography variant="h6">
                 색상 | 채도 | 명도
               </Typography>

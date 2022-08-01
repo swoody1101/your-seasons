@@ -3,13 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import {
-  Avatar,
-  Button,
-  CssBaseline,
-  FormControlLabel,
-  Checkbox,
-  Grid,
-  Container,
+  Avatar, Button, CssBaseline,
+  FormControlLabel, Checkbox,
+  Grid, Container, styled,
 } from '@mui/material'
 
 import regex from '../input/regex';
@@ -24,7 +20,7 @@ import RoleSelectBox from '../input/RoleSelectBox'
 import LicenseInput from '../input/LicenseInput'
 
 import Policy from './Policy'
-import { OK } from '../../api/CustomConst'
+import { CONSULTANT, CUSTOMER, OK } from '../../api/CustomConst'
 import { nicknameCheck, emailCheck, signUpMember } from './signUpSlice';
 
 
@@ -47,9 +43,9 @@ const SignUp = () => {
 
   const [phoneNumber, setPhoneNumber] = useState('010');
 
-  const [role, setRole] = useState('member');
+  const [role, setRole] = useState(CUSTOMER);
 
-  const [licenseId, setLicenseId] = useState(1);
+  const [licenseName, setLicenseName] = useState("컬러리스트기사");
   const [licenseNumber, setLicenseNumber] = useState('');
 
   const [agreeChecked, setAgreeChcked] = useState(false);
@@ -77,7 +73,7 @@ const SignUp = () => {
     birth: birth,
     contact: phoneNumber,
     role: role,
-    licenseId: licenseId,
+    licenseName: licenseName,
     licenseNumber: licenseNumber,
   }
 
@@ -135,7 +131,7 @@ const SignUp = () => {
       return;
     }
 
-    if (role === 'consultant' && licenseNumber.length < 1) {
+    if (role === CONSULTANT && licenseNumber.length < 1) {
       alert("자격증 번호를 입력하거나, 일반 사용자로 가입해주세요.");
       return;
     }
@@ -148,7 +144,7 @@ const SignUp = () => {
     dispatch(signUpMember(data))
       .then((res) => {
         console.log(res.payload) // 응답 msg  확인
-        if (res.payload) {
+        if (res.payload === OK) {
           alert("가입에 성공하였습니다.");
           navigate('/login');
         } else {
@@ -164,7 +160,7 @@ const SignUp = () => {
           m: "1rem auto", bgcolor: 'primary.main'
         }} ><LockIcon /></Avatar>
       <CssBaseline />
-      <Grid container
+      <SGrid container
         direction="column"
         justifyContent="center"
         alignItems="center">
@@ -269,12 +265,12 @@ const SignUp = () => {
               setValue={setRole}
             />
             {
-              role === 'consultant'
+              role === CONSULTANT
               &&
               <LicenseInput
                 label="자격증 정보"
-                licenseId={licenseId}
-                setLicenseId={setLicenseId}
+                licenseName={licenseName}
+                setLicenseName={setLicenseName}
                 value={licenseNumber}
                 setValue={setLicenseNumber}
               />
@@ -302,9 +298,15 @@ const SignUp = () => {
             회원가입
           </Button>
         </Grid>
-      </Grid>
+      </SGrid>
     </Container >
   )
 }
 
 export default SignUp
+
+const SGrid = styled(Grid)({
+  backgroundColor: "#F1F1F190",
+  padding: '2rem',
+  borderRadius: '1rem',
+})
