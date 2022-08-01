@@ -31,7 +31,7 @@ const ConsultingRoom = () => {
               색상 팔레트
             </Typography>
             {/* 색상 선택 파레트 버튼이 들어갈 자리 */}
-            <Container sx={{ backgroundColor: "#555", height: '430px' }} />
+            <Container sx={{ backgroundColor: "#555", flex: "1" }} />
           </PaletteContainer>
         </SGrid>
 
