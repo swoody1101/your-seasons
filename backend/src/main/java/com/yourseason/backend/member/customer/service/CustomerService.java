@@ -108,7 +108,7 @@ public class CustomerService {
                                 .collect(Collectors.toList()))
                         .resultImageUrl(consulting.getTestResult().getConsultingFile())
                         .comment(consulting.getComment())
-                        .hasReview(consulting.isHasReview())
+                        .hasReview(consulting.hasReview())
                         .build())
                 .collect(Collectors.toList());
     }
