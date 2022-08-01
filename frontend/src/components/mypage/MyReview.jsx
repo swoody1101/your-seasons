@@ -24,7 +24,6 @@ const MyReview = () => {
 				alert('1000자 미만 입력해주세요.')
 			}else{
 				dispatch(updateReviewFetch(data))
-				console.log(data)
 				setIsReviewId(false)
 				setComment('')
 				setStar('')
