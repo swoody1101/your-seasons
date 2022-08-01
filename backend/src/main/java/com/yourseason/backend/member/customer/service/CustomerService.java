@@ -1,9 +1,12 @@
 package com.yourseason.backend.member.customer.service;
 
+import com.yourseason.backend.common.domain.Color;
 import com.yourseason.backend.common.domain.Message;
 import com.yourseason.backend.common.exception.NotEqualException;
 import com.yourseason.backend.common.exception.NotFoundException;
 import com.yourseason.backend.member.common.controller.dto.PasswordUpdateRequest;
+import com.yourseason.backend.member.common.domain.Role;
+import com.yourseason.backend.member.common.service.MemberService;
 import com.yourseason.backend.member.customer.controller.dto.*;
 import com.yourseason.backend.member.customer.domain.Customer;
 import com.yourseason.backend.member.customer.domain.CustomerRepository;
@@ -11,7 +14,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -23,13 +28,16 @@ public class CustomerService {
 
     private final PasswordEncoder passwordEncoder;
     private final CustomerRepository customerRepository;
+    private final MemberService memberService;
 
     public Message createCustomer(CustomerSignupRequest request) {
+        memberService.validateEmail(request.getEmail());
+        memberService.validateNickname(request.getNickname());
         customerRepository.save(request.toEntity(passwordEncoder));
         return new Message("succeeded");
     }
 
-    public CustomerResponse getCustomer(Long customerId) {
+    public CustomerResponse getCustomerInfo(Long customerId) {
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
 
@@ -116,21 +124,38 @@ public class CustomerService {
     }
 
     public Message updateCustomerPassword(Long customerId, PasswordUpdateRequest passwordUpdateRequest) {
-        Customer customer = customerRepository.findById(customerId)
-                .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
-        if (!passwordUpdateRequest.getBeforePassword().equals(customer.getPassword())) {
-            throw new NotEqualException(PASSWORD_NOT_EQUAL);
-        }
-        customer.changePassword(passwordUpdateRequest.getAfterPassword());
+        Customer customer = getCustomer(customerId);
+        checkValidPassword(passwordUpdateRequest.getBeforePassword(), customer.getPassword());
+        customer.changePassword(passwordEncoder, passwordUpdateRequest.getAfterPassword());
         customerRepository.save(customer);
         return new Message(("succeeded"));
     }
 
     public Message deleteCustomer(Long customerId) {
-        Customer customer = customerRepository.findById(customerId)
-                .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
+        Customer customer = getCustomer(customerId);
         customer.withdraw();
         customerRepository.save(customer);
         return new Message("succeeded");
+    }
+
+    public Map<String, String> getUpdatedCustomer(Long customerId) {
+        Customer customer = getCustomer(customerId);
+        Map<String, String> member = new HashMap<>();
+        member.put("id", String.valueOf(customerId));
+        member.put("nickname", customer.getNickname());
+        member.put("imageUrl", customer.getImageUrl());
+        member.put("role", String.valueOf(Role.CUSTOMER));
+        return member;
+    }
+
+    private Customer getCustomer(Long customerId) {
+        return customerRepository.findById(customerId)
+                .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
+    }
+
+    private void checkValidPassword(String loginPassword, String password) {
+        if (!passwordEncoder.matches(loginPassword, password)) {
+            throw new NotEqualException(PASSWORD_NOT_EQUAL);
+        }
     }
 }
