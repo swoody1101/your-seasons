@@ -125,10 +125,12 @@ public class CustomerService {
     public Message updateCustomerPassword(Long customerId, PasswordUpdateRequest passwordUpdateRequest) {
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
+
         checkValidPassword(passwordUpdateRequest.getBeforePassword(), customer.getPassword());
         if (passwordUpdateRequest.getBeforePassword().equals(passwordUpdateRequest.getAfterPassword())) {
             throw new DuplicationException(PASSWORD_DUPLICATED);
         }
+
         customer.changePassword(passwordEncoder, passwordUpdateRequest.getAfterPassword());
         customerRepository.save(customer);
         return new Message(("succeeded"));
