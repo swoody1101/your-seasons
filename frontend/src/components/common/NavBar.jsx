@@ -30,14 +30,15 @@ const NavBar = () => {
   const transparentTheme = createTheme({
     palette: {
       primary: {
-        main: '#ffffff00'
+        main: '#ffffff00',
+				boxShadow: 'none'
       }
     }
   })
 
   return (
     <ThemeProvider theme={transparentTheme} >
-      <AppBar position="fixed" variant="transparent">
+      <AppBar position="sticky" variant="transparent">
         <StyledToolbar>
           <Logos>
             <Link to="home" >
@@ -118,7 +119,7 @@ const Logos = styled(Box)(({ theme }) => ({
   gap: "1rem",
   a: {
     color: "white",
-    textShadow: '1px 1px 6px black'
+    textShadow: '1px 1px 2px black'
   }
 }))
 
@@ -130,7 +131,7 @@ const Navs = styled(Box)(({ theme }) => ({
   gap: "1rem",
   a: {
     color: "white",
-    textShadow: '1px 1px 6px black'
+    textShadow: '1px 1px 2px black'
   }
 }))
 

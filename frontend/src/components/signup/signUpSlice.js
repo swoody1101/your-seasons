@@ -30,13 +30,15 @@ export const signUpMember = createAsyncThunk(
       } else if (userInfo.role === CONSULTANT) {
         response = await Axios.post('consultants', userInfo);
       }
-
-      if (response.status === CREATED) {
-        return true;
-      }
+      return response.status;
     } catch (err) {
-      // 에러 아무거나 떠도 그냥 false로 반환하는 방법
-      return false;
+      let errRes = 400;
+      if (err.status < 500) {
+        errRes = 400;
+      } else if (err.status < 600) {
+        errRes = 500;
+      }
+      return errRes;
     }
   }
 )
