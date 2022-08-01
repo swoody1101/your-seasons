@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -25,7 +24,7 @@ public class ConsultantController {
         return ResponseEntity.ok()
                 .body(consultantService.createConsultant(consultantSignupRequest));
     }
-    
+
     @PostMapping("/closed-days")
     public ResponseEntity<Message> createClosedDay(@RequestHeader("X-Auth-Token") String token,
                                                    @RequestBody LocalDate closedDay) {
