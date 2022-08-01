@@ -24,7 +24,9 @@ export const loginUser = createAsyncThunk(
       return response;
     } catch (err) {
       // 에러 자체를 반환해서 jsx에서 처리하는 방법
-      return rejectWithValue(err.response);
+      console.log(err.response.status)
+      return err.response.status;
+      // return rejectWithValue(err.response);
     }
   }
 );

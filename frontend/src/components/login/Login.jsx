@@ -85,7 +85,7 @@ const Login = () => {
 
   return (
     <Container sx={{}}>
-      <Grid container
+      <SGrid container
         direction="row"
         justifyContent="center"
         alignItems="center"
@@ -177,7 +177,7 @@ const Login = () => {
               </Avatar></Grid>
           </CenterGrid>
         </Grid>
-      </Grid>
+      </SGrid>
 
     </Container >
   );
@@ -194,3 +194,10 @@ const CenterGrid = styled(Grid)({
   flexDirection: "row",
   justifyContent: "center"
 });
+
+const SGrid = styled(Grid)({
+  marginTop: "5rem",
+  backgroundColor: "#F1F1F190",
+  padding: '2rem',
+  borderRadius: '1rem',
+})
