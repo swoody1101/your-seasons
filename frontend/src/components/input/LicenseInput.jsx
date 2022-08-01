@@ -25,10 +25,11 @@ export default function LicenseInput({
           value={licenseName}
           onChange={HandleLicenseIdChange}
         >
-          <MenuItem value={"컬러리스트"}>컬러리스트</MenuItem>
-          <MenuItem value={"퍼스널컬러 컨설턴트"}>퍼스널컬러 컨설턴트</MenuItem>
-          <MenuItem value={"NPO 퍼스널컬러"}>NPO 퍼스널컬러</MenuItem>
-          <MenuItem value={"NCNS 퍼스널컬러리스트"}>NCNS 퍼스널컬러리스트</MenuItem>
+          <MenuItem value={"컬러리스트산업기사"}>컬러리스트산업기사</MenuItem>
+          <MenuItem value={"컬러리스트기사"}>컬러리스트기사</MenuItem>
+          <MenuItem value={"NPO 국제 퍼스널컬러"}>NPO 국제 퍼스널컬러</MenuItem>
+          <MenuItem value={"NCNS 퍼스널컬러"}>NCNS 퍼스널컬러</MenuItem>
+          <MenuItem value={"퍼스널컬러코디네이터"}>퍼스널컬러코디네이터</MenuItem>
         </StyledSelect>
         <StyledTextField
           id={label}
