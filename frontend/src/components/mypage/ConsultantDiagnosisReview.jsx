@@ -18,7 +18,7 @@ const BasicRating = ({setIsStar}) => {
 				<span style={{marginTop:7, paddingLeft:2, marginRight:5}}>별점: </span>
 				<Rating
 					name="simple-controlled"
-					value={value|| ''}
+					value={Number(value)|| 0}
 					onClick={e=> {
 						setValue(e.target.value)
 						setIsStar(e.target.value)
@@ -60,7 +60,6 @@ const ConsultantDiagnosisReview = ({consultantNickname, consultantId, hasReview}
 			comment: isComment,
 			consultantId: consultantId,
 		}
-		console.log(data)
 		if(data.comment.length<10){
 			alert('10자이상 입력해 주세요')
 		}else if(data.comment.length>1000){
@@ -88,7 +87,6 @@ const ConsultantDiagnosisReview = ({consultantNickname, consultantId, hasReview}
 							<BasicRating setIsStar={setIsStar}/>
 							<textarea style={{width: '100%', height: 120, backgroundColor: '#c5cae9', borderRadius: 2, padding:10}} 
 								onChange={(e)=>{
-								console.log(e.target.value);
 								setComment(e.target.value)}}>
 							</textarea>
 						</div>
