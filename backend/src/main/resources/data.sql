@@ -63,3 +63,6 @@ insert into test_result(created_date, last_modified_date, consulting_file, is_ac
 
 -- 전문가진단
 insert into consulting(created_date, last_modified_date, consulting_comment, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), '봄 브라이트 톤으로 화사한 컬러를 선택하시고, 레이스가 잘 어울리십니다.', 0, 1, 1, 1, 1);
+insert into consulting(created_date, last_modified_date, consulting_comment, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), '너는 이다 겨울 쿨톤!', 0, 1, 1, 1, 1);
+insert into consulting(created_date, last_modified_date, consulting_comment, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), '너는 인가 가을 웜톤?', 0, 1, 1, 1, 1);
+insert into consulting(created_date, last_modified_date, consulting_comment, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), '나도 모르겠다 퍼스널컬러 이제', 0, 1, 1, 1, 1);
