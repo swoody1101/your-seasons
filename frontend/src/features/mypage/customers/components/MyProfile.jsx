@@ -1,45 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 
 import { Stack, Button, Grid, styled } from '@mui/material';
 
-import DefaultImg from 'assets/images/default/avatar01.png';
 import MyAvatar from "common/avatar/MyAvatar";
 
 import { loadMember } from 'features/auth/modifySlice'
-import { getToken } from 'api/JWToken';
-import axios from 'axios';
-// import { useParams } from "react-router";
 
 const MyProfile = () => {
   // const [nickname, setNickname] = useState('치당');
   const [lastDiagnosis, setlastDiagnosis] = useState('');
-  const [userImg, setUserImg] = useState('')
   // const userId = useParams().customerId;
   // nickname도 selector로 부를 수 있습니다.
   const { nickname, role, imageUrl } = useSelector(state => state.login.logonUser)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // axios test 안함.
-  // useEffect(() => {
-  //   axios({
-  //     // userID 가져오는 방식 ??
-  //     // url: `/customers/${userId}`,
-  //     method: "get",
-  //     headers: {
-  //       // Authorization: `Token ${logonUser}` // 임시 주석
-  //     }
-  //   })
-  //     .then((response) => response.data)
-  //     .then((user) => {
-  //       setNickname(user.nickname)
-  //       // 
-  //       setlastDiagnosis(user.lastTestResult)
-  //       setUserImg(user.image)
-  //     });
-  // }, [])
   const diagnosis = () => {
     if (lastDiagnosis === null || lastDiagnosis === undefined || lastDiagnosis === '') {
       return <>
@@ -85,12 +62,6 @@ const MyProfile = () => {
   )
 }
 export default MyProfile;
-
-const ProfileImg = styled('img')({
-  width: "140px",
-  height: "140px",
-  borderRadius: "50%",
-})
 
 const ProfileText = styled('div')({
   display: "flex",
