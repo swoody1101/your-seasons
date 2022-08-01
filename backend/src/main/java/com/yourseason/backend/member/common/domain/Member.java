@@ -4,6 +4,7 @@ import com.yourseason.backend.common.domain.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
@@ -61,7 +62,7 @@ public abstract class Member extends BaseTimeEntity {
         super.delete();
     }
 
-    public void changePassword(String afterPassword) {
-        password = afterPassword;
+    public void changePassword(PasswordEncoder passwordEncoder, String afterPassword) {
+        password = passwordEncoder.encode(afterPassword);
     }
 }

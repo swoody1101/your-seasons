@@ -211,7 +211,7 @@ public class ConsultantService {
         if (!passwordUpdateRequest.getBeforePassword().equals(consultant.getPassword())) {
             throw new NotEqualException(PASSWORD_NOT_EQUAL);
         }
-        consultant.changePassword(passwordUpdateRequest.getAfterPassword());
+        consultant.changePassword(passwordEncoder, passwordUpdateRequest.getAfterPassword());
         consultantRepository.save(consultant);
         return new Message("succeeded");
     }
