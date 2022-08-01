@@ -9,6 +9,7 @@ import com.yourseason.backend.member.common.service.MemberService;
 import com.yourseason.backend.member.consultant.controller.dto.*;
 import com.yourseason.backend.member.consultant.domain.*;
 import lombok.RequiredArgsConstructor;
+import net.bytebuddy.implementation.bytecode.Duplication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,7 @@ public class ConsultantService {
     private static final String PASSWORD_NOT_EQUAL = "비밀번호가 올바르지 않습니다.";
     private static final String CLOSED_DAY_NOT_FOUND = "해당 날짜는 휴무일이 아닙니다.";
     private static final String PASSWORD_DUPLICATED = "변경할 비밀번호가 현재 비밀번호와 일치합니다.";
+    private static final String CLOSED_DAY_DUPLICATED = "이미 휴무일로 등록하셨습니다.";
 
     private final PasswordEncoder passwordEncoder;
     private final ConsultantRepository consultantRepository;
@@ -46,6 +48,14 @@ public class ConsultantService {
     public Message createClosedDay(Long consultantId, ClosedDayRequest closedDayRequest) {
         Consultant consultant = consultantRepository.findById(consultantId)
                 .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
+
+        consultant.getClosedDays()
+                        .stream()
+                        .filter(closedDay -> closedDay.getDate().isEqual(closedDayRequest.getClosedDay()))
+                        .findAny()
+                        .ifPresent(closedDay -> {
+                            throw new DuplicationException(CLOSED_DAY_DUPLICATED);
+                        });
 
         consultant.addClosedDay(
                 ClosedDay.builder()
