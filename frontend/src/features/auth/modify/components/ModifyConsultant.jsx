@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { ButtonGroup, Button, Container, Grid, styled, TextField } from '@mui/material'
 import { BAD_REQUEST, NOT_FOUND, CONFLICT } from 'api/CustomConst'
-import { modifyMember, loadMember } from 'features/auth/modifySlice'
+import { modifyMember, loadMember } from 'features/auth/authSlice'
 
 const ModifyConsultant = () => {
   const { role } = useSelector((state) => state.login.logonUser)

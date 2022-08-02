@@ -3,29 +3,21 @@ import storage from 'redux-persist/lib/storage';
 import { combineReducers } from 'redux';
 import { persistReducer } from 'redux-persist';
 import thunk from 'redux-thunk';
-// common
-import AvatarReducer from "common/avatar/avatarSlice";
-import ColorSetReducer from 'common/colorset/colorSetSlice'
 // auth
-import LoginReducer from 'features/auth/loginSlice';
-import SignUpReducer from 'features/auth/signUpSlice';
-import ModifyReducer from 'features/auth/modifySlice';
+import AuthReducer from 'features/auth/authSlice'
 // consulting
 import ConsultantListReducer from 'features/consulting/consultantListSlice'
 // mypage
-import customerReducer from 'features/mypage/customerSlice';
-import UserReviewReducer from 'features/mypage/userReviewSlice';
-import consultantProfileReducer from 'features/mypage/consultantProfileSlice';
+import MypageSlice from "features/mypage/mypageSlice";
+// common
+import AvatarReducer from "common/avatar/avatarSlice";
+import ColorSetReducer from 'common/colorset/colorSetSlice'
 
 const reducers = combineReducers({
-  signup: SignUpReducer,
-  login: LoginReducer,
-  modify: ModifyReducer,
-  avatar: AvatarReducer,
-  review: UserReviewReducer,
-  customerMyPage: customerReducer,
-  consultantprofile: consultantProfileReducer,
+  auth: AuthReducer,
+  mypage: MypageSlice,
   consultantList: ConsultantListReducer,
+  avatar: AvatarReducer,
   colorSetList: ColorSetReducer,
 });
 

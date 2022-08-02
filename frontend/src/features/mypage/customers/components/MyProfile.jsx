@@ -6,7 +6,7 @@ import { Stack, Button, Grid, styled } from '@mui/material';
 
 import MyAvatar from "common/avatar/MyAvatar";
 
-import { loadMember } from 'features/auth/modifySlice'
+import { loadMember } from 'features/auth/authSlice'
 
 const MyProfile = () => {
   // const [nickname, setNickname] = useState('치당');

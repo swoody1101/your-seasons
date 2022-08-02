@@ -9,7 +9,7 @@ import ComparePasswordInput from 'features/auth/components/ConfirmPasswordInput'
 import regex from 'features/auth/components/regex';
 import { BAD_REQUEST, NOT_FOUND, CONFLICT } from 'api/CustomConst'
 
-import { modifyPass } from 'features/auth/modifySlice'
+import { modifyPass } from 'features/auth/authSlice'
 
 const ModifyPassword = () => {
 

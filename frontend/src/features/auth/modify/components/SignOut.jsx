@@ -6,7 +6,7 @@ import { Box, Typography, Button, ButtonGroup } from '@mui/material'
 
 
 import { BAD_REQUEST, NOT_FOUND, CONFLICT } from 'api/CustomConst'
-import { signOut } from 'features/auth/modifySlice'
+import { signOut } from 'features/auth/authSlice'
 
 const SignOut = () => {
   const { role } = useSelector((state) => state.login.logonUser)

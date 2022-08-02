@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Stack, Button, Avatar, Grid, IconButton, Container, Box, styled } from '@mui/material'
 
-import { loadMember } from 'features/auth/modifySlice'
+import { loadMember } from 'features/auth/authSlice'
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import ProfileImage from 'assets/images/yourseasonlogo.png';
 import StarRating from "../../../../common/starrating/StarRating";
