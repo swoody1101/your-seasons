@@ -65,7 +65,7 @@ public class ConsultantService {
     }
 
     public List<ConsultantListResponse> getConsultants() {
-        return consultantRepository.findByIsActive(true)
+        return consultantRepository.findByIsActiveTrue()
                 .stream()
                 .map(consultant ->
                         ConsultantListResponse.builder()
