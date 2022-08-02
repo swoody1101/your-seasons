@@ -47,8 +47,7 @@ public class Review extends BaseTimeEntity {
     public void register(Customer customer, Consultant consultant, Consulting consulting) {
         setCustomer(customer);
         setConsultant(consultant);
-        this.consulting = consulting;
-        consulting.registerReview();
+        setConsulting(consulting);
     }
 
     public void setCustomer(Customer customer) {
@@ -61,6 +60,11 @@ public class Review extends BaseTimeEntity {
         this.consultant = consultant;
         consultant.getReviews()
                 .add(this);
+    }
+
+    public void setConsulting(Consulting consulting) {
+        this.consulting = consulting;
+        consulting.registerReview();
     }
 
     public void updateReview(int star, String comment) {
