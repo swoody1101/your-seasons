@@ -35,10 +35,10 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
     private final ConsultantRepository consultantRepository;
 
-    public Message createCustomer(CustomerSignupRequest request) {
-        checkValidEmail(request.getEmail());
-        checkValidNickname(request.getNickname());
-        customerRepository.save(request.toEntity(passwordEncoder));
+    public Message createCustomer(CustomerSignupRequest customerSignupRequest) {
+        checkValidEmail(customerSignupRequest.getEmail());
+        checkValidNickname(customerSignupRequest.getNickname());
+        customerRepository.save(customerSignupRequest.toEntity(passwordEncoder));
         return new Message("succeeded");
     }
 
