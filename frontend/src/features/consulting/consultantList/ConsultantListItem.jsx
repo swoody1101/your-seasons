@@ -54,31 +54,31 @@ export default ConsultantListItem
 
 const Introduce = styled('div')({
   display: "-webkit-box",
-  "-webkit-box-orient": "vertical",
-  "-webkit-line-clamp": "1",
+  WebkitBoxOrient: "vertical",
+  WebkitLineClamp: "1",
   overflow: "hidden"
 })
 
 const Nickname = styled('span')({
   display: "-webkit-box",
-  "-webkit-box-orient": "vertical",
-  "-webkit-line-clamp": "1",
+  WebkitBoxOrient: "vertical",
+  WebkitLineClamp: "1",
   overflow: "hidden",
 	fontSize: 15,
 })
 
 const Review = styled('span')({
   display: "-webkit-box",
-  "-webkit-box-orient": "vertical",
-  "-webkit-line-clamp": "1",
+  WebkitBoxOrient: "vertical",
+  WebkitLineClamp: "1",
   overflow: "hidden",
 	fontSize: 12,
 })
 
 const Cost = styled('span')({
   display: "-webkit-box",
-  "-webkit-box-orient": "vertical",
-  "-webkit-line-clamp": "1",
+  WebkitBoxOrient: "vertical",
+  WebkitLineClamp: "1",
   overflow: "hidden",
 	fontSize: 12,
 })

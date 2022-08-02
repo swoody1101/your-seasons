@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux/es/exports';
 import { Button, CardActions, CardContent, Card, Typography, Avatar, CardActionArea, styled } from '@mui/material';
 import BasicRating from './StarRating'
-import { deleteReviewFetch, updateReviewFetch } from 'features/mypage/customerSlice'
+import { deleteReviewFetch, updateReviewFetch } from 'features/mypage/mypageSlice'
 
 
 const MyReview = () => {

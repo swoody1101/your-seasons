@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux/es/exports';
 import { Box, Button, ImageList, Avatar, styled } from '@mui/material'
 
 import { BAD_REQUEST, NOT_FOUND, CONFLICT, CONSULTANT } from 'api/CustomConst'
-import { modifyLogonUser } from 'features/auth/loginSlice';
-import { modalOff, modifyMember, loadMember } from 'features/auth/modifySlice';
+import { modifyLogonUser } from 'features/auth/authSlice';
+import { modalOff, modifyMember, loadMember } from 'features/auth/authSlice';
 
 const Sample = () => {
   const { role } = useSelector(state => state.login.logonUser)

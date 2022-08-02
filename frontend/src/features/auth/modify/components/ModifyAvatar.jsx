@@ -7,7 +7,7 @@ import {
 } from '@mui/material'
 
 import MyAvatar from 'common/avatar/MyAvatar';
-import { modalOn } from 'features/auth/modifySlice';
+import { modalOn } from 'features/auth/authSlice';
 
 const ModifyAvatar = () => {
   const [isDirect, setIsDirect] = useState(false)

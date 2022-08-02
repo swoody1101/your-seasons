@@ -12,7 +12,7 @@ import { useMediaQuery } from '@mui/material'
 import { useCookies } from 'react-cookie'
 
 import { BAD_REQUEST, NOT_FOUND, CONFLICT } from 'api/CustomConst'
-import { loginUser } from "features/auth/loginSlice"
+import { loginUser } from "features/auth/authSlice"
 
 import mainimg from 'assets/images/mainimg.png';
 import kakaotalk_img from 'assets/images/kakaotalk_img.png';
