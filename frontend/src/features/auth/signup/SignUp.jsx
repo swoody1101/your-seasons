@@ -52,18 +52,7 @@ const SignUp = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const signUpStatus = useSelector(state => state.signup.status);
-
-  // useEffect(() => {
-  //   if (signUpStatus === 'succeeded') {
-  //     alert("가입에 성공하였습니다.");
-  //     navigate('/login');
-  //   }
-  //   if (signUpStatus === 'failed') {
-  //     alert("가입에 실패하였습니다.");
-  //   }
-  // }, [signUpStatus, navigate])
-
+  const signUpStatus = useSelector(state => state.auth.status);
 
   const userInfo = {
     email: userEmail,
@@ -282,7 +271,10 @@ const SignUp = () => {
           <FormControlLabel
             control={
               <Checkbox value={agreeChecked}
-                onChange={e => { setAgreeChcked(e.target.value) }} color="primary"
+                onChange={e => {
+                  console.log(e.target)
+                  setAgreeChcked(e.target.value)
+                }} color="primary"
               />
             }
             label="회원가입 약관에 동의합니다."

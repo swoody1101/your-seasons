@@ -17,7 +17,7 @@ const ModifyPassword = () => {
   const [afterPassword, setAfterPassword] = useState('');
   const [rePassword, setRePassword] = useState('');
 
-  const { role } = useSelector((state) => state.login.logonUser)
+  const { role } = useSelector((state) => state.auth.logonUser)
 
   const dispatch = useDispatch();
 

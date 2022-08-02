@@ -6,9 +6,9 @@ import { BAD_REQUEST, NOT_FOUND, CONFLICT } from 'api/CustomConst'
 import { modifyMember, loadMember } from 'features/auth/authSlice'
 
 const ModifyConsultant = () => {
-  const { role } = useSelector((state) => state.login.logonUser)
-  const common = useSelector((state) => state.modify.common)
-  const { introduction, cost } = useSelector((state) => state.modify.common)
+  const { role } = useSelector((state) => state.auth.logonUser)
+  const common = useSelector((state) => state.auth.common)
+  const { introduction, cost } = useSelector((state) => state.auth.common)
   // const { introduction } = 'asdf';
   const [newIntroduction, setNewIntroduction] = useState(introduction);
   const [newCost, setNewCost] = useState(cost);

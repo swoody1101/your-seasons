@@ -6,7 +6,7 @@ import MyResHistoryItem from './MyResHistoryItem'
 // 날짜부분 추후 다시 스타일 적용
 
 const MyResHistory = () => {
-  const reservations = useSelector(state => state.customerMyPage.myResData);
+  const reservations = useSelector(state => state.mypage.myResData);
 
 
   return (
