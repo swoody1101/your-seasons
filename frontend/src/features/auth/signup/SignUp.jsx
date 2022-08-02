@@ -21,7 +21,7 @@ import LicenseInput from '../components/LicenseInput'
 
 import Policy from './Policy'
 import { CONSULTANT, CUSTOMER, OK } from 'api/CustomConst'
-import { nicknameCheck, emailCheck, signUpMember } from 'features/auth/signUpSlice';
+import { nicknameCheck, emailCheck, signUpMember } from 'features/auth/authSlice';
 
 
 const SignUp = () => {
