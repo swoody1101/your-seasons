@@ -7,6 +7,7 @@ import com.yourseason.backend.common.exception.NotFoundException;
 import com.yourseason.backend.member.common.controller.dto.PasswordUpdateRequest;
 import com.yourseason.backend.member.consultant.controller.dto.*;
 import com.yourseason.backend.member.consultant.domain.*;
+import com.yourseason.backend.member.customer.domain.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,13 +26,18 @@ public class ConsultantService {
     private static final String CLOSED_DAY_NOT_FOUND = "해당 날짜는 휴무일이 아닙니다.";
     private static final String PASSWORD_DUPLICATED = "변경할 비밀번호가 현재 비밀번호와 일치합니다.";
     private static final String CLOSED_DAY_DUPLICATED = "이미 휴무일로 등록하셨습니다.";
+    private static final String EMAIL_DUPLICATED = "이메일이 중복됩니다.";
+    private static final String NICKNAME_DUPLICATED = "닉네임이 중복됩니다.";
 
     private final PasswordEncoder passwordEncoder;
     private final ConsultantRepository consultantRepository;
+    private final CustomerRepository customerRepository;
     private final LicenseRepository licenseRepository;
     private final ClosedDayRepository closedDayRepository;
 
     public Message createConsultant(ConsultantSignupRequest consultantSignupRequest) {
+        checkValidEmail(consultantSignupRequest.getEmail());
+        checkValidNickname(consultantSignupRequest.getNickname());
         Consultant consultant = consultantSignupRequest.toEntity(passwordEncoder);
         License license = licenseRepository.findByName(consultantSignupRequest.getLicenseName())
                 .orElseThrow(() -> new NotFoundException(LICENSE_NOT_FOUND));
@@ -248,6 +254,18 @@ public class ConsultantService {
     private void checkValidPassword(String loginPassword, String password) {
         if (!passwordEncoder.matches(loginPassword, password)) {
             throw new NotEqualException(PASSWORD_NOT_EQUAL);
+        }
+    }
+
+    private void checkValidEmail(String email) {
+        if (customerRepository.existsByEmail(email) || consultantRepository.existsByEmail(email)) {
+            throw new DuplicationException(EMAIL_DUPLICATED);
+        }
+    }
+
+    private void checkValidNickname(String nickname) {
+        if (customerRepository.existsByNickname(nickname) || consultantRepository.existsByNickname(nickname)) {
+            throw new DuplicationException(NICKNAME_DUPLICATED);
         }
     }
 }
