@@ -17,7 +17,7 @@ public class ReservationController {
     private final ReservationService reservationService;
 
     @PostMapping("/{consultantId}")
-    public ResponseEntity<ReservationCreateResponse> createReservation(@RequestHeader("X-Auth-Token") String token,
+    public ResponseEntity<ReservationCreateResponse> createReservation(@RequestHeader("Authorization") String token,
                                                                        @PathVariable Long consultantId,
                                                                        @RequestBody ReservationCreateRequest reservationCreateRequest) {
         return ResponseEntity.ok()
@@ -25,7 +25,7 @@ public class ReservationController {
     }
 
     @DeleteMapping("/{reservationId}")
-    public ResponseEntity<Message> deleteReservation(@RequestHeader("X-Auth-Token") String token,
+    public ResponseEntity<Message> deleteReservation(@RequestHeader("Authorization") String token,
                                                      @PathVariable Long reservationId) {
         return ResponseEntity.ok()
                 .body(reservationService.deleteReservation(JwtUtil.getMemberId(token), reservationId));
