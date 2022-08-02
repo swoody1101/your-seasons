@@ -44,9 +44,9 @@ public class Review extends BaseTimeEntity {
         this.comment = comment;
     }
 
-    public void register(Customer customer, Consultant consultant, Consulting consulting) {
+    public void register(Customer customer, Consultant consultant, Consulting consulting, int star) {
         setCustomer(customer);
-        setConsultant(consultant);
+        setConsultant(consultant, star);
         setConsulting(consulting);
     }
 
@@ -56,10 +56,11 @@ public class Review extends BaseTimeEntity {
                 .add(this);
     }
 
-    public void setConsultant(Consultant consultant) {
+    public void setConsultant(Consultant consultant, int star) {
         this.consultant = consultant;
         consultant.getReviews()
                 .add(this);
+        consultant.updateStarAverageByCreatedReview(star);
     }
 
     public void setConsulting(Consulting consulting) {
@@ -73,6 +74,7 @@ public class Review extends BaseTimeEntity {
     }
 
     public void deleteReview() {
+        consultant.updateStarAverageByDeletedReview(star);
         super.delete();
         customer.getReviews()
                 .remove(this);

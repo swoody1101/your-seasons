@@ -99,4 +99,16 @@ public class Consultant extends Member {
     public void addClosedDay(ClosedDay closedDay) {
         closedDays.add(closedDay);
     }
+
+    public void updateStarAverageByCreatedReview(int star) {
+        starAverage = (getTotalStar() + star) / ++reviewCount;;
+    }
+
+    public void updateStarAverageByDeletedReview(int star) {
+        starAverage = (getTotalStar() - star) / --reviewCount;
+    }
+
+    private double getTotalStar() {
+        return starAverage * reviewCount;
+    }
 }

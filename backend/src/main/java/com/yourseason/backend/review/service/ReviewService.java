@@ -44,7 +44,7 @@ public class ReviewService {
             throw new DuplicationException(REVIEW_EXISTS);
         }
         Review review = reviewRequest.toEntity();
-        review.register(customer, consultant, consulting);
+        review.register(customer, consultant, consulting, review.getStar());
         reviewRepository.save(review);
 
         return ReviewResponse.builder()
