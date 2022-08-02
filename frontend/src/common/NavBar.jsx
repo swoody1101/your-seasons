@@ -9,7 +9,7 @@ import {
 import { Pets } from '@mui/icons-material'
 // import LOGOIMAGE from ''
 
-import { logoutUser, resetUser } from 'features/auth/loginSlice';
+import { logoutUser, resetUser } from 'features/auth/authSlice';
 import MyAvatar from 'common/avatar/MyAvatar';
 
 
