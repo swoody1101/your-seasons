@@ -1,15 +1,14 @@
 package com.yourseason.backend.member.consultant.controller.dto;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Getter
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ClosedDayListResponse {
+public class ClosedDayRequest {
 
-    private Long closedDayId;
-    private LocalDate date;
+    private LocalDate closedDay;
 }

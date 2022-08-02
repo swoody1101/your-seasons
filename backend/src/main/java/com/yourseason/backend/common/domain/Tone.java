@@ -27,8 +27,8 @@ public class Tone extends BaseTimeEntity {
     private List<Color> colors = new ArrayList<>();
 
     @Builder
-    public Tone(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate, boolean isActive, String name, List<Color> colors) {
-        super(id, createdDate, lastModifiedDate, deletedDate, isActive);
+    public Tone(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate, String name, List<Color> colors) {
+        super(id, createdDate, lastModifiedDate, deletedDate, true);
         this.name = name;
         this.colors = colors;
     }

@@ -9,8 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
-
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/reservations")
@@ -23,7 +21,7 @@ public class ReservationController {
                                                                        @PathVariable Long consultantId,
                                                                        @RequestBody ReservationCreateRequest reservationCreateRequest) {
         return ResponseEntity.ok()
-                .body(reservationService.createReservation(0L, consultantId, reservationCreateRequest));
+                .body(reservationService.createReservation(JwtUtil.getMemberId(token), consultantId, reservationCreateRequest));
     }
 
     @DeleteMapping("/{reservationId}")

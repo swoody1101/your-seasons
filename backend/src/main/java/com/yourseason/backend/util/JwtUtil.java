@@ -39,7 +39,7 @@ public class JwtUtil {
     }
 
     public static Long getMemberId(String token) {
-        return (Long) getAllClaims(token).get("id");
+        return Long.parseLong((String) getAllClaims(token).get("id"));
     }
 
     private static String getImageUrl(String token) {

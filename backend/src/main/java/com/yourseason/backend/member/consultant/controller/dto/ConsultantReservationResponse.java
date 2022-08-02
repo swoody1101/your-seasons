@@ -4,6 +4,7 @@ import lombok.*;
 
 import java.util.List;
 
+@Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

@@ -9,8 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
-
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/reviews")
@@ -18,12 +16,12 @@ public class ReviewController {
 
     private final ReviewService reviewService;
 
-    @PostMapping("/{consultantId}")
+    @PostMapping("/{consultingId}")
     public ResponseEntity<ReviewResponse> createReview(@RequestHeader("X-Auth-Token") String token,
-                                                       @PathVariable Long consultantId,
+                                                       @PathVariable Long consultingId,
                                                        @RequestBody ReviewRequest reviewRequest) {
         return ResponseEntity.ok()
-                .body(reviewService.createReview(JwtUtil.getMemberId(token), consultantId, reviewRequest));
+                .body(reviewService.createReview(JwtUtil.getMemberId(token), consultingId, reviewRequest));
     }
 
     @PatchMapping("/{reviewId}")
