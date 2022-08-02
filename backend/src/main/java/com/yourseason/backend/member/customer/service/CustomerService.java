@@ -80,6 +80,7 @@ public class CustomerService {
 
         return customer.getReviews()
                 .stream()
+                .filter(review -> review.isActive())
                 .map(review -> ReviewListResponse.builder()
                         .reviewId(review.getId())
                         .consultantNickname(review.getConsultant().getNickname())

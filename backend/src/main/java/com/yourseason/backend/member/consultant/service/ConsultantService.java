@@ -65,7 +65,7 @@ public class ConsultantService {
     }
 
     public List<ConsultantListResponse> getConsultants() {
-        return consultantRepository.findAll()
+        return consultantRepository.findByIsActiveTrue()
                 .stream()
                 .map(consultant ->
                         ConsultantListResponse.builder()
@@ -122,6 +122,7 @@ public class ConsultantService {
                 .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
         return consultant.getReviews()
                 .stream()
+                .filter(review -> review.isActive())
                 .map(review -> ReviewListResponse.builder()
                         .nickname(consultant.getNickname())
                         .imageUrl(consultant.getImageUrl())
@@ -161,6 +162,7 @@ public class ConsultantService {
 
         List<ReviewListResponse> reviewsListResponses = consultant.getReviews()
                 .stream()
+                .filter(review -> review.isActive())
                 .map(review -> ReviewListResponse.builder()
                         .reviewId(review.getId())
                         .nickname(consultant.getNickname())
