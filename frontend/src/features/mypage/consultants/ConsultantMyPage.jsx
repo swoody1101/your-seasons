@@ -2,7 +2,7 @@ import React from "react";
 
 import ConsultantProfile from "./components/ConsultantProfile";
 import Container from '@mui/material/Container';
-import ConsultantMyPageTab from "./reservationCalendar/ConsultantMypageTab";
+import ConsultantMyPageTab from "./mypageTab/ConsultantMypageTab";
 
 const ConsultantMyPage = () => {
 

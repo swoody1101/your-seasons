@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import ConsultingResHistory from './reservationHistory/ConsultingResHistory';
+import ConsultingResHistory from './ConsultingResHistory';
 import Calendar from 'react-calendar'
 import './ConsultingResCalendar.css';
 import moment from 'moment';

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Box, Tab } from '@mui/material'
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 
-import ConsultingResCalendar from "./ConsultingResCalendar";
+import ConsultingResCalendar from "./reservationCalendar/ConsultingResCalendar";
 import ConsultingReview from "./customerReview/ConsultingReview";
 
 const ConsultantMyPageTab = () => {
