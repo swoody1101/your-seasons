@@ -19,8 +19,8 @@ import { CONSULTANT } from 'api/CustomConst';
 
 const ModifyProfile = () => {
   // 프로필 정보 가져오기
-  const { role } = useSelector((state) => (state.login.logonUser))
-  const { isModal } = useSelector((state) => (state.modify))
+  const { role } = useSelector((state) => (state.auth.logonUser))
+  const { isModal } = useSelector((state) => (state.auth))
 
 
   // 세부 페이지 이동 방식

@@ -47,7 +47,7 @@ export const BasicModal = ({ resultImageUrl }) => {
 
 
 const ConsultantDiagnosis = () => {
-	const results = useSelector(state=>state.customerMyPage.myConsultantDxData);
+	const results = useSelector(state=>state.mypage.myConsultantDxData);
 
 	return (<>
 		<Div>

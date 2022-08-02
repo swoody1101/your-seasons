@@ -17,7 +17,7 @@ const ConsultantProfile = () => {
   const [cost, setCost] = useState('30,000');
   const [starRate, setStarRate] = useState(4.7)
 
-  const { role } = useSelector(state => state.login.logonUser)
+  const { role } = useSelector(state => state.auth.logonUser)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

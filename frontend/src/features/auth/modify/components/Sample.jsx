@@ -7,8 +7,8 @@ import { modifyLogonUser } from 'features/auth/authSlice';
 import { modalOff, modifyMember, loadMember } from 'features/auth/authSlice';
 
 const Sample = () => {
-  const { role } = useSelector(state => state.login.logonUser)
-  const common = useSelector(state => state.modify.common)
+  const { role } = useSelector(state => state.auth.logonUser)
+  const common = useSelector(state => state.auth.common)
 
   const dispatch = useDispatch();
 

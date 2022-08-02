@@ -9,7 +9,7 @@ import { BAD_REQUEST, NOT_FOUND, CONFLICT } from 'api/CustomConst'
 import { signOut } from 'features/auth/authSlice'
 
 const SignOut = () => {
-  const { role } = useSelector((state) => state.login.logonUser)
+  const { role } = useSelector((state) => state.auth.logonUser)
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
