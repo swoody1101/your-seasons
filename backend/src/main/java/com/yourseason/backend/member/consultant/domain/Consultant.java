@@ -105,7 +105,7 @@ public class Consultant extends Member {
     }
 
     public void updateStarAverageByDeletedReview(int star) {
-        if (--reviewCount != 0) {
+        if (--reviewCount > 0) {
             starAverage = (getTotalStar() - star) / reviewCount;
         } else {
             starAverage = 0;
