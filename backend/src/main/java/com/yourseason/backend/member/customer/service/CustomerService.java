@@ -2,11 +2,13 @@ package com.yourseason.backend.member.customer.service;
 
 import com.yourseason.backend.common.domain.Color;
 import com.yourseason.backend.common.domain.Message;
+import com.yourseason.backend.common.exception.DuplicationException;
 import com.yourseason.backend.common.exception.NotEqualException;
 import com.yourseason.backend.common.exception.NotFoundException;
 import com.yourseason.backend.common.exception.WrongFormException;
 import com.yourseason.backend.member.common.controller.dto.PasswordUpdateRequest;
 import com.yourseason.backend.member.common.domain.Role;
+import com.yourseason.backend.member.consultant.domain.ConsultantRepository;
 import com.yourseason.backend.member.customer.controller.dto.*;
 import com.yourseason.backend.member.customer.domain.Customer;
 import com.yourseason.backend.member.customer.domain.CustomerRepository;
@@ -26,11 +28,16 @@ public class CustomerService {
     private static final String CUSTOMER_NOT_FOUND = "해당 회원을 찾을 수 없습니다.";
     private static final String PASSWORD_NOT_EQUAL = "비밀번호가 올바르지 않습니다.";
     private static final String PASSWORD_WRONG_FORM = "변경할 비밀번호가 현재 비밀번호와 일치합니다.";
+    private static final String EMAIL_DUPLICATED = "이메일이 중복됩니다.";
+    private static final String NICKNAME_DUPLICATED = "닉네임이 중복됩니다.";
 
     private final PasswordEncoder passwordEncoder;
     private final CustomerRepository customerRepository;
+    private final ConsultantRepository consultantRepository;
 
     public Message createCustomer(CustomerSignupRequest request) {
+        checkValidEmail(request.getEmail());
+        checkValidNickname(request.getNickname());
         customerRepository.save(request.toEntity(passwordEncoder));
         return new Message("succeeded");
     }
@@ -157,6 +164,18 @@ public class CustomerService {
     private void checkValidPassword(String loginPassword, String password) {
         if (!passwordEncoder.matches(loginPassword, password)) {
             throw new NotEqualException(PASSWORD_NOT_EQUAL);
+        }
+    }
+
+    private void checkValidEmail(String email) {
+        if (customerRepository.existsByEmail(email) || consultantRepository.existsByEmail(email)) {
+            throw new DuplicationException(EMAIL_DUPLICATED);
+        }
+    }
+
+    private void checkValidNickname(String nickname) {
+        if (customerRepository.existsByNickname(nickname) || consultantRepository.existsByNickname(nickname)) {
+            throw new DuplicationException(NICKNAME_DUPLICATED);
         }
     }
 }
