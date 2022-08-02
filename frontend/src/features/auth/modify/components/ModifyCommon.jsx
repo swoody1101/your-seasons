@@ -7,9 +7,9 @@ import regex from '../../components/regex';
 import { BAD_REQUEST, NOT_FOUND, CONFLICT, CONSULTANT } from 'api/CustomConst'
 import ConfirmValidation from 'features/auth/components/ConfirmValidationInput'
 import PhoneNumberInput from 'features/auth/components/PhoneNumberInput';
-import { nicknameCheck } from 'features/auth/signUpSlice';
-import { modifyLogonUser } from 'features/auth/loginSlice';
-import { modifyMember, loadMember } from 'features/auth/modifySlice'
+import { nicknameCheck } from 'features/auth/authSlice';
+import { modifyLogonUser } from 'features/auth/authSlice';
+import { modifyMember, loadMember } from 'features/auth/authSlice'
 
 const ModifyCommon = () => {
   const { name, nickname, birth, contact, email, imageUrl } = useSelector((state) => state.modify.common)
