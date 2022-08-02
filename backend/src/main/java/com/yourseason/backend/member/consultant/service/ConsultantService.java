@@ -162,6 +162,7 @@ public class ConsultantService {
 
         List<ReviewListResponse> reviewsListResponses = consultant.getReviews()
                 .stream()
+                .filter(review -> review.isActive())
                 .map(review -> ReviewListResponse.builder()
                         .reviewId(review.getId())
                         .nickname(consultant.getNickname())
