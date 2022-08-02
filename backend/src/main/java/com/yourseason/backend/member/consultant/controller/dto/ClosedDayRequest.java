@@ -15,7 +15,6 @@ public class ClosedDayRequest {
 
     private LocalDate closedDay;
 
-    @Builder
     public ClosedDay toEntity(Consultant consultant) {
         return ClosedDay.builder()
                 .date(closedDay)
