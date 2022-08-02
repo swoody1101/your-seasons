@@ -101,11 +101,15 @@ public class Consultant extends Member {
     }
 
     public void updateStarAverageByCreatedReview(int star) {
-        starAverage = (getTotalStar() + star) / ++reviewCount;;
+        starAverage = (getTotalStar() + star) / ++reviewCount;
     }
 
     public void updateStarAverageByDeletedReview(int star) {
-        starAverage = (getTotalStar() - star) / --reviewCount;
+        if (--reviewCount > 0) {
+            starAverage = (getTotalStar() - star) / reviewCount;
+        } else {
+            starAverage = 0;
+        }
     }
 
     private double getTotalStar() {
