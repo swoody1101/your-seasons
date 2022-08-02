@@ -6,14 +6,13 @@ import { Avatar, Button, styled } from '@mui/material'
 const MyAvatar = (
   setSize,
 ) => {
-  // const { imageUrl } = useSelector((state) => state.modify.common)
-  const { nickname, imageUrl } = useSelector((state) => state.login.logonUser)
+  const { nickname, imageUrl } = useSelector((state) => state.auth.logonUser)
   const handleAvatar = (e) => {
     console.log("타겟", e.target.src)
     console.log("주소", imageUrl)
   }
-  const modiNick = useSelector((state) => state.modify.common.nickname)
-  const modiImage = useSelector((state) => state.modify.common.imageUrl)
+  const modiNick = useSelector((state) => state.auth.common.nickname)
+  const modiImage = useSelector((state) => state.auth.common.imageUrl)
 
   // 닉네임과 아바타 변경 감지하기 modify -> logonUser
   if (nickname !== modiNick || imageUrl !== modiImage) {

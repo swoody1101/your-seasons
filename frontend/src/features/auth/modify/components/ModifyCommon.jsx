@@ -12,10 +12,10 @@ import { modifyLogonUser } from 'features/auth/authSlice';
 import { modifyMember, loadMember } from 'features/auth/authSlice'
 
 const ModifyCommon = () => {
-  const { name, nickname, birth, contact, email, imageUrl } = useSelector((state) => state.modify.common)
-  const { introduction, cost, consultingFile, licenseName, licenseNumber } = useSelector((state) => state.modify.common)
+  const { name, nickname, birth, contact, email, imageUrl } = useSelector((state) => state.auth.common)
+  const { introduction, cost, consultingFile, licenseName, licenseNumber } = useSelector((state) => state.auth.common)
 
-  const { role } = useSelector((state) => state.login.logonUser)
+  const { role } = useSelector((state) => state.auth.logonUser)
 
   const [newNick, setNewNick] = useState('');
   const [isNickCheck, setIsNickCheck] = useState(false);

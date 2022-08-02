@@ -14,8 +14,8 @@ import MyAvatar from 'common/avatar/MyAvatar';
 
 
 const NavBar = () => {
-  const logonUser = useSelector((state) => state.login.logonUser)
-  const { nickname, role } = useSelector((state) => state.login.logonUser)
+  const logonUser = useSelector((state) => state.auth.logonUser)
+  const { nickname, role } = useSelector((state) => state.auth.logonUser)
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ const NavBar = () => {
     palette: {
       primary: {
         main: '#ffffff00',
-				boxShadow: 'none'
+        boxShadow: 'none'
       }
     }
   })

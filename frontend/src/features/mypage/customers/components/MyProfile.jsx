@@ -13,7 +13,7 @@ const MyProfile = () => {
   const [lastDiagnosis, setlastDiagnosis] = useState('');
   // const userId = useParams().customerId;
   // nickname도 selector로 부를 수 있습니다.
-  const { nickname, role, imageUrl } = useSelector(state => state.login.logonUser)
+  const { nickname, role, imageUrl } = useSelector(state => state.auth.logonUser)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
