@@ -55,13 +55,9 @@ public class ConsultantService {
                 .ifPresent(closedDay -> {
                     throw new DuplicationException(CLOSED_DAY_DUPLICATED);
                 });
-
-        consultant.addClosedDay(
-                ClosedDay.builder()
-                        .date(closedDayRequest.getClosedDay())
-                        .consultant(consultant)
-                        .build());
+        consultant.addClosedDay(closedDayRequest.toEntity(consultant));
         consultantRepository.save(consultant);
+
         return new Message("succeeded");
     }
 

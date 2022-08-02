@@ -1,6 +1,9 @@
 package com.yourseason.backend.member.consultant.controller.dto;
 
+import com.yourseason.backend.member.consultant.domain.ClosedDay;
+import com.yourseason.backend.member.consultant.domain.Consultant;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,4 +14,12 @@ import java.time.LocalDate;
 public class ClosedDayRequest {
 
     private LocalDate closedDay;
+
+    @Builder
+    public ClosedDay toEntity(Consultant consultant) {
+        return ClosedDay.builder()
+                .date(getClosedDay())
+                .consultant(consultant)
+                .build();
+    }
 }
