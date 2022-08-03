@@ -15,6 +15,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,10 +37,13 @@ public class MemberService {
     public LoginResponse login(LoginRequest loginRequest) {
         Map<String, String> loginMember = getMember(loginRequest);
         return LoginResponse.builder()
+                .name(loginMember.get("name"))
                 .nickname(loginMember.get("nickname"))
+                .birth(LocalDate.parse(loginMember.get("birth"), DateTimeFormatter.ISO_DATE))
+                .contact(loginMember.get("contact"))
+                .email(loginMember.get("email"))
                 .imageUrl(loginMember.get("imageUrl"))
                 .role(Role.valueOf(loginMember.get("role")))
-                .message("succeeded")
                 .build();
     }
 
@@ -79,7 +84,11 @@ public class MemberService {
             throw new NotFoundException(NOT_FOUND_USER);
         }
         member.put("id", String.valueOf(loginMember.getId()));
+        member.put("name", loginMember.getName());
         member.put("nickname", loginMember.getNickname());
+        member.put("birth", loginMember.getBirth().toString());
+        member.put("contact", loginMember.getContact());
+        member.put("email", loginMember.getEmail());
         member.put("imageUrl", loginMember.getImageUrl());
         return member;
     }
