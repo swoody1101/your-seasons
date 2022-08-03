@@ -12,7 +12,7 @@ const back = () => {
 const initialState = {
   // customer state
   myConsultantDxData: [],
-  myReviewsData: myReview, // []
+  myReviewsData: [],
   myResData: [],
   // consultant state
   reservations: [],
@@ -69,7 +69,7 @@ export const myResFetch = createAsyncThunk(
 export const deleteResFetch = createAsyncThunk(
   'mypage/deleteResFetch',
   async (reservationId) => {
-    return Axios.delete('reservations/' + `${reservationId}`)
+    return Axios.delete(`reservations/${reservationId}`)
       .then(res => {
         if (res.status === NO_CONTENT) {
           alert('예약이 취소되었습니다.')
@@ -121,21 +121,18 @@ export const myReviewFetch = createAsyncThunk(
 export const createReviewFetch = createAsyncThunk(
   'mypage/createReviewFetch',
   async (review) => {
-    return Axios.post('reviews/' + `${review.consultingId}`, review)
+    return Axios.post(`reviews/${review.consultingId}`, review)
       .then(res => {
         if (res.status === OK) {
           alert('후기가 정상적으로 작성되었습니다.')
-          back()
           return true
         } else {
           alert('후기가 작성되지 않았습니다.')
-          back()
           return false
         }
       })
       .catch(error => {
         alert('후기가 작성되지 않았습니다.')
-        back()
         return false
       })
   }
@@ -144,11 +141,10 @@ export const createReviewFetch = createAsyncThunk(
 export const deleteReviewFetch = createAsyncThunk(
   'mypage/deleteReviewFetch',
   async (reviewId) => {
-    return Axios.delete('review/' + `${reviewId}`)
+    return Axios.delete(`reviews/${reviewId}`)
       .then(res => {
-        if (res.status === NO_CONTENT) {
+        if (res.status === OK) {
           alert('후기가 정상적으로 삭제되었습니다.')
-          back()
           return true
         } else {
           alert('후기가 삭제되지 않았습니다.')
@@ -163,25 +159,22 @@ export const deleteReviewFetch = createAsyncThunk(
       })
   }
 )
-// put
+// patch
 export const updateReviewFetch = createAsyncThunk(
   'mypage/updateReviewFetch',
   async (review) => {
-    return Axios.put('review/' + `${review.reviewId}`, review)
+    return Axios.patch(`reviews/${review.reviewId}`, review)
       .then(res => {
         if (res.status === OK) {
-          alert('후기가 정상적으로 작성되었습니다.')
-          back()
+          alert('후기가 정상적으로 수정되었습니다.')
           return res.data
         } else {
           alert('후기가 수정되지 않았습니다.')
-          back()
           return false
         }
       })
       .catch(error => {
         alert('후기가 수정되지 않았습니다.')
-        back()
         return false
       })
   }

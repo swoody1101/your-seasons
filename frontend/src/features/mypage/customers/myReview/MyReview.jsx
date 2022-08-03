@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux/es/exports';
 import { Button, CardActions, CardContent, Card, Typography, Avatar, CardActionArea, styled } from '@mui/material';
 import BasicRating from './StarRating'
-import { deleteReviewFetch, updateReviewFetch } from 'features/mypage/mypageSlice'
+import { deleteReviewFetch, updateReviewFetch, myReviewFetch } from 'features/mypage/mypageSlice'
 
 
 const MyReview = () => {
@@ -11,6 +11,10 @@ const MyReview = () => {
   const [iscomment, setComment] = useState('')
   const [isstar, setStar] = useState('')
   const [isReviewId, setIsReviewId] = useState(false)
+  useEffect(() => {
+    dispatch(myReviewFetch())
+  }, [])
+
   const onSubmit = (event) => {
     event.preventDefault();
     const data = {
