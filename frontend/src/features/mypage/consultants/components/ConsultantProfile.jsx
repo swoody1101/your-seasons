@@ -35,7 +35,6 @@ const ConsultantProfile = () => {
       <Grid container item spacing={2}>
         <Grid item xs={12} sm={3} sx={{
           display: 'flex',
-          bgcolor: 'white',
           justifyContent: 'center',
         }}>
           <MyAvatar setSize={16} />
