@@ -4,10 +4,7 @@ import { useDispatch } from 'react-redux/es/exports';
 import { Button, Box, CardActions, CardContent, Card, Typography, Avatar, CardActionArea, styled } from '@mui/material';
 import LyricsOutlinedIcon from '@mui/icons-material/LyricsOutlined';
 const MyResHistoryItem = (props) => {
-  // 주석 삭제X
-  // const [editNow, setEditNow] = useState(false)
   const dispatch = useDispatch()
-  // const [isrequest, setIsRequest] = useState(reservation.request)
   return (
     <SetCard variant="outlined" className="history-card">
       <CardActionArea>
@@ -28,10 +25,6 @@ const MyResHistoryItem = (props) => {
             <Typography sx={{ marginBottom: 1 }}>컨설턴트님께 요청드려요 <LyricsOutlinedIcon /> </Typography>
             <RequestText name="isComment" defaultValue={props.request ? props.request : ''}
               placeholder={'요청사항이 없습니다.'}
-            // 예약 request 수정버튼 필요시 주석처리 해제 
-            // readOnly={!editNow}
-            // style={{ backgroundColor: editNow === true ? '#cfe8fc' : 'white' }}
-            // onChange={(e) => setIsRequest(e.target.value)}
             >
             </RequestText>
           </RequestBox>
@@ -39,20 +32,6 @@ const MyResHistoryItem = (props) => {
       </CardActionArea>
       <CardActions>
         <div>
-          {/* 예약 request 수정버튼 필요시 주석처리 해제 */}
-          {/* <Button color="primary" sx={{ display: editNow ? 'none' : '' }} onClick={() => { setEditNow(true) }} disabled={!reservation.isActive}>수정</Button>
-          <Button color="primary" sx={{ display: editNow ? '' : 'none' }}
-            onClick={() => {
-              if (isrequest.length < 10) {
-                alert('10자이상 입력해 주세요')
-              } else if (isrequest.length > 255) {
-                alert('255자 미만 입력해주세요.')
-              } else {
-                setEditNow(false);
-                dispatch(updateResFetch(isrequest))
-              }
-            }
-            } disabled={!reservation.isActive}>수정완료</Button> */}
           <Button
             size="small"
             color="error"
@@ -98,7 +77,6 @@ const RequestText = styled('textarea')`
 
 const SetCard = styled(Card)({
   marginBottom: 5,
-  // padding: 1, 
   borderRadius: 5,
   backgroundColor: "#F1F1F190",
   borderRadius: '1rem',
