@@ -1,23 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { Stack, Button, Avatar, Grid, IconButton, Container, Box, styled } from '@mui/material'
+import { Stack, Button, Grid, Container, Box, styled } from '@mui/material'
 
 import { loadMember } from 'features/auth/authSlice'
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
-import ProfileImage from 'assets/images/yourseasonlogo.png';
+import { getCustomerReview } from 'features/mypage/mypageSlice'
 import StarRating from "../../../../common/starrating/StarRating";
 import MyAvatar from "common/avatar/MyAvatar";
 
 
 const ConsultantProfile = () => {
-  const [nickname, setNickname] = useState('익명의');
-  const [selfIntroduction, setSelfIntroduction] = useState('등록한 자기소개가 없습니다.');
-  const [cost, setCost] = useState('30,000');
-  const [starRate, setStarRate] = useState(4.7)
-
-  const { role } = useSelector(state => state.auth.logonUser)
+  const { starAverage } = useSelector(state => state.mypage.reviews)
+  const { role, nickname, introduction, cost } = useSelector(state => state.auth.logonUser)
+  const reviews = useSelector(state => state.mypage.reviews)
+  console.log(starAverage, reviews)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -28,8 +25,11 @@ const ConsultantProfile = () => {
         console.log(res)
       })
   }
+  // 마이페이지 접속시 
+  useEffect(() => {
+    dispatch(getCustomerReview())
+  }, [])
 
-  // console.log(setNickname, setSelfIntroduction, setCost, setStarRate)
   return (
     <Container fixed>
       <Grid container item spacing={2}>
@@ -45,14 +45,14 @@ const ConsultantProfile = () => {
               {nickname} 컨설턴트님
             </h3>
             <Box sx={{ display: 'flex', gap: 1 }}>
-              <StarRating starrating={starRate} />
+              <StarRating starrating={starAverage} />
               <h3>
-                {starRate}
+                {starAverage}
               </h3>
             </Box>
 
             <h3>
-              {selfIntroduction}
+              {introduction}
             </h3>
             <h3>
               진단비용 {cost}

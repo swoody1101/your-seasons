@@ -16,9 +16,7 @@ const initialState = {
   myResData: [],
   // consultant state
   reservations: [],
-
-  // customer review state
-  reviews: [],   // 내 후기 데이터들 모두 저장
+  reviews: [],   // 사용자가 컨설턴트에게 써준 후기 데이터들 모두 저장
 
   //server status
   status: 'idle' // 'idle' (휴) | 'loading' | 'succeeded' | 'failed'
@@ -97,7 +95,7 @@ export const deleteResFetch = createAsyncThunk(
 
 
 // 리뷰 FETCH (get, post, put, delete)
-// get
+// get (커스터머가 작성한 리뷰)
 export const myReviewFetch = createAsyncThunk(
   'mypage/myReviewFetch',
   async () => {
@@ -118,6 +116,7 @@ export const myReviewFetch = createAsyncThunk(
       })
   }
 )
+
 // post
 export const createReviewFetch = createAsyncThunk(
   'mypage/createReviewFetch',
