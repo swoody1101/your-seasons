@@ -68,6 +68,7 @@ const ConsultantDiagnosisReview = ({ consultantNickname, consultingId, hasReview
       dispatch(createReviewFetch(review))
       setIsStar(5)
       setComment('')
+      handleClose()
     }
   }
 

@@ -10,7 +10,6 @@ const MyResHistory = () => {
   const dispatch = useDispatch()
   const reservations = useSelector(state => state.mypage.myResData)
   const [id, setId] = useState('')
-
   const clickHandler = (e) => {
     dispatch(deleteResFetch(e.target.value))
       .then(() => {
