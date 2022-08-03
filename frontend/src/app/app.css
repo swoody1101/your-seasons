@@ -19,7 +19,19 @@
 	font-style: normal;
 }
 
+@font-face {
+	font-family: 'malgun';
+	src: url('../assets/fonts/malgun/malgun.ttf');
+	font-weight: normal;
+	font-style: normal;
+}
 
+@font-face {
+	font-family: 'malgunbd';
+	src: url('../assets/fonts/malgun/malgunbd.ttf');
+	font-weight: normal;
+	font-style: normal;
+}
 
 * {
   font-family: 'Happiness-Sans-Regular' !important;

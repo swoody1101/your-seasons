@@ -1,83 +1,115 @@
 import React from 'react'
-import { throttle } from 'lodash';
-import { styled, Typography, Grid } from '@mui/material'
+import Carousel from 'react-material-ui-carousel';
+import { styled, Typography, Paper } from '@mui/material';
 
-import IMG4 from 'assets/images/homeSlide/spring04.jpg'
-// import IMG4 from 'assets/images/homeSlide/spring02.jpg'
+import IMG1 from 'assets/images/homeSlide/spring04.jpg'
+import IMG2 from 'assets/images/homeSlide/summer02.jpg'
+import IMG3 from 'assets/images/homeSlide/autumn04.jpg'
+import IMG4 from 'assets/images/homeSlide/winter01.jpg'
 
 const HomeCarousel = () => {
-	let value = window.scrollY
-	console.log(value)
-	return (
-		<BigGrid container>
-			<Grid1 item xs={3}>
-				<Text>
-					FIND<br />
-					YOUR<br />
-					SEASON		
-					{/* 화상으로하는 컨설턴트 진단		 */}
-				</Text>
-			</Grid1>
-			<Grid2 item xs={9}>
-				{/* 이미지 backgorundIMG로 표시 */}
-			</Grid2>
-		</BigGrid>
-	)
+	const items = [
+		{
+			img: IMG1,
+			msg: '당신의 계절을 찾아보세요'
+		},
+		{
+			img: IMG2,
+			msg: '전문 컨설턴트와 함께하는 퍼스널 컬러진단'
+		},
+		{
+			img: IMG3,
+			msg: '스드메부터 취업까지 전문가와 함께'
+		},
+		{
+			img: IMG4,
+			msg: '자가진단 서비스 오픈예정'
+		},
+		
+	]
+  return (
+    <Carousel
+			width="100vw"
+      height="90vh"
+      interval={4000}
+    >
+      {
+        items.map((item, i) => <Item key={i} item={item} index={i} />)
+      }
+    </Carousel >
+  )
 }
 
 export default HomeCarousel
 
-const BigGrid = styled(Grid)((props) => (
-	{
-		height: '100vh',
-		width: '100vw',
-	}
-))
+function Item(props) {
+  return (
+    <SetPaper>
+      <SlideImg seq={props.index} src={props.item.img} />
+      <TEXT seq={props.index}>
+        {props.item.msg}<br />
+      </TEXT>
+    </SetPaper>
+  )
+}
+const SetPaper = styled(Paper)({
+  position: "relative",
+  height: "60vh",
+  zIndex: "0",
+  backgroundColor: "transparent",
+  boxShadow: "none",
+})
 
-const Grid1 = styled(Grid)((props)=> (
-	{
-		backgroundColor: '#f5d1c3', //#ffbfc5',//'#ffcdd2',
-		height: '100vh',
-		width: '100vw',
-	}
-))
+const dir = [
+  { top: "40", left: "20", },
+  { top: "40", left: "20", },
+  { top: "30", left: "50", },
+  { top: "30", left: "50", },
+]
 
-const Grid2 = styled(Grid)((props)=> (
-	{
-		backgroundImage: `url(${IMG4})`,
-		backgroundAttachment: 'fixed',
-		backgroundPosition: 'center',
-		backgroundSize: 'cover',
-		backgroundRepeat: 'no-repeat',
-		height: '100vh',
-		width: '100vw',
-	}
-))
+const SlideImg = styled('img')({
+  minWidth: "940px",
+  minHeight: "760px",
+  position: "absolute",
+  bottom: "-20vh",
+  width: "100vw",
+  height: "80vw",
+  zIndex: "-1",
+  "@keyframes pulsate": {
+    from: {
+      transform: `scale(1)`,
+    },
+    to: {
+      transform: `scale(1.005)`,
+    }
+  },
+  animation: "pulsate 1.8s infinite ease",
+  animationDirection: "alternate",
+  // "-webkit-mask-image": "linear-gradient(to top,  transparent 20%, black 60%, transparent 20%)",
+  maskImage: "linear-gradient(to top, transparent 10%, black )"
+})
 
-const Text = styled(Typography)((props) => (
+
+const TEXT = styled(Typography)((props) => (
   {
-    fontFamily: 'malgunbd !important',
-    position: "relative",
-		fontSize: '2.5rem',
-		letterSpacing: -3,
-    top: '60vh',
-    left: '15vh',
-    color: "#b4004f",
-		textShadow: '1px 2px 2px pink',
+		
+    fontFamily: 'Happiness-Sans-Bold !important',
+    position: "absolute",
+    top: `${dir[props.seq].top}%`,
+    left: `${dir[props.seq].left}%`,
+    fontSize: "2rem",
+    color: "#000000",
+    zIndex: "1100",
     "@keyframes textIn": {
       from: {
-        transform: "translateX(-10rem)",
-				opacity: 0,
+        transform: "translateX(-0.5rem)",
       },
       to: {
         transform: "translateX(0)",
-				opacity: 1,
       }
     },
     animation: "textIn 1s ease",
     animationDirection: "alternate"
-		
   }
 ))
-
 

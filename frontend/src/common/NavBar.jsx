@@ -1,9 +1,8 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
-
 import {
-  AppBar, Box, createTheme, ThemeProvider,
+	AppBar, Box, createTheme, ThemeProvider,
   Toolbar, Typography, styled
 } from '@mui/material'
 import { Pets } from '@mui/icons-material'
@@ -13,6 +12,22 @@ import { logoutUser, resetUser } from 'features/auth/loginSlice';
 import MyAvatar from 'common/avatar/MyAvatar';
 
 
+const LogoText = styled(Typography)((props) => (
+	{
+		fontFamily: 'Happiness-Sans-Title !important',
+		color: "#FFFFFF",
+	}
+))
+
+
+const StyledTypography = styled(Typography)({
+  fontFamily: 'malgun !important',
+	fontWeight: 'bold',
+	fontSize: 30,
+	letterSpacing: -5,
+  color: '#000000',
+  // textShadow: 'black 2px 2px'
+})
 const NavBar = () => {
   const logonUser = useSelector((state) => state.login.logonUser)
   const { nickname, role } = useSelector((state) => state.login.logonUser)
@@ -36,17 +51,21 @@ const NavBar = () => {
     }
   })
 
+
+
+	
   return (
     <ThemeProvider theme={transparentTheme} >
       <AppBar position="sticky" variant="transparent">
         <StyledToolbar>
           <Logos>
-            <Link to="home" >
-              <Typography
+            <Link to="/" >
+              <LogoText
                 variant="h5"
-                sx={{ display: { xs: "none", sm: "block", color: 'white !important' } }}
+                sx={{ display: { xs: "none", sm: "block", color: 'black !important' }, }}
+								id="logo"
               > 당신의 계절
-              </Typography>
+              </LogoText>
             </Link>
             <Pets
               sx={{ display: { xs: "block", sm: "none" } }} />
@@ -55,6 +74,12 @@ const NavBar = () => {
             nickname === undefined || nickname === ''
               ?
               <Navs>
+                <Typography
+                  variant="h6"
+                  sx={{ display: { xs: "none", sm: "block" } }}
+                >
+                  <Link to="/">홈</Link>
+                </Typography>
                 <Typography
                   variant="h6"
                   sx={{ display: { xs: "none", sm: "block" } }}
@@ -76,6 +101,12 @@ const NavBar = () => {
               </Navs>
               :
               <Navs>
+								<Typography
+                  variant="h6"
+                  sx={{ display: { xs: "none", sm: "block" } }}
+                >
+								<Link to="home">Home</Link>
+                </Typography>
                 <Link to="mypage">
                   <Box sx={{ display: 'flex', flexDirection: 'row', alignItem: 'center', gap: '3px' }}>
                     <Typography variant="h6" sx={{ display: 'inline' }}>
@@ -118,8 +149,8 @@ const Logos = styled(Box)(({ theme }) => ({
   alignItems: "center",
   gap: "1rem",
   a: {
-    color: "white",
-    textShadow: '1px 1px 2px black'
+    // color: "black",
+    // textShadow: '1px 1px 2px black'
   }
 }))
 
@@ -129,9 +160,10 @@ const Navs = styled(Box)(({ theme }) => ({
   flexDirection: "row",
   alignItems: "center",
   gap: "1rem",
+	fontFamily: "Happiness-Sans-Title",
   a: {
-    color: "white",
-    textShadow: '1px 1px 2px black'
+    color: "black",
+    // textShadow: '1px 1px 2px black'
   }
 }))
 
