@@ -6,7 +6,7 @@ import { Stack, Button, Grid, Container, Box, styled } from '@mui/material'
 
 import { loadMember } from 'features/auth/authSlice'
 import { getCustomerReview } from 'features/mypage/mypageSlice'
-import StarRating from "../../../../common/starrating/StarRating";
+import StarRating from "common/starrating/StarRating";
 import MyAvatar from "common/avatar/MyAvatar";
 
 
