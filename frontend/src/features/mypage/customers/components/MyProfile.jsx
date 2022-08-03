@@ -10,20 +10,21 @@ import { loadMember } from 'features/auth/authSlice'
 
 const MyProfile = () => {
   // const [nickname, setNickname] = useState('치당');
-  const [lastDiagnosis, setlastDiagnosis] = useState('');
-  // const userId = useParams().customerId;
-  // nickname도 selector로 부를 수 있습니다.
-  const { nickname, role, imageUrl } = useSelector(state => state.auth.logonUser)
+  const results = useSelector(state => state.mypage.myConsultantDxData)
+  const tone = results[results.length - 1].tone
+  console.log(tone)
+
+  const { nickname, role } = useSelector(state => state.auth.logonUser)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const diagnosis = () => {
-    if (lastDiagnosis === null || lastDiagnosis === undefined || lastDiagnosis === '') {
+    if (tone === null || tone === undefined || tone === '') {
       return <>
         <Link to="/consultants" variant="body2">진단하러 가기</Link></>
     } else {
       return <>
-        <Diagnosis>{lastDiagnosis}</Diagnosis></>
+        <Diagnosis>마지막 진단 결과: {tone}톤 입니다.</Diagnosis></>
     }
   }
   const handleModify = () => {
