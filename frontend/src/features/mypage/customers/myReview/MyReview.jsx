@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux/es/exports';
 import { Button, CardActions, CardContent, Card, Typography, Avatar, CardActionArea, styled } from '@mui/material';
 import BasicRating from './StarRating'
-import { deleteReviewFetch, updateReviewFetch } from 'features/mypage/mypageSlice'
+import { deleteReviewFetch, updateReviewFetch, myReviewFetch } from 'features/mypage/mypageSlice'
 
 
 const MyReview = () => {
@@ -11,6 +11,11 @@ const MyReview = () => {
   const [iscomment, setComment] = useState('')
   const [isstar, setStar] = useState('')
   const [isReviewId, setIsReviewId] = useState(false)
+
+  useEffect(() => {
+    dispatch(myReviewFetch())
+  }, [])
+
   const onSubmit = (event) => {
     event.preventDefault();
     const data = {
@@ -32,16 +37,16 @@ const MyReview = () => {
 
   return (<>
     <Div>
-      {reviews.map(({ reviewId, nickname, imageUrl, star, comment, reviewDate }, index) => (
+      {reviews.map(({ reviewId, consultantNickname, consultantImageUrl, star, comment, reviewDate }, index) => (
         <form onSubmit={onSubmit} key={index}>
           <Card sx={{ marginBottom: 5, padding: 1, borderRadius: 5 }} variant="outlined" className="history-card" key={index}>
             <CardActionArea>
               <CardContent>
                 {/* 컨설턴트정보, 날짜 */}
-                <Avatar src={imageUrl} sx={{ width: 100, height: 100, marginBottom: 1 }} alt="컨설턴트프로필" />
+                <Avatar src={consultantImageUrl} sx={{ width: 100, height: 100, marginBottom: 1 }} alt="컨설턴트프로필" />
                 <Forflex>
                   <Typography gutterBottom variant="h6" component="div">
-                    {nickname} 컨설턴트님
+                    {consultantNickname} 컨설턴트님
                   </Typography>
                   <Typography gutterBottom variant="h6" component="div" >
                     {reviewDate}일
@@ -69,7 +74,14 @@ const MyReview = () => {
                   수정
                 </Button>
                 <Button type="submit" sx={{ display: isReviewId !== reviewId ? 'none' : 'inline-block' }}>수정완료</Button>
-                <Button color="error" onClick={() => dispatch(deleteReviewFetch(reviewId))}>
+                <Button
+                  color="error"
+                  onClick={() => {
+                    dispatch(deleteReviewFetch(reviewId))
+                      .then(() => {
+                        dispatch(myReviewFetch())
+                      })
+                  }}>
                   리뷰 삭제
                 </Button>
               </div>
