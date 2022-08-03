@@ -93,7 +93,7 @@ const ConsultantDiagnosis = () => {
 									<Grid item xs={3} sx={{ marginTop: 1 }}>베스트 컬러</Grid>
 									<Grid item xs={9} sx={{ display: 'flex', justifyContent: 'start', alignContent: 'center', maxWidth: 200 }}>
 										{bestColorSet.map(color =>
-											<div style={{ background: '#' + color, width: 30, height: 30, borderRadius: 15, margin: 5 }} key={color}></div>)}
+											<div style={{ background: color, width: 30, height: 30, borderRadius: 15, margin: 5 }} key={color}></div>)}
 									</Grid>
 								</Grid>
 								{/* worst */}
