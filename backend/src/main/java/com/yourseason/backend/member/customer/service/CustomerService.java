@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,6 +63,9 @@ public class CustomerService {
 
         return customer.getReservations()
                 .stream()
+                .filter(reservation -> reservation.getTime()
+                        .atDate(reservation.getDate())
+                        .isAfter(LocalDateTime.now()))
                 .map(reservation -> ReservationListResponse.builder()
                         .reservationId(reservation.getId())
                         .reservationDate(reservation.getDate())
