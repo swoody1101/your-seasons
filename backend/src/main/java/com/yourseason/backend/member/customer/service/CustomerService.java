@@ -63,7 +63,9 @@ public class CustomerService {
 
         return customer.getReservations()
                 .stream()
-                .filter(reservation -> reservation.getTime().atDate(reservation.getDate()).isAfter(LocalDateTime.now()))
+                .filter(reservation -> reservation.getTime()
+                        .atDate(reservation.getDate())
+                        .isAfter(LocalDateTime.now()))
                 .map(reservation -> ReservationListResponse.builder()
                         .reservationId(reservation.getId())
                         .reservationDate(reservation.getDate())
