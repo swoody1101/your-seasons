@@ -69,3 +69,9 @@ insert into consulting(created_date, last_modified_date, consulting_comment, has
 insert into consulting(created_date, last_modified_date, consulting_comment, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), '여름 쿨톤과 봄 웜톤의 중간 정도라고 할 수 있습니다. 여름 쿨톤쪽에 조금 더 가깝지만 봄 웜톤 화장품을 사용하셔도 잘 어울리실 겁니다.', 0, 1, 1, 1, 2);
 insert into consulting(created_date, last_modified_date, consulting_comment, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), '보색은 피하시는 것이 좋을 것 같습니다.', 0, 1, 1, 1, 3);
 insert into consulting(created_date, last_modified_date, consulting_comment, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), '무채색보다는 비비드한 컬러의 옷을 입으시는 것을 추천드립니다.', 0, 1, 1, 1, 4);
+
+-- 리뷰
+insert into review(created_date, last_modified_date, is_active, comment, star, consultant_id, consulting_id, customer_id) values (now(), now(), 1, '좋은 것  같기도...', 3, 1, 1, 1);
+insert into review(created_date, last_modified_date, is_active, comment, star, consultant_id, consulting_id, customer_id) values (now(), now(), 1, '이런 컨설팅은 태어나서 처음에요! 너무너무 좋으신 컨님! 강추해요!', 5, 1, 2, 1);
+insert into review(created_date, last_modified_date, is_active, comment, star, consultant_id, consulting_id, customer_id) values (now(), now(), 1, '저는 여태 겨울비비드인줄 알고 살았는데 가을 뮤트라니요? 이럴 수가 있나요? 약간 혼란스럽네요..', 1, 1, 3, 1);
+insert into review(created_date, last_modified_date, is_active, comment, star, consultant_id, consulting_id, customer_id) values (now(), now(), 1, '가을 뮤트라고 생각하고 있었는데 가을 뮤트라고 진단 받았어요! 화장품 새로 안사도 돼서 좋네요', 4, 1, 4, 1);
