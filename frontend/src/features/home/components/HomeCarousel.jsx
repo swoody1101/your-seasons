@@ -14,7 +14,8 @@ const HomeCarousel = () => {
 				<Text>
 					FIND<br />
 					YOUR<br />
-					SEASON					
+					SEASON		
+					{/* 화상으로하는 컨설턴트 진단		 */}
 				</Text>
 			</Grid1>
 			<Grid2 item xs={9}>
@@ -35,7 +36,7 @@ const BigGrid = styled(Grid)((props) => (
 
 const Grid1 = styled(Grid)((props)=> (
 	{
-		backgroundColor: '#ffcdd2',
+		backgroundColor: '#f5d1c3', //#ffbfc5',//'#ffcdd2',
 		height: '100vh',
 		width: '100vw',
 	}
@@ -44,6 +45,7 @@ const Grid1 = styled(Grid)((props)=> (
 const Grid2 = styled(Grid)((props)=> (
 	{
 		backgroundImage: `url(${IMG4})`,
+		backgroundAttachment: 'fixed',
 		backgroundPosition: 'center',
 		backgroundSize: 'cover',
 		backgroundRepeat: 'no-repeat',
@@ -55,14 +57,13 @@ const Grid2 = styled(Grid)((props)=> (
 const Text = styled(Typography)((props) => (
   {
     fontFamily: 'malgunbd !important',
-    position: "absolute",
-		fontSize: '2.5vw',
+    position: "relative",
+		fontSize: '2.5rem',
 		letterSpacing: -3,
     top: '60vh',
     left: '15vh',
     color: "#b4004f",
 		textShadow: '1px 2px 2px pink',
-    // zIndex: "1100",
     "@keyframes textIn": {
       from: {
         transform: "translateX(-10rem)",
@@ -75,6 +76,8 @@ const Text = styled(Typography)((props) => (
     },
     animation: "textIn 1s ease",
     animationDirection: "alternate"
+		
   }
 ))
+
 
