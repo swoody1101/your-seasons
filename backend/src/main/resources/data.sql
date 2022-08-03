@@ -65,10 +65,10 @@ insert into test_result(created_date, last_modified_date, consulting_file, is_ac
 insert into test_result(created_date, last_modified_date, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '', 1, 1, 1, 1);
 
 -- 전문가진단
-insert into consulting(created_date, last_modified_date, consulting_comment, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), '봄 브라이트 톤으로 화사한 컬러를 선택하시고, 레이스가 잘 어울리십니다.', 1, 1, 1, 1, 1);
-insert into consulting(created_date, last_modified_date, consulting_comment, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), '여름 쿨톤과 봄 웜톤의 중간 정도라고 할 수 있습니다. 여름 쿨톤쪽에 조금 더 가깝지만 봄 웜톤 화장품을 사용하셔도 잘 어울리실 겁니다.', 1, 1, 1, 1, 2);
-insert into consulting(created_date, last_modified_date, consulting_comment, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), '보색은 피하시는 것이 좋을 것 같습니다.', 1, 1, 1, 1, 3);
-insert into consulting(created_date, last_modified_date, consulting_comment, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), '무채색보다는 비비드한 컬러의 옷을 입으시는 것을 추천드립니다.', 1, 1, 1, 1, 4);
+insert into consulting(created_date, last_modified_date, consulting_comment, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), '봄 브라이트 톤으로 화사한 컬러를 선택하시고, 레이스가 잘 어울리십니다.', 1, 0, 1, 1, 1);
+insert into consulting(created_date, last_modified_date, consulting_comment, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), '여름 쿨톤과 봄 웜톤의 중간 정도라고 할 수 있습니다. 여름 쿨톤쪽에 조금 더 가깝지만 봄 웜톤 화장품을 사용하셔도 잘 어울리실 겁니다.', 1, 0, 1, 1, 2);
+insert into consulting(created_date, last_modified_date, consulting_comment, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), '보색은 피하시는 것이 좋을 것 같습니다.', 1, 0, 1, 1, 3);
+insert into consulting(created_date, last_modified_date, consulting_comment, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), '무채색보다는 비비드한 컬러의 옷을 입으시는 것을 추천드립니다.', 1, 0, 1, 1, 4);
 insert into consulting(created_date, last_modified_date, consulting_comment, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), '고객님! 결혼 축하드리고! 치크와 립은 꼭 연어색으로 하는 거 잊지 마세요!', 0, 0, 1, 1, 5);
 insert into consulting(created_date, last_modified_date, consulting_comment, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), '증명사진 찍으실 때 연보라색 배경으로 찍으시면 인생사진 쌉가능!', 0, 0, 1, 1, 6);
 insert into consulting(created_date, last_modified_date, consulting_comment, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), '골드보다는 실버 느낌의 볼드한 액세서리가 잘 어울리세요! 진주도 잘 어울리시구요!', 0, 0, 2, 2, 7);
