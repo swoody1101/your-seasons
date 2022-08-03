@@ -17,7 +17,7 @@ public class ReviewController {
     private final ReviewService reviewService;
 
     @PostMapping("/{consultingId}")
-    public ResponseEntity<ReviewResponse> createReview(@RequestHeader("X-Auth-Token") String token,
+    public ResponseEntity<ReviewResponse> createReview(@RequestHeader("Authorization") String token,
                                                        @PathVariable Long consultingId,
                                                        @RequestBody ReviewRequest reviewRequest) {
         return ResponseEntity.ok()
@@ -25,7 +25,7 @@ public class ReviewController {
     }
 
     @PatchMapping("/{reviewId}")
-    public ResponseEntity<ReviewResponse> updateReview(@RequestHeader("X-Auth-Token") String token,
+    public ResponseEntity<ReviewResponse> updateReview(@RequestHeader("Authorization") String token,
                                                        @PathVariable Long reviewId,
                                                        @RequestBody ReviewRequest reviewRequest) {
         return ResponseEntity.ok()
@@ -33,7 +33,7 @@ public class ReviewController {
     }
 
     @DeleteMapping("/{reviewId}")
-    public ResponseEntity<Message> deleteReview(@RequestHeader("X-Auth-Token") String token,
+    public ResponseEntity<Message> deleteReview(@RequestHeader("Authorization") String token,
                                                 @PathVariable Long reviewId) {
         return ResponseEntity.ok()
                 .body(reviewService.deleteReview(JwtUtil.getMemberId(token), reviewId));
