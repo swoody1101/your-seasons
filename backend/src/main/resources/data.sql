@@ -43,14 +43,14 @@ insert into tone(created_date, last_modified_date, name, is_active) values (now(
 insert into tone(created_date, last_modified_date, name, is_active) values (now(), now(), '겨울쿨', 1);
 
 -- 컬러
-insert into color(created_date, last_modified_date, hex, is_active, tone_id, color_set_id) values (now(), now(), 'ffe4e1', 1, 1, 1); -- 봄웜
-insert into color(created_date, last_modified_date, hex, is_active, tone_id, color_set_id) values (now(), now(), 'faebd7', 1, 1, 1); -- 봄웜
-insert into color(created_date, last_modified_date, hex, is_active, tone_id, color_set_id) values (now(), now(), 'cbbeb5', 1, 1, 1); -- 봄웜
-insert into color(created_date, last_modified_date, hex, is_active, tone_id, color_set_id) values (now(), now(), 'ff8e7f', 1, 1, 1); -- 봄웜
-insert into color(created_date, last_modified_date, hex, is_active, tone_id, color_set_id) values (now(), now(), 'ffcb6b', 1, 2, 2); -- 여름쿨
-insert into color(created_date, last_modified_date, hex, is_active, tone_id, color_set_id) values (now(), now(), '89a5ea', 1, 2, 2); -- 여름쿨
-insert into color(created_date, last_modified_date, hex, is_active, tone_id, color_set_id) values (now(), now(), '59227c', 1, 2, 2); -- 여름쿨
-insert into color(created_date, last_modified_date, hex, is_active, tone_id, color_set_id) values (now(), now(), '800000', 1, 4, 4); -- 겨울쿨
+insert into color(created_date, last_modified_date, hex, is_active, tone_id, color_set_id) values (now(), now(), '#ffe4e1', 1, 1, 1); -- 봄웜
+insert into color(created_date, last_modified_date, hex, is_active, tone_id, color_set_id) values (now(), now(), '#faebd7', 1, 1, 1); -- 봄웜
+insert into color(created_date, last_modified_date, hex, is_active, tone_id, color_set_id) values (now(), now(), '#cbbeb5', 1, 1, 1); -- 봄웜
+insert into color(created_date, last_modified_date, hex, is_active, tone_id, color_set_id) values (now(), now(), '#ff8e7f', 1, 1, 1); -- 봄웜
+insert into color(created_date, last_modified_date, hex, is_active, tone_id, color_set_id) values (now(), now(), '#ffcb6b', 1, 2, 2); -- 여름쿨
+insert into color(created_date, last_modified_date, hex, is_active, tone_id, color_set_id) values (now(), now(), '#89a5ea', 1, 2, 2); -- 여름쿨
+insert into color(created_date, last_modified_date, hex, is_active, tone_id, color_set_id) values (now(), now(), '#59227c', 1, 2, 2); -- 여름쿨
+insert into color(created_date, last_modified_date, hex, is_active, tone_id, color_set_id) values (now(), now(), '#800000', 1, 4, 4); -- 겨울쿨
 
 -- 베스트컬러셋
 insert into best_color_set(created_date, last_modified_date, is_active, color_set_id) values (now(), now(), 1, 1);
