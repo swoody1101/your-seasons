@@ -11,13 +11,7 @@ const MyAvatar = (
     console.log("타겟", e.target.src)
     console.log("주소", imageUrl)
   }
-  const modiNick = useSelector((state) => state.auth.common.nickname)
-  const modiImage = useSelector((state) => state.auth.common.imageUrl)
 
-  // 닉네임과 아바타 변경 감지하기 modify -> logonUser
-  if (nickname !== modiNick || imageUrl !== modiImage) {
-
-  }
 
   return (
     <SetAvatar si={setSize}>

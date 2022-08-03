@@ -11,8 +11,8 @@ import {
 import { useMediaQuery } from '@mui/material'
 import { useCookies } from 'react-cookie'
 
-import { BAD_REQUEST, NOT_FOUND, CONFLICT } from 'api/CustomConst'
-import { loginUser } from "features/auth/authSlice"
+import { BAD_REQUEST, NOT_FOUND, CONFLICT, OK } from 'api/CustomConst'
+import { loginUser, loadMember } from "features/auth/authSlice"
 
 import mainimg from 'assets/images/mainimg.png';
 import kakaotalk_img from 'assets/images/kakaotalk_img.png';
@@ -54,15 +54,22 @@ const Login = () => {
     dispatch(loginUser({ email, password }))
       .unwrap() // 오류처리
       .then((res) => {
-        alert('안녕하세요')
-        navigate('/home')
+        if (res.status === OK) {
+          alert('안녕하세요')
+          navigate('/home')
+          console.log(res)
+          dispatch(loadMember(res.data.role))
+        } else {
+          alert('적절한 요청이 아닙니다.')
+        }
       })
       .catch((err) => {
-        if (err.status === BAD_REQUEST) {
-          alert('적절한 요청이 아닙니다.')
-        } else if (err.status === NOT_FOUND) {
+        if (err.response.status === BAD_REQUEST) {
+          // alert('적절한 요청이 아닙니다.')
           alert('없는 아이디 이거나 잘못된 비밀번호입니다.')
-        } else if (err.status === CONFLICT) {
+        } else if (err.response.status === NOT_FOUND) {
+          alert('없는 아이디 이거나 잘못된 비밀번호입니다.')
+        } else if (err.response.status === CONFLICT) {
           alert('이미 중복으로 접속된 아이디입니다.')
         }
       })

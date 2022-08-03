@@ -12,8 +12,8 @@ import { modifyLogonUser } from 'features/auth/authSlice';
 import { modifyMember, loadMember } from 'features/auth/authSlice'
 
 const ModifyCommon = () => {
-  const { name, nickname, birth, contact, email, imageUrl } = useSelector((state) => state.auth.common)
-  const { introduction, cost, consultingFile, licenseName, licenseNumber } = useSelector((state) => state.auth.common)
+  const { name, nickname, birth, contact, email, imageUrl } = useSelector((state) => state.auth.logonUser)
+  const { introduction, cost, consultingFile, licenseName, licenseNumber } = useSelector((state) => state.auth.logonUser)
 
   const { role } = useSelector((state) => state.auth.logonUser)
 
@@ -61,12 +61,6 @@ const ModifyCommon = () => {
       .then((res) => {
         alert("수정이 완료되었습니다.")
         dispatch(loadMember(role))
-        const modi = {
-          nickname: nickname,
-          role: role,
-          imageUrl: imageUrl
-        }
-        dispatch(modifyLogonUser(modi))
         setNewNick('');
         setIsNickCheck(false);
         setNewPhone('');
