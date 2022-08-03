@@ -13,7 +13,7 @@ const initialState = {
   // customer state
   myConsultantDxData: consultantDiagnosis, // []
   myReviewsData: myReview, // []
-  myResData: reservations, // []
+  myResData: [],
   // consultant state
   reservations: [],
 
@@ -69,7 +69,7 @@ export const myResFetch = createAsyncThunk(
 export const deleteResFetch = createAsyncThunk(
   'mypage/deleteResFetch',
   async (reservationId) => {
-    return Axios.delete('customers/' + `${reservationId}`)
+    return Axios.delete('reservations/' + `${reservationId}`)
       .then(res => {
         if (res.status === NO_CONTENT) {
           alert('예약이 취소되었습니다.')
