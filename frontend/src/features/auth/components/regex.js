@@ -1,5 +1,5 @@
 // 한국어+글자수(3글자 이상,10글자 이하)
-const nickname = /^[a-z0-9|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{3,10}$/;
+const nickname = /^[a-z0-9|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,10}$/;
 
 // email형식
 // eslint-disable-next-line
