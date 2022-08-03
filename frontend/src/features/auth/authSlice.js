@@ -21,15 +21,6 @@ const initialState = {
 
   // login state
   logonUser: {
-    nickname: '',
-    role: '',
-    imageUrl: '/images/default/avatar01.png',
-  },
-  isLoading: false,
-  isAuthenticated: false, // todo 로그인 가드
-
-  // common info state -> 사용자 기본정보
-  common: {
     name: '',
     nickname: '',
     birth: '',
@@ -42,6 +33,10 @@ const initialState = {
     licenseName: '',
     licenseNumber: ''
   },
+  isLoading: false,
+  isAuthenticated: false, // todo 로그인 가드
+
+  // common info state -> 사용자 기본정보
   isModal: false, // sample modal
 
   // server status
@@ -112,14 +107,12 @@ export const loginUser = createAsyncThunk(
     try {
       // start
       const response = await Axios.post('members/login', userInfo);
-      console.log(response.headers["x-auth-token"])
-      const token = response.headers["x-auth-token"]; // 헤더로 받을 때      
+      const token = response.headers["authorization"]; // 헤더로 받을 때   
       saveToken(token);
       return response;
     } catch (err) {
       // 에러 자체를 반환해서 jsx에서 처리하는 방법
-      console.log(err.response.status)
-      return err.response.status;
+      return rejectWithValue(err);
       // return rejectWithValue(err.response);
     }
   }
@@ -130,13 +123,17 @@ export const loadMember = createAsyncThunk(
   'auth/loadmember',
   async (role, { rejectWithValue }) => {
     try {
-      let response
       if (role === CUSTOMER) {
-        response = await Axios.get('customers/4');
+        const response = await Axios.get('customers/4');
+        response.data.role = role
+        response.data.imageUrl = response.data.imageUrl ? response.data.imageUrl : '/images/default/avatar20.png'
+        return { data: response.data }
       } else if (role === CONSULTANT) {
-        response = await Axios.get('consultants/3');
+        const response = await Axios.get('consultants/3');
+        response.data.role = role
+        response.data.imageUrl = response.data.imageUrl ? response.data.imageUrl : '/images/default/avatar20.png'
+        return { data: response.data }
       }
-      return response.data
     } catch (err) {
       return rejectWithValue(err);
     }
@@ -147,7 +144,6 @@ export const modifyMember = createAsyncThunk(
   'auth/modifymember',
   async (payload, { rejectWithValue }) => {
     try {
-      console.log("수정 정보", payload)
       let response;
       if (payload.role === CUSTOMER) {
         const modi = {
@@ -155,7 +151,6 @@ export const modifyMember = createAsyncThunk(
           contact: payload.contact,
           imageUrl: payload.imageUrl
         } // 고객 수정정보
-        console.log('수정 요청 정보', modi)
         response = await Axios.patch('customers', modi);
       } else if (payload.role === CONSULTANT) {
         const modi = {
@@ -165,10 +160,8 @@ export const modifyMember = createAsyncThunk(
           introduction: payload.introduction,
           cost: payload.cost
         } // 컨설턴트 수정정보
-        console.log('수정 요청 정보', modi)
         response = await Axios.patch('consultants', modi);
       }
-      console.log('수정 후 응답', response)
       return response;
     } catch (err) {
       return rejectWithValue(err);
@@ -190,7 +183,6 @@ export const modifyPass = createAsyncThunk(
       } else if (payload.role === CONSULTANT) {
         response = await Axios.patch('consultants/password', data);
       }
-      console.log(response)
       return response;
     } catch (err) {
       return rejectWithValue(err);
@@ -208,7 +200,6 @@ export const signOut = createAsyncThunk(
       } else if (role === CONSULTANT) {
         response = await Axios.delete('consultants');
       }
-      console.log(response)
       return response;
     } catch (err) {
       return rejectWithValue(err);
@@ -218,7 +209,7 @@ export const signOut = createAsyncThunk(
 
 // createSlice
 
-const authSlics = createSlice({
+const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
@@ -233,15 +224,6 @@ const authSlics = createSlice({
         imageUrl: '/images/default/avatar01.png',
       }
     },
-    modifyLogonUser: (state, { payload }) => {
-      console.log(payload)
-      state.logonUser = {
-        nickname: payload.nickname,
-        role: payload.role,
-        imageUrl: payload.imageUrl
-      }
-    },
-
     // modify reducers
     modalOn: (state) => {
       state.isModal = true;
@@ -267,9 +249,8 @@ const authSlics = createSlice({
       state.logonUser = {
         nickname: payload.data.nickname,
         role: payload.data.role,
-        imageUrl: payload.data.imageUrl
+        imageUrl: (payload.data.imageUrl ? payload.data.imageUrl : '/images/default/avatar01.png')
       }
-      loadMember(payload.role)
       state.isAuthenticated = true;
     },
     [loginUser.rejected]: (state) => {
@@ -281,7 +262,8 @@ const authSlics = createSlice({
     },
     [loadMember.fulfilled]: (state, { payload }) => {
       state.status = 'succeeded';
-      state.common = payload
+      console.log("로드멤버", payload)
+      state.logonUser = payload.data
     },
     [loadMember.rejected]: (state) => {
       state.status = 'failed';
@@ -290,7 +272,7 @@ const authSlics = createSlice({
 })
 
 
-export const { logoutUser, resetUser, modifyLogonUser } = authSlics.actions;
-export const { modalOn, modalOff } = authSlics.actions;
+export const { logoutUser, resetUser, modifyLogonUser } = authSlice.actions;
+export const { modalOn, modalOff } = authSlice.actions;
 
-export default authSlics.reducer
+export default authSlice.reducer
