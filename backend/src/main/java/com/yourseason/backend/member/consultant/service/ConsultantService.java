@@ -88,8 +88,8 @@ public class ConsultantService {
                 .stream()
                 .map(reservation -> ReservationListResponse.builder()
                         .reservationId(reservation.getId())
-                        .reservationDate(reservation.getCreatedDate().toLocalDate())
-                        .reservationTime(reservation.getCreatedDate().toLocalTime())
+                        .reservationDate(reservation.getDate())
+                        .reservationTime(reservation.getTime())
                         .request(reservation.getRequest())
                         .build())
                 .collect(Collectors.toList());
