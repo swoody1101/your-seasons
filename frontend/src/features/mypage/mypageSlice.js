@@ -11,7 +11,7 @@ const back = () => {
 // state
 const initialState = {
   // customer state
-  myConsultantDxData: consultantDiagnosis, // []
+  myConsultantDxData: [],
   myReviewsData: myReview, // []
   myResData: [],
   // consultant state
@@ -121,9 +121,9 @@ export const myReviewFetch = createAsyncThunk(
 export const createReviewFetch = createAsyncThunk(
   'mypage/createReviewFetch',
   async (review) => {
-    return Axios.post('review/' + `${review.consultantId}`, review)
+    return Axios.post('reviews/' + `${review.consultingId}`, review)
       .then(res => {
-        if (res.status === CREATED) {
+        if (res.status === OK) {
           alert('후기가 정상적으로 작성되었습니다.')
           back()
           return true
