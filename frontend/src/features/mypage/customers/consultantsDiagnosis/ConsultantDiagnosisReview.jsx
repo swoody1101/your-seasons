@@ -46,7 +46,7 @@ const style = {
 };
 
 
-const ConsultantDiagnosisReview = ({ consultantNickname, consultantId, hasReview }) => {
+const ConsultantDiagnosisReview = ({ consultantNickname, consultingId, hasReview }) => {
   const [open, setOpen] = useState(false);
   const [isComment, setComment] = useState('')
   const [isStar, setIsStar] = useState(5)
@@ -55,19 +55,20 @@ const ConsultantDiagnosisReview = ({ consultantNickname, consultantId, hasReview
   const handleClose = () => setOpen(false);
   const dispatch = useDispatch();
   const onSubmit = () => {
-    const data = {
+    const review = {
       star: Number(isStar),
       comment: isComment,
-      consultantId: consultantId,
+      consultingId: consultingId,
     }
-    if (data.comment.length < 10) {
+    if (review.comment.length < 10) {
       alert('10자이상 입력해 주세요')
-    } else if (data.comment.length > 1000) {
+    } else if (review.comment.length > 1000) {
       alert('1000자 미만 입력해주세요.')
     } else {
-      dispatch(createReviewFetch(data))
+      dispatch(createReviewFetch(review))
       setIsStar(5)
       setComment('')
+      handleClose()
     }
   }
 
