@@ -1,4 +1,4 @@
-const tokenName = "X-Auth-Token";
+const tokenName = "Authorization";
 
 export const getToken = () => {
   return window.localStorage.getItem(tokenName);
