@@ -1,10 +1,7 @@
 package com.yourseason.backend.member.consultant.service;
 
 import com.yourseason.backend.common.domain.Message;
-import com.yourseason.backend.common.exception.DuplicationException;
-import com.yourseason.backend.common.exception.NotEqualException;
-import com.yourseason.backend.common.exception.NotFoundException;
-import com.yourseason.backend.common.exception.WrongFormException;
+import com.yourseason.backend.common.exception.*;
 import com.yourseason.backend.member.common.controller.dto.PasswordUpdateRequest;
 import com.yourseason.backend.member.consultant.controller.dto.*;
 import com.yourseason.backend.member.consultant.domain.*;
@@ -57,7 +54,7 @@ public class ConsultantService {
                 .filter(reservation -> reservation.getDate().isEqual(closedDayRequest.getClosedDay()))
                 .findAny()
                 .ifPresent(reservation -> {
-                    throw new DuplicationException(RESERVATION_EXIST);
+                    throw new NotRegisterException(RESERVATION_EXIST);
                 });
         consultant.getClosedDays()
                 .stream()
