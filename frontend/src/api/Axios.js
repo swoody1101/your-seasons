@@ -2,7 +2,7 @@ import baseAxios from 'axios';
 import { getToken } from './JWToken';
 
 
-const baseURL = 'https://yourseason.ssafy.io/api/v1/';
+const baseURL = 'https://yourseasons.ssafy.io/api/v1/';
 
 const Axios = baseAxios.create({
   baseURL: baseURL,
