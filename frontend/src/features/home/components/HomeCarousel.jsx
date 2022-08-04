@@ -27,16 +27,17 @@ const HomeCarousel = () => {
 		},
 		
 	]
-  return (
+  return (<div>
     <Carousel
 			width="100vw"
-      height="90vh"
+      height="100vh"
       interval={4000}
-    >
+			>
       {
-        items.map((item, i) => <Item key={i} item={item} index={i} />)
+				items.map((item, i) => <Item key={i} item={item} index={i} />)
       }
     </Carousel >
+	</div>
   )
 }
 
@@ -70,7 +71,7 @@ const dir = [
 const SlideImg = styled('img')({
   minWidth: "940px",
   minHeight: "760px",
-  position: "absolute",
+  // position: "absolute",
   bottom: "-20vh",
   width: "100vw",
   height: "80vw",

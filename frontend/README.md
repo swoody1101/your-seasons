@@ -9,6 +9,7 @@
 ### Stack - FE
 
 - JavaScript, HTML5
+
 - React 18, Material UI
   - Library
     - Redux toolkit
@@ -45,5 +46,9 @@
     ```
     - Lodash
     
-        npm i --save lodash
+    ```
+    npm i --save lodash
+    ```
+    
+    
 

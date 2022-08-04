@@ -19,6 +19,7 @@
 	font-style: normal;
 }
 
+
 @font-face {
 	font-family: 'malgun';
 	src: url('../assets/fonts/malgun/malgun.ttf');
@@ -53,3 +54,32 @@ canvas {
   width: 100%;
   height: 100%;
 }
+
+:root{
+	/* color */
+	--white-color: #fff;
+  --grey-dark-color: #989090;
+  --grey-light-color: #e0e0e0;
+
+  /* 각 타이틀별 글씨크기 */
+	--font-title-size: 2rem;
+	--font-title-letter-spacing: -5px;
+
+	/* consultant list */
+
+
+	/* --font-small */
+  /* --font-large:18px;
+  --font-medium:14px;
+  --font-small:12px;
+  --font-micro:10px; */
+	
+
+
+}
+
+/* 사용법 
+header .logo i {
+  color: var(--red-color);
+} 
+*/

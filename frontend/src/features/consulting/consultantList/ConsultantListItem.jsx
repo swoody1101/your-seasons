@@ -7,15 +7,19 @@ import { Button, CardActionArea, CardActions, styled } from '@mui/material';
 
 import StarRating from 'common/starrating/StarRating'
 import tmpImg from 'assets/images/ancun.png'
+import { useNavigate } from 'react-router';
 
 
 const ConsultantListItem = ({consultantId, nickname, introduction, reviewCount, starAverage, cost, imageUrl }) => {
+	const navigate = useNavigate();
+	
+	console.log(starAverage)
 
 	return (<>
-		<Card sx={{ maxWidth: 300, maxHeight: 330 }}>
+		<Card sx={{ maxWidth: 300, maxHeight: 330 }} onClick={() => navigate(`detail/${consultantId}`) }>
 			<CardActionArea>
 			<div style={{display:'flex', justifyContent:'center'}}>
-				<img src={tmpImg} style={{height:140}} />
+				<img src={imageUrl} style={{height:140}} />
 			</div>
 			{/* <p>인덱스확인 : {consultantId}</p> */}
 			<CardContent>
