@@ -2,9 +2,7 @@ import baseAxios from 'axios';
 import { getToken } from './JWToken';
 
 
-
-const baseURL = 'http://localhost:8080/api/v1/';
-
+const baseURL = process.env.NODE_ENV !== "production" ? 'http://localhost:8080/api/v1/' : 'https://yourseason.ssafy.io/api/v1/';
 
 const Axios = baseAxios.create({
   baseURL: baseURL,
