@@ -27,16 +27,17 @@ const HomeCarousel = () => {
 		},
 		
 	]
-  return (
+  return (<div>
     <Carousel
 			width="100vw"
-      height="90vh"
+      height="100vh"
       interval={4000}
-    >
+			>
       {
-        items.map((item, i) => <Item key={i} item={item} index={i} />)
+				items.map((item, i) => <Item key={i} item={item} index={i} />)
       }
     </Carousel >
+	</div>
   )
 }
 

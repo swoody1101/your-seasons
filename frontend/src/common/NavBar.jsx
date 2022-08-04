@@ -105,7 +105,10 @@ const NavBar = () => {
                   variant="h6"
                   sx={{ display: { xs: "none", sm: "block" } }}
                 >
-								<Link to="home">Home</Link>
+								<Link to="/">Home</Link>
+                </Typography>
+                <Typography variant="h6" sx={{ display: { xs: "none", sm: "block" } }} >
+                  <Link to="consultants">컨설턴트 목록</Link>
                 </Typography>
                 <Link to="mypage">
                   <Box sx={{ display: 'flex', flexDirection: 'row', alignItem: 'center', gap: '3px' }}>
@@ -115,12 +118,6 @@ const NavBar = () => {
                     <MyAvatar setSize={4} />
                   </Box>
                 </Link>
-                <Typography variant="h6" sx={{ display: { xs: "none", sm: "block" } }} >
-                  <Link to="consultants">컨설턴트 목록</Link>
-                </Typography>
-                <Typography variant="h6" sx={{ display: { xs: "none", sm: "block" } }} >
-                  <Link to="mypage">마이페이지</Link>
-                </Typography>
                 <Typography variant="h6" sx={{ display: { xs: "none", sm: "block" } }} >
                   <StyledA onClick={logout}>로그아웃</StyledA>
                 </Typography>
