@@ -54,7 +54,7 @@ public class ConsultantService {
                 .filter(reservation -> reservation.getDate().isEqual(closedDayRequest.getClosedDay()))
                 .findAny()
                 .ifPresent(reservation -> {
-                    throw new NotRegisterException(RESERVATION_EXIST);
+                    throw new DeadRequestException(RESERVATION_EXIST);
                 });
         consultant.getClosedDays()
                 .stream()
