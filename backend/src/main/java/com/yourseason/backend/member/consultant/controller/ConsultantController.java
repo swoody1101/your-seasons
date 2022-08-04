@@ -70,8 +70,11 @@ public class ConsultantController {
     @PatchMapping
     public ResponseEntity<Message> updateConsultant(@RequestHeader("Authorization") String token,
                                                     @RequestBody ConsultantUpdateRequest consultantUpdateRequest) {
+        Long consultantId = JwtUtil.getMemberId(token);
+        Message message = consultantService.updateConsultant(consultantId, consultantUpdateRequest);
         return ResponseEntity.ok()
-                .body(consultantService.updateConsultant(JwtUtil.getMemberId(token), consultantUpdateRequest));
+                .header("Authorization", JwtUtil.generateToken(consultantService.getUpdatedConsultant(consultantId)))
+                .body(message);
     }
 
     @PatchMapping("/password")
