@@ -56,7 +56,7 @@ const Login = () => {
       .then((res) => {
         if (res.status === OK) {
           alert('안녕하세요')
-          navigate('/home')
+          navigate('/')
           console.log(res)
           dispatch(loadMember(res.data.role))
         } else {
@@ -203,7 +203,7 @@ const CenterGrid = styled(Grid)({
 });
 
 const SGrid = styled(Grid)({
-  marginTop: "5rem",
+  // marginTop: "5rem",
   backgroundColor: "#F1F1F190",
   padding: '2rem',
   borderRadius: '1rem',

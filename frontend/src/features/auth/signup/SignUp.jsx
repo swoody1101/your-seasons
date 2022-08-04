@@ -144,10 +144,10 @@ const SignUp = () => {
 
   return (
     <Container sx={{ xs: 'none', sm: 'block' }}>
-      <Avatar
+      {/* <Avatar
         sx={{
           m: "1rem auto", bgcolor: 'primary.main'
-        }} ><LockIcon /></Avatar>
+        }} ><LockIcon /></Avatar> */}
       <CssBaseline />
       <SGrid container
         direction="column"
