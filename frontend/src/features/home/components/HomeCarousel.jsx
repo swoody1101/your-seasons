@@ -71,7 +71,7 @@ const dir = [
 const SlideImg = styled('img')({
   minWidth: "940px",
   minHeight: "760px",
-  position: "absolute",
+  // position: "absolute",
   bottom: "-20vh",
   width: "100vw",
   height: "80vw",
