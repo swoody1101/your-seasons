@@ -31,8 +31,8 @@ import ConsultantListItem from '../../consulting/consultantList/ConsultantListIt
 // }
 
 const HomePopularConsultant = () => {
-	const consultants = useSelector(state=>state.consultantList.consultantsData).slice(0, 10)
-	// 비어있으면 true
+  const consultants = useSelector(state => state.consultantList.consultantsData).slice(0, 10)
+  // 비어있으면 true
   const hasConsultants = _.isEmpty(consultants)
 
   return (
@@ -41,16 +41,16 @@ const HomePopularConsultant = () => {
         mb={4}
         variant="h4" gutterBottom component="div"
       >인기 컨설턴트</StyledTypography>
-				{ hasConsultants ? 
-				'비어있음' 
-				: 
-				consultants.map((item, idx) => (
-				<ConsultantListItem item={item}/>
-				))
-				// { consultants.map((item, idx ) => (
-				// 	// return <ConsultantListItem item={...item}/>
-				// ))}
-				} 
+      {hasConsultants ?
+        '비어있음'
+        :
+        consultants.map((item, idx) => (
+          <ConsultantListItem item={item} key={idx} />
+        ))
+        // { consultants.map((item, idx ) => (
+        // 	// return <ConsultantListItem item={...item}/>
+        // ))}
+      }
     </Div >
   )
 }
@@ -58,18 +58,18 @@ const HomePopularConsultant = () => {
 export default HomePopularConsultant
 
 const Div = styled('div')({
-	height: '100vh',
-	width: '100vw',
-	display: 'flex',
-	flexDirection: 'column',
-	justifyItems: 'center',
-	justifyContent: 'center',
+  height: '100vh',
+  width: '100vw',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyItems: 'center',
+  justifyContent: 'center',
 })
 
 const StyledTypography = styled(Typography)({
   fontFamily: 'malgunbd !important',
-	fontSize: 'var(--font-title-size)',
-	letterSpacing: 'var(--font-title-letter-spacing)',
+  fontSize: 'var(--font-title-size)',
+  letterSpacing: 'var(--font-title-letter-spacing)',
   color: '#000000',
   // textShadow: 'black 2px 2px'
 })
