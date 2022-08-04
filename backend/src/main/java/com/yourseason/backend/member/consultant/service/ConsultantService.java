@@ -1,10 +1,7 @@
 package com.yourseason.backend.member.consultant.service;
 
 import com.yourseason.backend.common.domain.Message;
-import com.yourseason.backend.common.exception.DuplicationException;
-import com.yourseason.backend.common.exception.NotEqualException;
-import com.yourseason.backend.common.exception.NotFoundException;
-import com.yourseason.backend.common.exception.WrongFormException;
+import com.yourseason.backend.common.exception.*;
 import com.yourseason.backend.member.common.controller.dto.PasswordUpdateRequest;
 import com.yourseason.backend.member.consultant.controller.dto.*;
 import com.yourseason.backend.member.consultant.domain.*;
@@ -27,6 +24,7 @@ public class ConsultantService {
     private static final String CLOSED_DAY_NOT_FOUND = "해당 날짜는 휴무일이 아닙니다.";
     private static final String PASSWORD_WRONG_FORM = "변경할 비밀번호가 현재 비밀번호와 일치합니다.";
     private static final String CLOSED_DAY_DUPLICATED = "이미 휴무일로 등록하셨습니다.";
+    private static final String RESERVATION_DUPLICATED = "해당 날짜는 예약이 완료되었습니다.";
     private static final String EMAIL_DUPLICATED = "이메일이 중복됩니다.";
     private static final String NICKNAME_DUPLICATED = "닉네임이 중복됩니다.";
 
@@ -50,17 +48,26 @@ public class ConsultantService {
     public Message createClosedDay(Long consultantId, ClosedDayRequest closedDayRequest) {
         Consultant consultant = consultantRepository.findById(consultantId)
                 .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
-
+        consultant.getReservations()
+                .stream()
+                .filter(reservation -> reservation.isActive()
+                        && reservation.getDate()
+                        .equals(closedDayRequest.getClosedDay()))
+                .findAny()
+                .ifPresent(reservation -> {
+                    throw new WrongAccessException(RESERVATION_DUPLICATED);
+                });
         consultant.getClosedDays()
                 .stream()
-                .filter(closedDay -> closedDay.getDate().isEqual(closedDayRequest.getClosedDay()))
+                .filter(closedDay ->
+                        closedDay.getDate()
+                                .isEqual(closedDayRequest.getClosedDay()))
                 .findAny()
                 .ifPresent(closedDay -> {
                     throw new DuplicationException(CLOSED_DAY_DUPLICATED);
                 });
         consultant.addClosedDay(closedDayRequest.toEntity(consultant));
         consultantRepository.save(consultant);
-
         return new Message("succeeded");
     }
 
