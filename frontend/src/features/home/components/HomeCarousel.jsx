@@ -1,40 +1,36 @@
 import React from 'react'
+import Carousel from 'react-material-ui-carousel';
+import { styled, Typography, Paper } from '@mui/material';
 
-import Carousel from 'react-material-ui-carousel'
-import { Paper, Box, styled, Typography, keyframes } from '@mui/material'
-
-import IMG1 from 'assets/images/homeSlide/slide01.jpg'
-import IMG2 from 'assets/images/homeSlide/slide02.jpg'
-import IMG3 from 'assets/images/homeSlide/slide03.jpg'
-import IMG4 from 'assets/images/homeSlide/slide04.jpg'
+import IMG1 from 'assets/images/homeSlide/spring04.jpg'
+import IMG2 from 'assets/images/homeSlide/summer02.jpg'
+import IMG3 from 'assets/images/homeSlide/autumn04.jpg'
+import IMG4 from 'assets/images/homeSlide/winter01.jpg'
 
 const HomeCarousel = () => {
-  const items = [
-    {
-      img: IMG1,
-      msg1: "당신의 계절은",
-      msg2: "어떠한가요?"
-    },
-    {
-      img: IMG2,
-      msg1: "당신에게 맞는",
-      msg2: "계절을 찾아보세요."
-    },
-    {
-      img: IMG3,
-      msg1: "당신의",
-      msg2: "계절"
-    },
-    {
-      img: IMG4,
-      msg1: "당신의 계절을",
-      msg2: "찾아드립니다."
-    },
-
-  ]
+	const items = [
+		{
+			img: IMG1,
+			msg: '당신의 계절을 찾아보세요'
+		},
+		{
+			img: IMG2,
+			msg: '전문 컨설턴트와 함께하는 퍼스널 컬러진단'
+		},
+		{
+			img: IMG3,
+			msg: '스드메부터 취업까지 전문가와 함께'
+		},
+		{
+			img: IMG4,
+			msg: '자가진단 서비스 오픈예정'
+		},
+		
+	]
   return (
     <Carousel
-      height="60vh"
+			width="100vw"
+      height="90vh"
       interval={4000}
     >
       {
@@ -51,8 +47,7 @@ function Item(props) {
     <SetPaper>
       <SlideImg seq={props.index} src={props.item.img} />
       <TEXT seq={props.index}>
-        {props.item.msg1}<br />
-        {props.item.msg2}
+        {props.item.msg}<br />
       </TEXT>
     </SetPaper>
   )
@@ -97,13 +92,13 @@ const SlideImg = styled('img')({
 
 const TEXT = styled(Typography)((props) => (
   {
-    fontFamily: 'MYHaemalgeunSangsang !important',
+		
+    fontFamily: 'Happiness-Sans-Bold !important',
     position: "absolute",
     top: `${dir[props.seq].top}%`,
     left: `${dir[props.seq].left}%`,
-    fontSize: "6rem",
-    color: "#FFFFFF",
-    textShadow: "#00000090 5px 5px",
+    fontSize: "2rem",
+    color: "#000000",
     zIndex: "1100",
     "@keyframes textIn": {
       from: {
