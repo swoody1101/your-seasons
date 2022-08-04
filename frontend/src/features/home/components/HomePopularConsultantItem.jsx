@@ -2,23 +2,20 @@ import React from 'react'
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { Link, useParams } from 'react-router-dom';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions, styled } from '@mui/material';
 import StarRating from 'common/starrating/StarRating'
 import tmpImg from 'assets/images/ancun.png'
 
 
-const ConsultantListItem = ({consultantId, nickname, introduction, reviewCount, starAverage, cost, imageUrl }) => {
+const HomePopularConsultantItem = ({consultantId, nickname, introduction, reviewCount, starAverage, cost, imageUrl }) => {
 
 	return (<>
-	<Link to={`detail/${consultantId}`}>
+	<Link to={`consultants/detail/${consultantId}`}>
 		<Card sx={{ maxWidth: 300, maxHeight: 330 }}>
 			<CardActionArea>
 			<div style={{display:'flex', justifyContent:'center'}}>
 				<img src={tmpImg} style={{height:140}} />
 			</div>
-			{/* <p>인덱스확인 : {consultantId}</p> */}
 			<CardContent>
 				{/* 닉네임 */}
 				<Nickname>
@@ -51,7 +48,7 @@ const ConsultantListItem = ({consultantId, nickname, introduction, reviewCount, 
 </>	)
 }
 
-export default ConsultantListItem
+export default HomePopularConsultantItem
 
 
 const Introduce = styled('div')({
