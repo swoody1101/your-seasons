@@ -95,31 +95,43 @@ const SignUp = () => {
   }
 
   const handleSubmit = (data) => {
+    // email : 중복확인 후 글을 수정하면 해제됨
     if (!isEmailCheck) {
       alert("이메일 중복확인을 해주세요.")
       return;
     }
-    if (!password || password !== rePassword) {
+
+    // password : success 이후에 사용할 수 없는 문자 1개를 추가해도 로직이 넘어가 마지막에 한번더 체크
+    if (!password
+      || password !== rePassword
+      || !regex.password.test(password)) {
       alert("비밀번호를 확인해주세요.");
       return;
     }
 
+
+    // nickname : 닉네임 중복확인 후 내용이 변경되면 중복확인이 해제됨
     if (!isNicknameCheck) {
       alert("닉네임 중복확인을 해주세요.")
       return;
     }
 
-    if (name.length < 2) {
+    // name : 글자수, 한글사용제외 제한 없음
+    if (name.length < 2
+      || !regex.name.test(name)) {
       alert("이름을 확인해주세요.")
       return;
     }
 
+    // contact
     const rawPhone = phoneNumber.replace(/[-]/g, "");
-    if (rawPhone.length < 10) {
+    if (rawPhone.length < 10
+      || !regex.phone.test(phoneNumber)) {
       alert("전화번호를 확인해주세요.")
       return;
     }
 
+    // role license
     if (role === CONSULTANT && licenseNumber.length < 1) {
       alert("자격증 번호를 입력하거나, 일반 사용자로 가입해주세요.");
       return;
@@ -271,9 +283,9 @@ const SignUp = () => {
           <FormControlLabel
             control={
               <Checkbox value={agreeChecked}
-                onChange={e => {
-                  console.log(e.target)
-                  setAgreeChcked(e.target.value)
+                onChange={() => {
+                  console.log(!agreeChecked)
+                  setAgreeChcked(!agreeChecked)
                 }} color="primary"
               />
             }
