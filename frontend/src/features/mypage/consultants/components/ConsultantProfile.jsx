@@ -44,7 +44,7 @@ const ConsultantProfile = () => {
             <h3>
               {nickname} 컨설턴트님
             </h3>
-            <Box sx={{ display: 'flex', gap: 1 }}>
+            <Box sx={{ display: 'flex', gap: 1, }}>
               <StarRating starrating={starAverage} />
               <h3>
                 {starAverage}
