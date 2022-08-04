@@ -23,7 +23,7 @@ const CameraTest = ({
     setIsSetClear(!isSetClear)
   }
   return (
-    <Container sx={{ xs: 'none', sm: 'block', height: '100%' }}>
+    <Container sx={{ xs: 'none', sm: 'block', height: '100%', position: 'fixed', top: '0', left: '0', zIndex: '1200' }}>
       <SContainer>
         <Typography variant="h4">카메라 테스트</Typography>
         <SGridContainer container>
@@ -32,8 +32,7 @@ const CameraTest = ({
               <Typography variant="h6">
                 비디오 확인하기
               </Typography>
-              {/* <video ref={myVideo} /> */}
-              <Container sx={{ backgroundColor: "#555", height: '180px' }} />
+              <Video useRef={myVideo} />
               <Typography variant="h6">
                 색상 | 채도 | 명도
               </Typography>
@@ -127,11 +126,13 @@ CameraTest.defaultProps = {
 }
 
 const SContainer = styled(Box)({
-  backgroundColor: "#F1F1F190",
-  borderRadius: "3rem",
-  padding: "3rem",
-  marginTop: "5rem",
-  height: "80%",
+  position: 'absolute',
+  top: "0",
+  left: "0",
+  width: "100vw",
+  height: "100vh",
+  backgroundColor: '#000000df',
+  zIndex: '12000',
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
@@ -152,14 +153,20 @@ const SGrid = styled(Grid)({
 })
 
 const VideoContainer = styled(Box)({
-  width: "80%",
+  width: "90%",
+  aspectRatio: "16/9",
   backgroundColor: "#F1F1F190",
   borderRadius: "1rem",
   padding: "1rem",
 })
+const Video = styled('video')({
+  width: "100%",
+  aspectRatio: "16/9",
+  backgroundColor: "#111",
+})
 
 const SoundContainer = styled(Box)({
-  width: "80%",
+  width: "90%",
   marginTop: "1rem",
   backgroundColor: "#F1F1F190",
   borderRadius: "1rem",
@@ -168,7 +175,8 @@ const SoundContainer = styled(Box)({
 
 const NotiText = styled(Container)({
   backgroundColor: "#F1F1F190",
-  borderRadius: "3rem",
+  borderRadius: "1rem",
+  width: "90%",
   padding: "1rem",
   textAlign: "center"
 })
