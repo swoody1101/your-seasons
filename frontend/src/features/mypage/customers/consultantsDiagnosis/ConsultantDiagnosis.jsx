@@ -48,12 +48,7 @@ export const BasicModal = ({ resultImageUrl }) => {
 
 
 const ConsultantDiagnosis = () => {
-	const dispatch = useDispatch()
 	const results = useSelector(state => state.mypage.myConsultantDxData);
-
-	useEffect(() => {
-		dispatch(myConsultantDxFetch())
-	}, [])
 
 	return (<>
 		<Div>
