@@ -24,7 +24,7 @@ public class ConsultantService {
     private static final String CLOSED_DAY_NOT_FOUND = "해당 날짜는 휴무일이 아닙니다.";
     private static final String PASSWORD_WRONG_FORM = "변경할 비밀번호가 현재 비밀번호와 일치합니다.";
     private static final String CLOSED_DAY_DUPLICATED = "이미 휴무일로 등록하셨습니다.";
-    private static final String RESERVATION_DUPLICATED = "해당 날짜는 예약이 완료되었습니다.";
+    private static final String RESERVATION_EXIST = "해당 날짜는 예약이 완료되었습니다.";
     private static final String EMAIL_DUPLICATED = "이메일이 중복됩니다.";
     private static final String NICKNAME_DUPLICATED = "닉네임이 중복됩니다.";
 
@@ -50,18 +50,15 @@ public class ConsultantService {
                 .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
         consultant.getReservations()
                 .stream()
-                .filter(reservation -> reservation.isActive()
-                        && reservation.getDate()
-                        .equals(closedDayRequest.getClosedDay()))
+                .filter(reservation -> reservation.isActive())
+                .filter(reservation -> reservation.getDate().isEqual(closedDayRequest.getClosedDay()))
                 .findAny()
                 .ifPresent(reservation -> {
-                    throw new WrongAccessException(RESERVATION_DUPLICATED);
+                    throw new WrongAccessException(RESERVATION_EXIST);
                 });
         consultant.getClosedDays()
                 .stream()
-                .filter(closedDay ->
-                        closedDay.getDate()
-                                .isEqual(closedDayRequest.getClosedDay()))
+                .filter(closedDay -> closedDay.getDate().isEqual(closedDayRequest.getClosedDay()))
                 .findAny()
                 .ifPresent(closedDay -> {
                     throw new DuplicationException(CLOSED_DAY_DUPLICATED);
