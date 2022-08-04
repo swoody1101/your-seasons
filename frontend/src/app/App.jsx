@@ -28,8 +28,7 @@ const App = () => {
       <NavBar />
       <Stack direction="column" spacing={2} justifyContent="space-between" sx={{ minHeight: "100vh" }}>
         <Routes>
-          <Route path='/' element={<p>WelcomePage</p>} />
-          <Route path='/home' element={<Yourseason />} />
+          <Route path='/' element={<Yourseason />} />
           <Route path='/consult' element={<Consult />} />
           <Route path='/consultants' element={<ConsultantList />} />
           <Route path='/mypage' element={

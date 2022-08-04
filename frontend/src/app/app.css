@@ -1,22 +1,40 @@
 @font-face {
-  font-family: 'GmarketSansTTFLight';
-  src: url(../assets/fonts/gmarketsans-ttf/GmarketSansTTFLight.ttf);
+  font-family: 'Happiness-Sans-Title';
+	src: url('../assets/fonts/happinessSans-ttf/Happiness-Sans-Title.ttf');
+	font-weight: normal;
+	font-style: normal;
 }
 
 @font-face {
-  font-family: 'GmarketSansTTFMedium';
-  src: url(../assets/fonts/gmarketsans-ttf/GmarketSansTTFMedium.ttf);
+	font-family: 'Happiness-Sans-Regular';
+	src: url('../assets/fonts/happinessSans-ttf/Happiness-Sans-Regular.ttf');
+	font-weight: 400;
+	font-style: normal;
 }
 
 @font-face {
-  font-family: 'MYHaemalgeunSangsang';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/MYHaemalgeunSangsang.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
+	font-family: 'Happiness-Sans-Bold';
+	src: url('../assets/fonts/happinessSans-ttf/Happiness-Sans-Bold.ttf');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'malgun';
+	src: url('../assets/fonts/malgun/malgun.ttf');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'malgunbd';
+	src: url('../assets/fonts/malgun/malgunbd.ttf');
+	font-weight: normal;
+	font-style: normal;
 }
 
 * {
-  font-family: 'GmarketSansTTFMedium' !important;
+  font-family: 'Happiness-Sans-Regular' !important;
   margin: 0;
   padding: 0;
   border: 0;
