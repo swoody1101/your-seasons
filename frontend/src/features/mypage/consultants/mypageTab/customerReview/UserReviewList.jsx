@@ -9,11 +9,11 @@ const UserReviewList = props => {
     <div>
       {props.reviews.map(review => (
         <UserReviewItem
-          key={review.id}
+          key={review.reviewId}
           nickname={review.nickname}
-          rating={review.rating}
-          date={review.date}
-          review={review.review}
+          rating={review.star}
+          date={review.createdDate}
+          review={review.comment}
         />
       ))}
     </div>
