@@ -13,8 +13,6 @@ import MyAvatar from "common/avatar/MyAvatar";
 const ConsultantProfile = () => {
   const { starAverage } = useSelector(state => state.mypage.reviews)
   const { role, nickname, introduction, cost } = useSelector(state => state.auth.logonUser)
-  const reviews = useSelector(state => state.mypage.reviews)
-  console.log(starAverage, reviews)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -28,7 +26,7 @@ const ConsultantProfile = () => {
   // 마이페이지 접속시 
   useEffect(() => {
     dispatch(getCustomerReview())
-  }, [])
+  }, [dispatch])
 
   return (
     <Container fixed>
@@ -44,7 +42,7 @@ const ConsultantProfile = () => {
             <h3>
               {nickname} 컨설턴트님
             </h3>
-            <Box sx={{ display: 'flex', gap: 1 }}>
+            <Box sx={{ display: 'flex', gap: 1, }}>
               <StarRating starrating={starAverage} />
               <h3>
                 {starAverage}

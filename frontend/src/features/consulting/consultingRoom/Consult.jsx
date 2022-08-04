@@ -10,11 +10,13 @@ const Consult = () => {
 
   return (
     <ConsultContainer>
-        {
-          isSetClear ?
-            <ConsultingRoom />
-            :
-            <CameraTest isSetClear={isSetClear} setIsSetClear={setIsSetClear} />
+      <ConsultingRoom isSetClear={isSetClear} setIsSetClear={setIsSetClear} />
+      {
+        !isSetClear
+          ?
+          <CameraTest isSetClear={isSetClear} setIsSetClear={setIsSetClear} />
+          :
+          <></>
       }
     </ConsultContainer>
   )
