@@ -1,97 +1,78 @@
 import React from 'react'
 import { Avatar, Box, Button, Container, styled, Typography, Card } from '@mui/material'
+import { useSelector } from 'react-redux'
+import _ from 'lodash'
+import ConsultantListItem from '../../consulting/consultantList/ConsultantListItem'
 
-const consultants = [
-  {
-    consultantId: 1,
-    nickname: "ansi",
-    introduction: "안녕하세요, ansi입니다.",
-    reviewCount: 50,
-    starAverage: 4.9,
-    cost: "30,500",
-    imageUrl: '/images/default/avatar01.png',
-  },
-  {
-    consultantId: 2,
-    nickname: "컨설팅",
-    introduction: "안녕하세요, 컨설팅입니다.",
-    reviewCount: 24,
-    starAverage: 4.8,
-    cost: "30,100",
-    imageUrl: '/images/default/avatar02.png',
-  },
-  {
-    consultantId: 2,
-    nickname: "젤잘함",
-    introduction: "안녕하세요, 젤잘함입니다.",
-    reviewCount: 25,
-    starAverage: 4.8,
-    cost: "28,000",
-    imageUrl: '/images/default/avatar03.png',
-  },
-  {
-    consultantId: 1,
-    nickname: "히사시부리",
-    introduction: "안녕하세요, 히사시부리입니다.",
-    reviewCount: 15,
-    starAverage: 4.7,
-    cost: "15,000",
-    imageUrl: '/images/default/avatar04.png',
-  },
-  {
-    consultantId: 1,
-    nickname: "여기보세요 찰칵",
-    introduction: "안녕하세요, 여기보세요 찰칵",
-    reviewCount: 5,
-    starAverage: 4.7,
-    cost: "30,000",
-    imageUrl: '/images/default/avatar05.png',
-  },
-]
-const handleAvatar = (e) => {
-  console.log("선택한 이미지 주소값", e.target.src)
-}
 
-const PopCon = () => {
-  const result = [];
-  for (let i = 0; i < consultants.length; i++) {
-    result.push(
-      <SetCard elevation={8} key={i}>
-        <FixedTypography>{i + 1}위</FixedTypography>
-        <SetAvatar si={12} value={i}>
-          <Button onClick={handleAvatar}>
-            <img src={consultants[i].imageUrl} alt='MyAvatar' />
-          </Button>
-        </SetAvatar>
-        <Typography varient="h3">{consultants[i].nickname}</Typography>
-        <Card sx={{ height: '3rem', margin: "4px", padding: "3px" }} >
-          <Typography >
-            {consultants[i].introduction}
-          </Typography>
-        </Card>
-        <Typography>평점 : {consultants[i].starAverage}  리뷰수 : {consultants[i].reviewCount}</Typography>
-        <Typography>{consultants[i].cost} WON</Typography>
-      </SetCard>
-    )
-  }
-  return result;
-}
+// const PopCon = (consultants) => {
+// 	const result = [];
+// 	let i = 0;
+// 	while (i < consultants.length) {
+// 		result.push(
+// 			<SetCard elevation={8} key={i}>
+// 				<FixedTypography>{i + 1}위</FixedTypography>
+// 				<SetAvatar si={12} value={i}>
+// 						<img src={consultants[i].imageUrl} alt='MyAvatar' />
+// 				</SetAvatar>
+// 				<Typography varient="h3">{consultants[i].nickname}</Typography>
+// 				<Card sx={{ height: '3rem', margin: "4px", padding: "3px" }} >
+// 					<Typography >
+// 						{consultants[i].introduction}
+// 					</Typography>
+// 				</Card>
+// 				<Typography>평점 : {consultants[i].starAverage}  리뷰수 : {consultants[i].reviewCount}</Typography>
+// 				<Typography>{consultants[i].cost} WON</Typography>
+// 			</SetCard>
+// 		)
+// 		i++
+// 	}
+//   return result;
+// }
 
 const HomePopularConsultant = () => {
+	const consultants = useSelector(state=>state.consultantList.consultantsData).slice(0, 10)
+	// 비어있으면 true
+  const hasConsultants = _.isEmpty(consultants)
+
   return (
-    <Container mb={100}>
+    <Div>
       <StyledTypography
-        mt={4}
+        mb={4}
         variant="h4" gutterBottom component="div"
       >인기 컨설턴트</StyledTypography>
-      <CardList gap={4}>
-        {PopCon()}
-      </CardList>
-    </Container >
+				{ hasConsultants ? 
+				'비어있음' 
+				: 
+				consultants.map((item, idx) => (
+				<ConsultantListItem item={item}/>
+				))
+				// { consultants.map((item, idx ) => (
+				// 	// return <ConsultantListItem item={...item}/>
+				// ))}
+				} 
+    </Div >
   )
 }
 
 export default HomePopularConsultant
+
+const Div = styled('div')({
+	height: '100vh',
+	width: '100vw',
+	display: 'flex',
+	flexDirection: 'column',
+	justifyItems: 'center',
+	justifyContent: 'center',
+})
+
+const StyledTypography = styled(Typography)({
+  fontFamily: 'malgunbd !important',
+	fontSize: 'var(--font-title-size)',
+	letterSpacing: 'var(--font-title-letter-spacing)',
+  color: '#000000',
+  // textShadow: 'black 2px 2px'
+})
 
 const CardList = styled(Container)({
   height: "18rem",
@@ -121,14 +102,6 @@ const FixedTypography = styled(Typography)({
   left: '1rem'
 })
 
-const StyledTypography = styled(Typography)({
-  fontFamily: 'malgun !important',
-	fontWeight: 'bold',
-	fontSize: 30,
-	letterSpacing: -5,
-  color: '#000000',
-  // textShadow: 'black 2px 2px'
-})
 
 const SetAvatar = styled(Avatar)((props) => ({
   backgroundColor: "skyblue",
@@ -140,5 +113,4 @@ const SetAvatar = styled(Avatar)((props) => ({
     width: `${props.si * 9}px`,
     height: `${props.si * 9}px`,
   },
-  zIndex: '1110'
 }))
