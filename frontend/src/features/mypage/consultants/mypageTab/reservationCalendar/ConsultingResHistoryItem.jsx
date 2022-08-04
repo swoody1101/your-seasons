@@ -14,6 +14,9 @@ export default function ConsultingResHistoryItem(props) {
       </AccordionSummary>
       <AccordionDetails>
         <Typography>
+          닉네임 : {props.nickname}
+        </Typography>
+        <Typography>
           {props.request}
         </Typography>
       </AccordionDetails>
