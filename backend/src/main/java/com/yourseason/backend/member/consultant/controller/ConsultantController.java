@@ -40,7 +40,7 @@ public class ConsultantController {
     @GetMapping("/{consultantId}/1")
     public ResponseEntity<ConsultantResponse> getConsultant(@PathVariable Long consultantId) {
         return ResponseEntity.ok()
-                .body(consultantService.getConsultant(consultantId));
+                .body(consultantService.getConsultantDetail(consultantId));
     }
 
     @GetMapping("/{consultantId}/2")
