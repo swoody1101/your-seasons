@@ -1,10 +1,8 @@
 import React from 'react';
-import { useDispatch } from 'react-redux/es/exports';
 
 import { Button, Box, CardActions, CardContent, Card, Typography, Avatar, CardActionArea, styled } from '@mui/material';
 import LyricsOutlinedIcon from '@mui/icons-material/LyricsOutlined';
 const MyResHistoryItem = (props) => {
-  const dispatch = useDispatch()
   return (
     <SetCard variant="outlined" className="history-card">
       <CardActionArea>
