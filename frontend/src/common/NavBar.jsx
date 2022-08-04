@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import {
-	AppBar, Box, createTheme, ThemeProvider,
+  AppBar, Box, createTheme, ThemeProvider,
   Toolbar, Typography, styled
 } from '@mui/material'
 import { Pets } from '@mui/icons-material'
@@ -13,18 +13,18 @@ import MyAvatar from 'common/avatar/MyAvatar';
 
 
 const LogoText = styled(Typography)((props) => (
-	{
-		fontFamily: 'Happiness-Sans-Title !important',
-		color: "#FFFFFF",
-	}
+  {
+    fontFamily: 'Happiness-Sans-Title !important',
+    color: "#FFFFFF",
+  }
 ))
 
 
 const StyledTypography = styled(Typography)({
   fontFamily: 'malgun !important',
-	fontWeight: 'bold',
-	fontSize: 30,
-	letterSpacing: -5,
+  fontWeight: 'bold',
+  fontSize: 30,
+  letterSpacing: -5,
   color: '#000000',
   // textShadow: 'black 2px 2px'
 })
@@ -53,7 +53,7 @@ const NavBar = () => {
 
 
 
-	
+
   return (
     <ThemeProvider theme={transparentTheme} >
       <AppBar position="sticky" variant="transparent">
@@ -63,7 +63,7 @@ const NavBar = () => {
               <LogoText
                 variant="h5"
                 sx={{ display: { xs: "none", sm: "block", color: 'black !important' }, }}
-								id="logo"
+                id="logo"
               > 당신의 계절
               </LogoText>
             </Link>
@@ -101,11 +101,11 @@ const NavBar = () => {
               </Navs>
               :
               <Navs>
-								<Typography
+                <Typography
                   variant="h6"
                   sx={{ display: { xs: "none", sm: "block" } }}
                 >
-								<Link to="home">Home</Link>
+                  <Link to="/">Home</Link>
                 </Typography>
                 <Link to="mypage">
                   <Box sx={{ display: 'flex', flexDirection: 'row', alignItem: 'center', gap: '3px' }}>
@@ -160,7 +160,7 @@ const Navs = styled(Box)(({ theme }) => ({
   flexDirection: "row",
   alignItems: "center",
   gap: "1rem",
-	fontFamily: "Happiness-Sans-Title",
+  fontFamily: "Happiness-Sans-Title",
   a: {
     color: "black",
     // textShadow: '1px 1px 2px black'

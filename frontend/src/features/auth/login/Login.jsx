@@ -56,7 +56,7 @@ const Login = () => {
       .then((res) => {
         if (res.status === OK) {
           alert('안녕하세요')
-          navigate('/home')
+          navigate('/')
           console.log(res)
           dispatch(loadMember(res.data.role))
         } else {
