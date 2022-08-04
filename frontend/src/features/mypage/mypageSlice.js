@@ -2,11 +2,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Axios from "../../api/Axios";
 import { NO_CONTENT, OK } from '../../api/CustomConst'
 
-// 새로고침 함수
-const back = () => {
-  window.history.go(0)
-}
-
 // state
 const initialState = {
   // customer state
@@ -34,13 +29,11 @@ export const myConsultantDxFetch = createAsyncThunk(
           return res.data
         } else {
           alert('진단기록을 불러올 수 없습니다.')
-          back()
           return false
         }
       })
       .catch(error => {
         alert('진단기록을 불러올 수 없습니다.')
-        back()
         return false
       })
   }
@@ -105,13 +98,11 @@ export const myReviewFetch = createAsyncThunk(
           return res.data
         } else {
           alert('후기를 불러올 수 없습니다.')
-          back()
           return false
         }
       })
       .catch(error => {
         alert('후기를 불러올 수 없습니다.')
-        back()
         return false
       })
   }
@@ -148,13 +139,11 @@ export const deleteReviewFetch = createAsyncThunk(
           return true
         } else {
           alert('후기가 삭제되지 않았습니다.')
-          back()
           return false
         }
       })
       .catch(error => {
         alert('후기가 삭제되지 않았습니다.')
-        back()
         return false
       })
   }
@@ -239,13 +228,11 @@ export const deleteClosedDay = createAsyncThunk(
           return true
         } else {
           alert('근무일 지정이 실패하였습니다')
-          back()
           return false
         }
       })
       .catch(error => {
         alert('근무일 지정이 실패하였습니다')
-        back()
         return false
       })
   }
