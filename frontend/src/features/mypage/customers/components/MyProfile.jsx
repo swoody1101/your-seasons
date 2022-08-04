@@ -11,7 +11,7 @@ import { loadMember } from 'features/auth/authSlice'
 const MyProfile = () => {
   // const [nickname, setNickname] = useState('치당');
   const results = useSelector(state => state.mypage.myConsultantDxData)
-    const tone = results.length > 0 ? results.myConsultantDxData[results.length - 1].tone : '';
+  const tone = results.length > 0 ? results.myConsultantDxData[results.length - 1].tone : '';
 
 
   const { nickname, role } = useSelector(state => state.auth.logonUser)
