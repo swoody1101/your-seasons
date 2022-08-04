@@ -153,6 +153,7 @@ export const modifyMember = createAsyncThunk(
         } // 고객 수정정보
         response = await Axios.patch('customers', modi);
       } else if (payload.role === CONSULTANT) {
+        console.log(payload)
         const modi = {
           nickname: payload.nickname,
           contact: payload.contact,
@@ -160,6 +161,7 @@ export const modifyMember = createAsyncThunk(
           introduction: payload.introduction,
           cost: payload.cost
         } // 컨설턴트 수정정보
+        console.log(modi)
         response = await Axios.patch('consultants', modi);
       }
       return response;
