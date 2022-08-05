@@ -1,12 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Axios from "../../api/Axios";
-import { NO_CONTENT, CREATED, OK } from '../../api/CustomConst'
-import { reservations, consultantDiagnosis, myReview } from './dumy.js'
-
-// 새로고침 함수
-const back = () => {
-  window.history.go(0)
-}
+import { NO_CONTENT, OK } from '../../api/CustomConst'
 
 // state
 const initialState = {
@@ -14,8 +8,9 @@ const initialState = {
   myConsultantDxData: [],
   myReviewsData: [],
   myResData: [],
+
   // consultant state
-  reservations: [],
+  reservations: [], //컨설턴트의 컨설팅 예약 목록
   reviews: [],   // 사용자가 컨설턴트에게 써준 후기 데이터들 모두 저장
 
   //server status
@@ -34,13 +29,11 @@ export const myConsultantDxFetch = createAsyncThunk(
           return res.data
         } else {
           alert('진단기록을 불러올 수 없습니다.')
-          back()
           return false
         }
       })
       .catch(error => {
         alert('진단기록을 불러올 수 없습니다.')
-        back()
         return false
       })
   }
@@ -105,13 +98,11 @@ export const myReviewFetch = createAsyncThunk(
           return res.data
         } else {
           alert('후기를 불러올 수 없습니다.')
-          back()
           return false
         }
       })
       .catch(error => {
         alert('후기를 불러올 수 없습니다.')
-        back()
         return false
       })
   }
@@ -148,13 +139,11 @@ export const deleteReviewFetch = createAsyncThunk(
           return true
         } else {
           alert('후기가 삭제되지 않았습니다.')
-          back()
           return false
         }
       })
       .catch(error => {
         alert('후기가 삭제되지 않았습니다.')
-        back()
         return false
       })
   }
@@ -192,8 +181,63 @@ export const consultantProfileFecth = createAsyncThunk(
     }
   }
 )
-
-// customer review ==============================
+// consulting reservations ==============================
+export const consultingResFetch = createAsyncThunk(
+  'mypage/consultingResFetch',
+  async () => {
+    return Axios.get('consultants/1')
+      .then(res => {
+        if (res.status === OK) {
+          return res.data.reservations
+        } else {
+          return false
+        }
+      })
+      .catch(error => false)
+  }
+)
+// consultant closed day =========================
+// post
+export const closeDay = createAsyncThunk(
+  'mypage/closedDay',
+  async (closeday) => {
+    return Axios.post('consultants/closed-days', closeday)
+      .then(res => {
+        if (res.status === OK) {
+          alert('휴무일로 지정 되었습니다.')
+          return true
+        } else {
+          alert('휴무일 지정에 실패하였습니다.')
+          return false
+        }
+      })
+      .catch(error => {
+        alert('휴무일 지정에 실패하였습니다.')
+        return false
+      })
+  }
+)
+// delete
+export const deleteClosedDay = createAsyncThunk(
+  'mypage/deleteClosedDay',
+  async (closedDayId) => {
+    return Axios.delete(`consultants/closed-days/${closedDayId}`)
+      .then(res => {
+        if (res.status === OK) {
+          alert('근무일로 지정되었습니다')
+          return true
+        } else {
+          alert('근무일 지정이 실패하였습니다')
+          return false
+        }
+      })
+      .catch(error => {
+        alert('근무일 지정이 실패하였습니다')
+        return false
+      })
+  }
+)
+// consulting review ==============================
 export const getCustomerReview = createAsyncThunk(
   'mypage/getCustomerReview',
   async (arg, { rejectWithValue }) => {
@@ -256,7 +300,17 @@ const mypageSlice = createSlice({
     builder.addCase(consultantProfileFecth.rejected, (state, action) => {
       state.status = 'failed';
     })
-    // customer review extra reducers ==============================
+    builder.addCase(consultingResFetch.pending, (state, action) => {
+      state.status = 'Loading';
+    })
+    builder.addCase(consultingResFetch.fulfilled, (state, { payload }) => {
+      state.status = 'succeeded';
+      state.reservations = payload;
+    })
+    builder.addCase(consultingResFetch.rejected, (state, action) => {
+      state.status = 'failed';
+    })
+    // consulting review extra reducers ==============================
     builder.addCase(getCustomerReview.pending, (state, action) => {
       state.status = 'Loading';
     })
@@ -267,6 +321,7 @@ const mypageSlice = createSlice({
     builder.addCase(getCustomerReview.rejected, (state, action) => {
       state.status = 'failed';
     })
+
   },
 })
 

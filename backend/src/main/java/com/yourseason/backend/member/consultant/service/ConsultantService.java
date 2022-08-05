@@ -3,6 +3,7 @@ package com.yourseason.backend.member.consultant.service;
 import com.yourseason.backend.common.domain.Message;
 import com.yourseason.backend.common.exception.*;
 import com.yourseason.backend.member.common.controller.dto.PasswordUpdateRequest;
+import com.yourseason.backend.member.common.domain.Role;
 import com.yourseason.backend.member.consultant.controller.dto.*;
 import com.yourseason.backend.member.consultant.domain.*;
 import com.yourseason.backend.member.customer.domain.CustomerRepository;
@@ -11,7 +12,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -46,8 +49,7 @@ public class ConsultantService {
     }
 
     public Message createClosedDay(Long consultantId, ClosedDayRequest closedDayRequest) {
-        Consultant consultant = consultantRepository.findById(consultantId)
-                .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
+        Consultant consultant = getConsultant(consultantId);
         consultant.getReservations()
                 .stream()
                 .filter(reservation -> reservation.isActive())
@@ -84,9 +86,8 @@ public class ConsultantService {
                 .collect(Collectors.toList());
     }
 
-    public ConsultantResponse getConsultant(Long consultantId) {
-        Consultant consultant = consultantRepository.findById(consultantId)
-                .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
+    public ConsultantResponse getConsultantDetail(Long consultantId) {
+        Consultant consultant = getConsultant(consultantId);
 
         List<ReservationListResponse> reservations = consultant.getReservations()
                 .stream()
@@ -112,6 +113,8 @@ public class ConsultantService {
                 .consultantId(consultantId)
                 .nickname(consultant.getNickname())
                 .contact(consultant.getContact())
+                .starAverage(consultant.getStarAverage())
+                .reviewCount(consultant.getReviewCount())
                 .imageUrl(consultant.getImageUrl())
                 .introduction(consultant.getIntroduction())
                 .cost(consultant.getCost())
@@ -122,14 +125,14 @@ public class ConsultantService {
     }
 
     public List<ReviewListResponse> getReviews(Long consultantId) {
-        Consultant consultant = consultantRepository.findById(consultantId)
-                .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
+        Consultant consultant = getConsultant(consultantId);
         return consultant.getReviews()
                 .stream()
                 .filter(review -> review.isActive())
                 .map(review -> ReviewListResponse.builder()
-                        .nickname(consultant.getNickname())
-                        .imageUrl(consultant.getImageUrl())
+                        .reviewId(review.getId())
+                        .nickname(review.getCustomer().getNickname())
+                        .imageUrl(review.getCustomer().getImageUrl())
                         .star(review.getStar())
                         .comment(review.getComment())
                         .createdDate(review.getCreatedDate().toLocalDate())
@@ -138,8 +141,7 @@ public class ConsultantService {
     }
 
     public ConsultantReservationResponse getMyReservations(Long consultantId) {
-        Consultant consultant = consultantRepository.findById(consultantId)
-                .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
+        Consultant consultant = getConsultant(consultantId);
 
         List<ReservationDetailListResponse> reservationDetailListResponses = consultant.getReservations()
                 .stream()
@@ -161,8 +163,7 @@ public class ConsultantService {
     }
 
     public ConsultantReviewResponse getMyReviews(Long consultantId) {
-        Consultant consultant = consultantRepository.findById(consultantId)
-                .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
+        Consultant consultant = getConsultant(consultantId);
 
         List<ReviewListResponse> reviewsListResponses = consultant.getReviews()
                 .stream()
@@ -184,8 +185,7 @@ public class ConsultantService {
     }
 
     public ConsultantInfoResponse getConsultantInfo(Long consultantId) {
-        Consultant consultant = consultantRepository.findById(consultantId)
-                .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
+        Consultant consultant = getConsultant(consultantId);
 
         List<ClosedDayListResponse> closedDayListResponses = consultant.getClosedDays()
                 .stream()
@@ -212,8 +212,7 @@ public class ConsultantService {
     }
 
     public Message updateConsultant(Long consultantId, ConsultantUpdateRequest consultantUpdateRequest) {
-        Consultant consultant = consultantRepository.findById(consultantId)
-                .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
+        Consultant consultant = getConsultant(consultantId);
 
         consultant.updateProfile(
                 consultantUpdateRequest.getNickname(),
@@ -226,8 +225,7 @@ public class ConsultantService {
     }
 
     public Message updateConsultantPassword(Long consultantId, PasswordUpdateRequest passwordUpdateRequest) {
-        Consultant consultant = consultantRepository.findById(consultantId)
-                .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
+        Consultant consultant = getConsultant(consultantId);
         checkValidPassword(passwordUpdateRequest.getBeforePassword(), consultant.getPassword());
         if (passwordUpdateRequest.getBeforePassword().equals(passwordUpdateRequest.getAfterPassword())) {
             throw new WrongFormException(PASSWORD_WRONG_FORM);
@@ -238,16 +236,14 @@ public class ConsultantService {
     }
 
     public Message deleteConsultant(Long consultantId) {
-        Consultant consultant = consultantRepository.findById(consultantId)
-                .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
+        Consultant consultant = getConsultant(consultantId);
         consultant.withdraw();
         consultantRepository.save(consultant);
         return new Message("succeeded");
     }
 
     public Message deleteClosedDay(Long consultantId, Long closedDayId) {
-        Consultant consultant = consultantRepository.findById(consultantId)
-                .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
+        Consultant consultant = getConsultant(consultantId);
         ClosedDay closedDay = closedDayRepository.findById(closedDayId)
                 .orElseThrow(() -> new NotFoundException(CLOSED_DAY_NOT_FOUND));
 
@@ -272,5 +268,20 @@ public class ConsultantService {
         if (customerRepository.existsByNickname(nickname) || consultantRepository.existsByNickname(nickname)) {
             throw new DuplicationException(NICKNAME_DUPLICATED);
         }
+    }
+
+    public Map<String, String> getUpdatedConsultant(Long consultantId) {
+        Consultant consultant = getConsultant(consultantId);
+        Map<String, String> member = new HashMap<>();
+        member.put("id", String.valueOf(consultantId));
+        member.put("nickname", consultant.getNickname());
+        member.put("imageUrl", consultant.getImageUrl());
+        member.put("role", String.valueOf(Role.CONSULTANT));
+        return member;
+    }
+
+    private Consultant getConsultant(Long consultantId) {
+        return consultantRepository.findById(consultantId)
+                .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
     }
 }

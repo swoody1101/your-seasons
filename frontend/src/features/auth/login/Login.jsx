@@ -203,7 +203,7 @@ const CenterGrid = styled(Grid)({
 });
 
 const SGrid = styled(Grid)({
-  marginTop: "5rem",
+  // marginTop: "5rem",
   backgroundColor: "#F1F1F190",
   padding: '2rem',
   borderRadius: '1rem',

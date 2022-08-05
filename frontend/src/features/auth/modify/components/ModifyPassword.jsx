@@ -26,7 +26,14 @@ const ModifyPassword = () => {
       alert('기존 비밀번호를 입력해주세요.')
       return;
     }
-    if (!afterPassword || afterPassword !== rePassword) {
+    if (beforePassword === afterPassword) {
+      alert("동일한 비밀번호로 변경하실 수 없습니다.");
+      return;
+    }
+
+    if (!afterPassword
+      || afterPassword !== rePassword
+      || !regex.password.test(afterPassword)) {
       alert("비밀번호를 확인해주세요.");
       return;
     }
@@ -34,6 +41,9 @@ const ModifyPassword = () => {
       .unwrap()
       .then(() => {
         alert("수정이 완료되었습니다.")
+        setBeforePassword('');
+        setAfterPassword('');
+        setRePassword('');
       })
       .catch((err) => {
         if (err.status === BAD_REQUEST) {

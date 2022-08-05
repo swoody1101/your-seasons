@@ -12,9 +12,7 @@ export default function ConsultingResHistory(props) {
             {props.reservation.map((res) => (
                 <ConsultingResHistoryItem
                     key={res.reservationId}
-                    reservationDate={res.reservationDate}
-                    reservationTime={res.reservationTime}
-                    request={res.request}
+                    {...res}
                 />
             ))}
         </div>

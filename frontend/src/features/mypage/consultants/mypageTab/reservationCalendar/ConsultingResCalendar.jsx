@@ -1,22 +1,27 @@
 import React, { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
 import ConsultingResHistory from './ConsultingResHistory';
 import Calendar from 'react-calendar'
 import './ConsultingResCalendar.css';
 import moment from 'moment';
 import { Button, Stack, Box, styled, Grid } from '@mui/material';
 import { ContentPasteOff, ContentPaste } from '@mui/icons-material';
-
-
+import { closeDay, deleteClosedDay } from 'features/mypage/mypageSlice';
+import { loadMember } from 'features/auth/authSlice';
 
 export default function ConsultingResCalendar(props) {
+  const dispatch = useDispatch();
   const today = new Date()
-
+  const { closedDays, role } = useSelector(state => state.auth.logonUser)
+  const dayOff = []
+  closedDays.forEach((off) => {
+    dayOff.push(off.date)
+  })
   let date = (today.getFullYear()) + '-' + ('0' + (today.getMonth() + 1)).slice(-2)
     + '-' + ('0' + today.getDate()).slice(-2);
 
   const [dateState, setDateState] = useState(new Date())
   const [pickedDate, setPickedDate] = useState(date)
-  const [dayOff, setDayOff] = useState(['2022-07-20', '2022-07-21'])
 
   const changeDate = (event) => {
     const date = (event.getFullYear()) + '-' + ('0' + (event.getMonth() + 1)).slice(-2)
@@ -27,14 +32,26 @@ export default function ConsultingResCalendar(props) {
   }
 
   const changeDayOffHandler = () => {
-    setDayOff((prevdayOff) => {
-      return [pickedDate, ...prevdayOff]
-    })
+    const closeday = {
+      "closedDay": pickedDate
+    }
+    dispatch(closeDay(closeday))
+      .then(() => {
+        dispatch(loadMember(role))
+      })
   }
 
   const cancelDayOffHandler = () => {
-    const workingDay = dayOff.filter(date => date !== pickedDate)
-    setDayOff(workingDay)
+    let closedDayId = null
+    closedDays.forEach((res) => {
+      if (res.date === pickedDate) {
+        closedDayId = res.closedDayId
+      }
+    })
+    dispatch(deleteClosedDay(closedDayId))
+      .then(() => {
+        dispatch(loadMember(role))
+      })
   }
 
   const titleContent = ({ activeStartDate, date, view }) => (
@@ -49,6 +66,32 @@ export default function ConsultingResCalendar(props) {
     return res.reservationDate === pickedDate
   })
 
+  let reservedDate = []
+  let btn = ''
+  props.reservations.forEach(res => {
+    reservedDate.push(res.reservationDate)
+  })
+
+  if (dayOff.includes(pickedDate)) {
+    btn = <Button
+      onClick={cancelDayOffHandler}
+      variant="outlined"
+      startIcon={<ContentPaste />}>
+      근무일 지정
+    </Button>
+  } else (
+    btn = <Button
+      onClick={changeDayOffHandler}
+      variant="outlined"
+      color="error"
+      startIcon={<ContentPasteOff />}>
+      휴무일 지정
+    </Button>)
+  if (reservedDate.includes(pickedDate)) {
+    btn = <div>컨설팅 예약이 있습니다.</div>
+  } else if (pickedDate < date) {
+    btn = <div></div>
+  }
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
@@ -72,20 +115,7 @@ export default function ConsultingResCalendar(props) {
             alignItems="center"
             spacing={2}>
             <p>지금 선택한 날짜는 {pickedDate} 입니다.</p>
-            {dayOff.includes(pickedDate) ? (
-              <Button
-                onClick={cancelDayOffHandler}
-                variant="outlined"
-                startIcon={<ContentPaste />}>
-                근무일 지정
-              </Button>
-            ) : <Button
-              onClick={changeDayOffHandler}
-              variant="outlined"
-              color="error"
-              startIcon={<ContentPasteOff />}>
-              휴무일 지정
-            </Button>}
+            {btn}
           </Stack>
 
         </Grid>
