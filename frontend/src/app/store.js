@@ -6,6 +6,7 @@ import thunk from 'redux-thunk';
 // auth
 import AuthReducer from 'features/auth/authSlice'
 // consulting
+import ConsultReducer from 'features/consulting/consultingRoom/consultSlice'
 import ConsultantListReducer from 'features/consulting/consultantListSlice'
 // mypage
 import MypageSlice from "features/mypage/mypageSlice";
@@ -16,6 +17,7 @@ import ColorSetReducer from 'common/colorset/colorSetSlice'
 const reducers = combineReducers({
   auth: AuthReducer,
   mypage: MypageSlice,
+  consult: ConsultReducer,
   consultantList: ConsultantListReducer,
   avatar: AvatarReducer,
   colorSetList: ColorSetReducer,
