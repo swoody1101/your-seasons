@@ -17,7 +17,7 @@ const HomePopularConsultant = () => {
 
 	useEffect(() => {
 		dispatch(ConsultantListFetch())
-	}, [dispatch])
+	}, [])
 
 	return (
 		<Div>

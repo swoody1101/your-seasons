@@ -20,8 +20,8 @@ const HomeProcess1 = () => {
 		<Grid2 item xs={6}>
 				<Img src={DogMeeting} />
 				<Img src={PeopleMeeting} />
-				<Img src={SmilePeople} />
 				<Img src={Drape} />
+				<Img src={SmilePeople} />
 		</Grid2>
 	</BigGrid>
 	)
