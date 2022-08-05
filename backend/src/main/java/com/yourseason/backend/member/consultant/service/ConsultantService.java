@@ -1,5 +1,6 @@
 package com.yourseason.backend.member.consultant.service;
 
+import com.yourseason.backend.common.domain.BaseTimeEntity;
 import com.yourseason.backend.common.domain.Message;
 import com.yourseason.backend.common.exception.*;
 import com.yourseason.backend.member.common.controller.dto.PasswordUpdateRequest;
@@ -91,6 +92,7 @@ public class ConsultantService {
 
         List<ReservationListResponse> reservations = consultant.getReservations()
                 .stream()
+                .filter(BaseTimeEntity::isActive)
                 .map(reservation -> ReservationListResponse.builder()
                         .reservationId(reservation.getId())
                         .reservationDate(reservation.getDate())
