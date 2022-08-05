@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 
-export default function BasicRating({ starAverage }) {
+export default function BasicRating({ starAverage, reviewCount }) {
   const [value, setValue] = useState(starAverage);
 
   return (

@@ -63,7 +63,9 @@ canvas {
 
   /* 각 타이틀별 글씨크기 */
 	--font-title-size: 2rem;
-	--font-title-letter-spacing: -5px;
+	--font-letter-spacing: -3px;
+	--font-sub-size: 1rem;
+
 
 	/* consultant list */
 
