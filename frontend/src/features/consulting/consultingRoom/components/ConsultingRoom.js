@@ -276,9 +276,10 @@ class ConsultingRoom extends Component {
 
     return (
       <SContainer className="container">
-        <Typography variant="h4">{this.state.mySessionId}</Typography>
-        <Typography variant="h6">입장 닉네임 : "{nickname}"</Typography>
-
+        <Box>
+          <Typography variant="h4">{this.state.mySessionId}</Typography>
+          <Typography variant="h6">입장 닉네임 : "{nickname}"</Typography>
+        </Box>
         {this.state.session !== undefined ? (
           <SGridContainer container>
 
@@ -307,17 +308,29 @@ class ConsultingRoom extends Component {
 
           </SGridContainer>
         ) : null}
-        <ButtonGroup sx={{ justifyContent: "end", xs: { width: "100%" }, width: "40%" }}>
-          <Button variant="outlined" onClick={() => this.props.doSettingModalOn()} >
-            화면 조정
+        <Box sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: "space-between",
+          width: '100%',
+          maxWidth: '80%',
+        }}>
+          <Button variant="contained" onClick={this.joinSession}>
+            입장
           </Button>
-          <Button variant="outlined">
-            화면 일시정지
-          </Button>
-          <Button variant="contained">
-            종료
-          </Button>
-        </ButtonGroup>
+
+          <ButtonGroup >
+            <Button variant="outlined" onClick={() => this.props.doSettingModalOn()} >
+              화면 조정
+            </Button>
+            <Button variant="outlined">
+              화면 일시정지
+            </Button>
+            <Button variant="contained" onClick={this.leaveSession}>
+              종료
+            </Button>
+          </ButtonGroup>
+        </Box>
       </SContainer>
     );
   }
@@ -343,7 +356,7 @@ const SContainer = styled(Box)({
   height: "80%",
   display: "flex",
   flexDirection: "column",
-  justifyContent: "center",
+  justifyContent: "space-between",
   alignItems: "center",
 })
 
