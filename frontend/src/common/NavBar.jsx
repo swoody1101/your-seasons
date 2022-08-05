@@ -20,16 +20,6 @@ const LogoText = styled(Typography)((props) => (
 ))
 
 
-const StyledTypography = styled(Typography)({
-  fontFamily: 'malgun !important',
-  fontWeight: 'bold',
-  fontSize: 30,
-  letterSpacing: -5,
-  color: '#000000',
-  // textShadow: 'black 2px 2px'
-})
-
-
 const NavBar = () => {
   const logonUser = useSelector((state) => state.auth.logonUser)
   const { nickname, role } = useSelector((state) => state.auth.logonUser)
@@ -44,41 +34,17 @@ const NavBar = () => {
     navigate('/')
   }
 
-	const [scroll, setScroll] = useState('#ffffff00')
-	
-	useEffect(() => {
-		window.addEventListener('scroll', handleScroll);
-		return () => {
-			window.removeEventListener('scroll', handleScroll); //clean up
-		};
-	}, []);
-
-	const handleScroll = () => {
-	// 스크롤이 Top에서 500px 이상 내려오면 흰색 useState에 넣어줌
-		if(window.scrollY >= 500 ){
-			setScroll('#ffffff');
-			// console.log(scroll)
-		}else{
-		// 스크롤이 500px 미만일경우 투명 넣어줌
-			setScroll('#ffffff00');
-		}
-	}
-
-
   const transparentTheme = createTheme({
     palette: {
       primary: {
-        main: `${scroll}`,//'#ffffff',
-        boxShadow: 'none'
+        main: '#ffffff00',
+        boxShadow: 'none',
       }
     }
   })
 
-
-
-
   return (
-    <ThemeProvider theme={transparentTheme} >
+		<ThemeProvider theme={transparentTheme} >
       <AppBar position="sticky" variant="transparent">
         <StyledToolbar>
           <Logos>
@@ -128,7 +94,7 @@ const NavBar = () => {
                   variant="h6"
                   sx={{ display: { xs: "none", sm: "block" } }}
                 >
-								<Link to="/">Home</Link>
+								<Link to="/">홈</Link>
                 </Typography>
                 <Typography variant="h6" sx={{ display: { xs: "none", sm: "block" } }} >
                   <Link to="consultants">컨설턴트 목록</Link>
@@ -151,7 +117,7 @@ const NavBar = () => {
           </UserBox>
         </StyledToolbar>
       </AppBar>
-    </ThemeProvider>
+		</ThemeProvider>
   )
 }
 
@@ -159,7 +125,10 @@ export default NavBar
 
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
-  backgroundColor: "transparent !important",
+  backgroundColor: "transparent",
+				'&:hover': {
+					backgroundColor: "#ffffff80 !important",
+					},
   justifyContent: "space-between",
 })
 

@@ -9,41 +9,46 @@ const ConsultantListItem = ({ consultantId, nickname, introduction, starAverage,
 
 	return (<>
 	<Link to={`/consultants/detail/${consultantId}`}>
-		<Card sx={{ width: 250, height: 300 }}>
+		<CardItem>
 			<CardActionArea>
-			<div style={{display:'flex', justifyContent:'center'}}>
-				<img src={imageUrl} style={{height:140}} />
-			</div>
-			<CardContent>
-				{/* 닉네임 */}
-				<Nickname>
-					컨설턴트
-					<span style={{fontSize:20}}>{nickname}</span>
-				</Nickname>
-				{/* 별점 */}
-				<StarReview>
-					<StarRating starAverage={starAverage}/>
-					<ReviewCount>({reviewCount})</ReviewCount>
-				</StarReview>
-				{/* 소개 */}
-				<IntroduceDiv>
-					<Introduce>
-						{introduction}
-					</Introduce>
-				</IntroduceDiv>
-				{/* 가격 */}
-				<Cost>
-					가격: {cost}
-				</Cost>
-			</CardContent>
+				<div style={{display:'flex', justifyContent:'center'}}>
+					<img src={imageUrl} style={{height:140}} />
+				</div>
+				<CardContent>
+					{/* 닉네임 */}
+					<Nickname>
+						컨설턴트
+						<span style={{fontSize:20}}>{nickname}</span>
+					</Nickname>
+					{/* 별점 */}
+					<StarReview>
+						<StarRating starAverage={starAverage}/>
+						<ReviewCount>({reviewCount})</ReviewCount>
+					</StarReview>
+					{/* 소개 */}
+					<IntroduceDiv>
+						<Introduce>
+							{introduction}
+						</Introduce>
+					</IntroduceDiv>
+					{/* 가격 */}
+					<Cost>
+						가격: {cost}
+					</Cost>
+				</CardContent>
 			</CardActionArea>
-			<CardActions>
-			</CardActions>
-		</Card>
+		</CardItem>
 	</Link>
 </>)
 }
 export default ConsultantListItem
+
+const CardItem = styled(Card)({
+	width: 250, 
+	height: 300, 
+	boxSizing: 'border-box',
+})
+
 
 const IntroduceDiv = styled('div')({
 	height: 40,

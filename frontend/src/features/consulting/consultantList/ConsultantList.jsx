@@ -1,22 +1,22 @@
 import React, { useState } from 'react'
 import ConsultantListItem from './ConsultantListItem'
 import { useSelector } from 'react-redux'
-import { Grid, Box, MenuItem, FormControl, Select } from '@mui/material'
+import { Grid, Box, MenuItem, FormControl, Select, styled } from '@mui/material'
 
 const ConsultantList = () => {
 	const consultants = useSelector(state => state.consultantList.consultants)
 	const copyConsultants = [...consultants]
-	console.log(consultants)
 	const [value, setValue] = useState('popular')
 
 	const handleChange = (event) => {
 		setValue(event.target.value);
 	};
 
-	return (<div style={{ margin: 100 }}>
-		{/* select */}
-		<Box sx={{ minWidth: 120, display: 'flex', justifyContent: 'flex-end', marginBottom: 4 }}>
-			<div></div>
+	return (
+<BackDiv>
+	<Div>
+		{/* select-toggle */}
+		<Toggle>
 			<FormControl>
 				<Select
 					labelId='select-demo'
@@ -31,31 +31,54 @@ const ConsultantList = () => {
 					<MenuItem value={'highCost'}>높은 가격순</MenuItem>
 				</Select>
 			</FormControl>
-		</Box>
+		</Toggle>
 
 		{/* 컨설턴트 리스트 아이템 */}
-		<Grid container sx={{ flexWrap: "wrap", direction: "row", justifyContent: "start" }} spacing={3}>
-			{/* 페이지네이션 구현중.. */}
-			{/* slice((pageNumber-1)*20, (pageNumber*20)-1). */}
-			{/* {consultants.sort(sorter).map((consultant, index)=>(
-				<Grid item xs={12} sm={6} md={3} key={index}>
-						<ConsultantListItem {...consultant} /> 	
-					</Grid>
-			))} */}
-
+		<BigGrid container spacing={3}>
 			{copyConsultants.map((consultant, index) => (
-				<Grid item xs={12} sm={6} md={3} key={index}>
+				<SmallGrid item xs={12} sm={6} md={3} key={index}>
 					<ConsultantListItem {...consultant} />
-				</Grid>
+				</SmallGrid>
 			))}
-		</Grid>
-
-		{/* <Pagination page={Number(pageNumber)} boundaryCount={2} variant="outlined" 
-				onClick={paginate}
-				count={10}
-        color="secondary" size="large" sx={{margin: 2}} />
-				 */}
-	</div>)
-}
+		</BigGrid>
+	</Div>
+</BackDiv>
+)}
 
 export default ConsultantList
+
+const BackDiv = styled('div')({
+	display: 'flex',
+	flexDirection: 'row',
+	justifyContent: 'center',
+	backgroundColor: '#eeeeee',
+})
+
+const Div = styled('div')({
+	width: 1200,
+	display: 'flex',
+	marginTop: 100,
+	flexDirection: 'column',
+	justifyContent: 'center',
+})
+
+const Toggle = styled('div')({
+	minWidth: 120, 
+	display: 'flex', 
+	justifyContent: 'flex-end', 
+	marginBottom: '2rem',
+	marginRight: 30,
+})
+
+const BigGrid = styled(Grid)({
+	display: 'flex',
+	flexDirection: 'row', 
+	flexWrap: 'wrap', 
+	justifyContent: "start",
+})
+
+const SmallGrid = styled(Grid)({
+	display: 'flex',
+	flexDirection: 'row', 
+	marginBottom: 20,
+})
