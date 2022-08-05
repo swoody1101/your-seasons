@@ -13,6 +13,8 @@ public class ConsultantResponse {
     private Long consultantId;
     private String nickname;
     private String contact;
+    private double starAverage;
+    private int reviewCount;
     private String imageUrl;
     private String introduction;
     private String cost;

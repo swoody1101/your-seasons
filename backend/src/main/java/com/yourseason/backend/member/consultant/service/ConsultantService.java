@@ -109,6 +109,8 @@ public class ConsultantService {
                 .consultantId(consultantId)
                 .nickname(consultant.getNickname())
                 .contact(consultant.getContact())
+                .starAverage(consultant.getStarAverage())
+                .reviewCount(consultant.getReviewCount())
                 .imageUrl(consultant.getImageUrl())
                 .introduction(consultant.getIntroduction())
                 .cost(consultant.getCost())
