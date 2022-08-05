@@ -8,8 +8,7 @@ import moment from 'moment';
 import { Box, styled, Grid, Typography } from '@mui/material';
 
 
-
-const ConsultingResCalendar = (props) => {
+const ConsultingResCalendar = () => {
   const { reservations, closedDays } = useSelector(state => state.consultantList.consultantDetail)
   const today = new Date()
 
@@ -19,9 +18,11 @@ const ConsultingResCalendar = (props) => {
   const [dateState, setDateState] = useState(new Date())
   const [pickedDate, setPickedDate] = useState(todaydate)
   const dayOff = []
-  closedDays.map((res) => {
+
+  closedDays.forEach((res) => {
     dayOff.push(res.date)
   })
+
   const timeTable = [
     '09:00:00',
     '10:00:00',
