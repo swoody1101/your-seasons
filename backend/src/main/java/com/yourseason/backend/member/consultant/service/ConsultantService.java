@@ -75,11 +75,11 @@ public class ConsultantService {
     public List<ConsultantListResponse> getConsultants(String order) {
         List<Consultant> consultantList = new ArrayList<>();
         if (order == null) {
-            consultantList = consultantRepository.findAllByOrderByIdDesc();
+            consultantList = consultantRepository.findAllByOrderByStarAverageDesc();
         } else if (order.equals("manyReviews")) {
             consultantList = consultantRepository.findAllByOrderByReviewCountDesc();
-        } else if (order.equals("popular")) {
-            consultantList = consultantRepository.findAllByOrderByStarAverageDesc();
+        } else if (order.equals("latest")) {
+            consultantList = consultantRepository.findAllByOrderByIdDesc();
         } else if (order.equals("highCost")) {
             consultantList = consultantRepository.findAllByOrderByCostDesc();
         } else if (order.equals("lowCost")) {
