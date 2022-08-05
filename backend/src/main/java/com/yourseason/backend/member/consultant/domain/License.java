@@ -23,8 +23,8 @@ public class License extends BaseTimeEntity {
     private List<Consultant> consultants = new ArrayList<>();
 
     @Builder
-    public License(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate, boolean isActive, String name, List<Consultant> consultants) {
-        super(id, createdDate, lastModifiedDate, deletedDate, isActive);
+    public License(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate, String name, List<Consultant> consultants) {
+        super(id, createdDate, lastModifiedDate, deletedDate, true);
         this.name = name;
         this.consultants = consultants;
     }

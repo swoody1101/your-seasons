@@ -31,9 +31,9 @@ public class TestResult extends BaseTimeEntity {
     private String consultingFile;
 
     @Builder
-    public TestResult(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDateTime deletedDate, boolean isActive,
+    public TestResult(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDateTime deletedDate,
                       BestColorSet bestColorSet, WorstColorSet worstColorSet, Tone tone, String consultingFile) {
-        super(id, createdTime, lastModifiedTime, deletedDate, isActive);
+        super(id, createdTime, lastModifiedTime, deletedDate, true);
         this.bestColorSet = bestColorSet;
         this.worstColorSet = worstColorSet;
         this.tone = tone;

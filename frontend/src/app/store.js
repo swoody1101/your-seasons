@@ -3,25 +3,24 @@ import storage from 'redux-persist/lib/storage';
 import { combineReducers } from 'redux';
 import { persistReducer } from 'redux-persist';
 import thunk from 'redux-thunk';
-import LoginReducer from '../components/login/loginSlice';
-import SignUpReducer from '../components/signup/signUpSlice';
-import ModifyReducer from '../components/modify/modifySlice';
-import myPageReducer from '../components/mypage/myPageSlice';
-import UserReviewReducer from '../components/consultantmypage/userReviewSlice';
-import consultantProfileReducer from '../components/consultantmypage/consultantProfileSlice';
-import ConsultantListReducer from '../components/consultantList/consultantListSlice'
-import AvatarReducer from "../components/avatar/avatarSlice";
-
+// auth
+import AuthReducer from 'features/auth/authSlice'
+// consulting
+import ConsultReducer from 'features/consulting/consultingRoom/consultSlice'
+import ConsultantListReducer from 'features/consulting/consultantListSlice'
+// mypage
+import MypageSlice from "features/mypage/mypageSlice";
+// common
+import AvatarReducer from "common/avatar/avatarSlice";
+import ColorSetReducer from 'common/colorset/colorSetSlice'
 
 const reducers = combineReducers({
-  signup: SignUpReducer,
-  login: LoginReducer,
-  modify: ModifyReducer,
+  auth: AuthReducer,
+  mypage: MypageSlice,
+  consult: ConsultReducer,
+  consultantList: ConsultantListReducer,
   avatar: AvatarReducer,
-  review: UserReviewReducer,
-	customerMyPage: myPageReducer,
-  consultantprofile: consultantProfileReducer,
-	consultantList: ConsultantListReducer,
+  colorSetList: ColorSetReducer,
 });
 
 const persistConfig = {

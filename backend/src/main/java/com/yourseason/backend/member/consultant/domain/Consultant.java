@@ -50,11 +50,11 @@ public class Consultant extends Member {
     private List<Consulting> consultings = new ArrayList<>();
 
     @Builder
-    public Consultant(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDateTime deletedDate, boolean isActive,
+    public Consultant(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDateTime deletedDate,
                       String email, String password, String name, LocalDate birth, String nickname, String contact, String imageUrl,
                       List<Consulting> consultings, List<Reservation> reservations, List<Review> reviews, String consultingFile,
                       String introduction, String cost, double starAverage, int reviewCount, License license, String licenseNumber, List<ClosedDay> closedDays) {
-        super(id, createdTime, lastModifiedTime, deletedDate, isActive, email, password, name, birth, nickname, contact, imageUrl);
+        super(id, createdTime, lastModifiedTime, deletedDate, email, password, name, birth, nickname, contact, imageUrl);
         this.introduction = introduction;
         this.cost = cost;
         this.starAverage = starAverage;
@@ -101,11 +101,15 @@ public class Consultant extends Member {
     }
 
     public void updateStarAverageByCreatedReview(int star) {
-        starAverage = (getTotalStar() + star) / ++reviewCount;;
+        starAverage = (getTotalStar() + star) / ++reviewCount;
     }
 
     public void updateStarAverageByDeletedReview(int star) {
-        starAverage = (getTotalStar() - star) / --reviewCount;
+        if (reviewCount - 1 > 0) {
+            starAverage = (getTotalStar() - star) / --reviewCount;
+        } else {
+            starAverage = 0;
+        }
     }
 
     private double getTotalStar() {

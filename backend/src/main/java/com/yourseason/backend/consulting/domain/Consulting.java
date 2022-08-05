@@ -37,9 +37,9 @@ public class Consulting extends BaseTimeEntity {
 
     @Builder
     public Consulting(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate,
-                      boolean isActive, TestResult testResult, String comment, boolean hasReview, Consultant consultant,
+                      TestResult testResult, String comment, boolean hasReview, Consultant consultant,
                       Customer customer) {
-        super(id, createdDate, lastModifiedDate, deletedDate, isActive);
+        super(id, createdDate, lastModifiedDate, deletedDate, false);
         this.testResult = testResult;
         this.comment = comment;
         this.hasReview = hasReview;
@@ -49,5 +49,13 @@ public class Consulting extends BaseTimeEntity {
 
     public void registerReview() {
         hasReview = true;
+    }
+
+    public void deleteReview() {
+        hasReview = false;
+    }
+
+    public boolean hasReview() {
+        return hasReview;
     }
 }

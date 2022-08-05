@@ -9,8 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
-
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/reviews")
@@ -18,16 +16,16 @@ public class ReviewController {
 
     private final ReviewService reviewService;
 
-    @PostMapping("/{consultantId}")
-    public ResponseEntity<ReviewResponse> createReview(@RequestHeader("X-Auth-Token") String token,
-                                                       @PathVariable Long consultantId,
+    @PostMapping("/{consultingId}")
+    public ResponseEntity<ReviewResponse> createReview(@RequestHeader("Authorization") String token,
+                                                       @PathVariable Long consultingId,
                                                        @RequestBody ReviewRequest reviewRequest) {
         return ResponseEntity.ok()
-                .body(reviewService.createReview(JwtUtil.getMemberId(token), consultantId, reviewRequest));
+                .body(reviewService.createReview(JwtUtil.getMemberId(token), consultingId, reviewRequest));
     }
 
     @PatchMapping("/{reviewId}")
-    public ResponseEntity<ReviewResponse> updateReview(@RequestHeader("X-Auth-Token") String token,
+    public ResponseEntity<ReviewResponse> updateReview(@RequestHeader("Authorization") String token,
                                                        @PathVariable Long reviewId,
                                                        @RequestBody ReviewRequest reviewRequest) {
         return ResponseEntity.ok()
@@ -35,7 +33,7 @@ public class ReviewController {
     }
 
     @DeleteMapping("/{reviewId}")
-    public ResponseEntity<Message> deleteReview(@RequestHeader("X-Auth-Token") String token,
+    public ResponseEntity<Message> deleteReview(@RequestHeader("Authorization") String token,
                                                 @PathVariable Long reviewId) {
         return ResponseEntity.ok()
                 .body(reviewService.deleteReview(JwtUtil.getMemberId(token), reviewId));

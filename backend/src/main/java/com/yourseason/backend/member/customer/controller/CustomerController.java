@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -26,45 +25,48 @@ public class CustomerController {
     }
 
     @GetMapping("/4")
-    public ResponseEntity<CustomerResponse> getCustomer(@RequestHeader("X-Auth-Token") String token) {
+    public ResponseEntity<CustomerResponse> getCustomer(@RequestHeader("Authorization") String token) {
         return ResponseEntity.ok()
-                .body(customerService.getCustomer(JwtUtil.getMemberId(token)));
+                .body(customerService.getCustomerInfo(JwtUtil.getMemberId(token)));
     }
 
     @GetMapping("/1")
-    public ResponseEntity<List<ReservationListResponse>> getMyReservations(@RequestHeader("X-Auth-Token") String token) {
+    public ResponseEntity<List<ReservationListResponse>> getMyReservations(@RequestHeader("Authorization") String token) {
         return ResponseEntity.ok()
                 .body(customerService.getMyReservations(JwtUtil.getMemberId(token)));
     }
 
     @GetMapping("/2")
-    public ResponseEntity<List<ConsultingListResponse>> getMyConsultings(@RequestHeader("X-Auth-Token") String token) {
+    public ResponseEntity<List<ConsultingListResponse>> getMyConsultings(@RequestHeader("Authorization") String token) {
         return ResponseEntity.ok()
                 .body(customerService.getMyConsultings(JwtUtil.getMemberId(token)));
     }
 
     @GetMapping("/3")
-    public ResponseEntity<List<ReviewListResponse>> getMyReviews(@RequestHeader("X-Auth-Token") String token) {
+    public ResponseEntity<List<ReviewListResponse>> getMyReviews(@RequestHeader("Authorization") String token) {
         return ResponseEntity.ok()
                 .body(customerService.getMyReviews(JwtUtil.getMemberId(token)));
     }
 
     @PatchMapping
-    public ResponseEntity<Message> updateCustomer(@RequestHeader("X-Auth-Token") String token,
+    public ResponseEntity<Message> updateCustomer(@RequestHeader("Authorization") String token,
                                                   @RequestBody CustomerUpdateRequest customerUpdateRequest) {
+        Long customerId = JwtUtil.getMemberId(token);
+        Message message = customerService.updateCustomer(customerId, customerUpdateRequest);
         return ResponseEntity.ok()
-                .body(customerService.updateCustomer(JwtUtil.getMemberId(token), customerUpdateRequest));
+                .header("Authorization", JwtUtil.generateToken(customerService.getUpdatedCustomer(customerId)))
+                .body(message);
     }
 
     @PatchMapping("/password")
-    public ResponseEntity<Message> updateCustomerPassword(@RequestHeader("X-Auth-Token") String token,
+    public ResponseEntity<Message> updateCustomerPassword(@RequestHeader("Authorization") String token,
                                                           @RequestBody PasswordUpdateRequest passwordUpdateRequest) {
         return ResponseEntity.ok()
                 .body(customerService.updateCustomerPassword(JwtUtil.getMemberId(token), passwordUpdateRequest));
     }
 
     @DeleteMapping
-    public ResponseEntity<Message> deleteCustomer(@RequestHeader("X-Auth-Token") String token) {
+    public ResponseEntity<Message> deleteCustomer(@RequestHeader("Authorization") String token) {
         return ResponseEntity.ok()
                 .body(customerService.deleteCustomer(JwtUtil.getMemberId(token)));
     }
