@@ -11,7 +11,7 @@ const initialState = {
 
 // get
 export const ConsultantListFetch = createAsyncThunk(
-	'consultants/ConsultantListFetch',
+	'consultants',
 	async () => {
 		return Axios.get('consultants')
 			.then(res => {
