@@ -2,7 +2,7 @@ import React from 'react'
 import Carousel from 'react-material-ui-carousel';
 import { styled, Typography, Paper } from '@mui/material';
 
-import IMG1 from 'assets/images/homeSlide/spring04.jpg'
+import IMG1 from 'assets/images/homeSlide/spring03.jpg'
 import IMG2 from 'assets/images/homeSlide/summer02.jpg'
 import IMG3 from 'assets/images/homeSlide/autumn04.jpg'
 import IMG4 from 'assets/images/homeSlide/winter01.jpg'
@@ -53,10 +53,10 @@ function Item(props) {
     </SetPaper>
   )
 }
+
 const SetPaper = styled(Paper)({
   position: "relative",
   height: "60vh",
-  zIndex: "0",
   backgroundColor: "transparent",
   boxShadow: "none",
 })
@@ -71,11 +71,9 @@ const dir = [
 const SlideImg = styled('img')({
   minWidth: "940px",
   minHeight: "760px",
-  // position: "absolute",
   bottom: "-20vh",
   width: "100vw",
-  height: "80vw",
-  zIndex: "-1",
+  // height: "80vh",
   "@keyframes pulsate": {
     from: {
       transform: `scale(1)`,
@@ -86,19 +84,17 @@ const SlideImg = styled('img')({
   },
   animation: "pulsate 1.8s infinite ease",
   animationDirection: "alternate",
-  // "-webkit-mask-image": "linear-gradient(to top,  transparent 20%, black 60%, transparent 20%)",
+  "-webkit-mask-image": "linear-gradient(to top,  transparent 20%, black 60%, transparent 20%)",
   maskImage: "linear-gradient(to top, transparent 10%, black )"
 })
 
-
 const TEXT = styled(Typography)((props) => (
   {
-		
     fontFamily: 'Happiness-Sans-Bold !important',
     position: "absolute",
     top: `${dir[props.seq].top}%`,
     left: `${dir[props.seq].left}%`,
-    fontSize: "2rem",
+    fontSize: "2.5rem",
     color: "#000000",
     zIndex: "1100",
     "@keyframes textIn": {
@@ -113,4 +109,3 @@ const TEXT = styled(Typography)((props) => (
     animationDirection: "alternate"
   }
 ))
-
