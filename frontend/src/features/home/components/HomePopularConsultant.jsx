@@ -31,7 +31,7 @@ import ConsultantListItem from '../../consulting/consultantList/ConsultantListIt
 // }
 
 const HomePopularConsultant = () => {
-  const consultants = useSelector(state => state.consultantList.consultantsData).slice(0, 10)
+  const consultants = useSelector(state => state.consultantList.consultants).slice(0, 10)
   // 비어있으면 true
   const hasConsultants = _.isEmpty(consultants)
 

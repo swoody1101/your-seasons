@@ -6,7 +6,7 @@ import { ConsultantListFetch } from '../consultantListSlice'
 
 const ConsultantList = () => {
 	const dispatch = useDispatch()
-	const consultants = useSelector(state => state.consultantList.consultantsData)
+	const consultants = useSelector(state => state.consultantList.consultants)
 	const copyConsultants = [...consultants]
 	console.log(consultants)
 	const [value, setValue] = useState('popular')
