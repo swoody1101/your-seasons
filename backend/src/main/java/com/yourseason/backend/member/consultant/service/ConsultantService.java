@@ -1,5 +1,6 @@
 package com.yourseason.backend.member.consultant.service;
 
+import com.yourseason.backend.common.domain.BaseTimeEntity;
 import com.yourseason.backend.common.domain.Message;
 import com.yourseason.backend.common.exception.*;
 import com.yourseason.backend.member.common.controller.dto.PasswordUpdateRequest;
@@ -84,6 +85,24 @@ public class ConsultantService {
                                 .imageUrl(consultant.getImageUrl())
                                 .build())
                 .collect(Collectors.toList());
+    }
+
+    public List<ConsultantListResponse> getConsultantBySearch(String keyword) {
+        return consultantRepository.findByNicknameContaining(keyword)
+                .stream()
+                .filter(BaseTimeEntity::isActive)
+                .map(consultant ->
+                        ConsultantListResponse.builder()
+                                .consultantId(consultant.getId())
+                                .nickname(consultant.getNickname())
+                                .introduction(consultant.getIntroduction())
+                                .reviewCount(consultant.getReviewCount())
+                                .starAverage(consultant.getStarAverage())
+                                .cost(consultant.getCost())
+                                .imageUrl(consultant.getImageUrl())
+                                .build())
+                .collect(Collectors.toList());
+
     }
 
     public ConsultantResponse getConsultantDetail(Long consultantId) {
