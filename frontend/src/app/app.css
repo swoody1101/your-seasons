@@ -63,23 +63,7 @@ canvas {
 
   /* 각 타이틀별 글씨크기 */
 	--font-title-size: 2rem;
-	--font-title-letter-spacing: -5px;
-
-	/* consultant list */
-
-
-	/* --font-small */
-  /* --font-large:18px;
-  --font-medium:14px;
-  --font-small:12px;
-  --font-micro:10px; */
-	
-
+	--font-letter-spacing: -3px;
+	--font-sub-size: 1.2rem;
 
 }
-
-/* 사용법 
-header .logo i {
-  color: var(--red-color);
-} 
-*/

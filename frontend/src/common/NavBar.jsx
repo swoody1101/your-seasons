@@ -44,7 +44,7 @@ const NavBar = () => {
     navigate('/')
   }
 
-	const [scroll, setScroll] = useState('#ffffff')
+	const [scroll, setScroll] = useState('#ffffff00')
 	
 	useEffect(() => {
 		window.addEventListener('scroll', handleScroll);
