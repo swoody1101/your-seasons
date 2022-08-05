@@ -9,7 +9,7 @@ import { settingModalOn } from 'features/consulting/consultingRoom/consultSlice'
 import axios from 'axios';
 import UserVideoComponent from './UserVideoComponent';
 
-const OPENVIDU_SERVER_URL = 'https://' + window.location.hostname + ':4443';
+const OPENVIDU_SERVER_URL = 'https://' + window.location.hostname + ':8443';
 const OPENVIDU_SERVER_SECRET = 'YOUR_SEASONS_SECRET';
 
 
@@ -18,7 +18,7 @@ class ConsultingRoom extends Component {
     super(props);
 
     this.state = {
-      mySessionId: 'SessionA',
+      mySessionId: 'SessionA', // 임시 고정값
       myUserName: undefined,
       session: undefined,
       mainStreamManager: undefined,
