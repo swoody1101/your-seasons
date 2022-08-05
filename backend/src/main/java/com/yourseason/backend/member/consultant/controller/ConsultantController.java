@@ -32,9 +32,9 @@ public class ConsultantController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ConsultantListResponse>> getConsultants() {
+    public ResponseEntity<List<ConsultantListResponse>> getConsultants(@RequestParam(required = false) String order) {
         return ResponseEntity.ok()
-                .body(consultantService.getConsultants());
+                .body(consultantService.getConsultants(order));
     }
 
     @GetMapping("/{consultantId}/1")

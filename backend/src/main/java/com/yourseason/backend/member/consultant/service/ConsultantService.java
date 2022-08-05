@@ -1,5 +1,6 @@
 package com.yourseason.backend.member.consultant.service;
 
+import com.yourseason.backend.common.domain.BaseTimeEntity;
 import com.yourseason.backend.common.domain.Message;
 import com.yourseason.backend.common.exception.*;
 import com.yourseason.backend.member.common.controller.dto.PasswordUpdateRequest;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,9 +72,21 @@ public class ConsultantService {
         return new Message("succeeded");
     }
 
-    public List<ConsultantListResponse> getConsultants() {
-        return consultantRepository.findByIsActiveTrue()
-                .stream()
+    public List<ConsultantListResponse> getConsultants(String order) {
+        List<Consultant> consultantList = new ArrayList<>();
+        if (order == null) {
+            consultantList = consultantRepository.findAllByOrderByIdDesc();
+        } else if (order.equals("manyReviews")) {
+            consultantList = consultantRepository.findAllByOrderByReviewCountDesc();
+        } else if (order.equals("popular")) {
+            consultantList = consultantRepository.findAllByOrderByStarAverageDesc();
+        } else if (order.equals("highCost")) {
+            consultantList = consultantRepository.findAllByOrderByCostDesc();
+        } else if (order.equals("lowCost")) {
+            consultantList = consultantRepository.findAllByOrderByCost();
+        }
+        return consultantList.stream()
+                .filter(BaseTimeEntity::isActive)
                 .map(consultant ->
                         ConsultantListResponse.builder()
                                 .consultantId(consultant.getId())
