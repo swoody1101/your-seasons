@@ -164,6 +164,8 @@ export const modifyMember = createAsyncThunk(
         console.log(modi)
         response = await Axios.patch('consultants', modi);
       }
+      const token = response.headers["authorization"]; // 헤더로 받을 때   
+      saveToken(token);
       return response;
     } catch (err) {
       return rejectWithValue(err);
