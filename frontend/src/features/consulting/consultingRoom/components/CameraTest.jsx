@@ -1,16 +1,17 @@
 import React, { useRef, useState } from 'react'
+import { useDispatch } from 'react-redux';
 
 import { Box, Button, Container, Grid, styled, Typography, Slider } from '@mui/material'
+
+import { settingModalOff } from 'features/consulting/consultingRoom/consultSlice'
 
 import WarningIcon from '@mui/icons-material/Warning';
 import MicIcon from '@mui/icons-material/Mic';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
-const CameraTest = ({
-  isSetClear,
-  setIsSetClear
-}) => {
+const CameraTest = () => {
   const myVideo = useRef('');
+  const dispatch = useDispatch();
 
   const [hue, setHue] = useState(50);
   const [saturation, setSaturation] = useState(50);
@@ -18,10 +19,6 @@ const CameraTest = ({
 
   const [micVolume, setMicVolume] = useState(10);
 
-  const handleSetClear = (e) => {
-    e.preventDefault();
-    setIsSetClear(!isSetClear)
-  }
   return (
     <Container sx={{ xs: 'none', sm: 'block', height: '100%', position: 'fixed', top: '0', left: '0', zIndex: '1200' }}>
       <SContainer>
@@ -32,7 +29,7 @@ const CameraTest = ({
               <Typography variant="h6">
                 비디오 확인하기
               </Typography>
-              <Video useRef={myVideo} />
+              <Video useref={myVideo} />
               <Typography variant="h6">
                 색상 | 채도 | 명도
               </Typography>
@@ -110,7 +107,7 @@ const CameraTest = ({
             </SoundContainer>
           </SGrid>
         </SGridContainer>
-        <Button onClick={handleSetClear} variant="contained" sx={{ xs: { width: "100%" }, width: "40%" }}>
+        <Button onClick={() => { dispatch(settingModalOff()) }} variant="contained" sx={{ xs: { width: "100%" }, width: "40%" }}>
           세팅완료
         </Button>
       </SContainer>
