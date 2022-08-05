@@ -86,6 +86,23 @@ public class ConsultantService {
                 .collect(Collectors.toList());
     }
 
+    public List<ConsultantListResponse> getTop10Consultants() {
+        return consultantRepository.findTop10ByOrderByStarAverageDesc()
+                .stream()
+                .filter(Consultant::isActive)
+                .map(consultant ->
+                        ConsultantListResponse.builder()
+                                .consultantId(consultant.getId())
+                                .nickname(consultant.getNickname())
+                                .introduction(consultant.getIntroduction())
+                                .reviewCount(consultant.getReviewCount())
+                                .starAverage(consultant.getStarAverage())
+                                .cost(consultant.getCost())
+                                .imageUrl(consultant.getImageUrl())
+                                .build())
+                .collect(Collectors.toList());
+    }
+
     public ConsultantResponse getConsultantDetail(Long consultantId) {
         Consultant consultant = getConsultant(consultantId);
 

@@ -37,6 +37,12 @@ public class ConsultantController {
                 .body(consultantService.getConsultants());
     }
 
+    @GetMapping("/top10")
+    public ResponseEntity<List<ConsultantListResponse>> getTop10Consultants() {
+        return ResponseEntity.ok()
+                .body(consultantService.getTop10Consultants());
+    }
+
     @GetMapping("/{consultantId}/1")
     public ResponseEntity<ConsultantResponse> getConsultant(@PathVariable Long consultantId) {
         return ResponseEntity.ok()
