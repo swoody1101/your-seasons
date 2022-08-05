@@ -1,19 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import ConsultantListItem from './ConsultantListItem'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Grid, Box, MenuItem, FormControl, Select } from '@mui/material'
-import { ConsultantListFetch } from '../consultantListSlice'
 
 const ConsultantList = () => {
-	const dispatch = useDispatch()
 	const consultants = useSelector(state => state.consultantList.consultants)
 	const copyConsultants = [...consultants]
 	console.log(consultants)
 	const [value, setValue] = useState('popular')
-
-	useEffect(() => {
-		dispatch(ConsultantListFetch())
-	}, [dispatch])
 
 	const handleChange = (event) => {
 		setValue(event.target.value);

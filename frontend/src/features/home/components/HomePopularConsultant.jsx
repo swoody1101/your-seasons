@@ -1,19 +1,25 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux'
 import { Box,  styled, Typography, Grid } from '@mui/material'
-import { useSelector } from 'react-redux'
 import _ from 'lodash'
 import ConsultantListItem from 'features/consulting/consultantList/ConsultantListItem'
 import ItemsCarousel from 'react-items-carousel'
+import { ConsultantListFetch } from 'features/consulting/consultantListSlice';
+
 
 const HomePopularConsultant = () => {
   const consultants = useSelector(state => state.consultantList.consultants).slice(0, 10)
   // 비어있으면 true
+	const dispatch = useDispatch()
   const hasConsultants = _.isEmpty(consultants)
   const [activeItemIndex, setActiveItemIndex] = useState(0);
 
+	useEffect(() => {
+		dispatch(ConsultantListFetch())
+	}, [dispatch])
 
- 
+
   return (
     <Div>
 		<ColorBox>

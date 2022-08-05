@@ -84,7 +84,6 @@ const SlideImg = styled('img')({
   },
   animation: "pulsate 1.8s infinite ease",
   animationDirection: "alternate",
-  "-webkit-mask-image": "linear-gradient(to top,  transparent 20%, black 60%, transparent 20%)",
   maskImage: "linear-gradient(to top, transparent 10%, black )"
 })
 
