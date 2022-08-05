@@ -62,7 +62,7 @@ const ConsultingResBtn = (props) => {
     if (reservation.request.length < 10) {
       alert('10자이상 입력해 주세요!')
     } else if (pickedTime === '') {
-      alert('상담을 원하는 시간을 선택해주세요!')
+      alert('원하는 상담시간을 선택해주세요')
     }
     else {
       dispatch(createReservation({ consultantId, reservation }))
