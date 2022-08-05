@@ -102,7 +102,6 @@ public class ConsultantService {
                                 .imageUrl(consultant.getImageUrl())
                                 .build())
                 .collect(Collectors.toList());
-
     }
 
     public ConsultantResponse getConsultantDetail(Long consultantId) {
