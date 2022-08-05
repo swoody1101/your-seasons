@@ -52,12 +52,14 @@ const BackDiv = styled('div')({
 	flexDirection: 'row',
 	justifyContent: 'center',
 	backgroundColor: '#eeeeee',
+	marginTop: -70,
 })
 
 const Div = styled('div')({
 	width: 1200,
 	display: 'flex',
-	marginTop: 100,
+	marginTop: 130,
+	marginBottom: 130,
 	flexDirection: 'column',
 	justifyContent: 'center',
 })

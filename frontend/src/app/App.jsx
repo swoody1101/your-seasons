@@ -42,8 +42,8 @@ const App = () => {
           <Route path='/signup' element={<SignUp />} />
           <Route path='/colorset' element={<TemporaryRoom />} />
         </Routes>
-      </Stack>
       <Footer />
+      </Stack>
     </Box>
   )
 }

@@ -12,14 +12,6 @@ import { logoutUser, resetUser } from 'features/auth/authSlice';
 import MyAvatar from 'common/avatar/MyAvatar';
 
 
-const LogoText = styled(Typography)((props) => (
-  {
-    fontFamily: 'Happiness-Sans-Title !important',
-    color: "#FFFFFF",
-  }
-))
-
-
 const NavBar = () => {
   const logonUser = useSelector((state) => state.auth.logonUser)
   const { nickname, role } = useSelector((state) => state.auth.logonUser)
@@ -123,12 +115,14 @@ const NavBar = () => {
 
 export default NavBar
 
+
+
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
   backgroundColor: "transparent",
-				'&:hover': {
-					backgroundColor: "#ffffff80 !important",
-					},
+		'&:hover': {
+			backgroundColor: "#ffffff80 !important",
+			},
   justifyContent: "space-between",
 })
 
@@ -138,10 +132,16 @@ const Logos = styled(Box)(({ theme }) => ({
   alignItems: "center",
   gap: "1rem",
   a: {
-    // color: "black",
-    // textShadow: '1px 1px 2px black'
+    color: "black",
+    textShadow: '2px 2px 6px gray'
   }
 }))
+
+
+const LogoText = styled(Typography)({
+	fontFamily: 'Happiness-Sans-Title !important',
+	color: "#FFFFFF",
+})
 
 
 const Navs = styled(Box)(({ theme }) => ({
@@ -152,7 +152,7 @@ const Navs = styled(Box)(({ theme }) => ({
   fontFamily: "Happiness-Sans-Title",
   a: {
     color: "black",
-    // textShadow: '1px 1px 2px black'
+		textShadow: '2px 2px 6px gray'
   }
 }))
 
@@ -167,7 +167,3 @@ const StyledA = styled('a')({
   ":hover": [{ cursor: "pointer" }]
 })
 
-const Logo = styled('img')({
-  width: '5rem',
-  height: '5rem'
-})

@@ -87,8 +87,7 @@ const SlideImg = styled('img')({
   maskImage: "linear-gradient(to top, transparent 10%, black )"
 })
 
-const TEXT = styled(Typography)((props) => (
-  {
+const TEXT = styled(Typography)((props) => ({
     fontFamily: 'Happiness-Sans-Bold !important',
     position: "absolute",
     top: `${dir[props.seq].top}%`,
@@ -106,5 +105,4 @@ const TEXT = styled(Typography)((props) => (
     },
     animation: "textIn 1s ease",
     animationDirection: "alternate"
-  }
-))
+}))
