@@ -35,7 +35,7 @@ const App = () => {
             role === CUSTOMER
               ? <MyPage /> : <ConsultantMyPage />
           } />
-          <Route path='/respage' element={<ConsultantResPage />} />
+          <Route path='/consultants/detail/:id' element={<ConsultantResPage />} />
           <Route path='/modify' element={<ModifyProfile />} />
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<SignUp />} />
