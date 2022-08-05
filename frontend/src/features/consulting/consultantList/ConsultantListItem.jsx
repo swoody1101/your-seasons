@@ -1,12 +1,12 @@
 import React from 'react'
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import { Link, useParams } from 'react-router-dom';
-import { Button, CardActionArea, CardActions, styled } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { CardActionArea, CardActions, styled } from '@mui/material';
 import tmpImg from 'assets/images/ancun.png'
 import StarRating from './StarRating'
 
-const ConsultantListItem = ({home, consultantId, nickname, introduction, reviewCount, starAverage, cost, imageUrl }) => {
+const ConsultantListItem = ({ consultantId, nickname, introduction, reviewCount, starAverage, cost, imageUrl }) => {
 
 	return (<>
 	<Link to={`/consultants/detail/${consultantId}`}>
@@ -24,7 +24,7 @@ const ConsultantListItem = ({home, consultantId, nickname, introduction, reviewC
 				{/* 별점 */}
 				<StarReview>
 					<StarRating starAverage={starAverage}/>
-					({reviewCount})
+					<ReviewCount>({reviewCount})</ReviewCount>
 				</StarReview>
 				{/* 소개 */}
 				<IntroduceDiv>
@@ -39,9 +39,6 @@ const ConsultantListItem = ({home, consultantId, nickname, introduction, reviewC
 			</CardContent>
 			</CardActionArea>
 			<CardActions>
-				{/* <Button size="small" color="primary">
-					Share
-				</Button> */}
 			</CardActions>
 		</Card>
 	</Link>
@@ -72,8 +69,15 @@ const Nickname = styled('span')({
 const StarReview = styled('div')({
   display: "flex",
 	justifyContent: "start",
+	alignItems: 'center',
 	overflow: "hidden",
 	fontSize: 12,
+})
+
+const ReviewCount = styled('div')({
+	fontSize: 13,
+	fontWeight: 'bold',
+	marginLeft: -5,
 })
 
 const Cost = styled('span')({

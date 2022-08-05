@@ -18,10 +18,10 @@ const HomePopularConsultant = () => {
   return (
     <Div>
 			<ColorBox>
-			<StyledTypography
+			<MainTypography
 			mb={4}
 			gutterBottom component="div"
-      >TOP 10</StyledTypography>
+      >TOP 10</MainTypography>
 			<SubTypography>전문 컨설턴트에게 퍼스널컬러를 진단받아 보세요</SubTypography>
 			{ hasConsultants ? 
 			'인기 컨설턴트가 없습니다.' 
@@ -66,7 +66,7 @@ const Div = styled(Box)({
 	justifyContent: 'center',
 })
 
-const StyledTypography = styled(Typography)({
+const MainTypography = styled(Typography)({
 	position: 'absolute',
   top: '17vh',
   left: '20vw',
@@ -80,10 +80,10 @@ const SubTypography = styled(Typography)({
 	position: 'absolute',
   top: '23vh',
   left: '20vw',
-  fontFamily: 'malgun !important',
+  fontFamily: 'malgunbd !important',
 	fontSize: 'var(--font-sub-size)',
 	letterSpacing: 'var(--font-letter-spacing)',
-  color: '#000000',
+  color: '#00000099',
 })
 
 const ColorBox = styled(Grid)({

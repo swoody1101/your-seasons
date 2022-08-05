@@ -21,11 +21,13 @@ export default HomeProcess3
 
 const BigGrid = styled(Grid)((
 	{
-		height: '50vh',
+		position: 'relative',
+		backgroundColor: '#fce4ec',
+		height: '100vh',
 		width: '100vw',
-		backgroundColor: '#424242',
 	}
 ))
+
 
 const Grid1 = styled(Grid)((
 	{

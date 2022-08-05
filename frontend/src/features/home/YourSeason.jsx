@@ -29,8 +29,8 @@ const YourSeason = () => {
 		<HomeProcess2 />
 		{/* 다양한 컬러셋과 함께 컨설턴트의 진단표 제공 */}
 		<HomeProcess3 />
-		{/* 퍼스널컬러, 4가지만 있는게 아니다 */}
-		<HomePersonalColor />
+		{/* 퍼스널컬러, 더 알아보기 */}
+		{/* <HomePersonalColor /> */}
 		</Div>
 	)
 }

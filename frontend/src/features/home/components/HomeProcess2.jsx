@@ -19,12 +19,12 @@ const HomeProcess2 = () => {
 
 export default HomeProcess2
 
-
 const BigGrid = styled(Grid)((
 	{
-		height: '50vh',
+		position: 'relative',
+		backgroundColor: '#eeeeee',
+		height: '100vh',
 		width: '100vw',
-		backgroundColor: '#525252',
 	}
 ))
 
