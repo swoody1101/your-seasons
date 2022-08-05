@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { OpenVidu } from 'openvidu-browser';
 
 
-import { Box, Button, Container, Grid, styled, Typography, Slider, ButtonGroup } from '@mui/material'
+import { Box, Button, Grid, styled, Typography, ButtonGroup } from '@mui/material'
 
 import { settingModalOn } from 'features/consulting/consultingRoom/consultSlice'
 import axios from 'axios';
 import UserVideoComponent from './UserVideoComponent';
 
-const OPENVIDU_SERVER_URL = 'https://' + window.location.hostname + ':8443';
+const OPENVIDU_SERVER_URL = 'https://yourseasons.ssafy.io:8443';
 const OPENVIDU_SERVER_SECRET = 'YOUR_SEASONS_SECRET';
 
 

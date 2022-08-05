@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   Routes,
   Route,
@@ -20,7 +20,7 @@ import Footer from 'common/Footer'
 import TemporaryRoom from 'common/colorset/TemporaryRoom'
 
 import { Box, Stack } from '@mui/material'
-import { CUSTOMER, CONSULTANT } from '../api/CustomConst'
+import { CUSTOMER } from '../api/CustomConst'
 const App = () => {
   const { role } = useSelector((state) => state.auth.logonUser)
   return (

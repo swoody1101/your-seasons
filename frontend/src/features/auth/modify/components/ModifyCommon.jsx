@@ -1,19 +1,18 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Box, Button, ButtonGroup, Container, Grid, styled } from '@mui/material'
+import { Button, ButtonGroup, Container, Grid, styled } from '@mui/material'
 
 import regex from '../../components/regex';
 import { BAD_REQUEST, NOT_FOUND, CONFLICT, CONSULTANT } from 'api/CustomConst'
 import ConfirmValidation from 'features/auth/components/ConfirmValidationInput'
 import PhoneNumberInput from 'features/auth/components/PhoneNumberInput';
 import { nicknameCheck } from 'features/auth/authSlice';
-import { modifyLogonUser } from 'features/auth/authSlice';
 import { modifyMember, loadMember } from 'features/auth/authSlice'
 
 const ModifyCommon = () => {
   const { name, nickname, birth, contact, email, imageUrl } = useSelector((state) => state.auth.logonUser)
-  const { introduction, cost, consultingFile, licenseName, licenseNumber } = useSelector((state) => state.auth.logonUser)
+  const { introduction, cost, licenseName, licenseNumber } = useSelector((state) => state.auth.logonUser)
 
   const { role } = useSelector((state) => state.auth.logonUser)
 
