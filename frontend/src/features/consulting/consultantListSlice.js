@@ -5,7 +5,10 @@ import { OK } from '../../api/CustomConst'
 
 const initialState = {
 	//컨설턴트 상세정보
-	consultantDetail: {},
+	consultantDetail: {
+		reservations: [],
+		closedDays: []
+	},
 	// 컨설팅 후기 목록
 	cosultingReview: [],
 	// 컨설턴트 목록
@@ -32,10 +35,11 @@ export const ConsultantListFetch = createAsyncThunk(
 
 //컨설턴트 상세정보 get
 export const ConsultantDetailFetch = createAsyncThunk(
-	'consultants/consultantID',
+	'consultants/ConsultantDetailFetch',
 	async (consultantID) => {
 		return Axios.get(`consultants/${consultantID}/1`)
 			.then(res => {
+				console.log(res.data)
 				if (res.status === OK) {
 					return res.data
 				} else {

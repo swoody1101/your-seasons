@@ -56,22 +56,22 @@ const IntroduceDiv = styled('div')({
 })
 
 const Introduce = styled('div')({
-  display: "-webkit-box",
-  WebkitBoxOrient: "vertical",
-  WebkitLineClamp: "2",
-  overflow: "hidden"
+	display: "-webkit-box",
+	WebkitBoxOrient: "vertical",
+	WebkitLineClamp: "2",
+	overflow: "hidden"
 })
 
 const Nickname = styled('span')({
-  display: "-webkit-box",
-  WebkitBoxOrient: "vertical",
-  WebkitLineClamp: "1",
-  overflow: "hidden",
+	display: "-webkit-box",
+	WebkitBoxOrient: "vertical",
+	WebkitLineClamp: "1",
+	overflow: "hidden",
 	fontSize: 15,
 })
 
 const StarReview = styled('div')({
-  display: "flex",
+	display: "flex",
 	justifyContent: "start",
 	alignItems: 'center',
 	overflow: "hidden",
@@ -85,9 +85,9 @@ const ReviewCount = styled('div')({
 })
 
 const Cost = styled('span')({
-  display: "-webkit-box",
-  WebkitBoxOrient: "vertical",
-  WebkitLineClamp: "1",
-  overflow: "hidden",
+	display: "-webkit-box",
+	WebkitBoxOrient: "vertical",
+	WebkitLineClamp: "1",
+	overflow: "hidden",
 	fontSize: 12,
 })
