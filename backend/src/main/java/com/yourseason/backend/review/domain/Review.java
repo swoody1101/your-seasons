@@ -35,8 +35,8 @@ public class Review extends BaseTimeEntity {
 
     @Builder
     public Review(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate,
-                  boolean isActive, Customer customer, Consultant consultant, Consulting consulting, int star, String comment) {
-        super(id, createdDate, lastModifiedDate, deletedDate, isActive);
+                  Customer customer, Consultant consultant, Consulting consulting, int star, String comment) {
+        super(id, createdDate, lastModifiedDate, deletedDate, true);
         this.customer = customer;
         this.consultant = consultant;
         this.consulting = consulting;
@@ -44,11 +44,10 @@ public class Review extends BaseTimeEntity {
         this.comment = comment;
     }
 
-    public void register(Customer customer, Consultant consultant, int star) {
+    public void register(Customer customer, Consultant consultant, Consulting consulting, int star) {
         setCustomer(customer);
-        setConsultant(consultant);
-        consulting.registerReview();
-        consultant.updateStarAverageByCreatedReview(star);
+        setConsultant(consultant, star);
+        setConsulting(consulting);
     }
 
     public void setCustomer(Customer customer) {
@@ -57,10 +56,21 @@ public class Review extends BaseTimeEntity {
                 .add(this);
     }
 
-    public void setConsultant(Consultant consultant) {
+    public void setConsultant(Consultant consultant, int star) {
         this.consultant = consultant;
         consultant.getReviews()
                 .add(this);
+        consultant.updateStarAverageByCreatedReview(star);
+    }
+
+    public void setConsulting(Consulting consulting) {
+        this.consulting = consulting;
+        consulting.registerReview();
+    }
+
+    public void updateReview(int star, String comment) {
+        this.star = star;
+        this.comment = comment;
     }
 
     public void deleteReview() {
@@ -70,10 +80,6 @@ public class Review extends BaseTimeEntity {
                 .remove(this);
         consultant.getReviews()
                 .remove(this);
-    }
-
-    public void updateReview(int star, String comment) {
-        this.star = star;
-        this.comment = comment;
+        consulting.deleteReview();
     }
 }

@@ -27,7 +27,7 @@ public class ControllerAdvice {
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler({WrongFormException.class, NotEqualException.class})
+    @ExceptionHandler({BadRequestException.class, NotEqualException.class, WrongFormException.class})
     public Message BadRequestException(RuntimeException runtimeException) {
         log.info(runtimeException.getMessage());
         return new Message(runtimeException.getMessage());

@@ -1,0 +1,19 @@
+.starbox {
+    z-index: 1000;
+    margin-right: 10px;
+    height: 25px;
+    overflow: hidden;
+}
+
+.pointofstar {
+    z-index: 10;
+    height: 19px;
+    width: 100px;
+}
+
+.backgroundstar {
+    position: absolute;
+    margin-left: 84px;
+    width: 100px;
+    height: 19px;
+}

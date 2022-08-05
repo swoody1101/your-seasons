@@ -1,6 +1,7 @@
 package com.yourseason.backend.reservation.service;
 
 import com.yourseason.backend.common.domain.Message;
+import com.yourseason.backend.common.exception.DuplicationException;
 import com.yourseason.backend.common.exception.NotFoundException;
 import com.yourseason.backend.common.exception.WrongAccessException;
 import com.yourseason.backend.member.consultant.domain.Consultant;
@@ -22,6 +23,8 @@ public class ReservationService {
     private static final String CONSULTANT_NOT_FOUND = "해당 컨설턴트를 찾을 수 없습니다.";
     private static final String RESERVATION_NOT_FOUND = "해당 예약을 찾을 수 없습니다.";
     private static final String WRONG_ACCESS = "잘못된 접근입니다.";
+    private static final String RESERVATION_DELETED = "이미 취소된 예약입니다.";
+    private static final String RESERVATION_DUPLICATED = "해당 시간에 이미 예약이 존재합니다.";
 
     private final CustomerRepository customerRepository;
     private final ConsultantRepository consultantRepository;
@@ -32,6 +35,24 @@ public class ReservationService {
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
         Consultant consultant = consultantRepository.findById(consultantId)
                 .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
+
+        customer.getReservations()
+                .stream()
+                .filter(reservation -> reservation.getDate().isEqual(reservationCreateRequest.getReservationDate()))
+                .filter(reservation -> reservation.getTime().equals(reservationCreateRequest.getReservationTime()))
+                .findAny()
+                .ifPresent(reservation -> {
+                    throw new DuplicationException(RESERVATION_DUPLICATED);
+                });
+
+        consultant.getReservations()
+                .stream()
+                .filter(reservation -> reservation.getDate().isEqual(reservationCreateRequest.getReservationDate()))
+                .filter(reservation -> reservation.getTime().equals(reservationCreateRequest.getReservationTime()))
+                .findAny()
+                .ifPresent(reservation -> {
+                    throw new DuplicationException(RESERVATION_DUPLICATED);
+                });
 
         Reservation reservation = reservationCreateRequest.toEntity();
         reservation.register(customer, consultant);
@@ -50,6 +71,9 @@ public class ReservationService {
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
         if (!customer.equals(reservation.getCustomer())) {
             throw new WrongAccessException(WRONG_ACCESS);
+        }
+        if (!reservation.isActive()) {
+            throw new NotFoundException(RESERVATION_DELETED);
         }
 
         reservation.cancel();
