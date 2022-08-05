@@ -10,8 +10,8 @@ const ModifyConsultant = () => {
   const common = useSelector((state) => state.auth.logonUser)
   const { introduction, cost } = useSelector((state) => state.auth.logonUser)
   // const { introduction } = 'asdf';
-  const [newIntroduction, setNewIntroduction] = useState(introduction);
-  const [newCost, setNewCost] = useState(cost);
+  const [newIntroduction, setNewIntroduction] = useState(introduction ? introduction : '안녕하세요?');
+  const [newCost, setNewCost] = useState(cost ? cost : "30,000");
   const [helperText, setHelperText] = useState('');
   // 수정여부
   const [isModiIntro, setIsModiIntro] = useState(false);
@@ -37,13 +37,23 @@ const ModifyConsultant = () => {
   }
 
   const handleModify = () => {
-    common.introduction = newIntroduction ? newIntroduction : introduction;
-    common.cost = newCost ? newCost : cost;
-    dispatch(modifyMember(common))
+    const modiData = {
+      role: role,
+      nickname: common.nickname,
+      contact: common.contact,
+      introduction: newIntroduction,
+      imageUrl: common.imageUrl,
+      cost: newCost
+    }
+    dispatch(modifyMember(modiData))
       .unwrap()
       .then((res) => {
         alert("수정이 완료되었습니다.")
         dispatch(loadMember(role))
+        setIsModiIntro(false);
+        setIsModiCost(false)
+        setNewIntroduction(introduction ? introduction : '안녕하세요?')
+        setNewCost(cost ? cost : "30,000");
       })
       .catch((err) => {
         if (err.status === BAD_REQUEST) {

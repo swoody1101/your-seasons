@@ -3,17 +3,16 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { Link } from 'react-router-dom';
 import { CardActionArea, CardActions, styled } from '@mui/material';
-import tmpImg from 'assets/images/ancun.png'
 import StarRating from './StarRating'
 
-const ConsultantListItem = ({ consultantId, nickname, introduction, reviewCount, starAverage, cost, imageUrl }) => {
+const ConsultantListItem = ({ consultantId, nickname, introduction, starAverage, reviewCount, cost, imageUrl }) => {
 
 	return (<>
 	<Link to={`/consultants/detail/${consultantId}`}>
 		<Card sx={{ width: 250, height: 300 }}>
 			<CardActionArea>
 			<div style={{display:'flex', justifyContent:'center'}}>
-				<img src={tmpImg} style={{height:140}} />
+				<img src={imageUrl} style={{height:140}} />
 			</div>
 			<CardContent>
 				{/* 닉네임 */}

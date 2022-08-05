@@ -7,12 +7,13 @@ import ConsultantListItem from 'features/consulting/consultantList/ConsultantLis
 import ItemsCarousel from 'react-items-carousel'
 
 const HomePopularConsultant = () => {
-	const consultants = useSelector(state=>state.consultantList.consultantsData).slice(0, 10)
-	// 비어있으면 true
+  const consultants = useSelector(state => state.consultantList.consultants).slice(0, 10)
+  // 비어있으면 true
   const hasConsultants = _.isEmpty(consultants)
   const [activeItemIndex, setActiveItemIndex] = useState(0);
 
 
+ 
   return (
     <Div>
 		<ColorBox>
