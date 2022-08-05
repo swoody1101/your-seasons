@@ -30,35 +30,35 @@ const HomeProcess1 = () => {
 export default HomeProcess1
 
 const BigGrid = styled(Grid)({
-		position: 'relative',
-		backgroundColor: 'pink',
-		height: '100vh',
-		width: '100vw',
+	position: 'relative',
+	backgroundColor: 'pink',
+	height: '100vh',
+	width: '100vw',
 })
 
 
 const Grid1 = styled(Grid)({
-		position: 'relative',
-		display: 'flex',
-		alignItems: 'center',
-		justifyContent: 'center',
-		flexDirection: 'column',
+	position: 'relative',
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center',
+	flexDirection: 'column',
 })
 
 const Grid2 = styled(Grid)({
-		display: 'flex',
-		flexFlow: 'row wrap',
-		justifyContent: 'start',
-		alignItems: 'center',
-		backgroundColor: '#eceff1',
+	display: 'flex',
+	flexFlow: 'row wrap',
+	justifyContent: 'start',
+	alignItems: 'center',
+	backgroundColor: '#eceff1',
 })
 
 const MainTypography = styled(Typography)({
-		fontFamily: 'malgunbd !important',
-		fontSize: 'var(--font-title-size)',
-		letterSpacing: 'var(--font-letter-spacing)',
-    color:  '#FFFFFF', //"#b4004f",
-		paddingBottom: 15,
+	fontFamily: 'malgunbd !important',
+	fontSize: 'var(--font-title-size)',
+	letterSpacing: 'var(--font-letter-spacing)',
+	color:  '#FFFFFF', //"#b4004f",
+	paddingBottom: 15,
 })
 
 const SubTypography = styled(Typography)({

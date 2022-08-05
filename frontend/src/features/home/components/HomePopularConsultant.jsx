@@ -1,23 +1,21 @@
 import React, { useState } from 'react'
-import { Box,  styled, Typography, Grid,  } from '@mui/material'
+import { Link } from 'react-router-dom';
+import { Box,  styled, Typography, Grid } from '@mui/material'
 import { useSelector } from 'react-redux'
 import _ from 'lodash'
 import ConsultantListItem from 'features/consulting/consultantList/ConsultantListItem'
 import ItemsCarousel from 'react-items-carousel'
-// import useMediaQuery from '@mui/material/useMediaQuery';
 
 const HomePopularConsultant = () => {
 	const consultants = useSelector(state=>state.consultantList.consultantsData).slice(0, 10)
 	// 비어있으면 true
   const hasConsultants = _.isEmpty(consultants)
   const [activeItemIndex, setActiveItemIndex] = useState(0);
-	const [cardNum, setCardNum] = useState(3);
-  const chevronWidth = 40;
 
 
   return (
     <Div>
-			<ColorBox>
+		<ColorBox>
 			<MainTypography
 			mb={4}
 			gutterBottom component="div"
@@ -28,13 +26,13 @@ const HomePopularConsultant = () => {
 			: 
 				<ItemsCarousel
 					infiniteLoop={false}
-					gutter={20}
+					gutter={50}
 					activePosition={'center'}
 					chevronWidth={60}
 					disableSwipe={false}
 					alwaysShowChevrons={true}
-					// 중단점 md이하일때 하나만 떠야함, 적용 안되서 보류
-					numberOfCards={cardNum}
+					// 중단점 md이하일때 하나만 뜨도록, 적용 보류
+					numberOfCards={4}
 					slidesToScroll={2}
 					outsideChevron={true}
 					showSlither={true}
@@ -49,7 +47,10 @@ const HomePopularConsultant = () => {
 					)}
 				</ItemsCarousel>
 			} 
-			</ColorBox>
+			<GoCon>
+				<Link to={'/consultants'}>컨설턴트 더 보기</Link>
+			</GoCon>
+		</ColorBox>
 		</Div >
   )
 }
@@ -66,10 +67,22 @@ const Div = styled(Box)({
 	justifyContent: 'center',
 })
 
+const ColorBox = styled(Grid)({
+	padding:'0 60px',
+	margin:"0 auto",
+	width: '90vw',
+	height: '80vh',
+	backgroundColor: '#d1c4e9',
+	display: 'flex',
+	flexDirection: 'column',
+	justifyItems: 'center',
+	justifyContent: 'center',
+})
+
 const MainTypography = styled(Typography)({
 	position: 'absolute',
-  top: '17vh',
-  left: '20vw',
+  top: '15vh',
+  left: '10vw',
   fontFamily: 'malgunbd !important',
 	fontSize: 'var(--font-title-size)',
 	letterSpacing: 'var(--font-letter-spacing)',
@@ -79,21 +92,19 @@ const MainTypography = styled(Typography)({
 const SubTypography = styled(Typography)({
 	position: 'absolute',
   top: '23vh',
-  left: '20vw',
+  left: '10vw',
   fontFamily: 'malgunbd !important',
 	fontSize: 'var(--font-sub-size)',
 	letterSpacing: 'var(--font-letter-spacing)',
   color: '#00000099',
 })
 
-const ColorBox = styled(Grid)({
-	padding:'0 60px',
-	margin:"0 auto",
-	width: '65vw',
-	height: '65vh',
-	backgroundColor: 'pink',
-	display: 'flex',
-	flexDirection: 'column',
-	justifyItems: 'center',
-	justifyContent: 'center',
+const GoCon =  styled(Typography)({
+	position: 'absolute',
+  top: '80vh',
+  right: '10vw',
+  fontFamily: 'malgunbd !important',
+	fontSize: 'var(--font-sub-size)',
+	letterSpacing: 'var(--font-letter-spacing)',
+  color: '#00000099',
 })

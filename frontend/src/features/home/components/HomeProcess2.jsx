@@ -1,17 +1,17 @@
 import React from 'react'
 import { Grid, styled, Typography } from '@mui/material'
-import IponeTone from '../../../assets/images/homeSlide/IponeTone.jpg'
+import People from '../../../assets/images/homeSlide/HP2_1.jpg'
+
 const HomeProcess2 = () => {
 	return (
 	<BigGrid container>
-	<Grid1 item xs={3}>
-		<Text>
-		톤보정을 통한 걱정없는 화상 서비스
-		</Text>
+	<Grid1 item xs={6}>
+		<Img src = {People} />
 	</Grid1>
-	
-	<Grid2 item xs={9}>
-		<ColorsetImg src = {IponeTone} />
+	<Grid2 item xs={6}>
+		<MainTypography>
+			톤보정을 통한 걱정없는 화상 서비스
+		</MainTypography>
 	</Grid2>
 </BigGrid>
 	)
@@ -19,55 +19,41 @@ const HomeProcess2 = () => {
 
 export default HomeProcess2
 
-const BigGrid = styled(Grid)((
-	{
-		position: 'relative',
-		backgroundColor: '#eeeeee',
-		height: '100vh',
-		width: '100vw',
-	}
-))
 
-const Grid1 = styled(Grid)((
-	{
+const BigGrid = styled(Grid)({
+	position: 'relative',
+	backgroundColor: '#eeeeee',
+	height: '100vh',
+	width: '100vw',
+})
 
-	}
-))
+const Grid1 = styled(Grid)({
+	display: 'flex',
+	flexFlow: 'row wrap',
+	justifyContent: 'start',
+	alignItems: 'center',
+	justifyContent: 'center',
+	backgroundColor: '#eceff1',
+})
 
-const Grid2 = styled(Grid)((
-	{
-		// filter: 'blur(7px)',
-	}
-))
+const Grid2 = styled(Grid)({
+	position: 'relative',
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center',
+	flexDirection: 'column',
+})
 
-const ColorsetImg = styled('img')((
-	{
-		width: '10%'
-	}
-))
+const MainTypography = styled(Typography)({
+	position: 'absolute',
+	fontFamily: 'malgunbd !important',
+	fontSize: 'var(--font-title-size)',
+	letterSpacing: 'var(--font-letter-spacing)',
+	color:  '#000000', //"#b4004f",
+	paddingBottom: 15,
+})
 
+const Img = styled('img')({
+	width: '50%'
+})
 
-const Text = styled(Typography)((
-  {
-    fontFamily: 'malgun !important',
-    position: "relative",
-		fontSize: '2.5rem',
-		letterSpacing: -3,
-    top: '15vh',
-    left: '15vh',
-    color:  '#FFFFFF', //"#b4004f",
-		// textShadow: '1px 2px 2px pink',
-    "@keyframes textIn": {
-      from: {
-        transform: "translateX(-10rem)",
-				opacity: 0,
-      },
-      to: {
-        transform: "translateX(0)",
-				opacity: 1,
-      }
-    },
-    animation: "textIn 1s ease",
-    animationDirection: "alternate"
-  }
-))

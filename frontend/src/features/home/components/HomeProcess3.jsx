@@ -22,7 +22,7 @@ export default HomeProcess3
 const BigGrid = styled(Grid)((
 	{
 		position: 'relative',
-		backgroundColor: '#fce4ec',
+		backgroundColor: '#aab8bb',
 		height: '100vh',
 		width: '100vw',
 	}
