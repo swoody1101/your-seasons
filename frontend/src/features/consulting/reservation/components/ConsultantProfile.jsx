@@ -7,17 +7,16 @@ import MyAvatar from "common/avatar/MyAvatar";
 import { ConsultantDetailFetch, ConsultingReviewFetch } from "features/consulting/consultantListSlice";
 
 const ConsultantProfile = () => {
-  const { nickname, introduction, cost, starAverage } = useSelector(state => state.consultantList.consultantDetail)
   const dispatch = useDispatch()
   const consultantId = useParams().id
-
+  const { nickname, introduction, cost, starAverage } = useSelector(state => state.consultantList.consultantDetail)
   useEffect(() => {
     dispatch(ConsultantDetailFetch(consultantId))
-  }, [])
+  }, [dispatch])
 
   useEffect(() => {
     dispatch(ConsultingReviewFetch(consultantId))
-  }, [])
+  }, [dispatch])
 
   return (
     <Container fixed>
