@@ -1,47 +1,50 @@
 import React, { useState } from 'react'
 import ConsultingResBtnItem from './ConsultingResBtnItem'
-import { Box, Typography, Divider, TextField } from '@mui/material';
-import { width } from '@mui/system';
+import { useDispatch } from 'react-redux';
+import { useParams } from "react-router-dom";
+import { Box, Typography, Divider, TextField, Button } from '@mui/material';
+import { createReservation, ConsultantDetailFetch } from 'features/consulting/consultantListSlice';
 
 const ConsultingResBtn = (props) => {
-
+  const dispatch = useDispatch()
   const [pickedTime, setPickedTime] = useState('')
-
+  const [request, setRequest] = useState('')
+  const consultantId = useParams().id
   let timeTable = [
     {
-      isReserved: "",
+      isReserved: null,
       time: '09:00:00'
     },
     {
-      isReserved: "",
+      isReserved: null,
       time: '10:00:00'
     },
     {
-      isReserved: "",
+      isReserved: null,
       time: '11:00:00'
     },
     {
-      isReserved: "",
+      isReserved: null,
       time: '13:00:00'
     },
     {
-      isReserved: "",
+      isReserved: null,
       time: '14:00:00'
     },
     {
-      isReserved: "",
+      isReserved: null,
       time: '15:00:00'
     },
     {
-      isReserved: "",
+      isReserved: null,
       time: '16:00:00'
     },
     {
-      isReserved: "",
+      isReserved: null,
       time: '17:00:00'
     },
     {
-      isReserved: "",
+      isReserved: null,
       time: '18:00:00'
     }
   ]
@@ -49,18 +52,40 @@ const ConsultingResBtn = (props) => {
   const timeClickHandler = (e) => {
     setPickedTime(e.target.value)
   }
+
+  const reservationHandler = () => {
+    const reservation = {
+      reservationDate: props.pickedDate,
+      reservationTime: pickedTime,
+      request: request
+    }
+    if (reservation.request.length < 10) {
+      alert('10자이상 입력해 주세요!')
+    } else if (pickedTime === '') {
+      alert('상담을 원하는 시간을 선택해주세요!')
+    }
+    else {
+      dispatch(createReservation({ consultantId, reservation }))
+        .then(() => {
+          dispatch(ConsultantDetailFetch(consultantId))
+        })
+      setRequest('')
+    }
+    setPickedTime('')
+  }
+
   let pickeTimeContent = ''
   if (pickedTime === '') {
     pickeTimeContent = '상담을 원하는 시간을 선택해주세요.'
   } else if (pickedTime !== '') {
     pickeTimeContent = pickedTime.slice(0, 2) + '시를 선택하셨습니다.'
   }
-  console.log(props.reservations)
+
   if (props.reservations.length > 0) {
     props.reservations.forEach(res => {
       timeTable.forEach(obj => {
         if (obj.time === res.reservationTime) {
-          obj.isReserved = 'true'
+          obj.isReserved = true
         }
       })
     })
@@ -141,6 +166,7 @@ const ConsultingResBtn = (props) => {
       <Box sx={{ px: 1, py: 3 }}>
         <h3>컨설턴트님께 바라는 점</h3>
         <TextField
+          onChange={(e) => setRequest(e.target.value)}
           label="요청사항"
           name="request"
           margin="normal"
@@ -150,6 +176,11 @@ const ConsultingResBtn = (props) => {
           autoFocus
           required
           fullWidth />
+      </Box>
+      <Box sx={{ display: "flex", justifyContent: "end" }}>
+        <Button
+          onClick={reservationHandler}
+        >예약 하기</Button>
       </Box>
     </Box>
   )

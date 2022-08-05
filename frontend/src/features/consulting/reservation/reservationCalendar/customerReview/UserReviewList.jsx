@@ -11,9 +11,9 @@ const UserReviewList = props => {
         <UserReviewItem
           key={review.id}
           nickname={review.nickname}
-          rating={review.rating}
-          date={review.date}
-          review={review.review}
+          rating={review.star}
+          date={review.createdDate}
+          review={review.comment}
         />
       ))}
     </div>
