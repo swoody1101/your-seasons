@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { OpenVidu } from 'openvidu-browser';
 
 
-import { Box, Button, Container, Grid, styled, Typography, Slider, ButtonGroup } from '@mui/material'
+import { Box, Button, Grid, styled, Typography, ButtonGroup } from '@mui/material'
 
 import { settingModalOn } from 'features/consulting/consultingRoom/consultSlice'
 import axios from 'axios';
 import UserVideoComponent from './UserVideoComponent';
 
-const OPENVIDU_SERVER_URL = 'https://' + window.location.hostname + ':4443';
+const OPENVIDU_SERVER_URL = 'https://yourseasons.ssafy.io:8443';
 const OPENVIDU_SERVER_SECRET = 'YOUR_SEASONS_SECRET';
 
 
@@ -18,7 +18,7 @@ class ConsultingRoom extends Component {
     super(props);
 
     this.state = {
-      mySessionId: 'SessionA',
+      mySessionId: 'SessionA', // 임시 고정값
       myUserName: undefined,
       session: undefined,
       mainStreamManager: undefined,
@@ -276,9 +276,10 @@ class ConsultingRoom extends Component {
 
     return (
       <SContainer className="container">
-        <Typography variant="h4">{this.state.mySessionId}</Typography>
-        <Typography variant="h6">입장 닉네임 : "{nickname}"</Typography>
-
+        <Box>
+          <Typography variant="h4">{this.state.mySessionId}</Typography>
+          <Typography variant="h6">입장 닉네임 : "{nickname}"</Typography>
+        </Box>
         {this.state.session !== undefined ? (
           <SGridContainer container>
 
@@ -307,17 +308,29 @@ class ConsultingRoom extends Component {
 
           </SGridContainer>
         ) : null}
-        <ButtonGroup sx={{ justifyContent: "end", xs: { width: "100%" }, width: "40%" }}>
-          <Button variant="outlined" onClick={() => this.props.doSettingModalOn()} >
-            화면 조정
+        <Box sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: "space-between",
+          width: '100%',
+          maxWidth: '80%',
+        }}>
+          <Button variant="contained" onClick={this.joinSession}>
+            입장
           </Button>
-          <Button variant="outlined">
-            화면 일시정지
-          </Button>
-          <Button variant="contained">
-            종료
-          </Button>
-        </ButtonGroup>
+
+          <ButtonGroup >
+            <Button variant="outlined" onClick={() => this.props.doSettingModalOn()} >
+              화면 조정
+            </Button>
+            <Button variant="outlined">
+              화면 일시정지
+            </Button>
+            <Button variant="contained" onClick={this.leaveSession}>
+              종료
+            </Button>
+          </ButtonGroup>
+        </Box>
       </SContainer>
     );
   }
@@ -343,7 +356,7 @@ const SContainer = styled(Box)({
   height: "80%",
   display: "flex",
   flexDirection: "column",
-  justifyContent: "center",
+  justifyContent: "space-between",
   alignItems: "center",
 })
 

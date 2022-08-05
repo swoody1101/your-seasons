@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { Grid, Container, Box, styled } from '@mui/material'
 import { useParams } from "react-router-dom";
 import StarRating from "common/starrating/StarRating";
 import MyAvatar from "common/avatar/MyAvatar";
-import { ConsultantDetailFetch } from "features/consulting/consultantListSlice";
+import { ConsultantDetailFetch, ConsultingReviewFetch } from "features/consulting/consultantListSlice";
 
 const ConsultantProfile = () => {
   const { nickname, introduction, cost, starAverage } = useSelector(state => state.consultantList.consultantDetail)
@@ -13,7 +13,11 @@ const ConsultantProfile = () => {
 
   useEffect(() => {
     dispatch(ConsultantDetailFetch(consultantId))
-  }, [dispatch])
+  }, [])
+
+  useEffect(() => {
+    dispatch(ConsultingReviewFetch(consultantId))
+  }, [])
 
   return (
     <Container fixed>

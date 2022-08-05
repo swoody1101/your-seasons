@@ -27,7 +27,7 @@ const CameraTest = () => {
           <SGrid item xs={12} sm={6}>
             <VideoContainer>
               <Typography variant="h6">
-                비디오 확인하기
+                비디오 확인하기(미구현)
               </Typography>
               <Video useref={myVideo} />
               <Typography variant="h6">

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import {
@@ -6,7 +6,6 @@ import {
   Toolbar, Typography, styled
 } from '@mui/material'
 import { Pets } from '@mui/icons-material'
-// import LOGOIMAGE from ''
 
 import { logoutUser, resetUser } from 'features/auth/authSlice';
 import MyAvatar from 'common/avatar/MyAvatar';
@@ -114,7 +113,6 @@ const NavBar = () => {
 }
 
 export default NavBar
-
 
 
 const StyledToolbar = styled(Toolbar)({

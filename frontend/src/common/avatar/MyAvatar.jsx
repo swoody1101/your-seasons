@@ -6,7 +6,7 @@ import { Avatar, Button, styled } from '@mui/material'
 const MyAvatar = (
   setSize,
 ) => {
-  const { nickname, imageUrl } = useSelector((state) => state.auth.logonUser)
+  const { imageUrl } = useSelector((state) => state.auth.logonUser)
   const handleAvatar = (e) => {
     console.log("타겟", e.target.src)
     console.log("주소", imageUrl)

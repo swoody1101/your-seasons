@@ -5,10 +5,9 @@ import ProfileImage from 'assets/images/yourseasonlogo.png';
 import StarRating from "common/starrating/StarRating";
 
 const UserReviewItem = props => {
-
-  const month = props.date.toLocaleString('ko-KR', { month: 'long' })
-  const day = props.date.toLocaleString('ko-KR', { day: '2-digit' })
-  const year = props.date.getFullYear().toLocaleString().slice(-2)
+  const year = props.date.slice(0, 4) + "년 "
+  const month = props.date.slice(5, 7) + "월 "
+  const day = props.date.slice(-2) + "일"
 
   return (
     <div>
@@ -19,7 +18,7 @@ const UserReviewItem = props => {
         />
         <div>
           <span>{props.nickname} | </span>
-          <span>{year + "년 " + month + " " + day}</span>
+          <span>{year + month + day}</span>
           <StarRating starrating={props.rating} />
         </div>
       </Box>
