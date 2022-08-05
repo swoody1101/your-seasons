@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
 import { Grid, Container, Box, styled } from '@mui/material'
-
+import { useParams } from "react-router-dom";
 import StarRating from "common/starrating/StarRating";
 import MyAvatar from "common/avatar/MyAvatar";
-
+import { ConsultantDetailFetch } from "features/consulting/consultantListSlice";
 
 const ConsultantProfile = () => {
-  const [nickname, setNickname] = useState('익명의');
-  const [selfIntroduction, setSelfIntroduction] = useState('등록한 자기소개가 없습니다.');
-  const [cost, setCost] = useState('30,000');
-  const [starRate, setStarRate] = useState(4.7)
+  const { nickname, introduction, cost, starAverage } = useSelector(state => state.consultantList.consultantDetail)
+  const dispatch = useDispatch()
+  const consultantId = useParams().id
+
+  useEffect(() => {
+    dispatch(ConsultantDetailFetch(consultantId))
+  }, [dispatch])
 
   return (
     <Container fixed>
@@ -24,17 +28,17 @@ const ConsultantProfile = () => {
         <Grid item xs={12} sm={9}>
           <ProfileText>
             <h3>
-              {nickname} 컨설턴트님
+              {nickname} 컨설턴트
             </h3>
             <Box sx={{ display: 'flex', gap: 1 }}>
-              <StarRating starrating={starRate} />
+              <StarRating starrating={starAverage} />
               <h3>
-                {starRate}
+                {starAverage}
               </h3>
             </Box>
 
             <h3>
-              {selfIntroduction}
+              {introduction}
             </h3>
             <h3>
               진단비용 {cost}
