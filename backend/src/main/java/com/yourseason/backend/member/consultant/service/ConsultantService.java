@@ -74,19 +74,18 @@ public class ConsultantService {
 
     public List<ConsultantListResponse> getConsultants(String order) {
         List<Consultant> consultants = new ArrayList<>();
-        if (order == null) {
-            consultants = consultantRepository.findAllByOrderByStarAverageDesc();
+        if (order.equals("popular")) {
+            consultants = consultantRepository.findAllByIsActiveTrueOrderByStarAverageDesc();
         } else if (order.equals("manyReviews")) {
-            consultants = consultantRepository.findAllByOrderByReviewCountDesc();
+            consultants = consultantRepository.findAllByIsActiveTrueOrderByReviewCountDesc();
         } else if (order.equals("latest")) {
-            consultants = consultantRepository.findAllByOrderByIdDesc();
+            consultants = consultantRepository.findAllByIsActiveTrueOrderByIdDesc();
         } else if (order.equals("highCost")) {
-            consultants = consultantRepository.findAllByOrderByCostDesc();
+            consultants = consultantRepository.findAllByIsActiveTrueOrderByCostDesc();
         } else if (order.equals("lowCost")) {
-            consultants = consultantRepository.findAllByOrderByCost();
+            consultants = consultantRepository.findAllByIsActiveTrueOrderByCost();
         }
         return consultants.stream()
-                .filter(BaseTimeEntity::isActive)
                 .map(consultant ->
                         ConsultantListResponse.builder()
                                 .consultantId(consultant.getId())
