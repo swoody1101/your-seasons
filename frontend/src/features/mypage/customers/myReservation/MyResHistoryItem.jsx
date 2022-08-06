@@ -7,7 +7,7 @@ import './../mypage.css'
 
 const MyResHistoryItem = (props) => {
   return (
-    <SetCard variant="outlined" className="history-card">
+    <SetCard variant="outlined">
 
 		<CardActionArea>
 		<CardContent>
@@ -53,7 +53,6 @@ export default MyResHistoryItem
 
 const SetCard = styled(Card)({
   marginBottom: 5,
-  borderRadius: 5,
   // backgroundColor: "#F1F1F190",
   borderRadius: '1rem',
 })

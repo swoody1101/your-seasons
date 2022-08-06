@@ -1,23 +1,16 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-import { Avatar, Button, styled } from '@mui/material'
+import { Avatar, styled } from '@mui/material'
 
 const MyAvatar = (
   setSize,
 ) => {
   const { imageUrl } = useSelector((state) => state.auth.logonUser)
-  const handleAvatar = (e) => {
-    console.log("타겟", e.target.src)
-    console.log("주소", imageUrl)
-  }
-
 
   return (
     <SetAvatar si={setSize}>
-      <Button onClick={handleAvatar}>
-        <img src={imageUrl} alt='' />
-      </Button>
+			<img src={imageUrl} alt='' />
     </SetAvatar>
   )
 }

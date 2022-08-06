@@ -74,7 +74,7 @@ const ConsultantDiagnosisReview = ({ consultantNickname, consultingId, hasReview
 
   return (
     <div>
-      <Button onClick={handleOpen} disabled={!hasReview ? false : true}>리뷰 작성하기</Button>
+      <Button onClick={handleOpen} disabled={!hasReview ? false : true} sx={{ width:'100vw' }}>리뷰 작성하기</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -85,7 +85,7 @@ const ConsultantDiagnosisReview = ({ consultantNickname, consultingId, hasReview
           <p style={{ marginBottom: 3, }}>{consultantNickname} 컨설턴트님께 리뷰를 작성해 보세요 !</p>
           <div style={{ paddingTop: 3 }}>
             <BasicRating setIsStar={setIsStar} />
-            <textarea style={{ width: '100%', height: 120, backgroundColor: '#c5cae9', borderRadius: 2, padding: 10 }}
+            <textarea style={{ width: '100%', height: 120, backgroundColor: '#eeeeee', borderRadius: 2, padding: 10 }}
               onChange={(e) => {
                 setComment(e.target.value)
               }}>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux/es/exports';
-import { Grid, Button, CardActions, CardContent, Card, Typography, Avatar, CardActionArea, styled, Box } from '@mui/material';
+import { Grid, Button, CardActions, CardContent, Card, Typography, CardActionArea, styled, Box } from '@mui/material';
 import BasicRating from './StarRating'
 import { deleteReviewFetch, updateReviewFetch, myReviewFetch } from 'features/mypage/mypageSlice'
 import { isEmpty } from 'lodash'
@@ -48,7 +48,7 @@ const MyReview = () => {
     <Div>
       {isEmpty(reviews) ? <h2>내가 작성한 리뷰가 없습니다.</h2> : reviews.map(({ reviewId, nickname, imageUrl, star, comment, reviewDate }, index) => (
         <form onSubmit={onSubmit} key={index}>
-				<SetCard sx={{ marginBottom: 5, padding: 1, borderRadius: 5 }} variant="outlined" className="history-card" key={index}>
+				<SetCard sx={{ marginBottom: 5, padding: 1, borderRadius: 5 }} variant="outlined" key={index}>
 				<CardActionArea>
 				<CardContent>
 				<Grid container>
@@ -130,8 +130,6 @@ const Div = styled('div')({
 
 const SetCard = styled(Card)({
   marginBottom: 5,
-  borderRadius: 5,
-  // backgroundColor: "#F1F1F190",
   borderRadius: '1rem',
 })
 
