@@ -37,6 +37,12 @@ public class ConsultantController {
                 .body(consultantService.getConsultants());
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<ConsultantListResponse>> searchConsultantByNickname(@RequestParam String keyword) {
+        return ResponseEntity.ok()
+                .body(consultantService.searchConsultantByNickname(keyword));
+    }
+
     @GetMapping("/{consultantId}/1")
     public ResponseEntity<ConsultantResponse> getConsultant(@PathVariable Long consultantId) {
         return ResponseEntity.ok()
