@@ -8,6 +8,7 @@ import com.yourseason.backend.member.consultant.controller.dto.*;
 import com.yourseason.backend.member.consultant.domain.*;
 import com.yourseason.backend.member.customer.domain.CustomerRepository;
 import com.yourseason.backend.reservation.domain.Reservation;
+import com.yourseason.backend.review.domain.Review;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -53,7 +54,7 @@ public class ConsultantService {
         Consultant consultant = getConsultant(consultantId);
         consultant.getReservations()
                 .stream()
-                .filter(reservation -> reservation.isActive())
+                .filter(Reservation::isActive)
                 .filter(reservation -> reservation.getDate().isEqual(closedDayRequest.getClosedDay()))
                 .findAny()
                 .ifPresent(reservation -> {
@@ -130,7 +131,7 @@ public class ConsultantService {
         Consultant consultant = getConsultant(consultantId);
         return consultant.getReviews()
                 .stream()
-                .filter(review -> review.isActive())
+                .filter(Review::isActive)
                 .map(review -> ReviewListResponse.builder()
                         .reviewId(review.getId())
                         .nickname(review.getCustomer().getNickname())
@@ -169,7 +170,7 @@ public class ConsultantService {
 
         List<ReviewListResponse> reviewsListResponses = consultant.getReviews()
                 .stream()
-                .filter(review -> review.isActive())
+                .filter(Review::isActive)
                 .map(review -> ReviewListResponse.builder()
                         .reviewId(review.getId())
                         .nickname(review.getCustomer().getNickname())
