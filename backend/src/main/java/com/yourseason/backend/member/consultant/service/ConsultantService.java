@@ -1,6 +1,5 @@
 package com.yourseason.backend.member.consultant.service;
 
-import com.yourseason.backend.common.domain.BaseTimeEntity;
 import com.yourseason.backend.common.domain.Message;
 import com.yourseason.backend.common.exception.*;
 import com.yourseason.backend.member.common.controller.dto.PasswordUpdateRequest;
@@ -8,6 +7,7 @@ import com.yourseason.backend.member.common.domain.Role;
 import com.yourseason.backend.member.consultant.controller.dto.*;
 import com.yourseason.backend.member.consultant.domain.*;
 import com.yourseason.backend.member.customer.domain.CustomerRepository;
+import com.yourseason.backend.reservation.domain.Reservation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -92,7 +92,7 @@ public class ConsultantService {
 
         List<ReservationListResponse> reservations = consultant.getReservations()
                 .stream()
-                .filter(BaseTimeEntity::isActive)
+                .filter(Reservation::isActive)
                 .map(reservation -> ReservationListResponse.builder()
                         .reservationId(reservation.getId())
                         .reservationDate(reservation.getDate())
