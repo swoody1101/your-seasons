@@ -73,7 +73,6 @@ const SlideImg = styled('img')({
   minHeight: "760px",
   bottom: "-20vh",
   width: "100vw",
-  // height: "80vh",
   "@keyframes pulsate": {
     from: {
       transform: `scale(1)`,
