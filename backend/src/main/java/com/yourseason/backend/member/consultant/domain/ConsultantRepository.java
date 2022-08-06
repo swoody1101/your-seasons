@@ -15,5 +15,5 @@ public interface ConsultantRepository extends JpaRepository<Consultant, Long> {
 
     boolean existsByNickname(String nickname);
 
-    List<Consultant> findByNicknameContaining(String keyword);
+    List<Consultant> findByIsActiveTrueAndNicknameContaining(String keyword);
 }

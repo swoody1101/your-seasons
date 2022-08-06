@@ -1,6 +1,5 @@
 package com.yourseason.backend.member.consultant.service;
 
-import com.yourseason.backend.common.domain.BaseTimeEntity;
 import com.yourseason.backend.common.domain.Message;
 import com.yourseason.backend.common.exception.*;
 import com.yourseason.backend.member.common.controller.dto.PasswordUpdateRequest;
@@ -88,9 +87,8 @@ public class ConsultantService {
     }
 
     public List<ConsultantListResponse> searchConsultantByNickname(String keyword) {
-        return consultantRepository.findByNicknameContaining(keyword)
+        return consultantRepository.findByIsActiveTrueAndNicknameContaining(keyword)
                 .stream()
-                .filter(BaseTimeEntity::isActive)
                 .map(consultant ->
                         ConsultantListResponse.builder()
                                 .consultantId(consultant.getId())
