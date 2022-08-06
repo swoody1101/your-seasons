@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import ConsultantListItem from './ConsultantListItem'
 import { useSelector } from 'react-redux'
-import { Grid, Box, MenuItem, FormControl, Select, styled } from '@mui/material'
+import { Grid, MenuItem, FormControl, Select, styled } from '@mui/material'
 
 const ConsultantList = () => {
 	const consultants = useSelector(state => state.consultantList.consultants)

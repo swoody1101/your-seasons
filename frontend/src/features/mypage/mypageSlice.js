@@ -74,18 +74,6 @@ export const deleteResFetch = createAsyncThunk(
   }
 )
 
-// put (request 수정//실제사용 x //필요할때 주석처리 해제)
-// export const updateResFetch = createAsyncThunk(
-// 	'mypage/updateResFetch',
-// 	async (reservation) => {
-// 		console.log(reservation)
-// 		return Axios.put('customers/'+ `${reservation.id}`, reservation)
-// 		.then(res=>res.data)
-// 		.catch(error=>false)
-// 	}
-// )
-
-
 
 // 리뷰 FETCH (get, post, put, delete)
 // get (커스터머가 작성한 리뷰)

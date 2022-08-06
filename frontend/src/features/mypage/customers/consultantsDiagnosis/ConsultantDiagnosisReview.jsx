@@ -83,7 +83,6 @@ const ConsultantDiagnosisReview = ({ consultantNickname, consultingId, hasReview
       >
         <Box sx={style}>
           <p style={{ marginBottom: 3, }}>{consultantNickname} 컨설턴트님께 리뷰를 작성해 보세요 !</p>
-
           <div style={{ paddingTop: 3 }}>
             <BasicRating setIsStar={setIsStar} />
             <textarea style={{ width: '100%', height: 120, backgroundColor: '#c5cae9', borderRadius: 2, padding: 10 }}
