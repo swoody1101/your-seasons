@@ -5,6 +5,8 @@ import '../mypage.css'
 import ConsultantDiagnosisReview from './ConsultantDiagnosisReview';
 import { isEmpty } from 'lodash'
 
+import {consultantDiagnosis} from '../../dumy'
+
 // 진단결과사진 모달
 const style = {
 	position: 'absolute',
@@ -47,8 +49,8 @@ export const BasicModal = ({ resultImageUrl }) => {
 
 
 const ConsultantDiagnosis = () => {
-	const results = useSelector(state => state.mypage.myConsultantDxData);
-	
+	// const results = useSelector(state => state.mypage.myConsultantDxData);
+	const results = consultantDiagnosis
 	return (<>
 		<Div>
 			{isEmpty(results) ? <h2>지난 진단 기록이 없습니다.</h2> : results.map(({ consultingId, tone, consultantNickname, consultantImageUrl, consultingDate, bestColorSet, worstColorSet, resultImageUrl, comment, hasReview }, index) => (

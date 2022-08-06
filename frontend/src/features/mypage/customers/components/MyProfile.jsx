@@ -46,7 +46,7 @@ const MyProfile = () => {
         <ProfileText>
           <h3>{nickname} 님</h3>
           <div>{diagnosis()}</div>
-          {/* 내 정보 수정 링크 추가 해야함 */}
+          {/* 내 정보 수정 */}
             <Button variant="contained"
               onClick={handleModify}
 							style={{width: 120}}

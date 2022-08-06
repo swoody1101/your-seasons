@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Stack, styled } from '@mui/material';
+import { styled } from '@mui/material';
 import MyResHistoryItem from './MyResHistoryItem'
 import { myResFetch, deleteResFetch } from 'features/mypage/mypageSlice';
 import { isEmpty } from 'lodash'
