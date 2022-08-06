@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Button, Grid, Box, Modal, CardContent, Card, Typography, styled } from '@mui/material';
 import '../mypage.css'
 import ConsultantDiagnosisReview from './ConsultantDiagnosisReview';
-import { myConsultantDxFetch } from 'features/mypage/mypageSlice';
-// Todo. 리뷰 작성하기 버튼 활성화
+import { isEmpty } from 'lodash'
 
 // 진단결과사진 모달
 const style = {
@@ -49,10 +48,10 @@ export const BasicModal = ({ resultImageUrl }) => {
 
 const ConsultantDiagnosis = () => {
 	const results = useSelector(state => state.mypage.myConsultantDxData);
-
+	
 	return (<>
 		<Div>
-			{results.map(({ consultingId, tone, consultantNickname, consultantImageUrl, consultingDate, bestColorSet, worstColorSet, resultImageUrl, comment, hasReview }, index) => (
+			{isEmpty(results) ? <h2>지난 진단 기록이 없습니다.</h2> : results.map(({ consultingId, tone, consultantNickname, consultantImageUrl, consultingDate, bestColorSet, worstColorSet, resultImageUrl, comment, hasReview }, index) => (
 				<div style={{ display: 'flex', justifyContent: 'center' }} key={index}>
 					{/* 카드1 */}
 					<Card sx={{
@@ -118,7 +117,7 @@ export default ConsultantDiagnosis
 
 
 const Div = styled('div')({
-	maxWidth: "700px",
+	maxWidth: "100%",
 	margin: "auto",
 	display: "flex",
 	flexDirection: "column-reverse"

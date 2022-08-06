@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { styled } from '@mui/material';
+import { Stack, styled } from '@mui/material';
 import MyResHistoryItem from './MyResHistoryItem'
 import { myResFetch, deleteResFetch } from 'features/mypage/mypageSlice';
-// Todo.
-// 날짜부분 추후 다시 스타일 적용
+import { isEmpty } from 'lodash'
 
 const MyResHistory = () => {
   const dispatch = useDispatch()
@@ -12,10 +11,14 @@ const MyResHistory = () => {
   const [id, setId] = useState('')
 
   const clickHandler = (e) => {
-    dispatch(deleteResFetch(e.target.value))
+		if (window.confirm("정말 취소하시겠습니까?")) {
+			dispatch(deleteResFetch(e.target.value))
       .then(() => {
         setId(e.target.value)
       })
+    } else {
+			return
+    }
   }
 
   useEffect(() => {
@@ -25,7 +28,7 @@ const MyResHistory = () => {
 
   return (
     <Div>
-      {reservations.map((reservation, index) => (
+      {isEmpty(reservations) ? <h2>등록된 예약이 없습니다.</h2> : reservations.map((reservation, index) => (
         <MyResHistoryItem clickHandler={clickHandler} {...reservation} key={index} />
       ))}
     </Div>
@@ -34,9 +37,9 @@ const MyResHistory = () => {
 
 export default MyResHistory
 
-const Div = styled('div')`
-	max-width:700px;
-	margin:auto;
-	display:flex;
-	flex-direction: column-reverse;
-`
+const Div = styled('div')({
+	maxWidth: '100%',
+	display: 'flex',
+	flexDirection: 'column-reverse',
+	gap: 10,
+})

@@ -1,51 +1,55 @@
 import React from 'react';
 
-import { Button, Box, CardActions, CardContent, Card, Typography, Avatar, CardActionArea, styled } from '@mui/material';
+import { Button, Box, CardContent, Card, Typography, Avatar, CardActionArea, styled, Grid } from '@mui/material';
 import LyricsOutlinedIcon from '@mui/icons-material/LyricsOutlined';
+import OtherAvatar from 'common/avatar/OtherAvatar';
+import './../mypage.css'
+
 const MyResHistoryItem = (props) => {
   return (
     <SetCard variant="outlined" className="history-card">
-      <CardActionArea>
-        <CardContent>
-          {/* 컨설턴트정보, 날짜 */}
-          <Avatar src={props.consultantImageUrl} sx={{ width: 100, height: 100, marginBottom: 1 }} alt="컨설턴트프로필" />
-          <Forflex>
-            <Typography gutterBottom variant="h6" component="div">
-              {props.consultantNickname} 컨설턴트님
-            </Typography>
-            <Typography gutterBottom variant="h6" component="div" >
-              예약일: {props.reservationDate}일 {props.reservationTime}
-              <Typography gutterBottom variant="body2" component="span" sx={{ paddingLeft: 1 }} color="error">{!props.active ? '취소한 예약' : ''}</Typography>
-            </Typography>
-          </Forflex>
+		<CardActionArea>
+		<CardContent>
+		<Grid container>
+			{/* 그리드 1 */}
+			<ImgGrid item xs={12} sm={3}>
+				<OtherAvatar setSize={14} imageUrl={props.consultantImageUrl} />
+			</ImgGrid>
+			{/* 그리드 2 */}
+			<Grid item xs={12} sm={9}>
+				{/* 컨설턴트정보, 날짜 */}
+				<Forflex>
+					<MainText>
+						{props.consultantNickname}님과의 상담예약 |
+						일시: {props.reservationDate}일 {props.reservationTime.slice(0,2)}시 {props.reservationTime.slice(3,5)}분
+					</MainText>
+						<Typography gutterBottom variant="body2" component="span" sx={{ paddingLeft: 1 }} color="error">{!props.active ? '취소한 예약' 
+						: <Button size="small" color="error" value={props.reservationId} onClick={props.clickHandler}>  예약취소 </Button>}</Typography>
+				</Forflex>
+				{/* 요청사항 박스 */}
+				<RequestBox>
+					<Typography sx={{ marginBottom: 1 }}>컨설턴트님께 요청드려요 <LyricsOutlinedIcon className={props.active ? 'neon' : ''} /> </Typography>
+					<RequestText name="isComment" defaultValue={props.request ? props.request : ''}
+						placeholder={'요청사항이 없습니다.'}>
+					</RequestText>
+				</RequestBox>
+			</Grid>
 
-          <RequestBox>
-            <Typography sx={{ marginBottom: 1 }}>컨설턴트님께 요청드려요 <LyricsOutlinedIcon /> </Typography>
-            <RequestText name="isComment" defaultValue={props.request ? props.request : ''}
-              placeholder={'요청사항이 없습니다.'}
-            >
-            </RequestText>
-          </RequestBox>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <div>
-          <Button
-            size="small"
-            color="error"
-            value={props.reservationId}
-            onClick={props.clickHandler}
-            disabled={!props.active}>
-            예약취소
-          </Button>
-        </div>
-      </CardActions>
-    </SetCard>
+		</Grid>
+		</CardContent>
+		</CardActionArea>
+		</SetCard>
   )
 }
 
 export default MyResHistoryItem
 
+const SetCard = styled(Card)({
+  marginBottom: 5,
+  borderRadius: 5,
+  backgroundColor: "#eeeeee", //"#F1F1F190",
+  borderRadius: '1rem',
+})
 
 const RequestBox = styled(Box)({
   border: '1px dashed #ADBED2',
@@ -53,29 +57,35 @@ const RequestBox = styled(Box)({
   padding: 10,
 })
 
-
-
-const Forflex = styled('div')`
-	display:flex;
-	justify-content: space-between;
-	align-items: end;
-	padding: 10px;
-`
-
-const RequestText = styled('textarea')`
-	font-family: Roboto;
-	font-size: 15px;
-	border: none;
-	background-color: #FFFFFF00;
-	height: 100px;
-	width: 100%;
-	resize: none;
-`
-
-
-const SetCard = styled(Card)({
-  marginBottom: 5,
-  borderRadius: 5,
-  backgroundColor: "#F1F1F190",
-  borderRadius: '1rem',
+const ImgGrid = styled(Grid)({
+  display:'flex',
+	justifyContent: 'center',
+	alignItems: 'start',
 })
+
+
+const Forflex = styled('div')({
+	display:'flex',
+	justifyContent: 'space-between',
+	alignItems: 'end',
+	padding: 10,
+})
+
+const MainText = styled(Typography)({
+	fontSize: 20,
+	fontWeight: 'bold',
+})
+
+
+const RequestText = styled('textarea')({
+	fontSize: 15,
+	border: 'none',
+	backgroundColor: '#FFFFFF00',
+	height: '100%',
+	width: '100%',
+	resize: 'none',
+})
+
+
+
+

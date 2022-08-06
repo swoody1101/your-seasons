@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux/es/exports';
 import { Button, CardActions, CardContent, Card, Typography, Avatar, CardActionArea, styled } from '@mui/material';
 import BasicRating from './StarRating'
 import { deleteReviewFetch, updateReviewFetch, myReviewFetch } from 'features/mypage/mypageSlice'
-
+import { isEmpty } from 'lodash'
 
 const MyReview = () => {
   const dispatch = useDispatch();
@@ -12,9 +12,10 @@ const MyReview = () => {
   const [isstar, setStar] = useState('')
   const [isReviewId, setIsReviewId] = useState(false)
 
-  useEffect(() => {
-    dispatch(myReviewFetch())
-  }, [])
+	// 처음에 reviews가 두번 찍혀서 주석처리 해둠. 아직 진단기록에 따른 후기는 테스트해보지 못함.
+  // useEffect(() => {
+  //   dispatch(myReviewFetch())
+  // }, [])
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -37,7 +38,7 @@ const MyReview = () => {
 
   return (<>
     <Div>
-      {reviews.map(({ reviewId, consultantNickname, consultantImageUrl, star, comment, reviewDate }, index) => (
+      {isEmpty(reviews) ? <h2>내가 작성한 리뷰가 없습니다.</h2> : reviews.map(({ reviewId, consultantNickname, consultantImageUrl, star, comment, reviewDate }, index) => (
         <form onSubmit={onSubmit} key={index}>
           <Card sx={{ marginBottom: 5, padding: 1, borderRadius: 5 }} variant="outlined" className="history-card" key={index}>
             <CardActionArea>
@@ -95,13 +96,12 @@ const MyReview = () => {
 
 export default MyReview
 
-
-const Div = styled('div')`
-	max-width:700px;
-	margin:auto;
-	display:flex;
-	flex-direction: column-reverse;
-`
+const Div = styled('div')({
+	maxWidth: '100%',
+	margin: 'auto',
+	display: 'flex',
+	flexDirection: 'column-reverse',
+})
 
 const RequestBox = styled('div')`
 	border: 1px dashed #ADBED2;

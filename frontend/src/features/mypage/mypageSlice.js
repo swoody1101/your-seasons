@@ -46,7 +46,6 @@ export const myResFetch = createAsyncThunk(
   async () => {
     return Axios.get('customers/1')
       .then(res => {
-        console.log(res)
         if (res.status === OK) {
           return res.data
         } else {
