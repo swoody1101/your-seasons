@@ -6,7 +6,7 @@ import OtherAvatar from 'common/avatar/OtherAvatar';
 import { isEmpty } from 'lodash'
 import '../mypage.css'
 
-import {consultantDiagnosis} from '../../dumy'
+// import {consultantDiagnosis} from '../../dumy'
 
 // 진단결과사진 모달
 const style = {
@@ -50,8 +50,8 @@ export const BasicModal = ({ resultImageUrl }) => {
 
 
 const ConsultantDiagnosis = () => {
-	// const results = useSelector(state => state.mypage.myConsultantDxData);
-	const results = consultantDiagnosis
+	const results = useSelector(state => state.mypage.myConsultantDxData);
+	// const results = consultantDiagnosis
 	return (<>
 		<Div>
 			{isEmpty(results) ? <h2>지난 진단 기록이 없습니다.</h2> : results.map(({ consultingId, tone, consultantNickname, 
