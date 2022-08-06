@@ -1,30 +1,28 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 
 import { Avatar, styled } from '@mui/material'
 
-const MyAvatar = (
-  setSize,
-) => {
-  const { imageUrl } = useSelector((state) => state.auth.logonUser)
-
+// 이미지 프롭으로 내려주면 받아서 사용
+const OtherAvatar = ( setSize, imageUrl) => {
+	
   return (
     <SetAvatar si={setSize}>
-			<img src={imageUrl} alt='' />
+        <img src={imageUrl} alt='img' />
     </SetAvatar>
   )
 }
 
-export default MyAvatar
+export default OtherAvatar
 
 const SetAvatar = styled(Avatar)((props) => ({
-  backgroundColor: "pink",
+  // backgroundColor: "pink",
   width: `${props.si.setSize * 10}px`,
   height: `${props.si.setSize * 10}px`,
   img: {
     backgroundColor: 'white',
     borderRadius: "100%",
-    width: `${props.si.setSize * 9}px`,
-    height: `${props.si.setSize * 9}px`,
+		// 9px -> 10px
+    width: `${props.si.setSize * 10}px`,
+    height: `${props.si.setSize * 10}px`,
   }
 }))
