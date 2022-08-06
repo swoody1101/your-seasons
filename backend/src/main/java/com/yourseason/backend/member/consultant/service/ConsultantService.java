@@ -87,9 +87,8 @@ public class ConsultantService {
     }
 
     public List<ConsultantListResponse> getTop10Consultants() {
-        return consultantRepository.findTop10ByOrderByStarAverageDesc()
+        return consultantRepository.findTop10ByIsActiveTrueOrderByStarAverageDesc()
                 .stream()
-                .filter(Consultant::isActive)
                 .map(consultant ->
                         ConsultantListResponse.builder()
                                 .consultantId(consultant.getId())
