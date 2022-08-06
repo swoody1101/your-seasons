@@ -39,14 +39,13 @@ const ConsultantProfile = () => {
 			</Grid>
 			{/* 프로필 텍스트 */}
 			<Grid item xs={12} sm={9}>
-
 				<ProfileText>
 					<MainText>
 					<h3>{nickname} 컨설턴트님</h3>
 					<div>{starAverage===0? '등록된 별점이 없습니다.' :  <StarRating starrating={starAverage} />}</div>
 					</MainText>
 					<Introduction>{introduction ? introduction : '등록된 자기소개가 없습니다.'}</Introduction>
-					<p>진단비용 {cost ? cost : 0}원</p>
+					<p>진단비용 {cost ? cost + '원' : '등록된 비용이 없습니다.'}</p>
 						<Button variant="contained"
 							onClick={handleModify}
 							style={{width: 150}}
@@ -73,7 +72,8 @@ const ProfileText = styled(Stack)({
 const Introduction = styled('div')({
   display: "-webkit-box",
   "-webkit-box-orient": "vertical",
-  "-webkit-line-clamp": "2",
+  "-webkit-line-clamp": "3",
+	maxWidth: 600,
   overflow: "hidden",
 	lineHeight: "100%",
 })
