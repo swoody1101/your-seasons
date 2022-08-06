@@ -87,7 +87,7 @@ public class ConsultantService {
                 .collect(Collectors.toList());
     }
 
-    public List<ConsultantListResponse> getConsultantBySearch(String keyword) {
+    public List<ConsultantListResponse> searchConsultantByNickname(String keyword) {
         return consultantRepository.findByNicknameContaining(keyword)
                 .stream()
                 .filter(BaseTimeEntity::isActive)

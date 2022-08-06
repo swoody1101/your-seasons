@@ -38,9 +38,9 @@ public class ConsultantController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<ConsultantListResponse>> getConsultantBySearch(@RequestParam String keyword) {
+    public ResponseEntity<List<ConsultantListResponse>> searchConsultantByNickname(@RequestParam String keyword) {
         return ResponseEntity.ok()
-                .body(consultantService.getConsultantBySearch(keyword));
+                .body(consultantService.searchConsultantByNickname(keyword));
     }
 
     @GetMapping("/{consultantId}/1")
