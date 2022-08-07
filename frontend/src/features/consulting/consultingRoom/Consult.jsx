@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import { Box, styled } from '@mui/material'
 
-import ConsultingRoom from './components/ConsultingRoom';
+import ConsultingRoom from './components/ConsultingRoom'
 import CameraTest from './components/CameraTest';
 
 const Consult = () => {
@@ -26,5 +26,6 @@ const Consult = () => {
 export default Consult
 
 const ConsultContainer = styled(Box)({
-  height: "100vh"
+  // marginTop: '5vh',
+  height: "95vh"
 })
