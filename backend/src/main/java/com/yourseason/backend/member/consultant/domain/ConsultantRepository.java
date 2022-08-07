@@ -9,11 +9,19 @@ public interface ConsultantRepository extends JpaRepository<Consultant, Long> {
 
     Member getByEmail(String email);
 
-    List<Consultant> findByIsActiveTrue();
-
     boolean existsByEmail(String email);
 
     boolean existsByNickname(String nickname);
 
-    List<Consultant> findByIsActiveTrueAndNicknameContaining(String keyword);
+    List<Consultant> findAllByIsActiveTrueOrderByIdDesc();
+
+    List<Consultant> findAllByIsActiveTrueOrderByReviewCountDesc();
+
+    List<Consultant> findAllByIsActiveTrueOrderByStarAverageDesc();
+
+    List<Consultant> findAllByIsActiveTrueOrderByCostDesc();
+
+    List<Consultant> findAllByIsActiveTrueOrderByCost();
+
+    List<Consultant> findAllByIsActiveTrueAndNicknameContaining(String keyword);
 }

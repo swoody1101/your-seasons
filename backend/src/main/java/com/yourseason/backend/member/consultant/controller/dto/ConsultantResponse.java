@@ -17,7 +17,7 @@ public class ConsultantResponse {
     private int reviewCount;
     private String imageUrl;
     private String introduction;
-    private String cost;
+    private int cost;
     private String licenseName;
     private List<ClosedDayListResponse> closedDays;
     private List<ReservationListResponse> reservations;
