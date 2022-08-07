@@ -1,8 +1,6 @@
 package com.yourseason.backend.util;
 
 import com.yourseason.backend.common.exception.WrongAccessException;
-import com.yourseason.backend.member.common.domain.Member;
-import com.yourseason.backend.member.common.domain.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -33,30 +31,8 @@ public class JwtUtil {
         return createToken(claims);
     }
 
-    public static Boolean isValidToken(String token, Member member, Role role) {
-        Long id = getMemberId(token);
-        String imageUrl = getImageUrl(token);
-        String nickname = getNickname(token);
-        String roleFromToken = getRole(token);
-        return id.equals(member.getId()) && nickname.equals(member.getNickname())
-                && imageUrl.equals(member.getImageUrl()) && roleFromToken.equals(role)
-                && !isTokenExpired(token);
-    }
-
     public static Long getMemberId(String token) {
         return Long.parseLong((String) getAllClaims(getActualToken(token)).get("id"));
-    }
-
-    private static String getImageUrl(String token) {
-        return String.valueOf(getAllClaims(token).get("imageUrl"));
-    }
-
-    private static String getNickname(String token) {
-        return String.valueOf(getAllClaims(token).get("nickname"));
-    }
-
-    private static String getRole(String token) {
-        return String.valueOf(getAllClaims(token).get("role"));
     }
 
     private static String createToken(Claims claims) {
@@ -76,23 +52,14 @@ public class JwtUtil {
                 .getBody();
     }
 
-    private static boolean isTokenExpired(String token) {
-        return getExpirationDate(token).before(new Date());
-    }
-
-    private static Date getExpirationDate(String token) {
-        Claims claims = getAllClaims(token);
-        return claims.getExpiration();
+    private static void checkValidation(String token) {
+        if (!token.startsWith(TYPE + DELIMITER)) {
+            throw new WrongAccessException(WRONG_ACCESS);
+        }
     }
 
     private static String getActualToken(String token) {
         checkValidation(token);
         return token.split(DELIMITER)[TOKEN];
-    }
-
-    private static void checkValidation(String token) {
-        if (!token.startsWith(TYPE + DELIMITER)) {
-            throw new WrongAccessException(WRONG_ACCESS);
-        }
     }
 }
