@@ -50,5 +50,11 @@
     npm i --save lodash
     ```
     
+    - react-items-carousel
+    
+    ```
+    npm install react-items-carousel --save
+    ```
+    
     
 

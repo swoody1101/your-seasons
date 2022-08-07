@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux';
 import ConsultingResBtn from './ConsultingResBtn';
 import TimeTable from './TimeTable';
 import Calendar from 'react-calendar'
@@ -7,8 +8,8 @@ import moment from 'moment';
 import { Box, styled, Grid, Typography } from '@mui/material';
 
 
-
-const ConsultingResCalendar = (props) => {
+const ConsultingResCalendar = () => {
+  const { reservations, closedDays } = useSelector(state => state.consultantList.consultantDetail)
   const today = new Date()
 
   let todaydate = (today.getFullYear()) + '-' + ('0' + (today.getMonth() + 1)).slice(-2)
@@ -16,7 +17,11 @@ const ConsultingResCalendar = (props) => {
 
   const [dateState, setDateState] = useState(new Date())
   const [pickedDate, setPickedDate] = useState(todaydate)
-  const [dayOff, setDayOff] = useState(['2022-08-01', '2022-08-02', '2022-08-06'])
+  const dayOff = []
+
+  closedDays.forEach((res) => {
+    dayOff.push(res.date)
+  })
 
   const timeTable = [
     '09:00:00',
@@ -28,75 +33,6 @@ const ConsultingResCalendar = (props) => {
     '16:00:00',
     '17:00:00',
     '18:00:00'
-  ]
-
-  const reservations = [
-    {
-      "reservationId": 1,
-      "reservationDate": '2022-08-04',
-      "reservationTime": '09:00:00',
-      "request": "요청사항"
-    },
-    {
-      "reservationId": 2,
-      "reservationDate": '2022-08-04',
-      "reservationTime": '10:00:00',
-      "request": "요청사항"
-    },
-    {
-      "reservationId": 3,
-      "reservationDate": '2022-08-04',
-      "reservationTime": '11:00:00',
-      "request": "요청사항"
-    },
-    {
-      "reservationId": 4,
-      "reservationDate": '2022-08-04',
-      "reservationTime": '13:00:00',
-      "request": "요청사항"
-    },
-    {
-      "reservationId": 5,
-      "reservationDate": '2022-08-05',
-      "reservationTime": '14:00:00',
-      "request": "요청사항"
-    },
-    {
-      "reservationId": 6,
-      "reservationDate": '2022-08-05',
-      "reservationTime": '15:00:00',
-      "request": "요청사항"
-    },
-    {
-      "reservationId": 7,
-      "reservationDate": '2022-08-05',
-      "reservationTime": '16:00:00',
-      "request": "요청사항"
-    },
-    {
-      "reservationId": 8,
-      "reservationDate": '2022-08-05',
-      "reservationTime": '17:00:00',
-      "request": "요청사항"
-    },
-    {
-      "reservationId": 9,
-      "reservationDate": '2022-08-07',
-      "reservationTime": '18:00:00',
-      "request": "요청사항"
-    },
-    {
-      "reservationId": 10,
-      "reservationDate": '2022-08-07',
-      "reservationTime": '11:00:00',
-      "request": "요청사항"
-    },
-    {
-      "reservationId": 11,
-      "reservationDate": '2022-08-07',
-      "reservationTime": '16:00:00',
-      "request": "요청사항"
-    }
   ]
 
   const changeDate = (event) => {

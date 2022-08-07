@@ -1,19 +1,27 @@
 import React from 'react'
-import DogMeeting from '../../../assets/images/homeSlide/meetingdog.jpg'
 import { Grid, styled, Typography } from '@mui/material'
+import DogMeeting from '../../../assets/images/homeSlide/HP1_meetingdog.jpg'
+import PeopleMeeting from '../../../assets/images/homeSlide/HP1_meetingpeople.jpg'
+import SmilePeople from '../../../assets/images/homeSlide/HP1_smilepeople.jpg'
+import Drape from '../../../assets/images/homeSlide/HP1_drape.jpg'
 
 const HomeProcess1 = () => {
 	return (
 		<BigGrid container>
-		<Grid1 item xs={3}>
-			<Text>
-			화상으로 받는 퍼스널컬러 진단
-			</Text>
+		<Grid1 item xs={6}>
+			<MainTypography>
+				화상으로 받는 퍼스널컬러 진단
+			</MainTypography>
+			<SubTypography>
+				가상배경을 활용한
+				신개념 퍼스널컬러 진단 서비스
+			</SubTypography>
 		</Grid1>
-		<Grid2 item xs={9}>
-			<DogDiv>
-				<DogImg src={DogMeeting} />
-			</DogDiv>
+		<Grid2 item xs={6}>
+				<Img src={DogMeeting} />
+				<Img src={PeopleMeeting} />
+				<Img src={Drape} />
+				<Img src={SmilePeople} />
 		</Grid2>
 	</BigGrid>
 	)
@@ -21,68 +29,47 @@ const HomeProcess1 = () => {
 
 export default HomeProcess1
 
-const BigGrid = styled(Grid)((
-	{
-		position: 'relative',
-		maxWidth: '100%',
-		maxHeight: 300,
-		height: 300,
-		width: '100%',
-		// height: '50vh',
-		// width: '100vw',
-		backgroundColor: '#424242',
-	}
-))
-
-const Grid1 = styled(Grid)((
-	{
-		position: 'absolute',
-	}
-))
-
-const Grid2 = styled(Grid)((
-	{
-		position: 'absolute',
-		display: 'flex',
-		justifyContent: 'center',
-		alignItems: 'center',
-		right: 100,
-		height: '50vh',
-		filter: 'blur(1px)',
-	}
-))
-
-const DogDiv = styled('div')({
-	marginTop: '24vh',
-	marginLeft: '3vw',
-	height: '50vh',
+const BigGrid = styled(Grid)({
+	position: 'relative',
+	backgroundColor: 'pink',
+	height: '100vh',
+	width: '100vw',
 })
 
-const DogImg = styled('img')({
-	width: 300,
+
+const Grid1 = styled(Grid)({
+	position: 'relative',
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center',
+	flexDirection: 'column',
 })
 
-const Text = styled(Typography)((
-  {
-    fontFamily: 'malgun !important',
-    position: "relative",
-		fontSize: '2.5rem',
-		letterSpacing: -3,
-    top: '15vh',
-    left: '15vh',
-    color:  '#FFFFFF', //"#b4004f",
-		// textShadow: '1px 2px 2px pink',
-    "@keyframes textIn": {
-      from: {
-        transform: "translateX(-10rem)",
-				opacity: 0,
-      },
-      to: {
-        transform: "translateX(0)",
-				opacity: 1,
-      }
-    },
-    animation: "textIn 1s ease",
-    animationDirection: "alternate"
-  }
-))
+const Grid2 = styled(Grid)({
+	display: 'flex',
+	flexFlow: 'row wrap',
+	justifyContent: 'start',
+	alignItems: 'center',
+	backgroundColor: '#eceff1',
+})
+
+const MainTypography = styled(Typography)({
+	fontFamily: 'malgunbd !important',
+	fontSize: 'var(--font-title-size)',
+	letterSpacing: 'var(--font-letter-spacing)',
+	color:  '#FFFFFF', //"#b4004f",
+	paddingBottom: 15,
+})
+
+const SubTypography = styled(Typography)({
+  fontFamily: 'malgunbd !important',
+	fontSize: 'var(--font-sub-size)',
+	letterSpacing: 'var(--font-letter-spacing)',
+  color: '#FFFFFF99',
+})
+
+
+const Img = styled('img')({
+	width: '50%'
+})
+
