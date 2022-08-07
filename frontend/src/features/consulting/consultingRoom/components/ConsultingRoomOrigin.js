@@ -9,11 +9,11 @@ import { settingModalOn } from 'features/consulting/consultingRoom/consultSlice'
 import axios from 'axios';
 import UserVideoComponent from './UserVideoComponent';
 
-const OPENVIDU_SERVER_URL = 'https://yourseasons.ssafy.io:8443';
+const OPENVIDU_SERVER_URL = 'https://yourseasons.anveloper.kr:8443';
 const OPENVIDU_SERVER_SECRET = 'YOUR_SEASONS_SECRET';
 
 
-class ConsultingRoom extends Component {
+class ConsultingRoomOrigin extends Component {
   constructor(props) {
     super(props);
 
@@ -24,11 +24,6 @@ class ConsultingRoom extends Component {
       mainStreamManager: undefined,
       publisher: undefined,
       subscribers: [],
-
-      // test
-      customer: undefined,
-      consultant: undefined,
-
     };
 
     this.joinSession = this.joinSession.bind(this);
@@ -345,7 +340,7 @@ const mapDispatchToProps = (dispatch) => {
     doSettingModalOn: () => dispatch(settingModalOn()),
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(ConsultingRoom);
+export default connect(mapStateToProps, mapDispatchToProps)(ConsultingRoomOrigin);
 
 
 const SContainer = styled(Box)({
