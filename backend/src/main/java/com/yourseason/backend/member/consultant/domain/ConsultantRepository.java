@@ -23,5 +23,5 @@ public interface ConsultantRepository extends JpaRepository<Consultant, Long> {
 
     List<Consultant> findAllByIsActiveTrueOrderByCost();
 
-    List<Consultant> findAllByIsActiveTrueAndNicknameContaining(String keyword);
+    List<Consultant> findByIsActiveTrueAndNicknameContaining(String keyword);
 }
