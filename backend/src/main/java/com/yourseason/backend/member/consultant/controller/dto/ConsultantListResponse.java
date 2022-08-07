@@ -13,6 +13,6 @@ public class ConsultantListResponse {
     private String introduction;
     private int reviewCount;
     private double starAverage;
-    private String cost;
+    private int cost;
     private String imageUrl;
 }
