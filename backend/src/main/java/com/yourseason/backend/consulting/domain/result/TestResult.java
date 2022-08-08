@@ -28,15 +28,18 @@ public class TestResult extends BaseTimeEntity {
     @JoinColumn(name = "tone_id")
     private Tone tone;
 
+    private String consultingComment;
+
     private String consultingFile;
 
     @Builder
     public TestResult(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDateTime deletedDate,
-                      BestColorSet bestColorSet, WorstColorSet worstColorSet, Tone tone, String consultingFile) {
+                      BestColorSet bestColorSet, WorstColorSet worstColorSet, Tone tone, String consultingFile, String consultingComment) {
         super(id, createdTime, lastModifiedTime, deletedDate, true);
         this.bestColorSet = bestColorSet;
         this.worstColorSet = worstColorSet;
         this.tone = tone;
         this.consultingFile = consultingFile;
+        this.consultingComment = consultingComment;
     }
 }
