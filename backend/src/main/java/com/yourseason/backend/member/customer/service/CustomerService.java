@@ -118,7 +118,7 @@ public class CustomerService {
                                 .map(Color::getHex)
                                 .collect(Collectors.toList()))
                         .resultImageUrl(consulting.getTestResult().getConsultingFile())
-                        .comment(consulting.getComment())
+                        .comment(consulting.getTestResult().getConsultingComment())
                         .hasReview(consulting.hasReview())
                         .build())
                 .collect(Collectors.toList());
