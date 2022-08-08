@@ -5,8 +5,9 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Stack, Button, Grid, styled } from '@mui/material';
 
 import MyAvatar from "common/avatar/MyAvatar";
-
+import PinkButton from "common/PinkButton";
 import { loadMember } from 'features/auth/authSlice'
+
 
 const MyProfile = () => {
   const results = useSelector(state => state.mypage.myConsultantDxData)
@@ -47,18 +48,23 @@ const MyProfile = () => {
           <h3>{nickname} 님</h3>
           <div>{diagnosis()}</div>
           {/* 내 정보 수정 */}
-            <Button variant="contained"
-              onClick={handleModify}
-							style={{width: 120}}
-            >
-              내 정보 수정
-            </Button>
+            <PinkButton 
+              isClick={handleModify}
+							width="120"
+							btnText="내정보수정"
+            /> 
         </ProfileText>
       </Grid>
     </Grid>
   )
 }
 export default MyProfile;
+
+PinkButton.defaultProps = {
+	isClick: () => { },
+	width: "",
+	btnText: "",
+}
 
 const ProfileText = styled(Stack)({
   display: "flex",
