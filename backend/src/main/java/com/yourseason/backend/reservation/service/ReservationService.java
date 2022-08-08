@@ -4,6 +4,7 @@ import com.yourseason.backend.common.domain.Message;
 import com.yourseason.backend.common.exception.DuplicationException;
 import com.yourseason.backend.common.exception.NotFoundException;
 import com.yourseason.backend.common.exception.WrongAccessException;
+import com.yourseason.backend.member.common.domain.Role;
 import com.yourseason.backend.member.consultant.domain.Consultant;
 import com.yourseason.backend.member.consultant.domain.ConsultantRepository;
 import com.yourseason.backend.member.customer.domain.Customer;
@@ -30,9 +31,9 @@ public class ReservationService {
     private final ConsultantRepository consultantRepository;
     private final ReservationRepository reservationRepository;
 
-    public ReservationCreateResponse createReservation(String role, Long customerId, Long consultantId,
+    public ReservationCreateResponse createReservation(Role role, Long customerId, Long consultantId,
                                                        ReservationCreateRequest reservationCreateRequest) {
-        if (role.equals("CONSULTANT")) {
+        if (Role.CONSULTANT.equals(role)) {
             throw new WrongAccessException(WRONG_ACCESS);
         }
         Customer customer = customerRepository.findById(customerId)

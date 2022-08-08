@@ -1,6 +1,7 @@
 package com.yourseason.backend.util;
 
 import com.yourseason.backend.common.exception.WrongAccessException;
+import com.yourseason.backend.member.common.domain.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -35,8 +36,8 @@ public class JwtUtil {
         return Long.parseLong((String) getAllClaims(getActualToken(token)).get("id"));
     }
 
-    public static String getMemberRole(String token) {
-        return (String) getAllClaims(getActualToken(token)).get("role");
+    public static Role getMemberRole(String token) {
+        return Role.valueOf((String) getAllClaims(getActualToken(token)).get("role"));
     }
 
     private static String createToken(Claims claims) {
