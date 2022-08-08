@@ -12,6 +12,8 @@ import { Mic, MicOff, Videocam, VideocamOff } from '@mui/icons-material';
 import ColorPalette from 'common/colorset/ColorPalette'
 import { settingModalOn } from 'features/consulting/consultingRoom/consultSlice'
 import { CONSULTANT } from 'api/CustomConst'
+import SelectedColorSet from 'common/colorset/SelectedColorSet';
+import ColorButtonGroup from 'common/colorset/ColorButtonGroup'
 
 const OPENVIDU_SERVER_URL = 'https://yourseasons.anveloper.kr:8443';
 const OPENVIDU_SERVER_SECRET = 'YOUR_SEASONS_SECRET';
@@ -19,8 +21,13 @@ const OPENVIDU_SERVER_SECRET = 'YOUR_SEASONS_SECRET';
 // rafce Arrow function style 
 const ConsultingRoom = () => {
   const { nickname, role, email } = useSelector(state => state.auth.logonUser)
-  const tmp = email.replace(/[@\.]/g, '')
+
+  const tmp = email.replace(/[@\.]/g, '-')
   const [mySessionId, setMySessionId] = useState(role === CONSULTANT ? tmp : '')
+
+  const [isBest, setIsBest] = useState(false)
+  const [isWorst, setIsWorst] = useState(false)
+
   const [myUserName, setMyUserName] = useState(nickname)
   const [session, setSession] = useState(undefined)
   const [mainStreamManager, setMainStreamManager] = useState(undefined)
@@ -32,6 +39,8 @@ const ConsultingRoom = () => {
 
   const [isMic, setIsMic] = useState(false)
   const [isCam, setIsCam] = useState(false)
+  const selectedColor = useSelector(state => state.colorSetList.selectedColor)
+
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -207,10 +216,10 @@ const ConsultingRoom = () => {
   return (
     <SContainer className="container">
       {session !== undefined ? (
-        <SGridContainer container>
+        <SGridContainer container backgroundColor={`${selectedColor}60`}>
 
           {consultant !== undefined ? (
-            <SGrid item xs={12} sm={3}>
+            <SGrid item xs={12} sm={2}>
               <Typography variant="small"
                 sx={{
                   fontFamily: 'Happiness-Sans-Regular',
@@ -223,11 +232,17 @@ const ConsultingRoom = () => {
                 <UserVideoComponent
                   streamManager={consultant} />
               </VideoContainer>
+              <SelectedColorSet
+                isBest={isBest}
+                setIsBest={setIsBest}
+                isWorst={isWorst}
+                setIsWorst={setIsWorst}
+              />
             </SGrid>
           ) : null}
 
           {customer !== undefined ? (
-            <SGrid item xs={12} sm={5}>
+            <SGrid item xs={12} sm={6}>
               <VideoContainer
                 onClick={() =>
                   handleMainVideoStream(customer)
@@ -235,9 +250,16 @@ const ConsultingRoom = () => {
                 <UserVideoComponent
                   streamManager={customer} />
               </VideoContainer>
+              <ColorButtonGroup
+                isBest={isBest}
+                isWorst={isWorst}
+              />
             </SGrid>
           ) : null}
-          <ColorPalette />
+          <ColorPalette
+            isBest={isBest}
+            isWorst={isWorst}
+          />
         </SGridContainer>
       ) : <div />}
 
@@ -252,7 +274,7 @@ const ConsultingRoom = () => {
         {
           !session ?
             <Button variant="contained" onClick={joinSession}>
-              입장
+              연결
             </Button>
             :
             <ButtonGroup >
@@ -293,7 +315,6 @@ const ConsultingRoom = () => {
 export default ConsultingRoom
 
 const SContainer = styled(Box)({
-  backgroundColor: "#F1F1F190",
   padding: "1rem",
   height: "97%",
   display: "flex",
@@ -317,7 +338,6 @@ const SGrid = styled(Grid)({
 
 const VideoContainer = styled(Box)({
   width: "90%",
-  backgroundColor: "#F1F1F190",
   borderRadius: "1rem",
   padding: "1rem",
 })

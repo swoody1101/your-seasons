@@ -1,41 +1,54 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux/es/exports';
+import { useDispatch, useSelector } from 'react-redux/es/exports';
 import { useNavigate, Link } from 'react-router-dom';
 
 import { CUSTOMER, CONSULTANT } from 'api/CustomConst'
+import { getConsultantSessionName } from 'features/consulting/consultingRoom/consultSlice'
 
-import { Box, Button, Typography, styled, Input, IconButton } from '@mui/material'
+import { Box, Button, Typography, styled, Input, ButtonGroup } from '@mui/material'
 
 
 const ConsultButton = () => {
   const { role } = useSelector(state => state.auth.logonUser)
+  const { consultantSessionName } = useSelector(state => state.consult.consultantSessionName)
 
   const [isInput, setIsInput] = useState(false)
   const [consultantNickname, setConsultantNickname] = useState('')
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const handleJoin = () => {
+
+  const handlePop = () => {
     setIsInput(!isInput)
-    // navigate('/consult?c=')
   }
 
+  const handleJoin = () => {
+    dispatch(getConsultantSessionName(consultantNickname))
+      .then((res) => {
+        console.log(res)
+      })
+      .catch(() => { })
+    setIsInput(false)
+    setConsultantNickname('')
+  }
   return (
     <Box>
       {
         isInput &&
-        <SBox>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Typography display='inline'>
-              컨설턴트 닉네임
-            </Typography>
-            <Button onClick={handleJoin} >X</Button>
-          </Box>
+        <SBox gap={1}>
+          <Typography display='inline'>
+            컨설턴트 닉네임
+          </Typography>
           <SInput
             value={consultantNickname}
             onChange={(e) => {
               setConsultantNickname(e.target.value)
             }}
           />
+          <ButtonGroup>
+            <Button onClick={handlePop} variant="contained">닫기</Button>
+            <Button onClick={handleJoin} variant="contained">입장</Button>
+          </ButtonGroup>
         </SBox>
       }
       {
@@ -46,7 +59,7 @@ const ConsultButton = () => {
       }
       {
         role === CUSTOMER &&
-        <SButton onClick={handleJoin} variant="contained">
+        <SButton onClick={handlePop} variant="contained">
           <Link to="#">입장하기</Link>
         </SButton>
       }

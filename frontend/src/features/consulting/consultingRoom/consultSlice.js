@@ -2,19 +2,19 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import Axios from 'api/Axios'
 
 const initialState = {
-  isSetClear: true,
-  consultantSessionName: ''
+  isSetClear: false,
+  consultantSessionName: 'asdf-asdf-asdf'
 }
 
 export const getConsultantSessionName = createAsyncThunk(
   'consult/getConsultantSessionName',
-  async ({ consultantNickname }) => {
-    return Axios
-      .get(`consultants/asd?nickname=${consultantNickname}`)
-      .then(() => {
-
-      })
-      .catch(() => { })
+  async (consultantNickname, { rejectWithValue }) => {
+    try {
+      const response = await Axios.get(`consultants/asdf?nickname=${consultantNickname}`)
+      return response.data
+    } catch (err) {
+      return rejectWithValue(err)
+    }
   }
 )
 
@@ -24,14 +24,17 @@ export const consultSlice = createSlice({
   reducers: {
     settingModalOn: (state) => {
       state.isSetClear = true;
-      console.log("setting on : ", state.isSetClear)
     },
     settingModalOff: (state) => {
       state.isSetClear = false;
-      console.log("setting off : ", state.isSetClear)
     }
   },
   extraReducers: {
+    [getConsultantSessionName.fulfilled]: (state, { payload }) => {
+      console.log("컨설턴트 세션 id", payload)
+      state.consultantSessionName = payload.data
+      console.log(state.consultantSessionName)
+    },
   }
 })
 export const { settingModalOn, settingModalOff } = consultSlice.actions;
