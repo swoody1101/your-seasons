@@ -22,9 +22,6 @@ public class Consulting extends BaseTimeEntity {
     @JoinColumn(name = "test_result_id")
     private TestResult testResult;
 
-    @Column(name = "consulting_comment")
-    private String comment;
-
     private boolean hasReview;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -37,11 +34,9 @@ public class Consulting extends BaseTimeEntity {
 
     @Builder
     public Consulting(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate,
-                      TestResult testResult, String comment, boolean hasReview, Consultant consultant,
-                      Customer customer) {
+                      TestResult testResult, boolean hasReview, Consultant consultant, Customer customer) {
         super(id, createdDate, lastModifiedDate, deletedDate, false);
         this.testResult = testResult;
-        this.comment = comment;
         this.hasReview = hasReview;
         this.consultant = consultant;
         this.customer = customer;
