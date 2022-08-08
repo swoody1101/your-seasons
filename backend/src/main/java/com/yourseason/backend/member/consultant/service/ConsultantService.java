@@ -1,6 +1,5 @@
 package com.yourseason.backend.member.consultant.service;
 
-import com.yourseason.backend.common.domain.BaseTimeEntity;
 import com.yourseason.backend.common.domain.Message;
 import com.yourseason.backend.common.exception.*;
 import com.yourseason.backend.member.common.controller.dto.PasswordUpdateRequest;
@@ -77,17 +76,17 @@ public class ConsultantService {
     public List<ConsultantListResponse> getConsultants(String order) {
         List<Consultant> consultants = new ArrayList<>();
         if (order.equals("popular")) {
-            consultants = consultantRepository.findAllByIsActiveTrueOrderByConsultingCountDesc();
+            consultants = consultantRepository.findByIsActiveTrueOrderByConsultingCountDesc();
         } else if (order.equals("manyReviews")) {
-            consultants = consultantRepository.findAllByIsActiveTrueOrderByReviewCountDesc();
+            consultants = consultantRepository.findByIsActiveTrueOrderByReviewCountDesc();
         } else if (order.equals("latest")) {
-            consultants = consultantRepository.findAllByIsActiveTrueOrderByIdDesc();
+            consultants = consultantRepository.findByIsActiveTrueOrderByIdDesc();
         } else if (order.equals("highCost")) {
-            consultants = consultantRepository.findAllByIsActiveTrueOrderByCostDesc();
+            consultants = consultantRepository.findByIsActiveTrueOrderByCostDesc();
         } else if (order.equals("lowCost")) {
-            consultants = consultantRepository.findAllByIsActiveTrueOrderByCost();
+            consultants = consultantRepository.findByIsActiveTrueOrderByCost();
         } else if (order.equals("star")) {
-            consultants = consultantRepository.findAllByIsActiveTrueOrderByStarAverageDesc();
+            consultants = consultantRepository.findByIsActiveTrueOrderByStarAverageDesc();
         }
         return consultants.stream()
                 .map(consultant ->

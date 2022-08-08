@@ -14,15 +14,15 @@ public interface ConsultantRepository extends JpaRepository<Consultant, Long> {
 
     boolean existsByNickname(String nickname);
 
-    List<Consultant> findAllByIsActiveTrueOrderByIdDesc();
+    List<Consultant> findByIsActiveTrueOrderByIdDesc();
 
-    List<Consultant> findAllByIsActiveTrueOrderByReviewCountDesc();
+    List<Consultant> findByIsActiveTrueOrderByReviewCountDesc();
 
-    List<Consultant> findAllByIsActiveTrueOrderByStarAverageDesc();
+    List<Consultant> findByIsActiveTrueOrderByStarAverageDesc();
 
-    List<Consultant> findAllByIsActiveTrueOrderByCostDesc();
+    List<Consultant> findByIsActiveTrueOrderByCostDesc();
 
-    List<Consultant> findAllByIsActiveTrueOrderByCost();
+    List<Consultant> findByIsActiveTrueOrderByCost();
 
     @Query(value = "SELECT * FROM consultant as consultant " +
                      "LEFT JOIN (SELECT consultant_id, count(*) as count " +
@@ -32,7 +32,7 @@ public interface ConsultantRepository extends JpaRepository<Consultant, Long> {
                     "WHERE consultant.is_active = true " +
                     "ORDER BY consulting.count desc"
                    , nativeQuery = true)
-    List<Consultant> findAllByIsActiveTrueOrderByConsultingCountDesc();
+    List<Consultant> findByIsActiveTrueOrderByConsultingCountDesc();
 
     List<Consultant> findByIsActiveTrueAndNicknameContaining(String keyword);
 }
