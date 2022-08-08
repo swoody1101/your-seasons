@@ -9,7 +9,7 @@ import UserVideoComponent from './UserVideoComponent';
 import { Box, Button, Grid, styled, Typography, ButtonGroup, IconButton } from '@mui/material'
 import { Mic, MicOff, Videocam, VideocamOff } from '@mui/icons-material';
 
-import ColorPalette from './ColorPalette'
+import ColorPalette from 'common/colorset/ColorPalette'
 import { settingModalOn } from 'features/consulting/consultingRoom/consultSlice'
 import { CONSULTANT } from 'api/CustomConst'
 
