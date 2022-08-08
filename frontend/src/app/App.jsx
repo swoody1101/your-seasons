@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux'
 
 import './app.css'
 import NavBar from 'common/NavBar'
+import ConsultButton from 'common/ConsultButton'
 import Yourseason from 'features/home/YourSeason'
 import Consult from 'features/consulting/consultingRoom/Consult'
 import MyPage from 'features/mypage/customers/MyPage'
@@ -26,6 +27,7 @@ const App = () => {
   return (
     <Box >
       <NavBar />
+      <ConsultButton />
       <Stack direction="column" spacing={2} justifyContent="space-between" sx={{ minHeight: "100vh" }}>
         <Routes>
           <Route path='/' element={<Yourseason />} />
@@ -39,10 +41,9 @@ const App = () => {
           <Route path='/modify' element={<ModifyProfile />} />
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<SignUp />} />
-          <Route path='/signup' element={<SignUp />} />
           <Route path='/colorset' element={<TemporaryRoom />} />
         </Routes>
-      <Footer />
+        <Footer />
       </Stack>
     </Box>
   )
