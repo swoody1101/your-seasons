@@ -35,6 +35,10 @@ public class JwtUtil {
         return Long.parseLong((String) getAllClaims(getActualToken(token)).get("id"));
     }
 
+    public static String getMemberRole(String token) {
+        return (String) getAllClaims(getActualToken(token)).get("role");
+    }
+
     private static String createToken(Claims claims) {
         return Jwts.builder()
                 .setSubject("Authorization")
