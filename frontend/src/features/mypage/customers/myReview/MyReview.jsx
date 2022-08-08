@@ -66,13 +66,13 @@ const MyReview = () => {
 							</MainText>
 						</Forflex>
 						{/* 리뷰 박스 */}
-						<RequestBox>
+						<ReviewBox>
 							<BasicRating star={star} reviewId={reviewId} isReviewId={isReviewId}
 								setstar={setStar} key={star} />
-							<RequestText name="isComment" readOnly={isReviewId === reviewId ? false : true} defaultValue={comment}
+							<ReviewText name="isComment" readOnly={isReviewId === reviewId ? false : true} defaultValue={comment}
 								onChange={(e) => setComment(e.target.value)} style={{ backgroundColor: isReviewId !== reviewId ? 'white' : '#eeeeee' }}>
-							</RequestText>
-						</RequestBox>
+							</ReviewText>
+						</ReviewBox>
 					</Grid>	
 
 				</Grid>
@@ -138,7 +138,7 @@ const ImgGrid = styled(Grid)({
 	alignItems: 'start',
 })
 
-const RequestBox = styled(Box)({
+const ReviewBox = styled(Box)({
   border: '1px dashed #ADBED2',
   borderRadius: 5,
   padding: 10,
@@ -157,7 +157,7 @@ const MainText = styled(Typography)({
 	fontWeight: 'bold',
 })
 
-const RequestText = styled('textarea')({
+const ReviewText = styled('textarea')({
 	fontSize: 15,
 	border: 'none',
 	backgroundColor: '#FFFFFF00',

@@ -4,10 +4,11 @@ import { Avatar, styled } from '@mui/material'
 const MyAvatar = (
   { setSize, imgUrl }
 ) => {
+	const tmpImg = '/images/default/avatar20.png'
 
 	return (
     <SetAvatar si={setSize}>
-			<img src={imgUrl} alt='' />
+			<img src={imgUrl ? imgUrl : tmpImg} alt='' />
     </SetAvatar>
   )
 }

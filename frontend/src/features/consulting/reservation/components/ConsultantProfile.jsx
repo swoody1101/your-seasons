@@ -19,7 +19,6 @@ const ConsultantProfile = () => {
   }, [dispatch])
 
   return (
-    <Container fixed sx={{ mt: '2rem' }}>
 			<Grid container >			
 				{/* 이미지 */}
 				<Grid item xs={12} sm={3} sx={{
@@ -40,7 +39,6 @@ const ConsultantProfile = () => {
 					</ProfileText>
 				</Grid>
 			</Grid>
-		</Container>
   )
 }
 
