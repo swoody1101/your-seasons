@@ -98,6 +98,11 @@ public class Consultant extends Member {
         return Objects.hash(this.getEmail());
     }
 
+    public void createConsulting(Consulting consulting) {
+        consultings.add(consulting);
+        consultingCount++;
+    }
+
     public void addClosedDay(ClosedDay closedDay) {
         closedDays.add(closedDay);
     }
