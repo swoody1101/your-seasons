@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { Stack, Button, Grid, Container, Box, styled } from '@mui/material'
+import { Stack, Grid, styled } from '@mui/material'
 
 import { loadMember } from 'features/auth/authSlice'
 import { getCustomerReview } from 'features/mypage/mypageSlice'
@@ -77,8 +77,8 @@ const ProfileText = styled(Stack)({
 
 const Introduction = styled('div')({
   display: "-webkit-box",
-  "-webkit-box-orient": "vertical",
-  "-webkit-line-clamp": "3",
+  WebkitBoxOrient: "vertical",
+  WebkitLineClamp: "3",
 	maxWidth: 600,
   overflow: "hidden",
 	lineHeight: "100%",

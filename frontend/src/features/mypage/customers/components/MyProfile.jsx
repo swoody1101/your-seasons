@@ -77,7 +77,7 @@ const ProfileText = styled(Stack)({
 
 const Diagnosis = styled('div')({
   display: "-webkit-box",
-  "-webkit-box-orient": "vertical",
-  "-webkit-line-clamp": "2",
+  WebkitBoxOrient: "vertical",
+  WebkitLineClamp: "2",
   overflow: "hidden"
 })
