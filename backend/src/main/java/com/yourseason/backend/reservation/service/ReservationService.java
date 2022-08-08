@@ -30,7 +30,11 @@ public class ReservationService {
     private final ConsultantRepository consultantRepository;
     private final ReservationRepository reservationRepository;
 
-    public ReservationCreateResponse createReservation(Long customerId, Long consultantId, ReservationCreateRequest reservationCreateRequest) {
+    public ReservationCreateResponse createReservation(String role, Long customerId, Long consultantId,
+                                                       ReservationCreateRequest reservationCreateRequest) {
+        if (role.equals("CONSULTANT")) {
+            throw new WrongAccessException(WRONG_ACCESS);
+        }
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
         Consultant consultant = consultantRepository.findById(consultantId)
