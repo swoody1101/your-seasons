@@ -6,7 +6,6 @@ import OtherAvatar from 'common/avatar/OtherAvatar';
 import { isEmpty } from 'lodash'
 import '../mypage.css'
 
-// import {consultantDiagnosis} from '../../dumy'
 
 // 진단결과사진 모달
 const style = {
@@ -41,7 +40,9 @@ export const BasicModal = ({ resultImageUrl }) => {
 					<Typography id="modal-modal-title" variant="span" component="h3">
 						퍼스널컬러 진단결과
 					</Typography>
-					<img src={resultImageUrl} style={{ width: '100%' }} />
+					{resultImageUrl!=="" ? <img src={resultImageUrl} style={{ width: '100%' }} /> 
+					:<><p style={{margin: '8px 0px'}}>진단결과표를 제공하지 않은 상담입니다.</p></> }
+					
 				</Box>
 			</Modal>
 		</div>
@@ -51,7 +52,7 @@ export const BasicModal = ({ resultImageUrl }) => {
 
 const ConsultantDiagnosis = () => {
 	const results = useSelector(state => state.mypage.myConsultantDxData);
-	// const results = consultantDiagnosis
+
 	return (<>
 		<Div>
 			{isEmpty(results) ? <h2>지난 진단 기록이 없습니다.</h2> : results.map(({ consultingId, tone, consultantNickname, 
@@ -64,7 +65,7 @@ const ConsultantDiagnosis = () => {
 				<Grid container sx={{display: 'flex', flexFlow: 'no-wrap'}}>
 					{/* 그리드 1 */}
 					<ImgGrid item xs={12} sm={3}>
-						<OtherAvatar setSize={14} imageUrl={consultantImageUrl} />
+						<OtherAvatar setSize={14} imgUrl={consultantImageUrl} />
 					</ImgGrid>
 
 					{/* 그리드 2 */}

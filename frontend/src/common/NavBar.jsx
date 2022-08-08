@@ -13,7 +13,7 @@ import MyAvatar from 'common/avatar/MyAvatar';
 
 const NavBar = () => {
   const logonUser = useSelector((state) => state.auth.logonUser)
-  const { nickname, role } = useSelector((state) => state.auth.logonUser)
+  const { nickname, role, imageUrl } = useSelector((state) => state.auth.logonUser)
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -95,7 +95,7 @@ const NavBar = () => {
                     <Typography variant="h6" sx={{ display: 'inline' }}>
                       "{nickname}"
                     </Typography>
-                    <MyAvatar setSize={4} />
+                    <MyAvatar setSize={4} imgUrl={imageUrl} />
                   </Box>
                 </Link>
                 <Typography variant="h6" sx={{ display: { xs: "none", sm: "block" } }} >
@@ -113,7 +113,6 @@ const NavBar = () => {
 }
 
 export default NavBar
-
 
 const StyledToolbar = styled(Toolbar)({
   display: "flex",

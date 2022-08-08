@@ -5,13 +5,13 @@ import ConsultantResPageTab from "./reservationCalendar/ConsultantResPageTab";
 
 const ConsultantResPage = () => {
 
-    return (
-        <Container fixed>
-            <ConsultantProfile />
-            <br />
-            <ConsultantResPageTab />
-        </Container>
-    )
+	return (
+			<Container fixed sx={{ mt: '2rem' }}>
+					<ConsultantProfile />
+					<br />
+					<ConsultantResPageTab />
+			</Container>
+	)
 }
 
 export default ConsultantResPage

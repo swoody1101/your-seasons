@@ -2,17 +2,18 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { Stack, Button, Grid, Container, Box, styled } from '@mui/material'
+import { Stack, Grid, styled } from '@mui/material'
 
 import { loadMember } from 'features/auth/authSlice'
 import { getCustomerReview } from 'features/mypage/mypageSlice'
 import StarRating from "common/starrating/StarRating";
 import MyAvatar from "common/avatar/MyAvatar";
+import PinkButton from "common/PinkButton";
 
 
 const ConsultantProfile = () => {
   const { starAverage } = useSelector(state => state.mypage.reviews)
-  const { role, nickname, introduction, cost } = useSelector(state => state.auth.logonUser)
+  const { role, nickname, introduction, cost, imageUrl } = useSelector(state => state.auth.logonUser)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -35,7 +36,7 @@ const ConsultantProfile = () => {
 				display: 'flex',
 				justifyContent: 'center',
 			}}>
-				<MyAvatar setSize={16} />
+				<MyAvatar setSize={16} imgUrl={imageUrl} />
 			</Grid>
 			{/* 프로필 텍스트 */}
 			<Grid item xs={12} sm={9}>
@@ -46,12 +47,11 @@ const ConsultantProfile = () => {
 					</MainText>
 					<Introduction>{introduction ? introduction : '등록된 자기소개가 없습니다.'}</Introduction>
 					<p>진단비용 {cost ? cost + '원' : '등록된 비용이 없습니다.'}</p>
-						<Button variant="contained"
-							onClick={handleModify}
-							style={{width: 150}}
-						>
-							컨설턴트 정보 수정
-						</Button>
+						<PinkButton variant="contained"
+							isClick={handleModify}
+							width="150"
+							btnText="컨설턴트 정보 수정"
+						/>
 				</ProfileText>
 			</Grid>
 		</Grid>
@@ -59,6 +59,12 @@ const ConsultantProfile = () => {
 }
 
 export default ConsultantProfile
+
+PinkButton.defaultProps = {
+	isClick: () => { },
+	width: "",
+	btnText: "",
+}
 
 const ProfileText = styled(Stack)({
   display: "flex",
@@ -71,8 +77,8 @@ const ProfileText = styled(Stack)({
 
 const Introduction = styled('div')({
   display: "-webkit-box",
-  "-webkit-box-orient": "vertical",
-  "-webkit-line-clamp": "3",
+  WebkitBoxOrient: "vertical",
+  WebkitLineClamp: "3",
 	maxWidth: 600,
   overflow: "hidden",
 	lineHeight: "100%",

@@ -1,3 +1,4 @@
+import { styled } from "@mui/material";
 import React from "react";
 import UserReviewItem from "./UserReviewItem";
 
@@ -6,18 +7,25 @@ const UserReviewList = props => {
     return <h3>아직 컨설팅 후기가 없습니다</h3>
   }
   return (
-    <div>
-      {props.reviews.map(review => (
+    <Div>
+      {props.reviews.map((review, idx) => (
         <UserReviewItem
-          key={review.reviewId}
+          key={idx}
           nickname={review.nickname}
           rating={review.star}
           date={review.createdDate}
           review={review.comment}
         />
       ))}
-    </div>
+    </Div>
   )
 }
 
 export default UserReviewList
+
+const Div = styled('div')({
+	maxWidth: '100%',
+	display: 'flex',
+	flexDirection: 'column-reverse',
+	gap: 10,
+})

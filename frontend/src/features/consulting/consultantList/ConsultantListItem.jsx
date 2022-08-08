@@ -2,9 +2,9 @@ import React from 'react'
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { Link } from 'react-router-dom';
-import { CardActionArea, CardActions, styled } from '@mui/material';
+import { CardActionArea, styled } from '@mui/material';
 import StarRating from './StarRating'
-
+import OtherAvatar from '../../../common/avatar/OtherAvatar'
 const ConsultantListItem = ({ consultantId, nickname, introduction, starAverage, reviewCount, cost, imageUrl }) => {
 
 	return (<>
@@ -12,7 +12,7 @@ const ConsultantListItem = ({ consultantId, nickname, introduction, starAverage,
 		<CardItem>
 			<CardActionArea>
 				<div style={{display:'flex', justifyContent:'center'}}>
-					<img src={imageUrl} style={{height:140}} />
+					<OtherAvatar imgUrl={imageUrl} setSize={14} />
 				</div>
 				<CardContent>
 					{/* 닉네임 */}

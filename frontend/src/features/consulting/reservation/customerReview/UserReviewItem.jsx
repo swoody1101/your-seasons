@@ -1,17 +1,16 @@
 import React from "react";
 import { Grid, CardContent, Card, Typography, CardActionArea, styled, Box } from '@mui/material';
+
 import ProfileImage from 'assets/images/yourseasonlogo.png';
-import StarRating from "../../../../../common/starrating/StarRating";
+import StarRating from "common/starrating/StarRating";
 import OtherAvatar from "common/avatar/OtherAvatar";
 
 const UserReviewItem = props => {
-
   const year = props.date.slice(0, 4) + "년 "
   const month = props.date.slice(5, 7) + "월 "
   const day = props.date.slice(-2) + "일"
 
   return (
-    <>
 		<SetCard variant="outlined" >
 		<CardActionArea>
 		<CardContent>
@@ -36,15 +35,16 @@ const UserReviewItem = props => {
 					<ReviewText>{props.review}</ReviewText>
 				</ReviewBox>
 			</Grid>	
-			
+
 		</Grid>
 		</CardContent>
 		</CardActionArea>
 		</SetCard>
-</>)
+  )
 }
 
 export default UserReviewItem
+
 
 
 const SetCard = styled(Card)({
