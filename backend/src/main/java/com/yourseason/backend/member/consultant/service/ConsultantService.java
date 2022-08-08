@@ -77,7 +77,7 @@ public class ConsultantService {
     public List<ConsultantListResponse> getConsultants(String order) {
         List<Consultant> consultants = new ArrayList<>();
         if (order.equals("popular")) {
-            consultants = consultantRepository.findAllByIsActiveTrueOrderByStarAverageDesc();
+            consultants = consultantRepository.findAllByIsActiveTrueOrderByConsultingCountDesc();
         } else if (order.equals("manyReviews")) {
             consultants = consultantRepository.findAllByIsActiveTrueOrderByReviewCountDesc();
         } else if (order.equals("latest")) {
