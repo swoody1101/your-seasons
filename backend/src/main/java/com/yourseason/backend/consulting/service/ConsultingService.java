@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @RequiredArgsConstructor
 @Service
@@ -29,8 +30,7 @@ public class ConsultingService {
                         .build());
         consultantRepository.save(consultant);
         return ConsultingCreateResponse.builder()
-                .sessionId(String.join(SESSION_DELIMITER, consultant.getEmail().split(EMAIL_FORMAT)))
-                .sessionCreatedTime(LocalDateTime.now())
+                .sessionCreatedTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .build();
     }
 }

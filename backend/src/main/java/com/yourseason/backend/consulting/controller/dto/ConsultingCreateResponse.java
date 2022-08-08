@@ -2,8 +2,6 @@ package com.yourseason.backend.consulting.controller.dto;
 
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Builder
 @AllArgsConstructor
@@ -11,5 +9,5 @@ import java.time.LocalDateTime;
 public class ConsultingCreateResponse {
 
     private String sessionId;
-    private LocalDateTime sessionCreatedTime;
+    private String sessionCreatedTime;
 }
