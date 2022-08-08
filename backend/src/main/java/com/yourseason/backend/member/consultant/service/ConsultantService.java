@@ -86,6 +86,8 @@ public class ConsultantService {
             consultants = consultantRepository.findAllByIsActiveTrueOrderByCostDesc();
         } else if (order.equals("lowCost")) {
             consultants = consultantRepository.findAllByIsActiveTrueOrderByCost();
+        } else if (order.equals("star")) {
+            consultants = consultantRepository.findAllByIsActiveTrueOrderByStarAverageDesc();
         }
         return consultants.stream()
                 .map(consultant ->
