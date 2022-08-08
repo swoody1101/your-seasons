@@ -17,7 +17,7 @@ export default function ConsultingResHistoryItem(props) {
           닉네임 : {props.nickname}
         </Typography>
         <Typography>
-          {props.request}
+          요청사항 : {props.request}
         </Typography>
       </AccordionDetails>
     </Accordion>

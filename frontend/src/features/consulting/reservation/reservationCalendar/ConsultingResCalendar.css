@@ -50,11 +50,12 @@
 }
 
 .react-calendar__navigation button {
-  color: #166AC5;
+  color: black;
   min-width: 48px;
   background: none;
-  font-size: 20px;
+  font-size: 23px;
   margin-top: 8px;
+  font-weight: bold;
 }
 
 .react-calendar__navigation button:disabled {
@@ -67,6 +68,7 @@
   background-color: #f8f8fa;
 }
 
+/* 일월화수목금토 */
 .react-calendar__month-view__weekdays {
   text-align: center;
   text-transform: uppercase;
@@ -101,18 +103,20 @@
 }
 
 .react-calendar__tile {
-  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  max-width: auto;
   padding: 20px 0px;
   background: none;
-  text-align: center;
-  line-height: 30px;
+  align-items: stretch;
+  line-height: 25px;
   font-size: 1rem;
 }
 
 /* 사용 불가한 타일 css */
 .react-calendar__tile:disabled {
   background-color: white;
-  color: rosybrown;
+  color: #dcdee0;
 }
 
 abbr[title] {
@@ -127,14 +131,12 @@ abbr[title] {
 /* 오늘 날짜 */
 .react-calendar__tile--now {
   background: white;
-  font-weight: bold;
   color: black;
 }
 
 .react-calendar__tile--now:enabled:hover,
 .react-calendar__tile--now:enabled:focus {
   background: #f8f8fa;
-  font-weight: bold;
   color: black;
 }
 
@@ -155,6 +157,6 @@ abbr[title] {
 .react-calendar__tile--active:enabled:hover,
 .react-calendar__tile--active:enabled:focus {
   background: white;
-  border: solid 3px #166AC5;
+  font-weight: bold;
   color: black;
 }
