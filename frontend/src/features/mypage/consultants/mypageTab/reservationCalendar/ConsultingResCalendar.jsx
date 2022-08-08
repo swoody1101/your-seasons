@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import ConsultingResHistory from './ConsultingResHistory';
 import Calendar from 'react-calendar'
-import './ConsultingResCalendar.css';
 import moment from 'moment';
 import { Button, Stack, Box, styled, Grid } from '@mui/material';
 import { ContentPasteOff, ContentPaste } from '@mui/icons-material';
@@ -54,10 +53,19 @@ export default function ConsultingResCalendar(props) {
       })
   }
 
-  const titleContent = ({ activeStartDate, date, view }) => (
-    (view === "month" && dayOff.includes(((date.getFullYear()) + '-' + ('0' + (date.getMonth() + 1)).slice(-2)
-      + '-' + ('0' + date.getDate()).slice(-2)))) && <StyledDiv>휴무일</StyledDiv>
-  )
+  const titleContent = ({ activeStartDate, date, view }) => {
+    let resTimeTable = []
+    const newdate = ((date.getFullYear()) + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2))
+    if (view === "month" && dayOff.includes(newdate)) {
+      return <PinkdDiv>휴무일</PinkdDiv>
+    }
+    props.reservations.forEach(res => {
+      resTimeTable.push(res.reservationDate)
+    })
+    if (view === "month" && resTimeTable.includes(newdate)) {
+      return <BlueDiv>예약 확인</BlueDiv>
+    }
+  }
 
   // const tileDisabled = ({ date, view }) =>
   // (view === "month" && dayOff.includes(((date.getFullYear()) + '-' + ('0' + (date.getMonth() + 1)).slice(-2)
@@ -127,6 +135,10 @@ export default function ConsultingResCalendar(props) {
   )
 }
 
-const StyledDiv = styled('div')({
+const PinkdDiv = styled('div')({
   backgroundColor: "#FFE0DF",
+})
+
+const BlueDiv = styled('div')({
+  backgroundColor: "#B2EAFF",
 })

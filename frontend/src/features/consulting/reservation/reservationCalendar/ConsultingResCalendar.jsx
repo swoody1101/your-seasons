@@ -48,7 +48,7 @@ const ConsultingResCalendar = () => {
     const newdate = ((date.getFullYear()) + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2))
     // 날짜가 일치할때 시간 정보만 빈 리스트에 저장
     if (newdate === todaydate) {
-      return <StyledDiv>예약불가</StyledDiv>
+      return <StyledDiv>당일예약불가</StyledDiv>
     }
     if (newdate > todaydate) {
       reservations.forEach(res => {
@@ -123,7 +123,7 @@ const ConsultingResCalendar = () => {
 }
 
 const StyledDiv = styled('div')({
-  backgroundColor: "#FFE0DF",
+  color: "red",
   textAlign: "center",
   fontSize: "0.7em",
 })
