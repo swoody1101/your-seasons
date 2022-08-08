@@ -24,12 +24,15 @@ public class ConsultingService {
     public ConsultingCreateResponse createConsulting(Long consultantId) {
         Consultant consultant = consultantRepository.findById(consultantId)
                 .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
+        String sessionId = String.join(SESSION_DELIMITER, consultant.getEmail().split(EMAIL_FORMAT));
         consultant.createConsulting(
                 Consulting.builder()
                         .consultant(consultant)
+                        .sessionId(sessionId)
                         .build());
         consultantRepository.save(consultant);
         return ConsultingCreateResponse.builder()
+                .sessionId(sessionId)
                 .sessionCreatedTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .build();
     }
