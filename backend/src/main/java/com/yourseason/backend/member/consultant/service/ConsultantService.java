@@ -33,6 +33,7 @@ public class ConsultantService {
     private static final String RESERVATION_EXIST = "해당 날짜는 예약이 존재합니다.";
     private static final String EMAIL_DUPLICATED = "이메일이 중복됩니다.";
     private static final String NICKNAME_DUPLICATED = "닉네임이 중복됩니다.";
+    private static final String ORDER_NOT_EXIST = "해당 기준은 존재하지 않습니다.";
 
     private final PasswordEncoder passwordEncoder;
     private final ConsultantRepository consultantRepository;
@@ -87,6 +88,8 @@ public class ConsultantService {
             consultants = consultantRepository.findByIsActiveTrueOrderByCost();
         } else if (order.equals("star")) {
             consultants = consultantRepository.findByIsActiveTrueOrderByStarAverageDesc();
+        } else {
+            throw new BadRequestException(ORDER_NOT_EXIST);
         }
         return consultants.stream()
                 .map(consultant ->
