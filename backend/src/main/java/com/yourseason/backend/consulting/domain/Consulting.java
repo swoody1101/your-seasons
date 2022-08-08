@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Getter
@@ -22,8 +23,6 @@ public class Consulting extends BaseTimeEntity {
     @JoinColumn(name = "test_result_id")
     private TestResult testResult;
 
-    private boolean hasReview;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "consultant_id")
     private Consultant consultant;
@@ -32,14 +31,20 @@ public class Consulting extends BaseTimeEntity {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
+    @NotNull
+    private String sessionId;
+
+    private boolean hasReview;
+
     @Builder
     public Consulting(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate,
-                      TestResult testResult, boolean hasReview, Consultant consultant, Customer customer) {
+                      TestResult testResult, String sessionId, boolean hasReview, Consultant consultant, Customer customer) {
         super(id, createdDate, lastModifiedDate, deletedDate, false);
         this.testResult = testResult;
-        this.hasReview = hasReview;
         this.consultant = consultant;
         this.customer = customer;
+        this.sessionId = sessionId;
+        this.hasReview = hasReview;
     }
 
     public void registerReview() {
