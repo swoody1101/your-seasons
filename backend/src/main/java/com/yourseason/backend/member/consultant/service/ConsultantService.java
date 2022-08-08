@@ -1,6 +1,5 @@
 package com.yourseason.backend.member.consultant.service;
 
-import com.yourseason.backend.common.domain.BaseTimeEntity;
 import com.yourseason.backend.common.domain.Message;
 import com.yourseason.backend.common.exception.*;
 import com.yourseason.backend.member.common.controller.dto.PasswordUpdateRequest;
@@ -34,6 +33,7 @@ public class ConsultantService {
     private static final String RESERVATION_EXIST = "해당 날짜는 예약이 존재합니다.";
     private static final String EMAIL_DUPLICATED = "이메일이 중복됩니다.";
     private static final String NICKNAME_DUPLICATED = "닉네임이 중복됩니다.";
+    private static final String ORDER_NOT_EXIST = "해당 기준은 존재하지 않습니다.";
 
     private final PasswordEncoder passwordEncoder;
     private final ConsultantRepository consultantRepository;
@@ -77,15 +77,19 @@ public class ConsultantService {
     public List<ConsultantListResponse> getConsultants(String order) {
         List<Consultant> consultants = new ArrayList<>();
         if (order.equals("popular")) {
-            consultants = consultantRepository.findAllByIsActiveTrueOrderByStarAverageDesc();
+            consultants = consultantRepository.findByIsActiveTrueOrderByConsultingCountDesc();
         } else if (order.equals("manyReviews")) {
-            consultants = consultantRepository.findAllByIsActiveTrueOrderByReviewCountDesc();
+            consultants = consultantRepository.findByIsActiveTrueOrderByReviewCountDesc();
         } else if (order.equals("latest")) {
-            consultants = consultantRepository.findAllByIsActiveTrueOrderByIdDesc();
+            consultants = consultantRepository.findByIsActiveTrueOrderByIdDesc();
         } else if (order.equals("highCost")) {
-            consultants = consultantRepository.findAllByIsActiveTrueOrderByCostDesc();
+            consultants = consultantRepository.findByIsActiveTrueOrderByCostDesc();
         } else if (order.equals("lowCost")) {
-            consultants = consultantRepository.findAllByIsActiveTrueOrderByCost();
+            consultants = consultantRepository.findByIsActiveTrueOrderByCost();
+        } else if (order.equals("star")) {
+            consultants = consultantRepository.findByIsActiveTrueOrderByStarAverageDesc();
+        } else {
+            throw new BadRequestException(ORDER_NOT_EXIST);
         }
         return consultants.stream()
                 .map(consultant ->
