@@ -1,16 +1,13 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-
 import { Avatar, styled } from '@mui/material'
 
 const MyAvatar = (
-  setSize,
+  { setSize, imgUrl }
 ) => {
-  const { imageUrl } = useSelector((state) => state.auth.logonUser)
 
-  return (
+	return (
     <SetAvatar si={setSize}>
-			<img src={imageUrl} alt='' />
+			<img src={imgUrl} alt='' />
     </SetAvatar>
   )
 }
@@ -19,12 +16,12 @@ export default MyAvatar
 
 const SetAvatar = styled(Avatar)((props) => ({
   backgroundColor: "pink",
-  width: `${props.si.setSize * 10}px`,
-  height: `${props.si.setSize * 10}px`,
+  width: `${props.si * 10}px`,
+  height: `${props.si * 10}px`,
   img: {
     backgroundColor: 'white',
     borderRadius: "100%",
-    width: `${props.si.setSize * 9}px`,
-    height: `${props.si.setSize * 9}px`,
+    width: `${props.si * 9}px`,
+    height: `${props.si * 9}px`,
   }
 }))

@@ -9,7 +9,7 @@ import { ConsultantDetailFetch, ConsultingReviewFetch } from "features/consultin
 const ConsultantProfile = () => {
   const dispatch = useDispatch()
   const consultantId = useParams().id
-  const { nickname, introduction, cost, starAverage } = useSelector(state => state.consultantList.consultantDetail)
+  const { nickname, introduction, cost, starAverage, imageUrl } = useSelector(state => state.consultantList.consultantDetail)
   useEffect(() => {
     dispatch(ConsultantDetailFetch(consultantId))
   }, [dispatch])
@@ -25,7 +25,7 @@ const ConsultantProfile = () => {
 				display: 'flex',
 				justifyContent: 'center',
 			}}>
-				<MyAvatar setSize={16} />
+				<MyAvatar setSize={16} imgUrl={imageUrl}/>
 			</Grid>
 			{/* 프로필 텍스트 */}
 			<Grid item xs={12} sm={9}>

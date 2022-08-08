@@ -55,7 +55,7 @@ const MyReview = () => {
 
 					{/* 그리드 1 */}
 					<ImgGrid item xs={12} sm={3}>
-						<OtherAvatar setSize={14} imageUrl={imageUrl} />
+						<OtherAvatar setSize={14} imgUrl={imageUrl} />
 					</ImgGrid>
 
 					{/* 그리드 2 */}

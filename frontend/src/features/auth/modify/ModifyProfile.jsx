@@ -19,7 +19,7 @@ import { CONSULTANT } from 'api/CustomConst';
 
 const ModifyProfile = () => {
   // 프로필 정보 가져오기
-  const { role } = useSelector((state) => (state.auth.logonUser))
+  const { role, imageUrl } = useSelector((state) => (state.auth.logonUser))
   const { isModal } = useSelector((state) => (state.auth))
 
 
@@ -86,7 +86,7 @@ const ModifyProfile = () => {
             {
               (page === "profile" || page === "consultant")
               &&
-              <ModifyAvatar />
+              <ModifyAvatar imageUrl={imageUrl} />
             }
           </Grid>
         </TabContext>

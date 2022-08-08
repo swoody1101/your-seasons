@@ -12,7 +12,7 @@ import { loadMember } from 'features/auth/authSlice'
 const MyProfile = () => {
   const results = useSelector(state => state.mypage.myConsultantDxData)
   const tone = results.length > 0 ? results[results.length - 1].tone : '';
-  const { nickname, role } = useSelector(state => state.auth.logonUser)
+  const { nickname, role, imageUrl } = useSelector(state => state.auth.logonUser)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -40,7 +40,7 @@ const MyProfile = () => {
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-        <MyAvatar setSize={16} />
+        <MyAvatar setSize={16} imgUrl={imageUrl}/>
       </Grid>
       {/* 프로필  TEXT */}
       <Grid item xs={12} sm={9}>
