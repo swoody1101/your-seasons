@@ -13,6 +13,8 @@ public interface ConsultantRepository extends JpaRepository<Consultant, Long> {
 
     boolean existsByNickname(String nickname);
 
+    List<Consultant> findTop10ByIsActiveTrueOrderByConsultingCountDesc();
+
     List<Consultant> findByIsActiveTrueOrderByIdDesc();
 
     List<Consultant> findByIsActiveTrueOrderByReviewCountDesc();
