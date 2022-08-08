@@ -27,6 +27,7 @@ public class Consultant extends Member {
     private int cost;
     private double starAverage;
     private int reviewCount;
+    private int consultingCount;
     private String consultingFile;
 
     @NotNull
@@ -53,12 +54,13 @@ public class Consultant extends Member {
     public Consultant(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDateTime deletedDate,
                       String email, String password, String name, LocalDate birth, String nickname, String contact, String imageUrl,
                       List<Consulting> consultings, List<Reservation> reservations, List<Review> reviews, String consultingFile,
-                      String introduction, int cost, double starAverage, int reviewCount, License license, String licenseNumber, List<ClosedDay> closedDays) {
+                      String introduction, int cost, double starAverage, int reviewCount, int consultingCount, License license, String licenseNumber, List<ClosedDay> closedDays) {
         super(id, createdTime, lastModifiedTime, deletedDate, email, password, name, birth, nickname, contact, imageUrl);
         this.introduction = introduction;
         this.cost = cost;
         this.starAverage = starAverage;
         this.reviewCount = reviewCount;
+        this.consultingCount = consultingCount;
         this.consultingFile = consultingFile;
         this.license = license;
         this.licenseNumber = licenseNumber;
