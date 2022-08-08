@@ -24,4 +24,3 @@ const IsButton = styled(Button)((props)=>({
 	fontWeight: 'bold',
 	width: `${props.wd}px`,
 }))
-

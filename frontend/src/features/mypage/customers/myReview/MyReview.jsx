@@ -5,12 +5,10 @@ import BasicRating from './StarRating'
 import { deleteReviewFetch, updateReviewFetch, myReviewFetch } from 'features/mypage/mypageSlice'
 import { isEmpty } from 'lodash'
 import OtherAvatar from 'common/avatar/OtherAvatar';
-// import {myReview} from '../../dumy'
 
 const MyReview = () => {
   const dispatch = useDispatch();
   const reviews = useSelector(state => state.mypage.myReviewsData);
-	// const reviews = myReview
   const [iscomment, setComment] = useState('')
   const [isstar, setStar] = useState('')
   const [isReviewId, setIsReviewId] = useState(false)
@@ -46,16 +44,16 @@ const MyReview = () => {
 
   return (<>
     <Div>
-      {isEmpty(reviews) ? <h2>내가 작성한 리뷰가 없습니다.</h2> : reviews.map(({ reviewId, nickname, imageUrl, star, comment, reviewDate }, index) => (
+      {isEmpty(reviews) ? <h2>내가 작성한 리뷰가 없습니다.</h2> : reviews.map(({ reviewId, consultantNickname, consultantImageUrl, star, comment, reviewDate }, index) => (
         <form onSubmit={onSubmit} key={index}>
-				<SetCard sx={{ marginBottom: 5, padding: 1, borderRadius: 5 }} variant="outlined" key={index}>
+				<SetCard variant="outlined" key={index}>
 				<CardActionArea>
 				<CardContent>
 				<Grid container>
 
 					{/* 그리드 1 */}
 					<ImgGrid item xs={12} sm={3}>
-						<OtherAvatar setSize={14} imageUrl={imageUrl} />
+						<OtherAvatar setSize={14} imgUrl={consultantImageUrl} />
 					</ImgGrid>
 
 					{/* 그리드 2 */}
@@ -63,18 +61,18 @@ const MyReview = () => {
 						{/* 컨설턴트정보, 날짜 */}
 						<Forflex>
 							<MainText>
-								{nickname}님에게 남긴 후기 | 
+								{consultantNickname}님에게 남긴 후기 | 
 								{reviewDate}일
 							</MainText>
 						</Forflex>
 						{/* 리뷰 박스 */}
-						<RequestBox>
+						<ReviewBox>
 							<BasicRating star={star} reviewId={reviewId} isReviewId={isReviewId}
 								setstar={setStar} key={star} />
-							<RequestText name="isComment" readOnly={isReviewId === reviewId ? false : true} defaultValue={comment}
+							<ReviewText name="isComment" readOnly={isReviewId === reviewId ? false : true} defaultValue={comment}
 								onChange={(e) => setComment(e.target.value)} style={{ backgroundColor: isReviewId !== reviewId ? 'white' : '#eeeeee' }}>
-							</RequestText>
-						</RequestBox>
+							</ReviewText>
+						</ReviewBox>
 					</Grid>	
 
 				</Grid>
@@ -125,7 +123,7 @@ const Div = styled('div')({
 	maxWidth: '100%',
 	display: 'flex',
 	flexDirection: 'column-reverse',
-	gap: 10,
+	gap: 10 ,
 })
 
 const SetCard = styled(Card)({
@@ -140,7 +138,7 @@ const ImgGrid = styled(Grid)({
 	alignItems: 'start',
 })
 
-const RequestBox = styled(Box)({
+const ReviewBox = styled(Box)({
   border: '1px dashed #ADBED2',
   borderRadius: 5,
   padding: 10,
@@ -159,7 +157,7 @@ const MainText = styled(Typography)({
 	fontWeight: 'bold',
 })
 
-const RequestText = styled('textarea')({
+const ReviewText = styled('textarea')({
 	fontSize: 15,
 	border: 'none',
 	backgroundColor: '#FFFFFF00',
