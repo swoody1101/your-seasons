@@ -29,6 +29,7 @@ public interface ConsultantRepository extends JpaRepository<Consultant, Long> {
                                   "FROM consulting " +
                                  "GROUP BY consultant_id) as consulting " +
                        "ON consultant.consultant_id = consulting.consultant_id " +
+                    "WHERE consultant.is_active = true " +
                     "ORDER BY consulting.count desc"
                    , nativeQuery = true)
     List<Consultant> findAllByIsActiveTrueOrderByConsultingCountDesc();
