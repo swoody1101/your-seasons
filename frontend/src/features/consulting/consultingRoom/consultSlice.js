@@ -1,9 +1,22 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-
+import Axios from 'api/Axios'
 
 const initialState = {
-  isSetClear: true
+  isSetClear: true,
+  consultantSessionName: ''
 }
+
+export const getConsultantSessionName = createAsyncThunk(
+  'consult/getConsultantSessionName',
+  async ({ consultantNickname }) => {
+    return Axios
+      .get(`consultants/asd?nickname=${consultantNickname}`)
+      .then(() => {
+
+      })
+      .catch(() => { })
+  }
+)
 
 export const consultSlice = createSlice({
   name: 'consult',
