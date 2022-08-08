@@ -24,14 +24,6 @@ public interface ConsultantRepository extends JpaRepository<Consultant, Long> {
 
     List<Consultant> findByIsActiveTrueOrderByCost();
 
-    @Query(value = "SELECT * FROM consultant as consultant " +
-                     "LEFT JOIN (SELECT consultant_id, count(*) as count " +
-                                  "FROM consulting " +
-                                 "GROUP BY consultant_id) as consulting " +
-                       "ON consultant.consultant_id = consulting.consultant_id " +
-                    "WHERE consultant.is_active = true " +
-                    "ORDER BY consulting.count desc"
-                   , nativeQuery = true)
     List<Consultant> findByIsActiveTrueOrderByConsultingCountDesc();
 
     List<Consultant> findByIsActiveTrueAndNicknameContaining(String keyword);
