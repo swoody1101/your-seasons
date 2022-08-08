@@ -4,7 +4,6 @@ import HomePopularConsultant from './components/HomePopularConsultant'
 import HomeProcess1 from './components/HomeProcess1'
 import HomeProcess2 from './components/HomeProcess2'
 import HomeProcess3 from './components/HomeProcess3'
-import ConsultButton from 'common/ConsultButton'
 import { styled } from '@mui/material'
 import { myConsultantDxFetch } from 'features/mypage/mypageSlice';
 import { useSelector, useDispatch } from 'react-redux';
@@ -31,7 +30,6 @@ const YourSeason = () => {
       <HomeProcess3 />
       {/* 퍼스널컬러, 더 알아보기 */}
       {/* 퍼스널컬러에 대한 자세한 정보 */}
-      <ConsultButton />
     </Div>
   )
 }
