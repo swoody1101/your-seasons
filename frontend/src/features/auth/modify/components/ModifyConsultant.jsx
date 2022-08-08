@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { ButtonGroup, Button, Container, Grid, styled, TextField } from '@mui/material'
@@ -9,8 +9,7 @@ const ModifyConsultant = () => {
   const { role } = useSelector((state) => state.auth.logonUser)
   const common = useSelector((state) => state.auth.logonUser)
   const { introduction, cost } = useSelector((state) => state.auth.logonUser)
-  // const { introduction } = 'asdf';
-  const [newIntroduction, setNewIntroduction] = useState(introduction ? introduction : '안녕하세요?');
+  const [newIntroduction, setNewIntroduction] = useState(introduction ? introduction : '');
   const [newCost, setNewCost] = useState(cost ? cost : "30,000");
   const [helperText, setHelperText] = useState('');
   // 수정여부
@@ -52,7 +51,7 @@ const ModifyConsultant = () => {
         dispatch(loadMember(role))
         setIsModiIntro(false);
         setIsModiCost(false)
-        setNewIntroduction(introduction ? introduction : '안녕하세요?')
+        setNewIntroduction(introduction)
         setNewCost(cost ? cost : "30,000");
       })
       .catch((err) => {
@@ -75,6 +74,7 @@ const ModifyConsultant = () => {
           isModiIntro ?
             <IntroGrid item xs={12}>
               <Textarea
+								placeholder={'소개글 앞의 30자는 <컨설턴트목록>에 노출됩니다. 150자 이내로 작성해주세요.'}
                 value={newIntroduction}
                 onChange={e => setNewIntroduction(e.target.value)} />
             </IntroGrid>

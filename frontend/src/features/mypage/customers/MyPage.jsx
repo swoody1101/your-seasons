@@ -14,8 +14,7 @@ const MyPage = () => {
   };
 
   return (<>
-    <Container fixed sx={{ display: 'block', mt: '5rem' }}>
-      <Box sx={{}}>
+    <Container fixed sx={{ mt: '2rem' }}>
         <MyProfile />
         <br />
         <Box sx={{ width: '100%', typography: 'body1' }}>
@@ -38,7 +37,6 @@ const MyPage = () => {
             </TabPanel>
           </TabContext>
         </Box>
-      </Box>
     </Container>
 
 

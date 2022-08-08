@@ -4,11 +4,11 @@ import UserReviewList from "./UserReviewList"
 
 
 const ConsultingReview = () => {
-    const reviews = useSelector(state => state.consultantList.cosultingReview)
+	const reviews = useSelector(state => state.consultantList.cosultingReview)
 
-    return (
-        <UserReviewList reviews={reviews} />
-    )
+	return (
+			<UserReviewList reviews={reviews} />
+	)
 }
 
 export default ConsultingReview

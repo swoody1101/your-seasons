@@ -1,28 +1,28 @@
 import React from 'react'
 import { Avatar, styled } from '@mui/material'
 
-const MyAvatar = (
-  { setSize, imgUrl }
-) => {
+// 이미지 프롭으로 내려주면 받아서 사용
+const OtherAvatar = ( {setSize, imgUrl }) => {
 	const tmpImg = '/images/default/avatar20.png'
 
-	return (
+  return (
     <SetAvatar si={setSize}>
-			<img src={imgUrl ? imgUrl : tmpImg} alt='' />
+        <img src={imgUrl ? imgUrl : tmpImg} alt='img' />
     </SetAvatar>
   )
 }
 
-export default MyAvatar
+export default OtherAvatar
 
 const SetAvatar = styled(Avatar)((props) => ({
-  backgroundColor: "pink",
+  // backgroundColor: "pink",
   width: `${props.si * 10}px`,
   height: `${props.si * 10}px`,
   img: {
     backgroundColor: 'white',
     borderRadius: "100%",
-    width: `${props.si * 9}px`,
-    height: `${props.si * 9}px`,
+		// 9px -> 10px
+    width: `${props.si * 10}px`,
+    height: `${props.si * 10}px`,
   }
 }))

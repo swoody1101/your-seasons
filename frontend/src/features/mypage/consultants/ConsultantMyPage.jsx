@@ -15,7 +15,7 @@ const ConsultantMyPage = () => {
   }, [dispatch])
 
   return (
-    <Container fixed sx={{ mt: '5rem' }}>
+    <Container fixed sx={{ mt: '2rem' }}>
       <ConsultantProfile />
       <br />
       <ConsultantMyPageTab />

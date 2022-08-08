@@ -7,11 +7,14 @@ import com.yourseason.backend.member.common.domain.Role;
 import com.yourseason.backend.member.consultant.controller.dto.*;
 import com.yourseason.backend.member.consultant.domain.*;
 import com.yourseason.backend.member.customer.domain.CustomerRepository;
+import com.yourseason.backend.reservation.domain.Reservation;
+import com.yourseason.backend.review.domain.Review;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +33,7 @@ public class ConsultantService {
     private static final String RESERVATION_EXIST = "해당 날짜는 예약이 존재합니다.";
     private static final String EMAIL_DUPLICATED = "이메일이 중복됩니다.";
     private static final String NICKNAME_DUPLICATED = "닉네임이 중복됩니다.";
+    private static final String ORDER_NOT_EXIST = "해당 기준은 존재하지 않습니다.";
 
     private final PasswordEncoder passwordEncoder;
     private final ConsultantRepository consultantRepository;
@@ -52,7 +56,7 @@ public class ConsultantService {
         Consultant consultant = getConsultant(consultantId);
         consultant.getReservations()
                 .stream()
-                .filter(reservation -> reservation.isActive())
+                .filter(Reservation::isActive)
                 .filter(reservation -> reservation.getDate().isEqual(closedDayRequest.getClosedDay()))
                 .findAny()
                 .ifPresent(reservation -> {
@@ -70,8 +74,39 @@ public class ConsultantService {
         return new Message("succeeded");
     }
 
-    public List<ConsultantListResponse> getConsultants() {
-        return consultantRepository.findByIsActiveTrue()
+    public List<ConsultantListResponse> getConsultants(String order) {
+        List<Consultant> consultants = new ArrayList<>();
+        if (order.equals("popular")) {
+            consultants = consultantRepository.findByIsActiveTrueOrderByConsultingCountDesc();
+        } else if (order.equals("manyReviews")) {
+            consultants = consultantRepository.findByIsActiveTrueOrderByReviewCountDesc();
+        } else if (order.equals("latest")) {
+            consultants = consultantRepository.findByIsActiveTrueOrderByIdDesc();
+        } else if (order.equals("highCost")) {
+            consultants = consultantRepository.findByIsActiveTrueOrderByCostDesc();
+        } else if (order.equals("lowCost")) {
+            consultants = consultantRepository.findByIsActiveTrueOrderByCost();
+        } else if (order.equals("star")) {
+            consultants = consultantRepository.findByIsActiveTrueOrderByStarAverageDesc();
+        } else {
+            throw new BadRequestException(ORDER_NOT_EXIST);
+        }
+        return consultants.stream()
+                .map(consultant ->
+                        ConsultantListResponse.builder()
+                                .consultantId(consultant.getId())
+                                .nickname(consultant.getNickname())
+                                .introduction(consultant.getIntroduction())
+                                .reviewCount(consultant.getReviewCount())
+                                .starAverage(consultant.getStarAverage())
+                                .cost(consultant.getCost())
+                                .imageUrl(consultant.getImageUrl())
+                                .build())
+                .collect(Collectors.toList());
+    }
+
+    public List<ConsultantListResponse> searchConsultantByNickname(String keyword) {
+        return consultantRepository.findByIsActiveTrueAndNicknameContaining(keyword)
                 .stream()
                 .map(consultant ->
                         ConsultantListResponse.builder()
@@ -107,6 +142,7 @@ public class ConsultantService {
 
         List<ReservationListResponse> reservations = consultant.getReservations()
                 .stream()
+                .filter(Reservation::isActive)
                 .map(reservation -> ReservationListResponse.builder()
                         .reservationId(reservation.getId())
                         .reservationDate(reservation.getDate())
@@ -144,7 +180,7 @@ public class ConsultantService {
         Consultant consultant = getConsultant(consultantId);
         return consultant.getReviews()
                 .stream()
-                .filter(review -> review.isActive())
+                .filter(Review::isActive)
                 .map(review -> ReviewListResponse.builder()
                         .reviewId(review.getId())
                         .nickname(review.getCustomer().getNickname())
@@ -183,7 +219,7 @@ public class ConsultantService {
 
         List<ReviewListResponse> reviewsListResponses = consultant.getReviews()
                 .stream()
-                .filter(review -> review.isActive())
+                .filter(Review::isActive)
                 .map(review -> ReviewListResponse.builder()
                         .reviewId(review.getId())
                         .nickname(review.getCustomer().getNickname())

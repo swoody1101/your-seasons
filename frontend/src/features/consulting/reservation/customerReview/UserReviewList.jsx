@@ -7,9 +7,9 @@ const UserReviewList = props => {
   }
   return (
     <div>
-      {props.reviews.map(review => (
+      {props.reviews.map((review, idx) => (
         <UserReviewItem
-          key={review.id}
+          key={idx}
           nickname={review.nickname}
           rating={review.star}
           date={review.createdDate}

@@ -32,9 +32,15 @@ public class ConsultantController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ConsultantListResponse>> getConsultants() {
+    public ResponseEntity<List<ConsultantListResponse>> getConsultants(@RequestParam String order) {
         return ResponseEntity.ok()
-                .body(consultantService.getConsultants());
+                .body(consultantService.getConsultants(order));
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<ConsultantListResponse>> searchConsultantByNickname(@RequestParam String keyword) {
+        return ResponseEntity.ok()
+                .body(consultantService.searchConsultantByNickname(keyword));
     }
 
     @GetMapping("/top10")

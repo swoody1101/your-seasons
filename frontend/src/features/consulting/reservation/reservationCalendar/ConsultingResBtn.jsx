@@ -179,6 +179,7 @@ const ConsultingResBtn = (props) => {
       </Box>
       <Box sx={{ display: "flex", justifyContent: "end" }}>
         <Button
+          sx={{ color: "pink", fontWeight: 'bold' }}
           onClick={reservationHandler}
         >예약 하기</Button>
       </Box>
