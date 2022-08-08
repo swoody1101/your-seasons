@@ -2,7 +2,6 @@ package com.yourseason.backend.member.consultant.domain;
 
 import com.yourseason.backend.member.common.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
