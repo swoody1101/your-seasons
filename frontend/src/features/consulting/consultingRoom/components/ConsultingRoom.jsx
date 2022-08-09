@@ -65,7 +65,7 @@ const ConsultingRoom = () => {
       session.on('streamCreated', streamCreated)
       session.on('streamDestroyed', streamDestroyed)
       session.on('exception', exception)
-      session.on('signal:colerset', shareColorset)
+      session.on('signal:colorset', shareColorset)
       getToken().then((token) => {
         session
           .connect(
@@ -120,8 +120,13 @@ const ConsultingRoom = () => {
   }, [selectedColor, bestColor, worstColor])
 
   const shareColorset = (event) => {
-    const data = JSON.parse(event.data.split('$$'))
-    console.log(data)
+    const data = event.data.split('$$')
+    const newSelectedColor = data[0]
+    const newBestColor = data[1]
+    const newWorstColor = data[2]
+    console.log(newSelectedColor)
+    console.log(newBestColor)
+    console.log(newWorstColor)
   }
 
   const onbeforeunload = () => {
