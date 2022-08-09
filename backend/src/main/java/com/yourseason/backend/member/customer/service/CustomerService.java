@@ -1,6 +1,5 @@
 package com.yourseason.backend.member.customer.service;
 
-import com.yourseason.backend.common.domain.Color;
 import com.yourseason.backend.common.domain.Message;
 import com.yourseason.backend.common.exception.DuplicationException;
 import com.yourseason.backend.common.exception.NotEqualException;
@@ -109,13 +108,13 @@ public class CustomerService {
                         .consultantImageUrl(consulting.getConsultant().getImageUrl())
                         .consultingDate(consulting.getCreatedDate().toLocalDate())
                         .tone(consulting.getTestResult().getTone().getName())
-                        .bestColorSet(consulting.getTestResult().getBestColorSet().getColorSet().getColors()
+                        .bestColorSet(consulting.getTestResult().getBestColorSet().getColorSet().getColorColorSets()
                                 .stream()
-                                .map(Color::getHex)
+                                .map(colorColorSet -> colorColorSet.getColor().getHex())
                                 .collect(Collectors.toList()))
-                        .worstColorSet(consulting.getTestResult().getWorstColorSet().getColorSet().getColors()
+                        .worstColorSet(consulting.getTestResult().getWorstColorSet().getColorSet().getColorColorSets()
                                 .stream()
-                                .map(Color::getHex)
+                                .map(colorColorSet -> colorColorSet.getColor().getHex())
                                 .collect(Collectors.toList()))
                         .resultImageUrl(consulting.getTestResult().getConsultingFile())
                         .comment(consulting.getTestResult().getConsultingComment())

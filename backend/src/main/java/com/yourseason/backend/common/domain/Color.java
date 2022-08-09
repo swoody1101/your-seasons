@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -23,15 +25,14 @@ public class Color extends BaseTimeEntity {
     @JoinColumn(name = "tone_id")
     private Tone tone;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "color_set_id")
-    private ColorSet colorSet;
+    @OneToMany(mappedBy = "color")
+    private List<ColorColorSet> colorColorSets = new ArrayList<>();
 
     @Builder
-    public Color(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate, String hex, Tone tone, ColorSet colorSet) {
+    public Color(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate, String hex, Tone tone, List<ColorColorSet> colorColorSets) {
         super(id, createdDate, lastModifiedDate, deletedDate, true);
         this.hex = hex;
         this.tone = tone;
-        this.colorSet = colorSet;
+        this.colorColorSets = colorColorSets;
     }
 }
