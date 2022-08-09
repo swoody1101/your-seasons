@@ -6,5 +6,5 @@ public interface EmailAuthRepository extends JpaRepository<EmailAuth, Long> {
 
     EmailAuth findByEmail(String email);
 
-    Boolean existsByEmailAndAuthToken(String email, String authToken);
+    boolean existsByEmailAndAuthToken(String email, String authToken);
 }
