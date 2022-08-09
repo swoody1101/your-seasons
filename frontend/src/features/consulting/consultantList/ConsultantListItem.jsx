@@ -33,7 +33,7 @@ const ConsultantListItem = ({ consultantId, nickname, introduction, starAverage,
 					</IntroduceDiv>
 					{/* 가격 */}
 					<Cost>
-						가격: {cost}
+						가격: {cost ? cost + ' 원': '등록된 비용이 없습니다.'}
 					</Cost>
 				</CardContent>
 			</CardActionArea>

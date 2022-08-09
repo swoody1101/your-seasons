@@ -5,18 +5,18 @@ import { Box, styled, Typography, Grid } from '@mui/material'
 import _ from 'lodash'
 import ConsultantListItem from 'features/consulting/consultantList/ConsultantListItem'
 import ItemsCarousel from 'react-items-carousel'
-import { ConsultantListFetch } from 'features/consulting/consultantListSlice';
+import { TopTenListFetch } from 'features/consulting/consultantListSlice';
 
 
 const HomePopularConsultant = () => {
-	const consultants = useSelector(state => state.consultantList.consultants).slice(0, 10)
+	const consultants = useSelector(state => state.consultantList.topTen)
 	// 비어있으면 true
 	const dispatch = useDispatch()
 	const hasConsultants = _.isEmpty(consultants)
 	const [activeItemIndex, setActiveItemIndex] = useState(0);
 
 	useEffect(() => {
-		dispatch(ConsultantListFetch())
+		dispatch(TopTenListFetch())
 	}, [])
 
 	return (
@@ -49,7 +49,7 @@ const HomePopularConsultant = () => {
 						leftChevron={'<'}
 					>
 						{consultants.map((consultant, idx) =>
-							<ConsultantListItem {...consultant} key={idx} home={true} />
+							<ConsultantListItem {...consultant} key={idx}/>
 						)}
 					</ItemsCarousel>
 				}
