@@ -283,7 +283,7 @@ export const colorSetData = [
     ],
     winter_dark: [
       '#F5F3F8',
-      '#000000',
+      '#CE3257',
       '#E67EA1',
       '#8E3450',
       '#361F27',
