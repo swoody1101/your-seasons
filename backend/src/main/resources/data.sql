@@ -71,16 +71,16 @@ insert into test_result(created_date, last_modified_date, consulting_comment, co
 insert into test_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '맥 칠리보다는 루비우가 훨씬 더 고객님께 잘 받을 거에요', '', 1, 1, 1, 1);
 insert into test_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '저는 사과톤이지만 고객님은 피치와 살구가 생각나는 봄 라이트톤이에요!', '', 1, 1, 1, 1);
 
--- 전문가진단
-insert into consulting(created_date, last_modified_date, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 1, 0, 1, 1, 1);
-insert into consulting(created_date, last_modified_date, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 1, 0, 1, 1, 2);
-insert into consulting(created_date, last_modified_date, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 1, 0, 1, 1, 3);
-insert into consulting(created_date, last_modified_date, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 1, 0, 1, 1, 4);
-insert into consulting(created_date, last_modified_date, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 0, 0, 1, 1, 5);
-insert into consulting(created_date, last_modified_date, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 0, 0, 1, 1, 6);
-insert into consulting(created_date, last_modified_date, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 0, 0, 2, 2, 7);
-insert into consulting(created_date, last_modified_date, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 0, 0, 2, 2, 8);
-insert into consulting(created_date, last_modified_date, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 1, 0, 3, 4, 9);
+-- 컨설팅
+insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'bestcon-gmail-com', 1, 0, 1, 1, 1);
+insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'bestcon-gmail-com', 1, 0, 1, 1, 2);
+insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'bestcon-gmail-com', 1, 0, 1, 1, 3);
+insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'bestcon-gmail-com', 1, 0, 1, 1, 4);
+insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'bestcon-gmail-com', 0, 0, 1, 1, 5);
+insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'bestcon-gmail-com', 0, 0, 1, 1, 6);
+insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'anjolryeo-gmail-com', 0, 0, 2, 2, 7);
+insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'anjolryeo-gmail-com', 0, 0, 2, 2, 8);
+insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'apple-gmail-com', 1, 0, 3, 4, 9);
 
 -- 리뷰
 insert into review(created_date, last_modified_date, is_active, comment, star, consultant_id, consulting_id, customer_id) values (now(), now(), 1, '좋은 것  같기도...', 3, 1, 1, 1);
