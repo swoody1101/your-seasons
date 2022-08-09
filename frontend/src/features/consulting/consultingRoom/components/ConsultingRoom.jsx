@@ -9,9 +9,13 @@ import UserVideoComponent from './UserVideoComponent';
 import { Box, Button, Grid, styled, Typography, ButtonGroup, IconButton } from '@mui/material'
 import { Mic, MicOff, Videocam, VideocamOff } from '@mui/icons-material';
 
-import ColorPalette from 'common/colorset/ColorPalette'
 import { settingModalOn } from 'features/consulting/consultingRoom/consultSlice'
-import { CONSULTANT } from 'api/CustomConst'
+import { openConsulting } from 'features/consulting/consultingRoom/consultSlice'
+import { CONSULTANT, CUSTOMER } from 'api/CustomConst'
+import { sharedColorSet } from 'common/colorset/colorSetSlice'
+
+
+import ColorPalette from 'common/colorset/ColorPalette'
 import SelectedColorSet from 'common/colorset/SelectedColorSet';
 import ColorButtonGroup from 'common/colorset/ColorButtonGroup'
 
@@ -21,9 +25,11 @@ const OPENVIDU_SERVER_SECRET = 'YOUR_SEASONS_SECRET';
 // rafce Arrow function style 
 const ConsultingRoom = () => {
   const { nickname, role, email } = useSelector(state => state.auth.logonUser)
-
+  const { consultantSessionName } = useSelector(state => state.consult)
   const tmp = email.replace(/[@\.]/g, '-')
-  const [mySessionId, setMySessionId] = useState(role === CONSULTANT ? tmp : '')
+  const [mySessionId, setMySessionId] = useState(
+    role === CONSULTANT ? tmp : consultantSessionName
+  )
 
   const [isBest, setIsBest] = useState(false)
   const [isWorst, setIsWorst] = useState(false)
@@ -39,7 +45,7 @@ const ConsultingRoom = () => {
 
   const [isMic, setIsMic] = useState(false)
   const [isCam, setIsCam] = useState(false)
-  const selectedColor = useSelector(state => state.colorSetList.selectedColor)
+  const { selectedColor, bestColor, worstColor } = useSelector(state => state.colorSetList)
 
   const dispatch = useDispatch()
 
@@ -53,6 +59,72 @@ const ConsultingRoom = () => {
         onbeforeunload);
     }
   }, [])
+
+
+  useEffect((e) => {
+    if (session) {
+      session.on('streamCreated', streamCreated)
+      session.on('streamDestroyed', streamDestroyed)
+      session.on('exception', exception)
+      session.on('signal:colorset', shareColorset)
+      getToken().then((token) => {
+        session
+          .connect(
+            token,
+            {
+              clientData: myUserName,
+              role, selectedColor, bestColor, worstColor
+            },
+          )
+          .then(() => {
+            let publisher = OV.initPublisher(undefined, {
+              audioSource: undefined,
+              videoSource: undefined,
+              publishAudio: true,
+              publishVideo: true,
+              resolution: '640x480',
+              frameRate: 30,
+              insertMode: 'APPEND',
+              mirror: false,
+            });
+            if (role === CONSULTANT) {
+              const openData = {
+                sessionId: session.sessionId,
+                sessionCreatedTime: session.connection.creationTime
+              }
+              dispatch(openConsulting(openData))
+            }
+            session.publish(publisher);
+            setMainStreamManager(publisher)
+            if (role === CUSTOMER) { setCustomer(publisher) }
+            if (role === CONSULTANT) { setConsultant(publisher) }
+            setSession(session)
+          })
+          .catch((error) => { });
+      });
+    }
+  }, [session])
+
+  useEffect(() => {
+    if (session && role === CONSULTANT) {
+      const data =
+        `${JSON.stringify(selectedColor)}$$${JSON.stringify(bestColor)}$$${JSON.stringify(worstColor)}`;
+
+      session.signal({
+        data,
+        to: [],
+        type: 'colorset'
+      }).then(() => { }).catch(() => { })
+    }
+  }, [selectedColor, bestColor, worstColor])
+
+  const shareColorset = (event) => {
+    const data = event.data.split('$$')
+    const newSelectedColor = JSON.parse(data[0])
+    const newBestColor = JSON.parse(data[1])
+    const newWorstColor = JSON.parse(data[2])
+    dispatch(sharedColorSet({ newSelectedColor, newBestColor, newWorstColor }))
+  }
 
   const onbeforeunload = () => {
     leaveSession();
@@ -76,7 +148,8 @@ const ConsultingRoom = () => {
 
   const streamCreated = (event) => {
     const subscriber = session.subscribe(event.stream, undefined);
-    setCustomer(subscriber)
+    if (role === CONSULTANT) { setCustomer(subscriber) }
+    if (role === CUSTOMER) { setConsultant(subscriber) }
   }
 
   const streamDestroyed = (event) => {
@@ -87,40 +160,6 @@ const ConsultingRoom = () => {
     console.warn(exception);
   }
 
-  useEffect((e) => {
-    if (session) {
-      session.on('streamCreated', streamCreated)
-      session.on('streamDestroyed', streamDestroyed)
-      session.on('exception', exception)
-
-      getToken().then((token) => {
-        session
-          .connect(
-            token,
-            { clientData: myUserName },
-          )
-          .then(() => {
-            let publisher = OV.initPublisher(undefined, {
-              audioSource: undefined,
-              videoSource: undefined,
-              publishAudio: true,
-              publishVideo: true,
-              resolution: '640x480',
-              frameRate: 30,
-              insertMode: 'APPEND',
-              mirror: false,
-            });
-
-            session.publish(publisher);
-
-            setMainStreamManager(publisher)
-            setConsultant(publisher)
-            setSession(session)
-          })
-          .catch((error) => { });
-      });
-    }
-  }, [session])
 
   const leaveSession = () => {
     if (session) {
@@ -159,6 +198,8 @@ const ConsultingRoom = () => {
           headers: {
             Authorization: 'Basic ' + btoa('OPENVIDUAPP:' + OPENVIDU_SERVER_SECRET),
             'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET,POST',
           },
         })
         .then((response) => {

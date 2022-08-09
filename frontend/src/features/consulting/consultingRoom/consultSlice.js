@@ -3,14 +3,27 @@ import Axios from 'api/Axios'
 
 const initialState = {
   isSetClear: false,
-  consultantSessionName: 'asdf-asdf-asdf'
+  consultantSessionName: 'asd-asd-asd'
 }
+
+export const openConsulting = createAsyncThunk(
+  'consult/openConsulting',
+  async (payload, { rejectWithValue }) => {
+    try {
+      console.log(payload)
+      const response = await Axios.post(`consultings/1`, payload)
+      return response.data
+    } catch (err) {
+      return rejectWithValue(err)
+    }
+  }
+)
 
 export const getConsultantSessionName = createAsyncThunk(
   'consult/getConsultantSessionName',
   async (consultantNickname, { rejectWithValue }) => {
     try {
-      const response = await Axios.get(`consultants/asdf?nickname=${consultantNickname}`)
+      const response = await Axios.post(`consultings/join`, { nickname: consultantNickname })
       return response.data
     } catch (err) {
       return rejectWithValue(err)
@@ -27,13 +40,14 @@ export const consultSlice = createSlice({
     },
     settingModalOff: (state) => {
       state.isSetClear = false;
-    }
+    },
   },
   extraReducers: {
     [getConsultantSessionName.fulfilled]: (state, { payload }) => {
-      console.log("컨설턴트 세션 id", payload)
-      state.consultantSessionName = payload.data
-      console.log(state.consultantSessionName)
+      state.consultantSessionName = payload.sessionId
+    },
+    [getConsultantSessionName.rejected]: (state, { payload }) => {
+      state.consultantSessionName = ''
     },
   }
 })

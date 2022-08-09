@@ -383,12 +383,23 @@ const ColorSetListSlice = createSlice({
     removeWorstColor: (state, action) => {
       state.worstColor = state.worstColor.filter((color) => color !== action.payload)
     },
+    sharedColorSet: (state, { payload }) => {
+      if (JSON.stringify(state.selectedColor) !== JSON.stringify(payload.newSelectedColor)) {
+        state.selectedColor = payload.newSelectedColor
+      }
+      if (JSON.stringify(state.bestColor) !== JSON.stringify(payload.newBestColor)) {
+        state.bestColor = payload.newBestColor
+      }
+      if (JSON.stringify(state.worstColor) !== JSON.stringify(payload.newWorstColor)) {
+        state.worstColor = payload.newWorstColor
+      } // todo 무한루프 방지해야함
+    }
   }
 })
 
 
-export const { addBestColor, removeSelectColor, changeSelectColor, changeBestColor, removeBestColor, addWorstColor, removeWorstColor } = ColorSetListSlice.actions;
-
-
+export const { addBestColor, removeSelectColor, changeSelectColor,
+  changeBestColor, removeBestColor, addWorstColor,
+  removeWorstColor, sharedColorSet } = ColorSetListSlice.actions;
 
 export default ColorSetListSlice.reducer
