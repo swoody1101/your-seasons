@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux/es/exports';
 import { useNavigate, Link } from 'react-router-dom';
 
-import { CUSTOMER, CONSULTANT } from 'api/CustomConst'
+import { CUSTOMER, CONSULTANT, BAD_REQUEST, NOT_FOUND, CONFLICT } from 'api/CustomConst'
 import { getConsultantSessionName } from 'features/consulting/consultingRoom/consultSlice'
 
 import { Box, Button, Typography, styled, Input, ButtonGroup } from '@mui/material'
