@@ -21,14 +21,24 @@ insert into consultant(created_date, last_modified_date, email, password, name, 
 insert into consultant(created_date, last_modified_date, email, password, name, birth, nickname, contact, introduction, cost, star_average, review_count, consulting_count, consulting_file, license_id, license_number, is_active) values (now(), now(), 'con@c.c', '$2a$10$AUYhLT2o//eFq8GFWV0RauQk1Z/hxsysp1eL6zSzwXgfouUM3cbPO', '김최고', '1994-04-04', '컨컨', '010-4444-4444', '저는 컨컨 컨설턴트입니다', 0, 0.0, 1, 1, '', 1, 'AG037BSE235', 1); -- 비밀번호 useruser
 
 -- 휴무일
-insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values (now(), now(), '2022-07-21', 1, 1);
-insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values (now(), now(), '2022-07-22', 1, 1);
-insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values (now(), now(), '2022-07-23', 1, 1);
-insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values (now(), now(), '2022-07-24', 1, 1);
-insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values (now(), now(), '2022-07-06', 1, 2);
-insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values (now(), now(), '2022-07-13', 1, 2);
-insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values (now(), now(), '2022-07-20', 1, 2);
-insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values (now(), now(), '2022-07-27', 1, 2);
+insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values (now(), now(), '2022-07-30', 1, 1); -- bestcon의 휴무일
+insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values (now(), now(), '2022-07-31', 1, 1);
+insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values (now(), now(), '2022-08-07', 1, 1);
+insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values (now(), now(), '2022-08-08', 1, 1);
+insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values (now(), now(), '2022-08-15', 1, 1);
+insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values (now(), now(), '2022-08-20', 1, 1);
+insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values (now(), now(), '2022-08-21', 1, 1);
+insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values (now(), now(), '2022-08-27', 1, 1);
+insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values (now(), now(), '2022-08-28', 1, 1);
+insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values (now(), now(), '2022-07-30', 2, 1); -- 안졸리나 졸리의 휴무일
+insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values (now(), now(), '2022-07-31', 2, 1);
+insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values (now(), now(), '2022-08-07', 2, 1);
+insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values (now(), now(), '2022-08-08', 2, 1);
+insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values (now(), now(), '2022-08-15', 2, 1);
+insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values (now(), now(), '2022-08-20', 2, 1);
+insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values (now(), now(), '2022-08-21', 2, 1);
+insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values (now(), now(), '2022-08-27', 2, 1);
+insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values (now(), now(), '2022-08-28', 2, 1);
 
 -- 예약
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values (now(), now(), '2022-07-20', '18:00:00', '', 1, 1, 1);
