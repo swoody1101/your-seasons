@@ -107,9 +107,7 @@ const ConsultingRoom = () => {
   useEffect(() => {
     if (session) {
       const data =
-        `${JSON.stringify(selectedColor)}%%
-        ${JSON.stringify(bestColor)}%%
-        ${JSON.stringify(worstColor)}`;
+        `${JSON.stringify(selectedColor)}$$${JSON.stringify(bestColor)}$$${JSON.stringify(worstColor)}`;
 
       session.signal({
         data,
@@ -122,7 +120,7 @@ const ConsultingRoom = () => {
   }, [selectedColor, bestColor, worstColor])
 
   const shareColorset = (event) => {
-    const data = JSON.parse(event.data.split('%%'))
+    const data = JSON.parse(event.data.split('$$'))
     console.log(data)
   }
 
