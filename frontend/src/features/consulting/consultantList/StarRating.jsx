@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 
-export default function BasicRating({ starAverage, reviewCount }) {
-  const [value, setValue] = useState(starAverage);
+export default function BasicRating({ starAverage }) {
 
   return (
     <Box
@@ -12,7 +11,7 @@ export default function BasicRating({ starAverage, reviewCount }) {
       }}
     >
 			<div style={{ backgroundColor: 'white', width: '80%', display:'flex', justifyContent:'center'}}>
-				<div style={{display:'flex', alignContent:'center'}}><p style={{ marginTop:7, paddingLeft:2, marginRight:5}}>  </p> <Rating name="read-only" value={value} readOnly /> </div>
+				<div style={{display:'flex', alignContent:'center'}}><p style={{ marginTop:7, paddingLeft:2, marginRight:5}}>  </p> <Rating name="read-only" value={starAverage} readOnly/> </div>
 			</div>
     </Box>
   );

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { CardActionArea, styled } from '@mui/material';
 import StarRating from './StarRating'
 import OtherAvatar from '../../../common/avatar/OtherAvatar'
+
 const ConsultantListItem = ({ consultantId, nickname, introduction, starAverage, reviewCount, cost, imageUrl }) => {
 
 	return (<>

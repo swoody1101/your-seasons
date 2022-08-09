@@ -7,9 +7,9 @@ import ConsultantListItem from 'features/consulting/consultantList/ConsultantLis
 import ItemsCarousel from 'react-items-carousel'
 import { TopTenListFetch } from 'features/consulting/consultantListSlice';
 
-
 const HomePopularConsultant = () => {
 	const consultants = useSelector(state => state.consultantList.topTen)
+
 	// 비어있으면 true
 	const dispatch = useDispatch()
 	const hasConsultants = _.isEmpty(consultants)
