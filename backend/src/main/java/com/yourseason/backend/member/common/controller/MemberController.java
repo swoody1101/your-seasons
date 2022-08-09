@@ -1,6 +1,7 @@
 package com.yourseason.backend.member.common.controller;
 
 import com.yourseason.backend.common.domain.Message;
+import com.yourseason.backend.member.common.controller.dto.EmailAuthRequest;
 import com.yourseason.backend.member.common.controller.dto.LoginRequest;
 import com.yourseason.backend.member.common.controller.dto.LoginResponse;
 import com.yourseason.backend.member.common.service.MemberService;
@@ -33,5 +34,17 @@ public class MemberController {
     public ResponseEntity<Message> validateNickname(@RequestParam String nickname) {
         return ResponseEntity.ok()
                 .body(memberService.validateNickname(nickname));
+    }
+
+    @GetMapping("/email/1")
+    public ResponseEntity<Message> sendEmailValidateToken(@RequestParam String email) {
+        return ResponseEntity.ok()
+                .body(memberService.sendEmailValidateToken(email));
+    }
+
+    @PostMapping("/email/2")
+    public ResponseEntity<Message> validateNewEmail(@RequestBody EmailAuthRequest emailAuthRequest) {
+        return ResponseEntity.ok()
+                .body(memberService.validateNewEmail(emailAuthRequest));
     }
 }
