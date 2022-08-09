@@ -46,6 +46,9 @@ export const consultSlice = createSlice({
     [getConsultantSessionName.fulfilled]: (state, { payload }) => {
       state.consultantSessionName = payload.sessionId
     },
+    [getConsultantSessionName.rejected]: (state, { payload }) => {
+      state.consultantSessionName = ''
+    },
   }
 })
 export const { settingModalOn, settingModalOff } = consultSlice.actions;

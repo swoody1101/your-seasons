@@ -23,13 +23,22 @@ const ConsultButton = () => {
   }
 
   const handleJoin = () => {
-      dispatch(getConsultantSessionName(consultantNickname))
-        .then((res) => {
-          console.log(res)
-        })
-        .catch(() => { })
-      setIsInput(false)
-      setConsultantNickname('')    
+    dispatch(getConsultantSessionName(consultantNickname))
+      .then((res) => {
+        console.log(res)
+        navigate('/consult')
+      })
+      .catch((err) => {
+        if (err.response.status === BAD_REQUEST) {
+          alert('적절한 요청이 아닙니다.')
+        } else if (err.response.status === NOT_FOUND) {
+          alert('개설된 세션이 없습니다.')
+        } else if (err.response.status === CONFLICT) {
+          alert('이미 중복으로 접속된 세션입니다.')
+        }
+      })
+    setIsInput(false)
+    setConsultantNickname('')
   }
   return (
     <Box>
