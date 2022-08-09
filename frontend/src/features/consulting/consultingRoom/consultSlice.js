@@ -6,6 +6,19 @@ const initialState = {
   consultantSessionName: 'asdf-asdf-asdf'
 }
 
+export const openConsulting = createAsyncThunk(
+  'consult/openConsulting',
+  async (payload, { rejectWithValue }) => {
+    try {
+      console.log(payload)
+      const response = await Axios.post(`consultings/1`, payload)
+      return response.data
+    } catch (err) {
+      return rejectWithValue(err)
+    }
+  }
+)
+
 export const getConsultantSessionName = createAsyncThunk(
   'consult/getConsultantSessionName',
   async (consultantNickname, { rejectWithValue }) => {
