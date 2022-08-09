@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { CardActionArea, styled } from '@mui/material';
 import StarRating from './StarRating'
 import OtherAvatar from '../../../common/avatar/OtherAvatar'
+
 const ConsultantListItem = ({ consultantId, nickname, introduction, starAverage, reviewCount, cost, imageUrl }) => {
 
 	return (<>
@@ -33,7 +34,7 @@ const ConsultantListItem = ({ consultantId, nickname, introduction, starAverage,
 					</IntroduceDiv>
 					{/* 가격 */}
 					<Cost>
-						가격: {cost}
+						가격: {cost ? cost + ' 원': '등록된 비용이 없습니다.'}
 					</Cost>
 				</CardContent>
 			</CardActionArea>
