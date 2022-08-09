@@ -106,7 +106,7 @@ const ConsultingRoom = () => {
   }, [session])
 
   useEffect(() => {
-    if (session) {
+    if (session && role === CONSULTANT) {
       const data =
         `${JSON.stringify(selectedColor)}$$${JSON.stringify(bestColor)}$$${JSON.stringify(worstColor)}`;
 
