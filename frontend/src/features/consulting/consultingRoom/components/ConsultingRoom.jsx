@@ -59,52 +59,20 @@ const ConsultingRoom = () => {
     }
   }, [])
 
-  const onbeforeunload = () => {
-    leaveSession();
-  }
-
-  const handleMainVideoStream = (stream) => {
-    if (mainStreamManager !== stream) {
-      setMainStreamManager(stream)
-    }
-  }
-
-  const deleteSubscriber = (streamManager) => {
-    console.log(streamManager)
-  }
-
-  const joinSession = () => {
-    const getOV = new OpenVidu();
-    setSession(getOV.initSession())
-    setOV(getOV)
-  }
-
-  const streamCreated = (event) => {
-    const subscriber = session.subscribe(event.stream, undefined);
-    setCustomer(subscriber)
-  }
-
-  const streamDestroyed = (event) => {
-    deleteSubscriber(event.stream.streamManager);
-  }
-
-  const exception = (exception) => {
-    console.warn(exception);
-  }
 
   useEffect((e) => {
     if (session) {
       session.on('streamCreated', streamCreated)
       session.on('streamDestroyed', streamDestroyed)
       session.on('exception', exception)
-
+      session.on('signal:colerset', shareColorset)
       getToken().then((token) => {
         session
           .connect(
             token,
             {
               clientData: myUserName,
-              selectedColor, bestColor, worstColor
+              role, selectedColor, bestColor, worstColor
             },
           )
           .then(() => {
@@ -127,18 +95,71 @@ const ConsultingRoom = () => {
             }
             session.publish(publisher);
             setMainStreamManager(publisher)
-            if (role === CUSTOMER) {
-              setCustomer(publisher)
-            }
-            if (role === CONSULTANT) {
-              setConsultant(publisher)
-            }
+            if (role === CUSTOMER) { setCustomer(publisher) }
+            if (role === CONSULTANT) { setConsultant(publisher) }
             setSession(session)
           })
           .catch((error) => { });
       });
     }
   }, [session])
+
+  useEffect(() => {
+    if (session) {
+      const data =
+        `${JSON.stringify(selectedColor)}%%
+        ${JSON.stringify(bestColor)}%%
+        ${JSON.stringify(worstColor)}`;
+
+      session.signal({
+        data,
+        to: [],
+        type: 'colorset'
+      }).then(() => {
+        console.log(data)
+      }).catch(() => { })
+    }
+  }, [selectedColor, bestColor, worstColor])
+
+  const shareColorset = (event) => {
+    const data = JSON.parse(event.data.split('%%'))
+    console.log(data)
+  }
+
+  const onbeforeunload = () => {
+    leaveSession();
+  }
+
+  const handleMainVideoStream = (stream) => {
+    if (mainStreamManager !== stream) {
+      setMainStreamManager(stream)
+    }
+  }
+
+  const deleteSubscriber = (streamManager) => {
+    console.log(streamManager)
+  }
+
+  const joinSession = () => {
+    const getOV = new OpenVidu();
+    setSession(getOV.initSession())
+    setOV(getOV)
+  }
+
+  const streamCreated = (event) => {
+    const subscriber = session.subscribe(event.stream, undefined);
+    if (role === CONSULTANT) { setCustomer(subscriber) }
+    if (role === CUSTOMER) { setConsultant(subscriber) }
+  }
+
+  const streamDestroyed = (event) => {
+    deleteSubscriber(event.stream.streamManager);
+  }
+
+  const exception = (exception) => {
+    console.warn(exception);
+  }
+
 
   const leaveSession = () => {
     if (session) {
