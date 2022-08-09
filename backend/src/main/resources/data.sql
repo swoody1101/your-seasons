@@ -2,6 +2,8 @@
 insert into customer(created_date, last_modified_date, email, password, name, birth, nickname, contact, is_active) values (now(), now(), 'ssafy12@naver.com', '$2a$10$Wo4tufbWPSbs4//LlQYg4OZJTxGK0D2NX6Ys6OwWvNziIMVwRLRmi', '김싸피', '1994-08-31', '치당', '010-1111-1111', 1); -- 비밀번호 1234
 insert into customer(created_date, last_modified_date, email, password, name, birth, nickname, contact, is_active) values (now(), now(), 'hello99@naver.com', '$2a$10$kjUmmqHBaGSehVcsy6Ikmu99gIj3P0CnhaOBrZ6vcSmL0.O50HegG', '박인사', '1999-02-05', '봉쥬르', '010-2222-2222', 1); -- 비밀번호 hi1234
 insert into customer(created_date, last_modified_date, email, password, name, birth, nickname, contact, is_active) values (now(), now(), 'ansi@ssafy.com', '$2a$10$9Hf028.NDOlrPslwfQwaT.4rRWWLUvbNNLSEIMUFfGi.h7qbftAyq', '안승진', '1992-07-22', 'anveloper', '010-9999-9999', 1);  -- 비밀번호 ansi1212
+insert into customer(created_date, last_modified_date, email, password, name, birth, nickname, contact, is_active) values (now(), now(), 'a@a.a', '$2a$10$YiTBk/9ZU8MF.wvdW02ATOWOLdYduYe3wW73kRsr9L/Bjpc/WUoJK', '안성진', '1992-07-22', '테스유저', '010-1111-1111', 1);  -- 비밀번호 asdfasdf
+insert into customer(created_date, last_modified_date, email, password, name, birth, nickname, contact, is_active) values (now(), now(), 'user@c.c', '$2a$10$JASiZGS6dP.iFMBO7ckNqusv2LSUXnfJQ5GE2x3MePMpayFs9Y47W', '박다빈', '1999-01-01', '유유', '010-2222-2222', 1);  -- 비밀번호 useruser
 
 -- 자격증
 insert into license(created_date, last_modified_date, name, is_active) values (now(), now(), '컬러리스트산업기사', 1);
@@ -15,6 +17,8 @@ insert into consultant(created_date, last_modified_date, email, password, name, 
 insert into consultant(created_date, last_modified_date, email, password, name, birth, nickname, contact, introduction, cost, star_average, review_count, consulting_count, consulting_file, license_id, license_number, is_active) values (now(), now(), 'anjolryeo@gmail.com', '$2a$10$qyKQQEKVRiluruNO4wqU1.N/XvvrXi8ySYmhDj0eon.1rP18GgvGK', '안지용', '1994-08-30', '안졸리나 졸리', '010-5555-5555', 'MZ 킬러 안졸리나 졸리입니다!', 40000, 0.0, 0, 2, '', 1, '5678AW132', 1); -- 비밀번호 an0000
 insert into consultant(created_date, last_modified_date, email, password, name, birth, nickname, contact, introduction, cost, star_average, review_count, consulting_count, consulting_file, license_id, license_number, is_active) values (now(), now(), 'consultant@gmail.com', '$2a$10$zAp1/9nXSHE7/T/5u/uY4OR/qwKdpALgp68g8CnkpJy2NKaoxE8QO', '김컨설', '1990-01-01', '히사시부리', '010-1111-1111', '새로 등록한 컨설턴트입니다!', 80000, 0.0, 0, 0, '', 1, 'AT5AW132', 1); -- 비밀번호 password
 insert into consultant(created_date, last_modified_date, email, password, name, birth, nickname, contact, introduction, cost, star_average, review_count, consulting_count, consulting_file, license_id, license_number, is_active) values (now(), now(), 'apple@gmail.com', '$2a$10$J51/ObConUCCN2wqgR9ciu4CUPzTnaXMZqYA2vhXsOXl9jbc7ltdS', '김사과', '1993-03-03', '나는사과가조아', '010-4545-4545', '사과를 좋아하는 나는 사과톤!', 100000, 5.0, 1, 1, '', 1, '0000SEFS1', 1); -- 비밀번호 apple
+insert into consultant(created_date, last_modified_date, email, password, name, birth, nickname, contact, introduction, cost, star_average, review_count, consulting_count, consulting_file, license_id, license_number, is_active) values (now(), now(), 's@s.s', '$2a$10$4H4T4Yb0dwTnsZ3/b5soZexDim.ZGII99E7Q6rXNuKMaUAzdxR//y', '컨설턴', '1993-03-03', '테스', '010-3333-3333', '안녕하세요 저는 테스 컨설턴트라고 합니다!', 0, 0.0, 1, 1, '', 1, 'Q12SEFD132SG5', 1); -- 비밀번호 asdfasdf
+insert into consultant(created_date, last_modified_date, email, password, name, birth, nickname, contact, introduction, cost, star_average, review_count, consulting_count, consulting_file, license_id, license_number, is_active) values (now(), now(), 'con@c.c', '$2a$10$AUYhLT2o//eFq8GFWV0RauQk1Z/hxsysp1eL6zSzwXgfouUM3cbPO', '김최고', '1994-04-04', '컨컨', '010-4444-4444', '저는 컨컨 컨설턴트입니다', 0, 0.0, 1, 1, '', 1, 'AG037BSE235', 1); -- 비밀번호 useruser
 
 -- 휴무일
 insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values (now(), now(), '2022-07-21', 1, 1);
@@ -46,7 +50,6 @@ insert into tone(created_date, last_modified_date, name, is_active) values (now(
 insert into tone(created_date, last_modified_date, name, is_active) values (now(), now(), '겨울 트루', 1);
 insert into tone(created_date, last_modified_date, name, is_active) values (now(), now(), '겨울 다크', 1);
 
--- 컬러
 -- 컬러
 insert into color(created_date, last_modified_date, hex, is_active, tone_id) values (now(), now(), '#FDF0B1', 1, 1); -- 봄 브라이트
 insert into color(created_date, last_modified_date, hex, is_active, tone_id) values (now(), now(), '#F9C5C7', 1, 1); -- 봄 브라이트
