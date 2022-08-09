@@ -32,12 +32,6 @@ insert into reservation(created_date, last_modified_date, date, time, request, i
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values (now(), now(), '2022-08-31', '15:00:00', '잘 부탁드려요~', 1, 2, 2);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values (now(), now(), '2022-08-01', '18:00:00', '퍼스널 컬러 너무 궁금해요ㅜ', 1, 3, 2);
 
--- 컬러셋
-insert into color_set(created_date, last_modified_date, is_active) values (now(), now(), 1); -- 봄웜
-insert into color_set(created_date, last_modified_date, is_active) values (now(), now(), 1); -- 여름쿨
-insert into color_set(created_date, last_modified_date, is_active) values (now(), now(), 1); -- 가을웜
-insert into color_set(created_date, last_modified_date, is_active) values (now(), now(), 1); -- 겨울쿨
-
 -- 톤
 insert into tone(created_date, last_modified_date, name, is_active) values (now(), now(), '봄웜', 1);
 insert into tone(created_date, last_modified_date, name, is_active) values (now(), now(), '여름쿨', 1);
@@ -45,14 +39,26 @@ insert into tone(created_date, last_modified_date, name, is_active) values (now(
 insert into tone(created_date, last_modified_date, name, is_active) values (now(), now(), '겨울쿨', 1);
 
 -- 컬러
-insert into color(created_date, last_modified_date, hex, is_active, tone_id, color_set_id) values (now(), now(), '#ffe4e1', 1, 1, 1); -- 봄웜
-insert into color(created_date, last_modified_date, hex, is_active, tone_id, color_set_id) values (now(), now(), '#faebd7', 1, 1, 1); -- 봄웜
-insert into color(created_date, last_modified_date, hex, is_active, tone_id, color_set_id) values (now(), now(), '#cbbeb5', 1, 1, 1); -- 봄웜
-insert into color(created_date, last_modified_date, hex, is_active, tone_id, color_set_id) values (now(), now(), '#ff8e7f', 1, 1, 1); -- 봄웜
-insert into color(created_date, last_modified_date, hex, is_active, tone_id, color_set_id) values (now(), now(), '#ffcb6b', 1, 2, 2); -- 여름쿨
-insert into color(created_date, last_modified_date, hex, is_active, tone_id, color_set_id) values (now(), now(), '#89a5ea', 1, 2, 2); -- 여름쿨
-insert into color(created_date, last_modified_date, hex, is_active, tone_id, color_set_id) values (now(), now(), '#59227c', 1, 2, 2); -- 여름쿨
-insert into color(created_date, last_modified_date, hex, is_active, tone_id, color_set_id) values (now(), now(), '#800000', 1, 4, 4); -- 겨울쿨
+insert into color(created_date, last_modified_date, hex, is_active, tone_id) values (now(), now(), '#ffe4e1', 1, 1); -- 봄웜
+insert into color(created_date, last_modified_date, hex, is_active, tone_id) values (now(), now(), '#faebd7', 1, 1); -- 봄웜
+insert into color(created_date, last_modified_date, hex, is_active, tone_id) values (now(), now(), '#cbbeb5', 1, 1); -- 봄웜
+insert into color(created_date, last_modified_date, hex, is_active, tone_id) values (now(), now(), '#ff8e7f', 1, 1); -- 봄웜
+insert into color(created_date, last_modified_date, hex, is_active, tone_id) values (now(), now(), '#ffcb6b', 1, 2); -- 여름쿨
+insert into color(created_date, last_modified_date, hex, is_active, tone_id) values (now(), now(), '#89a5ea', 1, 2); -- 여름쿨
+insert into color(created_date, last_modified_date, hex, is_active, tone_id) values (now(), now(), '#59227c', 1, 2); -- 여름쿨
+insert into color(created_date, last_modified_date, hex, is_active, tone_id) values (now(), now(), '#800000', 1, 4); -- 겨울쿨
+
+-- 컬러셋
+insert into color_set(created_date, last_modified_date, is_active) values (now(), now(), 1); -- 봄웜
+insert into color_set(created_date, last_modified_date, is_active) values (now(), now(), 1); -- 여름쿨
+insert into color_set(created_date, last_modified_date, is_active) values (now(), now(), 1); -- 가을웜
+insert into color_set(created_date, last_modified_date, is_active) values (now(), now(), 1); -- 겨울쿨
+
+-- 컬러컬러셋
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 1, 1);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 2, 2);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 3, 3);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 1, 4);
 
 -- 베스트컬러셋
 insert into best_color_set(created_date, last_modified_date, is_active, color_set_id) values (now(), now(), 1, 1);
@@ -71,16 +77,16 @@ insert into test_result(created_date, last_modified_date, consulting_comment, co
 insert into test_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '맥 칠리보다는 루비우가 훨씬 더 고객님께 잘 받을 거에요', '', 1, 1, 1, 1);
 insert into test_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '저는 사과톤이지만 고객님은 피치와 살구가 생각나는 봄 라이트톤이에요!', '', 1, 1, 1, 1);
 
--- 전문가진단
-insert into consulting(created_date, last_modified_date, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 1, 0, 1, 1, 1);
-insert into consulting(created_date, last_modified_date, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 1, 0, 1, 1, 2);
-insert into consulting(created_date, last_modified_date, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 1, 0, 1, 1, 3);
-insert into consulting(created_date, last_modified_date, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 1, 0, 1, 1, 4);
-insert into consulting(created_date, last_modified_date, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 0, 0, 1, 1, 5);
-insert into consulting(created_date, last_modified_date, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 0, 0, 1, 1, 6);
-insert into consulting(created_date, last_modified_date, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 0, 0, 2, 2, 7);
-insert into consulting(created_date, last_modified_date, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 0, 0, 2, 2, 8);
-insert into consulting(created_date, last_modified_date, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 1, 0, 3, 4, 9);
+-- 컨설팅
+insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'bestcon-gmail-com', 1, 0, 1, 1, 1);
+insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'bestcon-gmail-com', 1, 0, 1, 1, 2);
+insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'bestcon-gmail-com', 1, 0, 1, 1, 3);
+insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'bestcon-gmail-com', 1, 0, 1, 1, 4);
+insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'bestcon-gmail-com', 0, 0, 1, 1, 5);
+insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'bestcon-gmail-com', 0, 0, 1, 1, 6);
+insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'anjolryeo-gmail-com', 0, 0, 2, 2, 7);
+insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'anjolryeo-gmail-com', 0, 0, 2, 2, 8);
+insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'apple-gmail-com', 1, 0, 3, 4, 9);
 
 -- 리뷰
 insert into review(created_date, last_modified_date, is_active, comment, star, consultant_id, consulting_id, customer_id) values (now(), now(), 1, '좋은 것  같기도...', 3, 1, 1, 1);
