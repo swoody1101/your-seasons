@@ -29,9 +29,10 @@ public class Color extends BaseTimeEntity {
     private List<ColorColorSet> colorColorSets = new ArrayList<>();
 
     @Builder
-    public Color(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate, String hex, Tone tone) {
+    public Color(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate, String hex, Tone tone, List<ColorColorSet> colorColorSets) {
         super(id, createdDate, lastModifiedDate, deletedDate, true);
         this.hex = hex;
         this.tone = tone;
+        this.colorColorSets = colorColorSets;
     }
 }
