@@ -10,8 +10,9 @@ import { Box, Button, Grid, styled, Typography, ButtonGroup, IconButton } from '
 import { Mic, MicOff, Videocam, VideocamOff } from '@mui/icons-material';
 
 import { settingModalOn } from 'features/consulting/consultingRoom/consultSlice'
-import { CONSULTANT, CUSTOMER } from 'api/CustomConst'
 import { openConsulting } from 'features/consulting/consultingRoom/consultSlice'
+import { CONSULTANT, CUSTOMER } from 'api/CustomConst'
+import { sharedColorSet } from 'common/colorset/colorSetSlice'
 
 
 import ColorPalette from 'common/colorset/ColorPalette'
@@ -113,20 +114,16 @@ const ConsultingRoom = () => {
         data,
         to: [],
         type: 'colorset'
-      }).then(() => {
-        console.log(data)
-      }).catch(() => { })
+      }).then(() => { }).catch(() => { })
     }
   }, [selectedColor, bestColor, worstColor])
 
   const shareColorset = (event) => {
     const data = event.data.split('$$')
-    const newSelectedColor = data[0]
-    const newBestColor = data[1]
-    const newWorstColor = data[2]
-    console.log(newSelectedColor)
-    console.log(newBestColor)
-    console.log(newWorstColor)
+    const newSelectedColor = JSON.parse(data[0])
+    const newBestColor = JSON.parse(data[1])
+    const newWorstColor = JSON.parse(data[2])
+    dispatch(sharedColorSet({ newSelectedColor, newBestColor, newWorstColor }))
   }
 
   const onbeforeunload = () => {

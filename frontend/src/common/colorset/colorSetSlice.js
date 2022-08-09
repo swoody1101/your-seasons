@@ -383,12 +383,23 @@ const ColorSetListSlice = createSlice({
     removeWorstColor: (state, action) => {
       state.worstColor = state.worstColor.filter((color) => color !== action.payload)
     },
+    sharedColorSet: (state, { payload }) => {
+      if (state.selectedColor !== payload.newSelectedColor) {
+        state.selectedColor = payload.newSelectedColor        
+      }
+      if (state.bestColor !== payload.newBestColor) {
+        state.bestColor = payload.newBestColor
+      }
+      if (state.worstColor !== payload.newWorstColor) {
+        state.worstColor = payload.newWorstColor
+      } // 
+    }
   }
 })
 
 
-export const { addBestColor, removeSelectColor, changeSelectColor, changeBestColor, removeBestColor, addWorstColor, removeWorstColor } = ColorSetListSlice.actions;
-
-
+export const { addBestColor, removeSelectColor, changeSelectColor,
+  changeBestColor, removeBestColor, addWorstColor,
+  removeWorstColor, sharedColorSet } = ColorSetListSlice.actions;
 
 export default ColorSetListSlice.reducer

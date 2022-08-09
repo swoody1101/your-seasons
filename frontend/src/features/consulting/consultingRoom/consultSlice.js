@@ -40,7 +40,7 @@ export const consultSlice = createSlice({
     },
     settingModalOff: (state) => {
       state.isSetClear = false;
-    }
+    },
   },
   extraReducers: {
     [getConsultantSessionName.fulfilled]: (state, { payload }) => {
