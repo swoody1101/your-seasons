@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux/es/exports';
 import { useNavigate, Link } from 'react-router-dom';
 
-import { CUSTOMER, CONSULTANT } from 'api/CustomConst'
+import { CUSTOMER, CONSULTANT, BAD_REQUEST, NOT_FOUND, CONFLICT } from 'api/CustomConst'
 import { getConsultantSessionName } from 'features/consulting/consultingRoom/consultSlice'
 
 import { Box, Button, Typography, styled, Input, ButtonGroup } from '@mui/material'
@@ -26,8 +26,17 @@ const ConsultButton = () => {
     dispatch(getConsultantSessionName(consultantNickname))
       .then((res) => {
         console.log(res)
+        navigate('/consult')
       })
-      .catch(() => { })
+      .catch((err) => {
+        if (err.response.status === BAD_REQUEST) {
+          alert('적절한 요청이 아닙니다.')
+        } else if (err.response.status === NOT_FOUND) {
+          alert('개설된 세션이 없습니다.')
+        } else if (err.response.status === CONFLICT) {
+          alert('이미 중복으로 접속된 세션입니다.')
+        }
+      })
     setIsInput(false)
     setConsultantNickname('')
   }
