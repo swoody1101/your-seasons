@@ -350,10 +350,10 @@ insert into color(created_date, last_modified_date, hex, is_active, tone_id) val
 insert into color(created_date, last_modified_date, hex, is_active, tone_id) values (now(), now(), '#183B35', 1, 12); -- 겨울 다크
 
 -- 컬러셋
-insert into color_set(created_date, last_modified_date, is_active) values (now(), now(), 1); -- 봄웜
-insert into color_set(created_date, last_modified_date, is_active) values (now(), now(), 1); -- 여름쿨
-insert into color_set(created_date, last_modified_date, is_active) values (now(), now(), 1); -- 가을웜
-insert into color_set(created_date, last_modified_date, is_active) values (now(), now(), 1); -- 겨울쿨
+insert into color_set(created_date, last_modified_date, is_active) values (now(), now(), 1);
+insert into color_set(created_date, last_modified_date, is_active) values (now(), now(), 1);
+insert into color_set(created_date, last_modified_date, is_active) values (now(), now(), 1);
+insert into color_set(created_date, last_modified_date, is_active) values (now(), now(), 1);
 
 -- 컬러컬러셋
 insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 1, 1);
