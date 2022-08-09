@@ -3,7 +3,7 @@ import Axios from 'api/Axios'
 
 const initialState = {
   isSetClear: false,
-  consultantSessionName: 'asdf-asdf-asdf'
+  consultantSessionName: 'asd-asd-asd'
 }
 
 export const openConsulting = createAsyncThunk(

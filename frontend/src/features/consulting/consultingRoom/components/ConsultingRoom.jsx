@@ -10,7 +10,7 @@ import { Box, Button, Grid, styled, Typography, ButtonGroup, IconButton } from '
 import { Mic, MicOff, Videocam, VideocamOff } from '@mui/icons-material';
 
 import { settingModalOn } from 'features/consulting/consultingRoom/consultSlice'
-import { CONSULTANT } from 'api/CustomConst'
+import { CONSULTANT, CUSTOMER } from 'api/CustomConst'
 import { openConsulting } from 'features/consulting/consultingRoom/consultSlice'
 
 
@@ -74,11 +74,9 @@ const ConsultingRoom = () => {
   }
 
   const joinSession = () => {
-    if (role === CONSULTANT) {
-      const getOV = new OpenVidu();
-      setSession(getOV.initSession())
-      setOV(getOV)
-    }
+    const getOV = new OpenVidu();
+    setSession(getOV.initSession())
+    setOV(getOV)
   }
 
   const streamCreated = (event) => {
@@ -129,7 +127,12 @@ const ConsultingRoom = () => {
             }
             session.publish(publisher);
             setMainStreamManager(publisher)
-            setConsultant(publisher)
+            if (role === CUSTOMER) {
+              setCustomer(publisher)
+            }
+            if (role === CONSULTANT) {
+              setConsultant(publisher)
+            }
             setSession(session)
           })
           .catch((error) => { });
