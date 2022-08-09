@@ -33,10 +33,18 @@ insert into reservation(created_date, last_modified_date, date, time, request, i
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values (now(), now(), '2022-08-01', '18:00:00', '퍼스널 컬러 너무 궁금해요ㅜ', 1, 3, 2);
 
 -- 톤
-insert into tone(created_date, last_modified_date, name, is_active) values (now(), now(), '봄웜', 1);
-insert into tone(created_date, last_modified_date, name, is_active) values (now(), now(), '여름쿨', 1);
-insert into tone(created_date, last_modified_date, name, is_active) values (now(), now(), '가을웜', 1);
-insert into tone(created_date, last_modified_date, name, is_active) values (now(), now(), '겨울쿨', 1);
+insert into tone(created_date, last_modified_date, name, is_active) values (now(), now(), '봄 브라이트', 1);
+insert into tone(created_date, last_modified_date, name, is_active) values (now(), now(), '봄 트루', 1);
+insert into tone(created_date, last_modified_date, name, is_active) values (now(), now(), '봄 라이트', 1);
+insert into tone(created_date, last_modified_date, name, is_active) values (now(), now(), '여름 라이트', 1);
+insert into tone(created_date, last_modified_date, name, is_active) values (now(), now(), '여름 트루', 1);
+insert into tone(created_date, last_modified_date, name, is_active) values (now(), now(), '여름 소프트', 1);
+insert into tone(created_date, last_modified_date, name, is_active) values (now(), now(), '가을 소프트', 1);
+insert into tone(created_date, last_modified_date, name, is_active) values (now(), now(), '가을 트루', 1);
+insert into tone(created_date, last_modified_date, name, is_active) values (now(), now(), '가을 다크', 1);
+insert into tone(created_date, last_modified_date, name, is_active) values (now(), now(), '겨울 브라이트', 1);
+insert into tone(created_date, last_modified_date, name, is_active) values (now(), now(), '겨울 트루', 1);
+insert into tone(created_date, last_modified_date, name, is_active) values (now(), now(), '겨울 다크', 1);
 
 -- 컬러
 insert into color(created_date, last_modified_date, hex, is_active, tone_id) values (now(), now(), '#ffe4e1', 1, 1); -- 봄웜
