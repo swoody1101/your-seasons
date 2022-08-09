@@ -23,7 +23,7 @@ export const getConsultantSessionName = createAsyncThunk(
   'consult/getConsultantSessionName',
   async (consultantNickname, { rejectWithValue }) => {
     try {
-      const response = await Axios.get(`consultants/asdf?nickname=${consultantNickname}`)
+      const response = await Axios.post(`consultings/join`, { nickname: consultantNickname })
       return response.data
     } catch (err) {
       return rejectWithValue(err)
@@ -44,9 +44,7 @@ export const consultSlice = createSlice({
   },
   extraReducers: {
     [getConsultantSessionName.fulfilled]: (state, { payload }) => {
-      console.log("컨설턴트 세션 id", payload)
-      state.consultantSessionName = payload.data
-      console.log(state.consultantSessionName)
+      state.consultantSessionName = payload.sessionId
     },
   }
 })

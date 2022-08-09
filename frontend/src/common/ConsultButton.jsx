@@ -23,18 +23,13 @@ const ConsultButton = () => {
   }
 
   const handleJoin = () => {
-    if (role === CONSULTANT) {
-
-    }
-    if (role === CUSTOMER) {
       dispatch(getConsultantSessionName(consultantNickname))
         .then((res) => {
           console.log(res)
         })
         .catch(() => { })
       setIsInput(false)
-      setConsultantNickname('')
-    }
+      setConsultantNickname('')    
   }
   return (
     <Box>
