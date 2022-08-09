@@ -38,6 +38,7 @@ public class ReservationService {
         if (Role.CONSULTANT.equals(role)) {
             throw new WrongAccessException(WRONG_ACCESS);
         }
+
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
         Consultant consultant = consultantRepository.findById(consultantId)
