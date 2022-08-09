@@ -15,7 +15,6 @@ const ConsultantList = () => {
 	const dispatch = useDispatch()
 
 	useEffect(()=>{
-		dispatch(setConValue('popular'))
 		dispatch(ConsultantListFetch(value))
 	}, [])
 
@@ -98,7 +97,8 @@ const BackDiv = styled('div')({
 	justifyContent: 'center',
 	alignItems: 'start',
 	marginTop: -70,
-	backgroundColor: '#eeee'
+	backgroundColor: '#eeee',
+	height: '100vh',
 })
 
 const Div = styled('div')({
