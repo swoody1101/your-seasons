@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class EmailAuthRequest {
 
-    String email;
-    String authToken;
+    private String email;
+    private String authToken;
 }
