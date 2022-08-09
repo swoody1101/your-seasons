@@ -20,11 +20,11 @@ import java.util.List;
 public class ColorSet extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "colorSet")
-    private List<Color> colors = new ArrayList<>();
+    private List<ColorColorSet> colorColorSets = new ArrayList<>();
 
     @Builder
-    public ColorSet(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate, List<Color> colors) {
+    public ColorSet(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate, List<ColorColorSet> colorColorSets) {
         super(id, createdDate, lastModifiedDate, deletedDate, true);
-        this.colors = colors;
+        this.colorColorSets = colorColorSets;
     }
 }
