@@ -119,7 +119,8 @@ public class MemberService {
         simpleMailMessage.setFrom("yourseasons305@naver.com");
         simpleMailMessage.setTo(email);
         simpleMailMessage.setSubject(MAIL_SUBJECT);
-        simpleMailMessage.setText("인증번호: " + emailValidateToken);
+        simpleMailMessage.setText("인증번호: " + emailValidateToken
+                + "\n해당 인증번호를 인증번호 확인란에 기입하여주세요.");
         javaMailSender.send(simpleMailMessage);
         return new Message("succeeded");
     }
@@ -145,13 +146,11 @@ public class MemberService {
                 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
                 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
                 '!', '@', '#', '$', '%', '^', '&', '*',};
-        String randomPassword = "";
-        int selectRandomPassword;
+        StringBuilder randomPassword = new StringBuilder();
 
         for (int i = 0; i < 10; i++) {
-            selectRandomPassword = (int) (Math.random() * (passwordCollection.length));
-            randomPassword += passwordCollection[selectRandomPassword];
+            randomPassword.append(passwordCollection[(int) (Math.random() * (passwordCollection.length))]);
         }
-        return randomPassword;
+        return randomPassword.toString();
     }
 }
