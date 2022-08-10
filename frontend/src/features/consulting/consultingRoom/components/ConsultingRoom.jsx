@@ -10,7 +10,6 @@ import { Box, Button, Grid, styled, Typography, ButtonGroup, IconButton } from '
 import { Mic, MicOff, Videocam, VideocamOff } from '@mui/icons-material';
 
 import { settingModalOn } from 'features/consulting/consultingRoom/consultSlice'
-import { openConsulting } from 'features/consulting/consultingRoom/consultSlice'
 import { CONSULTANT, CUSTOMER } from 'api/CustomConst'
 import { sharedColorSet } from 'common/colorset/colorSetSlice'
 
@@ -87,13 +86,6 @@ const ConsultingRoom = () => {
               insertMode: 'APPEND',
               mirror: false,
             });
-            if (role === CONSULTANT) {
-              const openData = {
-                sessionId: session.sessionId,
-                sessionCreatedTime: session.connection.creationTime
-              }
-              dispatch(openConsulting(openData))
-            }
             session.publish(publisher);
             setMainStreamManager(publisher)
             if (role === CUSTOMER) { setCustomer(publisher) }
@@ -167,7 +159,7 @@ const ConsultingRoom = () => {
     }
     setOV(null);
     setSession(undefined)
-    setMySessionId(role === CONSULTANT ? tmp : '')
+    setMySessionId(role === CONSULTANT ? tmp : consultantSessionName)
     setMyUserName(nickname)
     setMainStreamManager(undefined)
     setConsultant(undefined)

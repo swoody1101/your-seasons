@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 
 import './app.css'
 import NavBar from 'common/NavBar'
-import ConsultButton from 'common/ConsultButton'
+import ConsultButton from 'common/consulting/ConsultButton'
 import Yourseason from 'features/home/YourSeason'
 import Consult from 'features/consulting/consultingRoom/Consult'
 import MyPage from 'features/mypage/customers/MyPage'
