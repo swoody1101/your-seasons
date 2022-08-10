@@ -3,6 +3,7 @@ package com.yourseason.backend.util;
 import com.yourseason.backend.common.exception.WrongAccessException;
 import com.yourseason.backend.member.common.domain.Role;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.AccessLevel;
@@ -18,7 +19,8 @@ import java.util.Map;
 public class JwtUtil {
 
     private static final String SECRET = "ssafy second semester first project - your season";
-    private static final String WRONG_ACCESS = "잘못된 접근입니다.";
+    private static final String WRONG_TOKEN = "잘못된 토큰 값입니다.";
+    private static final String EXPIRED_TOKEN = "로그인 정보가 만료되었습니다.";
     private static final String TYPE = "Bearer";
     private static final String DELIMITER = " ";
     private static final int TOKEN = 1;
@@ -40,6 +42,14 @@ public class JwtUtil {
         return Role.valueOf((String) getAllClaims(getActualToken(token)).get("role"));
     }
 
+    public static void validateToken(String token) {
+        try {
+            getAllClaims(getActualToken(token));
+        } catch (ExpiredJwtException e) {
+            throw new WrongAccessException(EXPIRED_TOKEN);
+        }
+    }
+
     private static String createToken(Claims claims) {
         return Jwts.builder()
                 .setSubject("Authorization")
@@ -57,14 +67,14 @@ public class JwtUtil {
                 .getBody();
     }
 
-    private static void checkValidation(String token) {
-        if (!token.startsWith(TYPE + DELIMITER)) {
-            throw new WrongAccessException(WRONG_ACCESS);
-        }
-    }
-
     private static String getActualToken(String token) {
         checkValidation(token);
         return token.split(DELIMITER)[TOKEN];
+    }
+
+    private static void checkValidation(String token) {
+        if (!token.startsWith(TYPE + DELIMITER)) {
+            throw new WrongAccessException(WRONG_TOKEN);
+        }
     }
 }
