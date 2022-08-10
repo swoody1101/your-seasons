@@ -9,7 +9,8 @@ import ComparePasswordInput from 'features/auth/components/ConfirmPasswordInput'
 import regex from 'features/auth/components/regex';
 import { BAD_REQUEST, NOT_FOUND, CONFLICT } from 'api/CustomConst'
 
-import { modifyPass } from 'features/auth/authSlice'
+import { logoutUser, modifyPass } from 'features/auth/authSlice'
+import { useNavigate } from 'react-router'
 
 const ModifyPassword = () => {
 
@@ -20,6 +21,7 @@ const ModifyPassword = () => {
   const { role } = useSelector((state) => state.auth.logonUser)
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleModiPass = () => {
     if (beforePassword.length === 0) {
@@ -40,12 +42,15 @@ const ModifyPassword = () => {
     dispatch(modifyPass({ role, beforePassword, afterPassword }))
       .unwrap()
       .then(() => {
-        alert("수정이 완료되었습니다.")
         setBeforePassword('');
         setAfterPassword('');
         setRePassword('');
+        dispatch(logoutUser())
+        navigate('/login')
+        alert("수정이 완료되었습니다. 다시 로그인을 해주세요")
       })
       .catch((err) => {
+        console.log(err)
         if (err.status === BAD_REQUEST) {
           alert('적절한 요청이 아닙니다.')
         } else if (err.status === NOT_FOUND) {
@@ -104,7 +109,6 @@ const ModifyPassword = () => {
           }}
         >
           <Button
-            color='error'
             onClick={() => {
               setBeforePassword('');
               setAfterPassword('');
@@ -112,7 +116,6 @@ const ModifyPassword = () => {
             }}
           >취소</Button>
           <Button
-            color='error'
             onClick={handleModiPass}
           >확인</Button>
         </ButtonGroup>

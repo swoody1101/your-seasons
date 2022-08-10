@@ -12,6 +12,10 @@ const ConsultantMyPage = () => {
 
   useEffect(() => {
     dispatch(consultingResFetch())
+  }, [])
+
+  useEffect(() => {
+    dispatch(consultingResFetch())
   }, [dispatch])
 
   return (
