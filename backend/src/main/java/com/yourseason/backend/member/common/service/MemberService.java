@@ -34,7 +34,7 @@ public class MemberService {
     private static final String EMAIL_DUPLICATED = "이메일이 중복됩니다.";
     private static final String NICKNAME_DUPLICATED = "닉네임이 중복됩니다.";
     private static final String TOKEN_NOT_EQUAL = "이메일 인증 토큰이 일치하지 않습니다.";
-    private static final String MAIL_SUBJECT = "당신의 계절: 로그인 인증번호 안내";
+    private static final String MAIL_SUBJECT = "당신의 계절: 회원가입 인증번호 안내";
 
     private final PasswordEncoder passwordEncoder;
     private final CustomerRepository customerRepository;
@@ -101,7 +101,7 @@ public class MemberService {
         return member;
     }
 
-    public Message sendEmailValidateToken(String email) {
+    public Message sendEmailValidationToken(String email) {
         String emailValidateToken = createAuthToken();
         redisUtil.setDataExpire(email, emailValidateToken, 60 * 3L);
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
@@ -134,7 +134,7 @@ public class MemberService {
                 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
                 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
                 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-                '!', '@', '#', '$', '%', '^', '&', '*',};
+                '!', '@', '#', '$', '%', '^', '&', '*'};
         StringBuilder randomPassword = new StringBuilder();
 
         for (int i = 0; i < 10; i++) {
