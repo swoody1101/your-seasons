@@ -354,10 +354,19 @@ const ConsultingRoom = () => {
           </Button>
           <Button variant="outlined"
             onClick={() => {
-              customer.stream
-                .applyFilter("GStreamerFilter", { "command": "videobalance hue=-1.0 saturation=1.0" })
-                .then(() => { })
-                .catch((err) => { console.log(err) });
+              if (!mainStreamManager.stream.filter) {
+                mainStreamManager.stream
+                  .applyFilter("GStreamerFilter", { "command": "videobalance hue=-1.0 saturation=1.0" })
+                  .then(() => { })
+                  .catch((err) => { console.log(err) });
+              } else {
+                mainStreamManager.stream.removeFilter()
+                  .then(() => {
+                    mainStreamManager.stream
+                      .applyFilter("GStreamerFilter", { "command": "videobalance hue=1.0 saturation=1.0" })
+                      .then(() => { })
+                  })
+              }
             }}
           >
             테스트 버튼
