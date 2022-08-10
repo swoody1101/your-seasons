@@ -2,8 +2,9 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import Axios from 'api/Axios'
 
 const initialState = {
+  publisherSet: undefined,
   isSetClear: false,
-  consultantSessionName: 'asd-asd-asd'
+  consultantSessionName: 'asd-asd-asd',
 }
 
 export const openConsulting = createAsyncThunk(
@@ -41,6 +42,9 @@ export const consultSlice = createSlice({
     settingModalOff: (state) => {
       state.isSetClear = false;
     },
+    setPublisherSetting: (state, { payload }) => {
+      state.publisherSet = payload
+    },
   },
   extraReducers: {
     [getConsultantSessionName.fulfilled]: (state, { payload }) => {
@@ -51,6 +55,6 @@ export const consultSlice = createSlice({
     },
   }
 })
-export const { settingModalOn, settingModalOff } = consultSlice.actions;
+export const { settingModalOn, settingModalOff, setPublisherSetting } = consultSlice.actions;
 
 export default consultSlice.reducer
