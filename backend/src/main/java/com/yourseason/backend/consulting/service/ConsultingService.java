@@ -30,6 +30,7 @@ public class ConsultingService {
     private static final String RESERVATION_NOT_FOUND = "해당 예약을 찾을 수 없습니다.";
     private static final String CONSULTING_NOT_OPENED = "컨설팅이 개설되지 않았습니다.";
     private static final String CAN_NOT_ENTER_CONSULTING = "해당 컨설팅에 입장하실 수 없습니다.";
+    private static final String ALREADY_ENTER_CONSULTING = "이미 입장한 컨설팅입니다.";
     private static final String FAIL_TO_SAVE_CONSULTING_INFO = "컨설팅 정보 저장에 실패했습니다.";
     private static final String CONSULTING_EXISTS = "개설된 컨설팅이 존재합니다.";
     private static final String SESSION_DELIMITER = "-";
@@ -59,20 +60,26 @@ public class ConsultingService {
                 .build();
     }
 
-    public ConsultingJoinResponse joinConsulting(Long customerId, ConsultingJoinRequest consultingJoinRequest) {
-        Consultant consultant = consultantRepository.findByNicknameAndIsActiveTrue(consultingJoinRequest.getNickname())
-                .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
+    @Transactional
+    public ConsultingJoinResponse joinConsulting(Long customerId, ConsultingRequest consultingRequest) {
+        Reservation reservation = reservationRepository.findById(consultingRequest.getReservationId())
+                .orElseThrow(() -> new NotFoundException(RESERVATION_NOT_FOUND));
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
+        if (!customer.equals(reservation.getCustomer())) {
+            throw new WrongAccessException(CAN_NOT_ENTER_CONSULTING);
+        }
+        Consultant consultant = reservation.getConsultant();
         Consulting consulting = consultant.getConsultings()
                 .stream()
                 .filter(Consulting::isActive)
                 .findFirst()
-                .orElseThrow(() -> new BadRequestException(CONSULTING_NOT_FOUND));
-        Customer customer = customerRepository.findById(customerId)
-                .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
+                .orElseThrow(() -> new BadRequestException(CONSULTING_NOT_OPENED));
+        checkContainingCustomer(consulting);
         customer.joinConsulting(consulting);
         customerRepository.save(customer);
         return ConsultingJoinResponse.builder()
-                .sessionId(getSessionId(consulting.getConsultant()))
+                .sessionId(getSessionId(consultant))
                 .build();
     }
 
@@ -94,6 +101,12 @@ public class ConsultingService {
                 .map(Consulting::getId)
                 .findFirst()
                 .orElseThrow(() -> new InternalServerErrorException(FAIL_TO_SAVE_CONSULTING_INFO));
+    }
+
+    private void checkContainingCustomer(Consulting consulting) {
+        if (consulting.getCustomer() != null) {
+            throw new BadRequestException(ALREADY_ENTER_CONSULTING);
+        }
     }
 
     private void checkConsultingExistence(Consultant consultant) {
