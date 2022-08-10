@@ -8,6 +8,5 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ConsultingJoinResponse {
 
-    private Long consultingId;
     private String sessionId;
 }
