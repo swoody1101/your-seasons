@@ -104,6 +104,7 @@ const ModifyPassword = () => {
           }}
         >
           <Button
+            color='error'
             onClick={() => {
               setBeforePassword('');
               setAfterPassword('');
@@ -111,6 +112,7 @@ const ModifyPassword = () => {
             }}
           >취소</Button>
           <Button
+            color='error'
             onClick={handleModiPass}
           >확인</Button>
         </ButtonGroup>

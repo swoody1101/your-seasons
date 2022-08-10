@@ -125,6 +125,7 @@ const ModifyConsultant = () => {
           }}
         >
           <Button
+            color='error'
             onClick={() => {
               setNewIntroduction(introduction);
               setNewCost(cost);
@@ -133,6 +134,7 @@ const ModifyConsultant = () => {
             }}
           >취소</Button>
           <Button
+            color='error'
             onClick={handleModify}
           >확인</Button>
         </ButtonGroup>
