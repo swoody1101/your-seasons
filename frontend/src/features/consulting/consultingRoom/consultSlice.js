@@ -4,7 +4,7 @@ import Axios from 'api/Axios'
 const initialState = {
   publisherSet: undefined,
   isSetClear: false,
-  consultantSessionName: 'asd-asd-asd',
+  consultantSessionName: 's-s-s',
 }
 
 export const openConsulting = createAsyncThunk(
@@ -24,6 +24,7 @@ export const getConsultantSessionName = createAsyncThunk(
   'consult/getConsultantSessionName',
   async (consultantNickname, { rejectWithValue }) => {
     try {
+      console.log('요청 컨설턴트 닉네임', consultantNickname)
       const response = await Axios.post(`consultings/join`, { nickname: consultantNickname })
       return response.data
     } catch (err) {
@@ -51,8 +52,8 @@ export const consultSlice = createSlice({
       state.consultantSessionName = payload.sessionId
     },
     [getConsultantSessionName.rejected]: (state, { payload }) => {
-      state.consultantSessionName = ''
-    },
+      state.consultantSessionName = 's-s-s'
+    }, // 임시
   }
 })
 export const { settingModalOn, settingModalOff, setPublisherSetting } = consultSlice.actions;

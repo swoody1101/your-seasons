@@ -37,6 +37,7 @@ const ConsultingRoom = () => {
   const [myUserName, setMyUserName] = useState(nickname)
   const [session, setSession] = useState(undefined)
   const [mainStreamManager, setMainStreamManager] = useState(undefined)
+  const [token, setToken] = useState(undefined)
 
   const [customer, setCustomer] = useState(undefined)
   const [consultant, setConsultant] = useState(undefined)
@@ -86,11 +87,6 @@ const ConsultingRoom = () => {
               frameRate: 30,
               insertMode: 'APPEND',
               mirror: false,
-              kurentoOptions: {
-                allowedFilters: [
-                  "GStreamerFilter"
-                ]
-              }
             });
             if (role === CONSULTANT) {
               const openData = {
@@ -193,7 +189,10 @@ const ConsultingRoom = () => {
    */
 
   const getToken = () => {
-    return createSession(mySessionId).then((sessionId) => createToken(sessionId));
+    const tk = createSession(mySessionId).then((sessionId) => createToken(sessionId))
+    setToken(tk)
+    console.log(tk)
+    return tk;
   }
 
   const createSession = (sessionId) => {
@@ -241,7 +240,17 @@ const ConsultingRoom = () => {
 
   const createToken = (sessionId) => {
     return new Promise((resolve, reject) => {
-      const data = {};
+      const data = {
+        "type": "WEBRTC",
+        "role": "PUBLISHER",
+        "kurentoOptions": {
+          "videoMaxRecvBandwidth": 1000,
+          "videoMinRecvBandwidth": 300,
+          "videoMaxSendBandwidth": 1000,
+          "videoMinSendBandwidth": 300,
+          "allowedFilters": ["GStreamerFilter", "FaceOverlayFilter"]
+        }
+      };
       axios
         .post(OPENVIDU_SERVER_URL + "/openvidu/api/sessions/" + sessionId + "/connection", data, {
           headers: {
@@ -249,6 +258,8 @@ const ConsultingRoom = () => {
               'OPENVIDUAPP:' + OPENVIDU_SERVER_SECRET
             ),
             'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET,POST',
           },
         })
         .then((response) => {
@@ -357,7 +368,18 @@ const ConsultingRoom = () => {
           <Button variant="outlined"
             onClick={() => {
               customer.stream
-                .applyFilter('GStreamerFilter', { "command": "videobalance saturation=0.0" })
+                .applyFilter("ChromaFilter",
+                  {
+                    "window": {
+                      "topRightCornerX": 0,
+                      "topRightCornerY": 0,
+                      "width": 50,
+                      "height": 50
+                    },
+                    "backgroundImage": "https://www.maxpixel.net/static/photo/1x/Cool-Blue-Liquid-Lake-Abstract-Background-Clear-316144.jpg",
+                    "token": token
+                  }
+                )
                 .then(() => { })
                 .catch((err) => { console.log(err) });
             }}
