@@ -4,8 +4,9 @@ import filledstar from 'assets/images/filledstar.png'
 import './starrating.css'
 
 const StarRating = props => {
+  const starwidth = props.starrating
   return (
-    <div className="starbox" style={{ width: props.starrating * 20 }}>
+    <div className="starbox" style={{ width: starwidth ? starwidth * 20 : '' }}>
       <img
         className="pointofstar"
         alt="별"
