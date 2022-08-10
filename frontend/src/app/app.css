@@ -1,5 +1,5 @@
 @font-face {
-  font-family: 'Happiness-Sans-Title';
+	font-family: 'Happiness-Sans-Title';
 	src: url('../assets/fonts/happinessSans-ttf/Happiness-Sans-Title.ttf');
 	font-weight: normal;
 	font-style: normal;
@@ -35,33 +35,32 @@
 }
 
 * {
-  font-family: 'Happiness-Sans-Regular' !important;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  outline: 0;
-  box-sizing: border-box;
-  list-style: none;
-  text-decoration: none;
+	font-family: 'Happiness-Sans-Regular' !important;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	box-sizing: border-box;
+	list-style: none;
+	text-decoration: none;
 }
 
 body::-webkit-scrollbar {
-  display: none;
+	display: none;
 }
 
 canvas {
-  background-color: #f2dee98f;
-  width: 100%;
-  height: 100%;
+	width: 100%;
+	height: 100%;
 }
 
-:root{
+:root {
 	/* color */
 	--white-color: #fff;
-  --grey-dark-color: #989090;
-  --grey-light-color: #e0e0e0;
+	--grey-dark-color: #989090;
+	--grey-light-color: #e0e0e0;
 
-  /* 각 타이틀별 글씨크기 */
+	/* 각 타이틀별 글씨크기 */
 	--font-title-size: 2rem;
 	--font-letter-spacing: -3px;
 	--font-sub-size: 1.2rem;
