@@ -8,12 +8,11 @@ import com.yourseason.backend.common.exception.WrongFormException;
 import com.yourseason.backend.member.common.controller.dto.EmailAuthRequest;
 import com.yourseason.backend.member.common.controller.dto.LoginRequest;
 import com.yourseason.backend.member.common.controller.dto.LoginResponse;
-import com.yourseason.backend.member.common.domain.EmailAuth;
-import com.yourseason.backend.member.common.domain.EmailAuthRepository;
 import com.yourseason.backend.member.common.domain.Member;
 import com.yourseason.backend.member.common.domain.Role;
 import com.yourseason.backend.member.consultant.domain.ConsultantRepository;
 import com.yourseason.backend.member.customer.domain.CustomerRepository;
+import com.yourseason.backend.util.RedisUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -40,8 +39,8 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
     private final CustomerRepository customerRepository;
     private final ConsultantRepository consultantRepository;
-    private final EmailAuthRepository emailAuthRepository;
     private final JavaMailSender javaMailSender;
+    private final RedisUtil redisUtil;
 
     public LoginResponse login(LoginRequest loginRequest) {
         Map<String, String> loginMember = getMember(loginRequest);
@@ -104,17 +103,7 @@ public class MemberService {
 
     public Message sendEmailValidateToken(String email) {
         String emailValidateToken = createAuthToken();
-        EmailAuth emailAuth = emailAuthRepository.findByEmail(email);
-        if (emailAuth == null) {
-            emailAuth = EmailAuth.builder()
-                    .email(email)
-                    .authToken(emailValidateToken)
-                    .build();
-        } else {
-            emailAuth.updateEmailAuthToken(emailValidateToken);
-        }
-        emailAuthRepository.save(emailAuth);
-
+        redisUtil.setDataExpire(email, emailValidateToken, 60 * 3L);
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setFrom("yourseasons305@naver.com");
         simpleMailMessage.setTo(email);
@@ -126,7 +115,7 @@ public class MemberService {
     }
 
     public Message validateNewEmail(EmailAuthRequest emailAuthRequest) {
-        if (!emailAuthRepository.existsByEmailAndAuthToken(emailAuthRequest.getEmail(), emailAuthRequest.getAuthToken())) {
+        if (!redisUtil.validateData(emailAuthRequest.getEmail(), emailAuthRequest.getAuthToken())) {
             throw new NotEqualException(TOKEN_NOT_EQUAL);
         }
         return new Message("succeeded");
