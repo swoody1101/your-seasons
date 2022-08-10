@@ -99,7 +99,7 @@ const BackDiv = styled('div')({
 	alignItems: 'start',
 	marginTop: -70,
 	backgroundColor: '#eeee',
-	height: '100vh',
+  minHeight: '100vh',
 })
 
 const Div = styled('div')({
