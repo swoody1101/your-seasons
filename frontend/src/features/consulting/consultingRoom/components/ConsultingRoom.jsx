@@ -1,4 +1,4 @@
-import React, { useState, Component, useEffect } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
@@ -14,7 +14,6 @@ import { settingModalOn, setCustomer } from 'features/consulting/consultingRoom/
 
 import { CONSULTANT, CUSTOMER } from 'api/CustomConst'
 import { sharedColorSet } from 'common/colorset/colorSetSlice'
-
 
 import ColorPalette from 'common/colorset/ColorPalette'
 import SelectedColorSet from 'common/colorset/SelectedColorSet';
@@ -38,12 +37,14 @@ const ConsultingRoom = () => {
   const [myUserName, setMyUserName] = useState(nickname)
   const [session, setSession] = useState(undefined)
 
+  const [mainStreamManager, setMainStreamManager] = useState(undefined)
+  const [publisher, setPublisher] = useState(undefined)
   const [consultant, setConsultant] = useState(undefined)
 
   const [OV, setOV] = useState(null)
 
-  const [isMic, setIsMic] = useState(false)
-  const [isCam, setIsCam] = useState(false)
+  const [isMic, setIsMic] = useState(true)
+  const [isCam, setIsCam] = useState(true)
   const { selectedColor, bestColor, worstColor } = useSelector(state => state.colorSetList)
 
   const dispatch = useDispatch()
@@ -60,7 +61,7 @@ const ConsultingRoom = () => {
   }, [])
 
 
-  useEffect((e) => {
+  useEffect(() => {
     if (session) {
       session.on('streamCreated', streamCreated)
       session.on('streamDestroyed', streamDestroyed)
@@ -72,7 +73,6 @@ const ConsultingRoom = () => {
             token,
             {
               clientData: myUserName,
-              role, selectedColor, bestColor, worstColor
             },
           )
           .then(() => {
@@ -87,6 +87,8 @@ const ConsultingRoom = () => {
               mirror: false,
             });
             session.publish(publisher);
+            setMainStreamManager(publisher);
+            setPublisher(publisher);
             if (role === CUSTOMER) { dispatch(setCustomer(publisher)) }
             if (role === CONSULTANT) { setConsultant(publisher) }
             setSession(session)
@@ -133,7 +135,7 @@ const ConsultingRoom = () => {
 
   const streamCreated = (event) => {
     const subscriber = session.subscribe(event.stream, undefined);
-    if (role === CONSULTANT) { setCustomer(subscriber) }
+    if (role === CONSULTANT) { dispatch(setCustomer(subscriber)) }
     if (role === CUSTOMER) { setConsultant(subscriber) }
   }
 
@@ -227,7 +229,11 @@ const ConsultingRoom = () => {
           "videoMinRecvBandwidth": 300,
           "videoMaxSendBandwidth": 1000,
           "videoMinSendBandwidth": 300,
-          "allowedFilters": ["GStreamerFilter", "FaceOverlayFilter"]
+          "allowedFilters": [
+            "GStreamerFilter",
+            "FaceOverlayFilter",
+            "ChromaFilter"
+          ]
         }
       };
       axios
@@ -325,17 +331,19 @@ const ConsultingRoom = () => {
               <IconButton
                 color="inherit"
                 onClick={() => {
+                  publisher.publishAudio(!isMic)
                   setIsMic(!isMic)
                 }}>
-                {!isMic ? <Mic /> : <MicOff color="secondary" />}
+                {isMic ? <Mic /> : <MicOff color="secondary" />}
               </IconButton>
 
               <IconButton
                 color="inherit"
                 onClick={() => {
+                  publisher.publishVideo(!isCam)
                   setIsCam(!isCam)
                 }}>
-                {!isCam ? <Videocam /> : <VideocamOff color="secondary" />}
+                {isCam ? <Videocam /> : <VideocamOff color="secondary" />}
               </IconButton>
             </ButtonGroup>
         }
