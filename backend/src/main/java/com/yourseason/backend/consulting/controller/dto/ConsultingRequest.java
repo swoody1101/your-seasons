@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ConsultingJoinRequest {
+public class ConsultingRequest {
 
     private Long reservationId;
 }
