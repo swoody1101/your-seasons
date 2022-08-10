@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ConsultingJoinRequest {
 
-    private String nickname;
+    private Long reservationId;
 }
