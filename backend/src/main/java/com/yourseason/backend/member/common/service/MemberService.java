@@ -114,7 +114,7 @@ public class MemberService {
         return new Message("succeeded");
     }
 
-    public Message validateNewEmail(EmailAuthRequest emailAuthRequest) {
+    public Message validateSignUpEmail(EmailAuthRequest emailAuthRequest) {
         if (!redisUtil.validateData(emailAuthRequest.getEmail(), emailAuthRequest.getAuthToken())) {
             throw new NotEqualException(TOKEN_NOT_EQUAL);
         }

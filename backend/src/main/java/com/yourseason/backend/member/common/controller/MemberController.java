@@ -45,6 +45,6 @@ public class MemberController {
     @PostMapping("/email/2")
     public ResponseEntity<Message> validateSignUpEmail(@RequestBody EmailAuthRequest emailAuthRequest) {
         return ResponseEntity.ok()
-                .body(memberService.validateNewEmail(emailAuthRequest));
+                .body(memberService.validateSignUpEmail(emailAuthRequest));
     }
 }
