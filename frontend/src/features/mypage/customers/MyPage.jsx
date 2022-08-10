@@ -7,6 +7,7 @@ import MyReview from './myReview/MyReview'
 import { Container, Box, Tab } from '@mui/material'
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router'
 
 const MyPage = () => {
   const [value, setValue] = React.useState('1');
@@ -18,7 +19,7 @@ const MyPage = () => {
   return (<>
   {
     isAuthenticated ?
-    <Container fixed sx={{ mt: '2rem' }}>
+  <Container fixed sx={{ mt: '2rem' }}>
     <MyProfile />
     <br />
     <Box sx={{ width: '100%', typography: 'body1' }}>
@@ -41,9 +42,10 @@ const MyPage = () => {
         </TabPanel>
       </TabContext>
     </Box>
-</Container>
+  </Container>
     :
-    window.go(-1)
+    alert('로그인 후 접근해 주세요')
+    && window.go(-1)    
   }
 
 

@@ -6,7 +6,7 @@ import './starrating.css'
 const StarRating = props => {
   const starwidth = props.starrating
   return (
-    <div className="starbox" style={{ width: starwidth ? starwidth * 20 : '' }}>
+    <div className="starbox" style={{ display:starwidth ? '' : 'none',  width: starwidth ? starwidth * 20 : '' }}>
       <img
         className="pointofstar"
         alt="별"

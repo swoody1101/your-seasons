@@ -22,8 +22,10 @@ import Footer from 'common/Footer'
 
 import { Box, Stack } from '@mui/material'
 import { CUSTOMER } from '../api/CustomConst'
+
 const App = () => {
   const { role } = useSelector((state) => state.auth.logonUser)
+
   return (
     <Box >
       <NavBar />
