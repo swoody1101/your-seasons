@@ -35,7 +35,7 @@ public class ControllerAdvice {
 
     @ResponseStatus(HttpStatus.FORBIDDEN)
     @ExceptionHandler(WrongAccessException.class)
-    public Message ImageUploadException(RuntimeException runtimeException) {
+    public Message WrongAccessException(RuntimeException runtimeException) {
         log.info(runtimeException.getMessage());
         return new Message(runtimeException.getMessage());
     }
