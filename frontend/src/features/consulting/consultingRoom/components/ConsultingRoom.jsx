@@ -10,8 +10,7 @@ import { Box, Button, Grid, styled, Typography, ButtonGroup, IconButton } from '
 import { Mic, MicOff, Videocam, VideocamOff } from '@mui/icons-material';
 
 
-import { settingModalOn, setPublisherSetting } from 'features/consulting/consultingRoom/consultSlice'
-import { openConsulting } from 'features/consulting/consultingRoom/consultSlice'
+import { settingModalOn, setCustomer } from 'features/consulting/consultingRoom/consultSlice'
 
 import { CONSULTANT, CUSTOMER } from 'api/CustomConst'
 import { sharedColorSet } from 'common/colorset/colorSetSlice'
@@ -27,7 +26,7 @@ const OPENVIDU_SERVER_SECRET = 'YOUR_SEASONS_SECRET';
 // rafce Arrow function style 
 const ConsultingRoom = () => {
   const { nickname, role, email } = useSelector(state => state.auth.logonUser)
-  const { publisherSet, consultantSessionName } = useSelector(state => state.consult)
+  const { customer, consultantSessionName } = useSelector(state => state.consult)
   const tmp = email.replace(/[@\.]/g, '-')
   const [mySessionId, setMySessionId] = useState(
     role === CONSULTANT ? tmp : consultantSessionName
@@ -38,10 +37,7 @@ const ConsultingRoom = () => {
 
   const [myUserName, setMyUserName] = useState(nickname)
   const [session, setSession] = useState(undefined)
-  const [mainStreamManager, setMainStreamManager] = useState(undefined)
-  const [token, setToken] = useState(undefined)
 
-  const [customer, setCustomer] = useState(undefined)
   const [consultant, setConsultant] = useState(undefined)
 
   const [OV, setOV] = useState(null)
@@ -91,9 +87,7 @@ const ConsultingRoom = () => {
               mirror: false,
             });
             session.publish(publisher);
-            setPublisherSetting(publisher);
-            setMainStreamManager(publisher)
-            if (role === CUSTOMER) { setCustomer(publisher) }
+            if (role === CUSTOMER) { dispatch(setCustomer(publisher)) }
             if (role === CONSULTANT) { setConsultant(publisher) }
             setSession(session)
           })
@@ -125,12 +119,6 @@ const ConsultingRoom = () => {
 
   const onbeforeunload = () => {
     leaveSession();
-  }
-
-  const handleMainVideoStream = (stream) => {
-    if (mainStreamManager !== stream) {
-      setMainStreamManager(stream)
-    }
   }
 
   const deleteSubscriber = (streamManager) => {
@@ -166,7 +154,6 @@ const ConsultingRoom = () => {
     setSession(undefined)
     setMySessionId(role === CONSULTANT ? tmp : consultantSessionName)
     setMyUserName(nickname)
-    setMainStreamManager(undefined)
     setConsultant(undefined)
     setCustomer(undefined)
   }
@@ -184,10 +171,7 @@ const ConsultingRoom = () => {
    */
 
   const getToken = () => {
-    const tk = createSession(mySessionId).then((sessionId) => createToken(sessionId))
-    setToken(tk)
-    console.log(tk)
-    return tk;
+    return createSession(mySessionId).then((sessionId) => createToken(sessionId));
   }
 
   const createSession = (sessionId) => {
@@ -358,23 +342,12 @@ const ConsultingRoom = () => {
 
         <ButtonGroup >
           <Button variant="outlined" onClick={() => dispatch(settingModalOn())} >
-            화면 조정X
+            화면 조정
           </Button>
           <Button variant="outlined"
             onClick={() => {
               customer.stream
-                .applyFilter("ChromaFilter",
-                  {
-                    "window": {
-                      "topRightCornerX": 0,
-                      "topRightCornerY": 0,
-                      "width": 50,
-                      "height": 50
-                    },
-                    "backgroundImage": "https://www.maxpixel.net/static/photo/1x/Cool-Blue-Liquid-Lake-Abstract-Background-Clear-316144.jpg",
-                    "token": token
-                  }
-                )
+                .applyFilter("GStreamerFilter", { "command": "videobalance hue=-1.0 saturation=1.0" })
                 .then(() => { })
                 .catch((err) => { console.log(err) });
             }}

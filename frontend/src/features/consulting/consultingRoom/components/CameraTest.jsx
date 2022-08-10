@@ -13,7 +13,7 @@ import MicIcon from '@mui/icons-material/Mic';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
 const CameraTest = () => {
-  const { publisherSet } = useSelector(state => state.consult)
+  const { customer } = useSelector(state => state.consult)
   const dispatch = useDispatch();
 
   const [hue, setHue] = useState(50);
@@ -30,11 +30,11 @@ const CameraTest = () => {
           <SGrid item xs={12} sm={6}>
             <VideoContainer>
               <Typography variant="h6">
-                비디오 확인하기(미구현)
+                비디오 확인하기
               </Typography>
-              
+
               <UserVideoComponent
-                streamManager={publisherSet} />
+                streamManager={customer} />
 
               <Typography variant="h6">
                 색상 | 채도 | 명도
