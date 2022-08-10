@@ -1,16 +1,19 @@
 import React, { useRef, useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Box, Button, Container, Grid, styled, Typography, Slider } from '@mui/material'
 
 import { settingModalOff } from 'features/consulting/consultingRoom/consultSlice'
+
+import { OpenVidu } from 'openvidu-browser';
+import UserVideoComponent from './UserVideoComponent';
 
 import WarningIcon from '@mui/icons-material/Warning';
 import MicIcon from '@mui/icons-material/Mic';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
 const CameraTest = () => {
-  const myVideo = useRef('');
+  const { customer } = useSelector(state => state.consult)
   const dispatch = useDispatch();
 
   const [hue, setHue] = useState(50);
@@ -27,9 +30,12 @@ const CameraTest = () => {
           <SGrid item xs={12} sm={6}>
             <VideoContainer>
               <Typography variant="h6">
-                비디오 확인하기(미구현)
+                비디오 확인하기
               </Typography>
-              <Video useref={myVideo} />
+
+              <UserVideoComponent
+                streamManager={customer} />
+
               <Typography variant="h6">
                 색상 | 채도 | 명도
               </Typography>

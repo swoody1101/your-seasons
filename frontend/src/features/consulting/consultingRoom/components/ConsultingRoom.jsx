@@ -9,7 +9,9 @@ import UserVideoComponent from './UserVideoComponent';
 import { Box, Button, Grid, styled, Typography, ButtonGroup, IconButton } from '@mui/material'
 import { Mic, MicOff, Videocam, VideocamOff } from '@mui/icons-material';
 
-import { settingModalOn } from 'features/consulting/consultingRoom/consultSlice'
+
+import { settingModalOn, setCustomer } from 'features/consulting/consultingRoom/consultSlice'
+
 import { CONSULTANT, CUSTOMER } from 'api/CustomConst'
 import { sharedColorSet } from 'common/colorset/colorSetSlice'
 
@@ -24,7 +26,7 @@ const OPENVIDU_SERVER_SECRET = 'YOUR_SEASONS_SECRET';
 // rafce Arrow function style 
 const ConsultingRoom = () => {
   const { nickname, role, email } = useSelector(state => state.auth.logonUser)
-  const { consultantSessionName } = useSelector(state => state.consult)
+  const { customer, consultantSessionName } = useSelector(state => state.consult)
   const tmp = email.replace(/[@\.]/g, '-')
   const [mySessionId, setMySessionId] = useState(
     role === CONSULTANT ? tmp : consultantSessionName
@@ -35,9 +37,7 @@ const ConsultingRoom = () => {
 
   const [myUserName, setMyUserName] = useState(nickname)
   const [session, setSession] = useState(undefined)
-  const [mainStreamManager, setMainStreamManager] = useState(undefined)
 
-  const [customer, setCustomer] = useState(undefined)
   const [consultant, setConsultant] = useState(undefined)
 
   const [OV, setOV] = useState(null)
@@ -87,8 +87,7 @@ const ConsultingRoom = () => {
               mirror: false,
             });
             session.publish(publisher);
-            setMainStreamManager(publisher)
-            if (role === CUSTOMER) { setCustomer(publisher) }
+            if (role === CUSTOMER) { dispatch(setCustomer(publisher)) }
             if (role === CONSULTANT) { setConsultant(publisher) }
             setSession(session)
           })
@@ -120,12 +119,6 @@ const ConsultingRoom = () => {
 
   const onbeforeunload = () => {
     leaveSession();
-  }
-
-  const handleMainVideoStream = (stream) => {
-    if (mainStreamManager !== stream) {
-      setMainStreamManager(stream)
-    }
   }
 
   const deleteSubscriber = (streamManager) => {
@@ -161,7 +154,6 @@ const ConsultingRoom = () => {
     setSession(undefined)
     setMySessionId(role === CONSULTANT ? tmp : consultantSessionName)
     setMyUserName(nickname)
-    setMainStreamManager(undefined)
     setConsultant(undefined)
     setCustomer(undefined)
   }
@@ -227,7 +219,17 @@ const ConsultingRoom = () => {
 
   const createToken = (sessionId) => {
     return new Promise((resolve, reject) => {
-      const data = {};
+      const data = {
+        "type": "WEBRTC",
+        "role": "PUBLISHER",
+        "kurentoOptions": {
+          "videoMaxRecvBandwidth": 1000,
+          "videoMinRecvBandwidth": 300,
+          "videoMaxSendBandwidth": 1000,
+          "videoMinSendBandwidth": 300,
+          "allowedFilters": ["GStreamerFilter", "FaceOverlayFilter"]
+        }
+      };
       axios
         .post(OPENVIDU_SERVER_URL + "/openvidu/api/sessions/" + sessionId + "/connection", data, {
           headers: {
@@ -235,6 +237,8 @@ const ConsultingRoom = () => {
               'OPENVIDUAPP:' + OPENVIDU_SERVER_SECRET
             ),
             'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET,POST',
           },
         })
         .then((response) => {
@@ -258,10 +262,7 @@ const ConsultingRoom = () => {
                   fontFamily: 'Happiness-Sans-Regular',
                 }}
               >컨설턴트</Typography>
-              <VideoContainer
-                onClick={() =>
-                  handleMainVideoStream(consultant)
-                }>
+              <VideoContainer>
                 <UserVideoComponent
                   streamManager={consultant} />
               </VideoContainer>
@@ -276,10 +277,7 @@ const ConsultingRoom = () => {
 
           {customer !== undefined ? (
             <SGrid item xs={12} sm={6}>
-              <VideoContainer
-                onClick={() =>
-                  handleMainVideoStream(customer)
-                }>
+              <VideoContainer>
                 <UserVideoComponent
                   streamManager={customer} />
               </VideoContainer>
@@ -289,10 +287,23 @@ const ConsultingRoom = () => {
               />
             </SGrid>
           ) : null}
-          <ColorPalette
-            isBest={isBest}
-            isWorst={isWorst}
-          />
+
+          {
+            role === CONSULTANT &&
+            < ColorPalette
+              isBest={isBest}
+              isWorst={isWorst}
+            />
+          }
+
+          {
+            role === CUSTOMER &&
+            < ColorPalette
+              isBest={isBest}
+              isWorst={isWorst}
+            />
+          }
+
         </SGridContainer>
       ) : <div />}
 
@@ -331,10 +342,17 @@ const ConsultingRoom = () => {
 
         <ButtonGroup >
           <Button variant="outlined" onClick={() => dispatch(settingModalOn())} >
-            화면 조정X
+            화면 조정
           </Button>
-          <Button variant="outlined">
-            화면 일시정지X
+          <Button variant="outlined"
+            onClick={() => {
+              customer.stream
+                .applyFilter("GStreamerFilter", { "command": "videobalance hue=-1.0 saturation=1.0" })
+                .then(() => { })
+                .catch((err) => { console.log(err) });
+            }}
+          >
+            테스트 버튼
           </Button>
           <Button variant="contained" onClick={leaveSession}>
             종료
