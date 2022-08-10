@@ -9,10 +9,9 @@ const initialState = {
 
 export const openConsulting = createAsyncThunk(
   'consult/openConsulting',
-  async (payload, { rejectWithValue }) => {
+  async (reservationId, { rejectWithValue }) => {
     try {
-      console.log(payload)
-      const response = await Axios.post(`consultings/1`, payload)
+      const response = await Axios.post(`consultings`, { reservationId: reservationId })
       return response.data
     } catch (err) {
       return rejectWithValue(err)
@@ -22,10 +21,9 @@ export const openConsulting = createAsyncThunk(
 
 export const getConsultantSessionName = createAsyncThunk(
   'consult/getConsultantSessionName',
-  async (consultantNickname, { rejectWithValue }) => {
+  async (reservationId, { rejectWithValue }) => {
     try {
-      console.log('요청 컨설턴트 닉네임', consultantNickname)
-      const response = await Axios.post(`consultings/join`, { nickname: consultantNickname })
+      const response = await Axios.post(`consultings/join`, { reservationId: reservationId })
       return response.data
     } catch (err) {
       return rejectWithValue(err)
