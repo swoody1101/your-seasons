@@ -7,9 +7,10 @@ import { Box, Typography, Divider, TextField, Button } from '@mui/material';
 import { createReservation, ConsultantDetailFetch } from 'features/consulting/consultantListSlice';
 
 const ConsultingResBtn = (props) => {
-  const { role } = useSelector(state => state.auth.logonUser)
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const { role } = useSelector(state => state.auth.logonUser)
+  const [value, setValue] = useState('')
   const [pickedTime, setPickedTime] = useState('')
   const [request, setRequest] = useState('')
   const consultantId = useParams().id
@@ -75,6 +76,7 @@ const ConsultingResBtn = (props) => {
             dispatch(ConsultantDetailFetch(consultantId))
           })
         setRequest('')
+        setValue('')
       }
       setPickedTime('')
     } else if (role === "CONSULTANT") {
@@ -179,7 +181,13 @@ const ConsultingResBtn = (props) => {
       <Box sx={{ px: 1, py: 3 }}>
         <h3>컨설턴트님께 바라는 점</h3>
         <TextField
-          onChange={(e) => setRequest(e.target.value)}
+          onChange={
+            (e) => {
+              setRequest(e.target.value)
+              setValue(e.target.value)
+            }
+          }
+          value={value}
           label="요청사항"
           name="request"
           margin="normal"
