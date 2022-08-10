@@ -14,15 +14,13 @@ public class RedisUtil {
 
     private final StringRedisTemplate redisTemplate;
 
-    private ValueOperations<String, String> valueOperations;
-
     public String getData(String key) {
-        valueOperations = redisTemplate.opsForValue();
+        ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
         return valueOperations.get(key);
     }
 
-    public void setDataExpire(String key, String value, long duration) {
-        valueOperations = redisTemplate.opsForValue();
+    public void setDataExpired(String key, String value, long duration) {
+        ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
         Duration expireDuration = Duration.ofSeconds(duration);
         valueOperations.set(key, value, expireDuration);
     }

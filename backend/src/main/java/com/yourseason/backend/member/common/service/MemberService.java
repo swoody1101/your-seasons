@@ -103,7 +103,7 @@ public class MemberService {
 
     public Message sendEmailValidationToken(String email) {
         String emailValidateToken = createAuthToken();
-        redisUtil.setDataExpire(email, emailValidateToken, 60 * 3L);
+        redisUtil.setDataExpired(email, emailValidateToken, 60 * 3L);
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setFrom("yourseasons305@naver.com");
         simpleMailMessage.setTo(email);
