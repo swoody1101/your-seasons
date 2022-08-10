@@ -39,7 +39,7 @@ public class Consulting extends BaseTimeEntity {
     @Builder
     public Consulting(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate,
                       TestResult testResult, String sessionId, boolean hasReview, Consultant consultant, Customer customer) {
-        super(id, createdDate, lastModifiedDate, deletedDate, false);
+        super(id, createdDate, lastModifiedDate, deletedDate, true);
         this.testResult = testResult;
         this.consultant = consultant;
         this.customer = customer;
@@ -57,5 +57,9 @@ public class Consulting extends BaseTimeEntity {
 
     public boolean hasReview() {
         return hasReview;
+    }
+
+    public void enterCustomer(Customer customer) {
+        this.customer = customer;
     }
 }
