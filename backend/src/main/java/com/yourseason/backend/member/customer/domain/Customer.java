@@ -59,4 +59,9 @@ public class Customer extends Member {
     public int hashCode() {
         return Objects.hash(this.getEmail());
     }
+
+    public void joinConsulting(Consulting consulting) {
+        consultings.add(consulting);
+        consulting.enterCustomer(this);
+    }
 }

@@ -6,9 +6,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ConsultingCreateResponse {
+public class ConsultingJoinResponse {
 
-    private Long consultingId;
     private String sessionId;
-    private String sessionCreatedTime;
 }
