@@ -41,10 +41,9 @@ insert into closed_day(created_date, last_modified_date, date, is_active, consul
 insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values (now(), now(), '2022-08-28', 2, 1);
 
 -- 예약
-insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values (now(), now(), '2022-07-20', '18:00:00', '', 1, 1, 1);
-insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values (now(), now(), '2022-07-20', '17:00:00', '웨딩 메이크업 받기 위한 퍼스널 컬러 진단 희망합니다.', 1, 2, 1);
-insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values (now(), now(), '2022-08-31', '15:00:00', '잘 부탁드려요~', 1, 2, 2);
-insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values (now(), now(), '2022-08-01', '18:00:00', '퍼스널 컬러 너무 궁금해요ㅜ', 1, 3, 2);
+insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values (now(), now(), '2022-08-19', '15:00:00', '정확한 톤을 꼭 알고 싶어요! 지금 4번째 진단이에요!', 1, 1, 4);
+insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values (now(), now(), '2022-08-18', '11:00:00', '저에게 맞는 화장품을 찾고 싶어요!', 1, 2, 2);
+insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values (now(), now(), '2022-08-18', '13:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 2, 3);
 
 -- 톤
 insert into tone(created_date, last_modified_date, name, is_active) values (now(), now(), '봄 브라이트', 1);
@@ -354,44 +353,149 @@ insert into color_set(created_date, last_modified_date, is_active) values (now()
 insert into color_set(created_date, last_modified_date, is_active) values (now(), now(), 1);
 insert into color_set(created_date, last_modified_date, is_active) values (now(), now(), 1);
 insert into color_set(created_date, last_modified_date, is_active) values (now(), now(), 1);
+insert into color_set(created_date, last_modified_date, is_active) values (now(), now(), 1);
+
+insert into color_set(created_date, last_modified_date, is_active) values (now(), now(), 1);
+insert into color_set(created_date, last_modified_date, is_active) values (now(), now(), 1);
+insert into color_set(created_date, last_modified_date, is_active) values (now(), now(), 1);
+insert into color_set(created_date, last_modified_date, is_active) values (now(), now(), 1);
+insert into color_set(created_date, last_modified_date, is_active) values (now(), now(), 1);
+
+insert into color_set(created_date, last_modified_date, is_active) values (now(), now(), 1);
+insert into color_set(created_date, last_modified_date, is_active) values (now(), now(), 1);
+insert into color_set(created_date, last_modified_date, is_active) values (now(), now(), 1);
+insert into color_set(created_date, last_modified_date, is_active) values (now(), now(), 1);
 
 -- 컬러컬러셋
-insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 1, 1);
-insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 2, 2);
-insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 3, 3);
-insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 1, 4);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 121, 1);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 122, 1);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 123, 1);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 124, 1);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 125, 1);
+
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 181, 2);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 182, 2);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 183, 2);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 184, 2);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 185, 2);
+
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 126, 3);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 127, 3);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 128, 3);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 129, 3);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 130, 3);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 101, 3);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 102, 3);
+
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 201, 4);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 202, 4);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 203, 4);
+
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 1, 5);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 2, 5);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 3, 5);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 4, 5);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 5, 5);
+
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 61, 6);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 62, 6);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 63, 6);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 64, 6);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 65, 6);
+
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 186, 7);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 187, 7);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 188, 7);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 189, 7);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 190, 7);
+
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 41, 8);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 42, 8);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 43, 8);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 44, 8);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 45, 8);
+
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 206, 9);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 207, 9);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 208, 9);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 209, 9);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 210, 9);
+
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 141, 10);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 142, 10);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 143, 10);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 144, 10);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 145, 10);
+
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 46, 11);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 47, 11);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 48, 11);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 49, 11);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 50, 11);
+
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 131, 12);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 132, 12);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 133, 12);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 134, 12);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 135, 12);
+
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 46, 13);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 48, 13);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 50, 13);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 51, 13);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 52, 13);
+
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 53, 13);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 54, 13);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 55, 13);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 56, 13);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 57, 13);
+
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 146, 14);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 147, 14);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 148, 14);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 149, 14);
+insert into color_color_set(created_date, last_modified_date, is_active, color_id, color_set_id) values (now(), now(), 1, 150, 14);
 
 -- 베스트컬러셋
 insert into best_color_set(created_date, last_modified_date, is_active, color_set_id) values (now(), now(), 1, 1);
+insert into best_color_set(created_date, last_modified_date, is_active, color_set_id) values (now(), now(), 1, 3);
+insert into best_color_set(created_date, last_modified_date, is_active, color_set_id) values (now(), now(), 1, 5);
+insert into best_color_set(created_date, last_modified_date, is_active, color_set_id) values (now(), now(), 1, 7);
+insert into best_color_set(created_date, last_modified_date, is_active, color_set_id) values (now(), now(), 1, 9);
+insert into best_color_set(created_date, last_modified_date, is_active, color_set_id) values (now(), now(), 1, 11);
+insert into best_color_set(created_date, last_modified_date, is_active, color_set_id) values (now(), now(), 1, 13);
 
 -- 워스트컬러셋
 insert into worst_color_set(created_date, last_modified_date, is_active, color_set_id) values (now(), now(), 1, 2);
+insert into worst_color_set(created_date, last_modified_date, is_active, color_set_id) values (now(), now(), 1, 4);
+insert into worst_color_set(created_date, last_modified_date, is_active, color_set_id) values (now(), now(), 1, 6);
+insert into worst_color_set(created_date, last_modified_date, is_active, color_set_id) values (now(), now(), 1, 8);
+insert into worst_color_set(created_date, last_modified_date, is_active, color_set_id) values (now(), now(), 1, 10);
+insert into worst_color_set(created_date, last_modified_date, is_active, color_set_id) values (now(), now(), 1, 12);
+insert into worst_color_set(created_date, last_modified_date, is_active, color_set_id) values (now(), now(), 1, 14);
 
 -- 진단결과
-insert into test_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '봄 브라이트 톤으로 화사한 컬러를 선택하시고, 레이스가 잘 어울리십니다.', '', 1, 1, 1, 1);
-insert into test_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '여름 쿨톤과 봄 웜톤의 중간 정도라고 할 수 있습니다. 여름 쿨톤쪽에 조금 더 가깝지만 봄 웜톤 화장품을 사용하셔도 잘 어울리실 겁니다.', '', 1, 1, 1, 1);
-insert into test_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '보색은 피하시는 것이 좋을 것 같습니다.', '', 1, 1, 1, 1);
-insert into test_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '무채색보다는 비비드한 컬러의 옷을 입으시는 것을 추천드립니다.', '', 1, 1, 1, 1);
-insert into test_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '고객님! 결혼 축하드리고! 치크와 립은 꼭 연어색으로 하는 거 잊지 마세요!', '', 1, 1, 1, 1);
-insert into test_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '증명사진 찍으실 때 연보라색 배경으로 찍으시면 인생사진 쌉가능!', '', 1, 1, 1, 1);
-insert into test_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '골드보다는 실버 느낌의 볼드한 액세서리가 잘 어울리세요! 진주도 잘 어울리시구요!', '', 1, 1, 1, 1);
-insert into test_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '맥 칠리보다는 루비우가 훨씬 더 고객님께 잘 받을 거에요', '', 1, 1, 1, 1);
-insert into test_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '저는 사과톤이지만 고객님은 피치와 살구가 생각나는 봄 라이트톤이에요!', '', 1, 1, 1, 1);
+insert into test_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '가을 소프트 타입이어서 베이지나 아이보리색의 톤온톤 코디가 가장 잘 어울리실 거에요~', '', 1, 1, 1, 7);
+insert into test_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '고객님은 여름 소프트까지 소화가능한 가을 소프트 타입이세요! 고명도 + 저채도의 톤이 가장 잘 맞아요!', '', 1, 2, 2, 7);
+insert into test_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '고객님을 보면 봄날의 햇살이 생각나네요 봄 브라이트세요!', '', 1, 3, 3, 1);
+insert into test_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '봉쥬르 고객님! 여태까지 웜톤인줄 아셨다구요? 아니에요 아니에요~ 고객님은 채도가 높은 색이 잘 어울리시는 겨울 브라이트 톤이세요! 이젠 맥 칠리 대신 맥 루비우 바르기로 약속!', '', 1, 4, 4, 10);
+insert into test_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '봉쥬르님은 확실히 쿨톤이세요! 쨍한 색감이 잘 어울리시거든요! 제가 본 봉쥬르님의 톤은 겨울 트루이십니다! 봉쥬르님은 탁한 색감을 쓰시면 안돼요! 말린 장미 노노 MLBB 노노!', '', 1, 5, 5, 11);
+insert into test_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '금발은 절대 하시면 안돼요! 오히려 노안이 될 수 있어요! 본연의 머리색을 그대로 유지하시는 게 베스트입니다!', '', 1, 6, 6, 3);
+insert into test_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '그윽한 음영 메이크업보다는 핑크핑크한 메이크업이 잘 어울리세요! 치크는 크리니크의 멜론팝 추천드려요~!', '', 1, 7, 7, 3);
 
 -- 컨설팅
 insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'bestcon-gmail-com', 1, 0, 1, 1, 1);
-insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'bestcon-gmail-com', 1, 0, 1, 1, 2);
-insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'bestcon-gmail-com', 1, 0, 1, 1, 3);
-insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'bestcon-gmail-com', 1, 0, 1, 1, 4);
-insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'bestcon-gmail-com', 0, 0, 1, 1, 5);
-insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'bestcon-gmail-com', 0, 0, 1, 1, 6);
-insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'anjolryeo-gmail-com', 0, 0, 2, 2, 7);
-insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'anjolryeo-gmail-com', 0, 0, 2, 2, 8);
-insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'apple-gmail-com', 1, 0, 3, 4, 9);
+insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'anjolryeo-gmail-com', 1, 0, 1, 2, 2);
+insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'consultant-gmail-com', 1, 0, 1, 3, 3);
+insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'apple-gmail-com', 1, 0, 2, 4, 4);
+insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'bestcon-gmail-com', 0, 0, 2, 1, 5);
+insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'bestcon-gmail-com', 1, 0, 3, 1, 6);
+insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'anjolryeo-gmail-com', 0, 0, 3, 2, 7);
 
 -- 리뷰
-insert into review(created_date, last_modified_date, is_active, comment, star, consultant_id, consulting_id, customer_id) values (now(), now(), 1, '좋은 것  같기도...', 3, 1, 1, 1);
-insert into review(created_date, last_modified_date, is_active, comment, star, consultant_id, consulting_id, customer_id) values (now(), now(), 1, '이런 컨설팅은 태어나서 처음에요! 너무너무 좋으신 컨님! 강추해요!', 5, 1, 2, 1);
-insert into review(created_date, last_modified_date, is_active, comment, star, consultant_id, consulting_id, customer_id) values (now(), now(), 1, '저는 여태 겨울비비드인줄 알고 살았는데 가을 뮤트라니요? 이럴 수가 있나요? 약간 혼란스럽네요..', 1, 1, 3, 1);
-insert into review(created_date, last_modified_date, is_active, comment, star, consultant_id, consulting_id, customer_id) values (now(), now(), 1, '가을 뮤트라고 생각하고 있었는데 가을 뮤트라고 진단 받았어요! 화장품 새로 안사도 돼서 좋네요', 4, 1, 4, 1);
-insert into review(created_date, last_modified_date, is_active, comment, star, consultant_id, consulting_id, customer_id) values (now(), now(), 1, '봄라이트하면 임윤아, 아이유 아닌가요? 제가 윤아와 아이유와 견준다니.. 후훗', 5, 4, 9, 3);
+insert into review(created_date, last_modified_date, is_active, comment, star, consultant_id, consulting_id, customer_id) values (now(), now(), 1, '이런 컨설팅은 태어나서 처음이에요! 너무너무 좋으신 분이에요 강추 드립니다!', 5, 1, 1, 1);
+insert into review(created_date, last_modified_date, is_active, comment, star, consultant_id, consulting_id, customer_id) values (now(), now(), 1, '첫 컨설팅과 비슷한 결과가 나왔어요! 두번이나 같은 결과가 나오니까 이제 믿을 수 있을 것 같아요!', 4, 2, 2, 1);
+insert into review(created_date, last_modified_date, is_active, comment, star, consultant_id, consulting_id, customer_id) values (now(), now(), 1, '혹시나 해서 한번 더 해봤는데 봄 브라이트 톤이라고 하시네요? 근데 저는 이런 색깔들 진짜 안어울리는데! 실망이에요', 1, 3, 3, 1);
+insert into review(created_date, last_modified_date, is_active, comment, star, consultant_id, consulting_id, customer_id) values (now(), now(), 1, '여태 제가 웜톤인 줄 알고 살았는데, 쿨톤이었어요! 저의 톤체성을 찾아주신 사과컨설턴트님 너무 감사드려요! ', 4, 4, 4, 2);
+insert into review(created_date, last_modified_date, is_active, comment, star, consultant_id, consulting_id, customer_id) values (now(), now(), 1, '여태까지 제가 금발만 고집했었는데, 금발은 안 어울린다고 말씀하셔서 아쉽긴 하지만.. 정확한 진단 감사합니다!', 4, 1, 6, 3);
