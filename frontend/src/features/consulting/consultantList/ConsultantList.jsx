@@ -15,7 +15,8 @@ const ConsultantList = () => {
 	const dispatch = useDispatch()
 
 	useEffect(()=>{
-		dispatch(ConsultantListFetch(value))
+    dispatch(setConValue('popular'))
+		dispatch(ConsultantListFetch('popular'))
 	}, [])
 
 	useEffect(()=>{
