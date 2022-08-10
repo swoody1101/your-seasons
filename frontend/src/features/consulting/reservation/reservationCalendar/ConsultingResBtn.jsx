@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
 import ConsultingResBtnItem from './ConsultingResBtnItem'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { useParams } from "react-router-dom";
 import { Box, Typography, Divider, TextField, Button } from '@mui/material';
 import { createReservation, ConsultantDetailFetch } from 'features/consulting/consultantListSlice';
 
 const ConsultingResBtn = (props) => {
+  const { role } = useSelector(state => state.auth.logonUser)
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const [pickedTime, setPickedTime] = useState('')
   const [request, setRequest] = useState('')
@@ -54,25 +57,35 @@ const ConsultingResBtn = (props) => {
   }
 
   const reservationHandler = () => {
-    const reservation = {
-      reservationDate: props.pickedDate,
-      reservationTime: pickedTime,
-      request: request
+    console.log(role)
+    if (role === 'CUSTOMER') {
+      const reservation = {
+        reservationDate: props.pickedDate,
+        reservationTime: pickedTime,
+        request: request
+      }
+      if (reservation.request.length < 10) {
+        alert('10자이상 입력해 주세요!')
+      } else if (pickedTime === '') {
+        alert('원하는 상담시간을 선택해주세요')
+      }
+      else {
+        dispatch(createReservation({ consultantId, reservation }))
+          .then(() => {
+            dispatch(ConsultantDetailFetch(consultantId))
+          })
+        setRequest('')
+      }
+      setPickedTime('')
+    } else if (role === "CONSULTANT") {
+      alert('컨설턴트는 컨설팅 예약을 할 수 없습니다!')
+    } else {
+      alert('로그인이 필요한 기능입니다. 로그인 페이지로 이동합니다.')
+      navigate('/login')
     }
-    if (reservation.request.length < 10) {
-      alert('10자이상 입력해 주세요!')
-    } else if (pickedTime === '') {
-      alert('원하는 상담시간을 선택해주세요')
-    }
-    else {
-      dispatch(createReservation({ consultantId, reservation }))
-        .then(() => {
-          dispatch(ConsultantDetailFetch(consultantId))
-        })
-      setRequest('')
-    }
-    setPickedTime('')
+
   }
+
 
   let pickeTimeContent = ''
   if (pickedTime === '') {
