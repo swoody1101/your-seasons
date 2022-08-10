@@ -25,8 +25,7 @@ public class RedisUtil {
     }
 
     public static String getData(String key) {
-        ValueOperations<String, String> valueOperations = staticRedisTemplate.opsForValue();
-        return valueOperations.get(key);
+        return staticRedisTemplate.opsForValue().get(key);
     }
 
     public static void setDataExpired(String key, String value, long duration) {
