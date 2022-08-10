@@ -24,7 +24,7 @@ public class ConsultingService {
     private static final String CUSTOMER_NOT_FOUND = "해당 고객을 찾을 수 없습니다.";
     private static final String CONSULTING_NOT_FOUND = "컨설팅이 개설되지 않았습니다.";
     private static final String SESSION_DELIMITER = "-";
-    private static final String EMAIL_FORMAT = "@|.";
+    private static final String EMAIL_FORMAT = "[@.]";
 
     private final ConsultantRepository consultantRepository;
     private final CustomerRepository customerRepository;
