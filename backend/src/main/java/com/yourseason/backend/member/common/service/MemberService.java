@@ -40,7 +40,6 @@ public class MemberService {
     private final CustomerRepository customerRepository;
     private final ConsultantRepository consultantRepository;
     private final JavaMailSender javaMailSender;
-    private final RedisUtil redisUtil;
 
     public LoginResponse login(LoginRequest loginRequest) {
         Map<String, String> loginMember = getMember(loginRequest);
@@ -103,7 +102,7 @@ public class MemberService {
 
     public Message sendEmailValidationToken(String email) {
         String emailValidateToken = createAuthToken();
-        redisUtil.setDataExpired(email, emailValidateToken, 60 * 3L);
+        RedisUtil.setDataExpired(email, emailValidateToken, 60 * 3L);
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setFrom("yourseasons305@naver.com");
         simpleMailMessage.setTo(email);
@@ -115,7 +114,7 @@ public class MemberService {
     }
 
     public Message validateSignUpEmail(EmailAuthRequest emailAuthRequest) {
-        if (!redisUtil.validateData(emailAuthRequest.getEmail(), emailAuthRequest.getAuthToken())) {
+        if (!RedisUtil.validateData(emailAuthRequest.getEmail(), emailAuthRequest.getAuthToken())) {
             throw new NotEqualException(TOKEN_NOT_EQUAL);
         }
         return new Message("succeeded");
