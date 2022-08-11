@@ -10,7 +10,7 @@ const ModifyConsultant = () => {
   const common = useSelector((state) => state.auth.logonUser)
   const { introduction, cost } = useSelector((state) => state.auth.logonUser)
   const [newIntroduction, setNewIntroduction] = useState(introduction ? introduction : '');
-  const [newCost, setNewCost] = useState(cost ? cost : "30,000");
+  const [newCost, setNewCost] = useState(cost ? cost : '');
   const [helperText, setHelperText] = useState('');
   // 수정여부
   const [isModiIntro, setIsModiIntro] = useState(false);
@@ -19,21 +19,15 @@ const ModifyConsultant = () => {
   const dispatch = useDispatch();
 
   const handleCost = (e) => {
-    let c = e.target.value.replace(/,/g, '');
+    let c = e.target.value
     setHelperText('')
     if (/^[0-9\b ,]{0,6}$/.test(c)) {
-      if (c.length === 4) {
-        c = c.replace(/(\d{1})(\d{3})/, '$1,$2')
-      } else if (c.length === 5) {
-        c = c.replace(/(\d{2})(\d{3})/, '$1,$2')
-      } else if (c.length === 6) {
-        c = c.replace(/(\d{3})(\d{3})/, '$1,$2')
-      }
       setNewCost(c)
     } else {
       setHelperText('100만원을 초과할 수 없습니다.')
     }
   }
+  
 
   const handleModify = () => {
     const modiData = {
@@ -51,8 +45,8 @@ const ModifyConsultant = () => {
         dispatch(loadMember(role))
         setIsModiIntro(false);
         setIsModiCost(false)
-        setNewIntroduction(introduction)
-        setNewCost(cost ? cost : "30,000");
+        setNewIntroduction(introduction ? newIntroduction : '')
+        setNewCost(cost ? newCost : '');
       })
       .catch((err) => {
         if (err.status === BAD_REQUEST) {
@@ -125,6 +119,7 @@ const ModifyConsultant = () => {
           }}
         >
           <Button
+            color='error'
             onClick={() => {
               setNewIntroduction(introduction);
               setNewCost(cost);
@@ -133,6 +128,7 @@ const ModifyConsultant = () => {
             }}
           >취소</Button>
           <Button
+            color='error'
             onClick={handleModify}
           >확인</Button>
         </ButtonGroup>

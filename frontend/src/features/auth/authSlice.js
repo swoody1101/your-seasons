@@ -176,6 +176,7 @@ export const modifyMember = createAsyncThunk(
 export const modifyPass = createAsyncThunk(
   'auth/modifypass',
   async (payload, { rejectWithValue }) => {
+    console.log(payload)
     try {
       let response;
       const data = {
@@ -189,6 +190,7 @@ export const modifyPass = createAsyncThunk(
       }
       return response;
     } catch (err) {
+      alert('비밀번호를 잘못 입력하셨습니다.')
       return rejectWithValue(err);
     }
   }
@@ -212,14 +214,14 @@ export const signOut = createAsyncThunk(
 );
 
 // createSlice
-
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
     // login reducers
-    logoutUser: () => {
+    logoutUser: (state) => {
       deleteToken();
+      state.isAuthenticated = false;
     },
     resetUser: (state) => {
       state.logonUser = {
