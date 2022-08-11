@@ -89,7 +89,7 @@ public class MemberService {
         Map<String, String> member = new HashMap<>();
         Member loginMember;
         Member customer = customerRepository.findByEmailAndIsActiveTrue(email);
-        Member consultant = consultantRepository.getByEmailAndIsActiveTrue(email);
+        Member consultant = consultantRepository.findByEmailAndIsActiveTrue(email);
         if (customer != null) {
             checkValidPassword(password, customer.getPassword());
             loginMember = customer;
@@ -129,7 +129,7 @@ public class MemberService {
     public Message sendEmailNewPassword(String email) {
         String newPassword = createAuthToken();
         Member customer = customerRepository.findByEmailAndIsActiveTrue(email);
-        Member consultant = consultantRepository.getByEmailAndIsActiveTrue(email);
+        Member consultant = consultantRepository.findByEmailAndIsActiveTrue(email);
         if (customer != null) {
             customer.changePassword(passwordEncoder, newPassword);
             customerRepository.save((Customer) customer);
