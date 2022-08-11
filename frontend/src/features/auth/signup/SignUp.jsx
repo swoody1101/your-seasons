@@ -49,6 +49,7 @@ const SignUp = () => {
     + '-' + ('0' + date.getDate()).slice(-2);
   const [birth, setBirth] = useState(beforeTw);
 
+
   const [phoneNumber, setPhoneNumber] = useState('010');
 
   const [role, setRole] = useState(CUSTOMER);
@@ -143,7 +144,7 @@ const SignUp = () => {
       alert("이메일 중복확인을 해주세요.")
       return;
     }
-    
+
     ///////////////////////////////////////////////////////////////////
     // emailauthentication: 이메일 인증여부 
     // if(!isEmailAuthCheck) {
@@ -260,9 +261,9 @@ const SignUp = () => {
               setValue={setPassword}
               regexCheck={regex.password}
               maxValue={20}
-              defaultText="비밀번호를 입력해주세요."
+              defaultText="비밀번호를 입력해주세요. 영문, 숫자, 특수문자를 포함합니다."
               successText="success"
-              errorText="소문자, 특수문자, 8~20글자 이상"
+              errorText="영문, 숫자, 특수문자, 8~20글자"
             />
 
             <ComparePasswordInput
@@ -275,7 +276,7 @@ const SignUp = () => {
               defaultText="비밀번호를 다시한번 입력해주세요."
               incorrectText="비밀번호가 일치하지 않습니다."
               successText="success"
-              errorText="소문자, 특수문자, 8~20글자 이상"
+              errorText="영문, 숫자, 특수문자, 8~20글자 이상"
             />
 
           </Grid>
@@ -308,7 +309,7 @@ const SignUp = () => {
                 />
               </Grid>
               <Grid item xs={6} >
-                <BirthSelectInput
+              <BirthSelectInput
                   label="생년월일"
                   type="date"
                   value={birth}
