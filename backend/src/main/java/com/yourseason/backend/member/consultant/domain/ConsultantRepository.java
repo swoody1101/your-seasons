@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ConsultantRepository extends JpaRepository<Consultant, Long> {
 
-    Member getByEmail(String email);
+    Member getByEmailAndIsActiveTrue(String email);
 
     boolean existsByEmail(String email);
 
