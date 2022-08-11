@@ -6,9 +6,11 @@ import com.yourseason.backend.review.controller.dto.ReviewResponse;
 import com.yourseason.backend.review.service.ReviewService;
 import com.yourseason.backend.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/reviews")
@@ -20,22 +22,28 @@ public class ReviewController {
     public ResponseEntity<ReviewResponse> createReview(@RequestHeader("Authorization") String token,
                                                        @PathVariable Long consultingId,
                                                        @RequestBody ReviewRequest reviewRequest) {
+        ReviewResponse response = reviewService.createReview(JwtUtil.getMemberId(token), consultingId, reviewRequest);
+        log.info("리뷰 등록 성공");
         return ResponseEntity.ok()
-                .body(reviewService.createReview(JwtUtil.getMemberId(token), consultingId, reviewRequest));
+                .body(response);
     }
 
     @PatchMapping("/{reviewId}")
     public ResponseEntity<ReviewResponse> updateReview(@RequestHeader("Authorization") String token,
                                                        @PathVariable Long reviewId,
                                                        @RequestBody ReviewRequest reviewRequest) {
+        ReviewResponse response = reviewService.updateReview(JwtUtil.getMemberId(token), reviewId, reviewRequest);
+        log.info("리뷰 수정 성공");
         return ResponseEntity.ok()
-                .body(reviewService.updateReview(JwtUtil.getMemberId(token), reviewId, reviewRequest));
+                .body(response);
     }
 
     @DeleteMapping("/{reviewId}")
     public ResponseEntity<Message> deleteReview(@RequestHeader("Authorization") String token,
                                                 @PathVariable Long reviewId) {
+        Message message = reviewService.deleteReview(JwtUtil.getMemberId(token), reviewId);
+        log.info("리뷰 삭제 성공");
         return ResponseEntity.ok()
-                .body(reviewService.deleteReview(JwtUtil.getMemberId(token), reviewId));
+                .body(message);
     }
 }
