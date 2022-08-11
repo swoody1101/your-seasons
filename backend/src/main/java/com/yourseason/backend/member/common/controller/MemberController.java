@@ -59,4 +59,12 @@ public class MemberController {
         return ResponseEntity.ok()
                 .body(message);
     }
+
+    @GetMapping("/email/3")
+    public ResponseEntity<Message> sendEmailNewPassword(@RequestParam String email) {
+        Message message = memberService.sendEmailNewPassword(email);
+        log.info("새로운 비밀번호 이메일로 발급 성공");
+        return ResponseEntity.ok()
+                .body(message);
+    }
 }
