@@ -112,8 +112,8 @@ public class MemberService {
     public Message sendEmailValidationToken(String email) {
         String emailValidateToken = createAuthToken();
         RedisUtil.setDataExpired(email, emailValidateToken, 60 * 3L);
-        sendMailMessage(email, "당신의 계절: 회원가입 인증번호 안내", "인증번호: " + emailValidateToken
-                + "\n해당 인증번호를 인증번호 확인란에 기입하여 주세요.");
+        sendMailMessage(email, "당신의 계절: 회원가입 인증번호 안내",
+                "인증번호: " + emailValidateToken + "\n해당 인증번호를 인증번호 확인란에 기입하여 주세요.");
         return new Message("succeeded");
     }
 
@@ -137,8 +137,8 @@ public class MemberService {
         } else {
             throw new NotFoundException(NOT_FOUND_USER);
         }
-        sendMailMessage(email, "당신의 계절: 임시 비밀번호 발급", "임시 비밀번호: " + newPassword
-                + "\n임시 비밀번호로 로그인 후 비밀번호를 변경 부탁드립니다.");
+        sendMailMessage(email, "당신의 계절: 임시 비밀번호 발급",
+                "임시 비밀번호: " + newPassword + "\n임시 비밀번호로 로그인 후 비밀번호를 변경 부탁드립니다.");
         return new Message("succeeded");
     }
 
