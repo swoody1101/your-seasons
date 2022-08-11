@@ -113,7 +113,7 @@ public class MemberService {
     public Message sendEmailNewPassword(String email) {
         String newPassword = createAuthToken();
         Member customer = customerRepository.findByEmail(email);
-        Member consultant = consultantRepository.findByEmail(email);
+        Member consultant = consultantRepository.getByEmail(email);
         if (customer != null && customer.isActive()) {
             customer.changePassword(passwordEncoder, newPassword);
             customerRepository.save((Customer) customer);
