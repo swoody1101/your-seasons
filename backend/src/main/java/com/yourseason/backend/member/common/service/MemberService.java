@@ -30,6 +30,13 @@ import java.util.Map;
 @Service
 public class MemberService {
 
+    private static final char[] TOKEN_COLLECTION = new char[]{
+            '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
+            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+            'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+            'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+            '!', '@', '#', '$', '%', '^', '&', '*'};
     private static final String NOT_FOUND_LOGIN_INFO = "이메일 혹은 패스워드가 입력되지 않았습니다.";
     private static final String NOT_FOUND_USER = "해당 사용자를 찾을 수 없습니다.";
     private static final String PASSWORD_NOT_EQUAL = "비밀번호가 일치하지 않습니다.";
@@ -39,13 +46,6 @@ public class MemberService {
     private static final String MAIL_SUBJECT = "당신의 계절: 회원가입 인증번호 안내";
     private static final String PASSWORD_MAIL_SUBJECT = "당신의 계절: 임시 비밀번호 발급";
     private static final String ADMIN_EMAIL = "yourseasons305@naver.com";
-    private static final char[] TOKEN_COLLECTION = new char[]{
-            '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
-            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
-            'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-            'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-            '!', '@', '#', '$', '%', '^', '&', '*'};
 
     private final PasswordEncoder passwordEncoder;
     private final CustomerRepository customerRepository;
