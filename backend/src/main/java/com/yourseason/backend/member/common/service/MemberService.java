@@ -128,7 +128,7 @@ public class MemberService {
         simpleMailMessage.setFrom("yourseasons305@naver.com");
         simpleMailMessage.setTo(email);
         simpleMailMessage.setSubject(PASSWORD_MAIL_SUBJECT);
-        simpleMailMessage.setText("비밀번호: " + newPassword
+        simpleMailMessage.setText("임시 비밀번호: " + newPassword
                 + "\n임시 비밀번호로 로그인 후 비밀번호를 변경 부탁드립니다.");
         javaMailSender.send(simpleMailMessage);
         return new Message("succeeded");
