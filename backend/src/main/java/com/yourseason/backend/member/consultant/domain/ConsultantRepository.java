@@ -9,8 +9,6 @@ public interface ConsultantRepository extends JpaRepository<Consultant, Long> {
 
     Member getByEmail(String email);
 
-    Member findByEmail(String email);
-
     boolean existsByEmail(String email);
 
     boolean existsByNickname(String nickname);
