@@ -56,7 +56,6 @@ export const ConsultantListFetch = createAsyncThunk(
 export const ConsultantSearchFetch = createAsyncThunk(
 	'/consultants/search?keyword=졸리',
 	async (payload) => {
-		console.log(payload)
 		return Axios.get(`consultants/search?keyword=${payload}`)
 			.then(res => {
 				if (res.status === OK) {
