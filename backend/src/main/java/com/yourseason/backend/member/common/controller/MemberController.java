@@ -47,4 +47,10 @@ public class MemberController {
         return ResponseEntity.ok()
                 .body(memberService.validateSignUpEmail(emailAuthRequest));
     }
+
+    @GetMapping("/email/3")
+    public ResponseEntity<Message> sendEmailNewPassword(@RequestParam String email) {
+        return ResponseEntity.ok()
+                .body(memberService.sendEmailNewPassword(email));
+    }
 }

@@ -10,7 +10,9 @@ import com.yourseason.backend.member.common.controller.dto.LoginRequest;
 import com.yourseason.backend.member.common.controller.dto.LoginResponse;
 import com.yourseason.backend.member.common.domain.Member;
 import com.yourseason.backend.member.common.domain.Role;
+import com.yourseason.backend.member.consultant.domain.Consultant;
 import com.yourseason.backend.member.consultant.domain.ConsultantRepository;
+import com.yourseason.backend.member.customer.domain.Customer;
 import com.yourseason.backend.member.customer.domain.CustomerRepository;
 import com.yourseason.backend.util.RedisUtil;
 import lombok.RequiredArgsConstructor;
@@ -42,6 +44,7 @@ public class MemberService {
     private static final String NICKNAME_DUPLICATED = "닉네임이 중복됩니다.";
     private static final String TOKEN_NOT_EQUAL = "이메일 인증 토큰이 일치하지 않습니다.";
     private static final String MAIL_SUBJECT = "당신의 계절: 회원가입 인증번호 안내";
+    private static final String PASSWORD_MAIL_SUBJECT = "당신의 계절: 임시 비밀번호 발급";
 
     private final PasswordEncoder passwordEncoder;
     private final CustomerRepository customerRepository;
@@ -105,6 +108,30 @@ public class MemberService {
         member.put("email", loginMember.getEmail());
         member.put("imageUrl", loginMember.getImageUrl());
         return member;
+    }
+
+    public Message sendEmailNewPassword(String email) {
+        String newPassword = createAuthToken();
+        Member customer = customerRepository.findByEmail(email);
+        Member consultant = consultantRepository.findByEmail(email);
+        if (customer != null && customer.isActive()) {
+            customer.changePassword(passwordEncoder, newPassword);
+            customerRepository.save((Customer) customer);
+        } else if (consultant != null && consultant.isActive()) {
+            consultant.changePassword(passwordEncoder, newPassword);
+            consultantRepository.save((Consultant) consultant);
+        } else {
+            throw new NotFoundException(NOT_FOUND_USER);
+        }
+
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        simpleMailMessage.setFrom("yourseasons305@naver.com");
+        simpleMailMessage.setTo(email);
+        simpleMailMessage.setSubject(PASSWORD_MAIL_SUBJECT);
+        simpleMailMessage.setText("비밀번호: " + newPassword
+                + "\n임시 비밀번호로 로그인 후 비밀번호를 변경 부탁드립니다.");
+        javaMailSender.send(simpleMailMessage);
+        return new Message("succeeded");
     }
 
     public Message sendEmailValidationToken(String email) {
