@@ -21,7 +21,26 @@ const CameraTest = () => {
   const [brightness, setBrightness] = useState(50);
 
   const [micVolume, setMicVolume] = useState(10);
-
+  const handleHSB = () => {
+    console.log(hue, saturation, brightness)
+    const doubleHue = (hue - 50) / 100; // 0
+    const doubleSaturation = (saturation * 2) / 100; // 1
+    const doubleBrightness = (brightness - 50) / 100; // 0
+    console.log(doubleHue, doubleSaturation, doubleBrightness)
+    if (!customer.stream.filter) {
+      customer.stream
+        .applyFilter("GStreamerFilter", { "command": `videobalance hue=${doubleHue} saturation=${doubleSaturation} brightness=${doubleBrightness}` })
+        .then(() => { })
+        .catch((err) => { console.log(err) });
+    } else {
+      customer.stream.removeFilter()
+        .then(() => {
+          customer.stream
+            .applyFilter("GStreamerFilter", { "command": `videobalance hue=${doubleHue} saturation=${doubleSaturation} brightness=${doubleBrightness}` })
+            .then(() => { })
+        })
+    }
+  }
   return (
     <Container sx={{ xs: 'none', sm: 'block', height: '100%', position: 'fixed', top: '0', left: '0', zIndex: '1200' }}>
       <SContainer>
@@ -45,6 +64,7 @@ const CameraTest = () => {
                 onChange={(event, newValue) => {
                   if (typeof newValue === 'number') {
                     setHue(newValue);
+                    handleHSB()
                   }
                 }}
               />
@@ -54,6 +74,7 @@ const CameraTest = () => {
                 onChange={(event, newValue) => {
                   if (typeof newValue === 'number') {
                     setSaturation(newValue);
+                    handleHSB()
                   }
                 }}
               />
@@ -63,6 +84,7 @@ const CameraTest = () => {
                 onChange={(event, newValue) => {
                   if (typeof newValue === 'number') {
                     setBrightness(newValue);
+                    handleHSB()
                   }
                 }}
               />
