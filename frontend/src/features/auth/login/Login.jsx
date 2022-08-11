@@ -43,7 +43,7 @@ const Login = () => {
   useEffect(()=>{
     const token =  getToken()
     if(token){
-      alert('이전페이지로 이동합니다.')
+      alert('이미 로그인이 되어 있습니다. 이전페이지로 이동합니다.')
       window.history.go(-1)
     }else{
       return
