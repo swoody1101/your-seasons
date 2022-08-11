@@ -4,11 +4,12 @@ import com.yourseason.backend.member.common.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ConsultantRepository extends JpaRepository<Consultant, Long> {
 
     Member getByEmail(String email);
+
+    Member findByEmail(String email);
 
     boolean existsByEmail(String email);
 
@@ -29,6 +30,4 @@ public interface ConsultantRepository extends JpaRepository<Consultant, Long> {
     List<Consultant> findByIsActiveTrueOrderByConsultingCountDesc();
 
     List<Consultant> findByIsActiveTrueAndNicknameContaining(String keyword);
-
-    Optional<Consultant> findByNicknameAndIsActiveTrue(String nickname);
 }
