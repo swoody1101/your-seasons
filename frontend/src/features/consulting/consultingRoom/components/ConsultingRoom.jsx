@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -37,12 +37,14 @@ const ConsultingRoom = () => {
   const [myUserName, setMyUserName] = useState(nickname)
   const [session, setSession] = useState(undefined)
 
+  const [mainStreamManager, setMainStreamManager] = useState(undefined)
+  const [publisher, setPublisher] = useState(undefined)
   const [consultant, setConsultant] = useState(undefined)
 
   const [OV, setOV] = useState(null)
 
-  const [isMic, setIsMic] = useState(false)
-  const [isCam, setIsCam] = useState(false)
+  const [isMic, setIsMic] = useState(true)
+  const [isCam, setIsCam] = useState(true)
   const { selectedColor, bestColor, worstColor } = useSelector(state => state.colorSetList)
 
   // 코멘트, 진단결과 톤, 진단결과 이미지 정보
@@ -69,7 +71,7 @@ const ConsultingRoom = () => {
   }, [])
 
 
-  useEffect((e) => {
+  useEffect(() => {
     if (session) {
       session.on('streamCreated', streamCreated)
       session.on('streamDestroyed', streamDestroyed)
@@ -81,7 +83,6 @@ const ConsultingRoom = () => {
             token,
             {
               clientData: myUserName,
-              role, selectedColor, bestColor, worstColor
             },
           )
           .then(() => {
@@ -96,6 +97,8 @@ const ConsultingRoom = () => {
               mirror: false,
             });
             session.publish(publisher);
+            setMainStreamManager(publisher);
+            setPublisher(publisher);
             if (role === CUSTOMER) { dispatch(setCustomer(publisher)) }
             if (role === CONSULTANT) { setConsultant(publisher) }
             setSession(session)
@@ -142,7 +145,7 @@ const ConsultingRoom = () => {
 
   const streamCreated = (event) => {
     const subscriber = session.subscribe(event.stream, undefined);
-    if (role === CONSULTANT) { setCustomer(subscriber) }
+    if (role === CONSULTANT) { dispatch(setCustomer(subscriber)) }
     if (role === CUSTOMER) { setConsultant(subscriber) }
   }
 
@@ -242,7 +245,11 @@ const ConsultingRoom = () => {
           "videoMinRecvBandwidth": 300,
           "videoMaxSendBandwidth": 1000,
           "videoMinSendBandwidth": 300,
-          "allowedFilters": ["GStreamerFilter", "FaceOverlayFilter"]
+          "allowedFilters": [
+            "GStreamerFilter",
+            "FaceOverlayFilter",
+            "ChromaFilter"
+          ]
         }
       };
       axios
@@ -332,17 +339,19 @@ const ConsultingRoom = () => {
               <IconButton
                 color="inherit"
                 onClick={() => {
+                  publisher.publishAudio(!isMic)
                   setIsMic(!isMic)
                 }}>
-                {!isMic ? <Mic /> : <MicOff color="secondary" />}
+                {isMic ? <Mic /> : <MicOff color="secondary" />}
               </IconButton>
 
               <IconButton
                 color="inherit"
                 onClick={() => {
+                  publisher.publishVideo(!isCam)
                   setIsCam(!isCam)
                 }}>
-                {!isCam ? <Videocam /> : <VideocamOff color="secondary" />}
+                {isCam ? <Videocam /> : <VideocamOff color="secondary" />}
               </IconButton>
             </ButtonGroup>
         }
@@ -353,10 +362,19 @@ const ConsultingRoom = () => {
           </Button>
           <Button variant="outlined"
             onClick={() => {
-              customer.stream
-                .applyFilter("GStreamerFilter", { "command": "videobalance hue=-1.0 saturation=1.0" })
-                .then(() => { })
-                .catch((err) => { console.log(err) });
+              if (!mainStreamManager.stream.filter) {
+                mainStreamManager.stream
+                  .applyFilter("GStreamerFilter", { "command": "videobalance hue=-1.0 saturation=1.0" })
+                  .then(() => { })
+                  .catch((err) => { console.log(err) });
+              } else {
+                mainStreamManager.stream.removeFilter()
+                  .then(() => {
+                    mainStreamManager.stream
+                      .applyFilter("GStreamerFilter", { "command": "videobalance hue=1.0 saturation=1.0" })
+                      .then(() => { })
+                  })
+              }
             }}
           >
             테스트 버튼

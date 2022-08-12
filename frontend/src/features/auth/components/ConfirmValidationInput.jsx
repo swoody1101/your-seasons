@@ -70,7 +70,7 @@ export default function ConfirmValidationInput({
         value={value}
       />
       {isCheck ? (
-        <CheckSuccessBnt label={label}>확인</CheckSuccessBnt>
+        <CheckSuccessBnt label={label}>사용가능</CheckSuccessBnt>
       ) : (
         <CheckBnt
           label={label}

@@ -10,7 +10,9 @@ import com.yourseason.backend.member.common.controller.dto.LoginRequest;
 import com.yourseason.backend.member.common.controller.dto.LoginResponse;
 import com.yourseason.backend.member.common.domain.Member;
 import com.yourseason.backend.member.common.domain.Role;
+import com.yourseason.backend.member.consultant.domain.Consultant;
 import com.yourseason.backend.member.consultant.domain.ConsultantRepository;
+import com.yourseason.backend.member.customer.domain.Customer;
 import com.yourseason.backend.member.customer.domain.CustomerRepository;
 import com.yourseason.backend.util.RedisUtil;
 import lombok.RequiredArgsConstructor;
@@ -41,7 +43,7 @@ public class MemberService {
     private static final String EMAIL_DUPLICATED = "이메일이 중복됩니다.";
     private static final String NICKNAME_DUPLICATED = "닉네임이 중복됩니다.";
     private static final String TOKEN_NOT_EQUAL = "이메일 인증 토큰이 일치하지 않습니다.";
-    private static final String MAIL_SUBJECT = "당신의 계절: 회원가입 인증번호 안내";
+    private static final String ADMIN_EMAIL = "yourseasons305@naver.com";
 
     private final PasswordEncoder passwordEncoder;
     private final CustomerRepository customerRepository;
@@ -84,13 +86,13 @@ public class MemberService {
 
         Map<String, String> member = new HashMap<>();
         Member loginMember;
-        Member customer = customerRepository.findByEmail(email);
-        Member consultant = consultantRepository.getByEmail(email);
-        if (customer != null && customer.isActive()) {
+        Member customer = customerRepository.findByEmailAndIsActiveTrue(email);
+        Member consultant = consultantRepository.findByEmailAndIsActiveTrue(email);
+        if (customer != null) {
             checkValidPassword(password, customer.getPassword());
             loginMember = customer;
             member.put("role", String.valueOf(Role.CUSTOMER));
-        } else if (consultant != null && consultant.isActive()) {
+        } else if (consultant != null) {
             checkValidPassword(password, consultant.getPassword());
             loginMember = consultant;
             member.put("role", String.valueOf(Role.CONSULTANT));
@@ -110,13 +112,8 @@ public class MemberService {
     public Message sendEmailValidationToken(String email) {
         String emailValidateToken = createAuthToken();
         RedisUtil.setDataExpired(email, emailValidateToken, 60 * 3L);
-        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-        simpleMailMessage.setFrom("yourseasons305@naver.com");
-        simpleMailMessage.setTo(email);
-        simpleMailMessage.setSubject(MAIL_SUBJECT);
-        simpleMailMessage.setText("인증번호: " + emailValidateToken
-                + "\n해당 인증번호를 인증번호 확인란에 기입하여 주세요.");
-        javaMailSender.send(simpleMailMessage);
+        sendMailMessage(email, "당신의 계절: 회원가입 인증번호 안내",
+                "인증번호: " + emailValidateToken + "\n해당 인증번호를 인증번호 확인란에 기입하여 주세요.");
         return new Message("succeeded");
     }
 
@@ -124,6 +121,24 @@ public class MemberService {
         if (!RedisUtil.validateData(emailAuthRequest.getEmail(), emailAuthRequest.getAuthToken())) {
             throw new NotEqualException(TOKEN_NOT_EQUAL);
         }
+        return new Message("succeeded");
+    }
+
+    public Message sendEmailNewPassword(String email) {
+        String newPassword = createAuthToken();
+        Member customer = customerRepository.findByEmailAndIsActiveTrue(email);
+        Member consultant = consultantRepository.findByEmailAndIsActiveTrue(email);
+        if (customer != null) {
+            customer.changePassword(passwordEncoder, newPassword);
+            customerRepository.save((Customer) customer);
+        } else if (consultant != null) {
+            consultant.changePassword(passwordEncoder, newPassword);
+            consultantRepository.save((Consultant) consultant);
+        } else {
+            throw new NotFoundException(NOT_FOUND_USER);
+        }
+        sendMailMessage(email, "당신의 계절: 임시 비밀번호 발급",
+                "임시 비밀번호: " + newPassword + "\n임시 비밀번호로 로그인 후 비밀번호를 변경 부탁드립니다.");
         return new Message("succeeded");
     }
 
@@ -139,5 +154,14 @@ public class MemberService {
             token.append(TOKEN_COLLECTION[(int) (Math.random() * (TOKEN_COLLECTION.length))]);
         }
         return token.toString();
+    }
+
+    private void sendMailMessage(String email, String subject, String message) {
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        simpleMailMessage.setFrom(ADMIN_EMAIL);
+        simpleMailMessage.setTo(email);
+        simpleMailMessage.setSubject(subject);
+        simpleMailMessage.setText(message);
+        javaMailSender.send(simpleMailMessage);
     }
 }

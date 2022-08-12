@@ -85,6 +85,39 @@ export const emailCheck = createAsyncThunk(
   }
 );
 
+// 이메일 발송 코드
+export const emailSendCheck = createAsyncThunk(
+  'members/email/1?email=',
+  async (email, { rejectWithValue }) => {
+    try {
+      const response = await Axios.get(`members/email/1?email=${email}`);
+      if (response.status === OK) {
+        return true;
+      }
+    } catch (err) {
+      console.log(rejectWithValue(err))
+      return false;
+    }
+  }
+);
+  
+// 이메일 발송 후 토큰 체크 
+export const emailAuthCheck = createAsyncThunk(
+  'members/email/2',
+  async (payload, {rejectWithValue}) => {
+    try {
+      const response = await Axios.post('members/email/2', payload)
+      if(response.status === OK){
+        return true;
+      } 
+    } catch (err) {
+      console.log(rejectWithValue(err))
+      return false
+    }
+  }
+)
+
+
 export const nicknameCheck = createAsyncThunk(
   'auth/nicknamecheck',
   async (nickname, { rejectWithValue }) => {
@@ -176,6 +209,7 @@ export const modifyMember = createAsyncThunk(
 export const modifyPass = createAsyncThunk(
   'auth/modifypass',
   async (payload, { rejectWithValue }) => {
+    console.log(payload)
     try {
       let response;
       const data = {
@@ -189,6 +223,7 @@ export const modifyPass = createAsyncThunk(
       }
       return response;
     } catch (err) {
+      alert('비밀번호를 잘못 입력하셨습니다.')
       return rejectWithValue(err);
     }
   }
@@ -212,14 +247,14 @@ export const signOut = createAsyncThunk(
 );
 
 // createSlice
-
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
     // login reducers
-    logoutUser: () => {
+    logoutUser: (state) => {
       deleteToken();
+      state.isAuthenticated = false;
     },
     resetUser: (state) => {
       state.logonUser = {

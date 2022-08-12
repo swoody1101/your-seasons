@@ -13,12 +13,13 @@ const HomePopularConsultant = () => {
 	// 비어있으면 true
 	const dispatch = useDispatch()
 	const hasConsultants = _.isEmpty(consultants)
-	const [activeItemIndex, setActiveItemIndex] = useState(0);
-
+  const [activeItemIndex, setActiveItemIndex] = useState(0);
+  
+  
 	useEffect(() => {
-		dispatch(TopTenListFetch())
+    dispatch(TopTenListFetch())
 	}, [])
-
+  
 	return (
 		<Div>
 			<ColorBox>
@@ -27,9 +28,10 @@ const HomePopularConsultant = () => {
 					gutterBottom component="div"
 				>TOP 10</MainTypography>
 				<SubTypography>전문 컨설턴트에게 퍼스널컬러를 진단받아 보세요</SubTypography>
-				{hasConsultants ?
+        {hasConsultants ?
 					'인기 컨설턴트가 없습니다.'
 					:
+          <>
 					<ItemsCarousel
 						infiniteLoop={false}
 						gutter={50}
@@ -52,6 +54,8 @@ const HomePopularConsultant = () => {
 							<ConsultantListItem {...consultant} key={idx}/>
 						)}
 					</ItemsCarousel>
+          </>
+
 				}
 				<GoCon>
 					<Link to={'/consultants'}>컨설턴트 더 보기</Link>

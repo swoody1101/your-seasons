@@ -5,7 +5,12 @@ const initialState = {
   customer: undefined,
   isSetClear: false,
   consultantSessionName: 's-s-s',
-  consultingID: 0
+  consultingID: 0,
+  videobalance: {
+    hue: 0.0,
+    saturation: 1.0,
+    brightness: 0.0
+  },
 }
 
 export const openConsulting = createAsyncThunk(

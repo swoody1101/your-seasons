@@ -10,9 +10,10 @@ import {
 } from '@mui/material';
 import { useMediaQuery } from '@mui/material'
 import { useCookies } from 'react-cookie'
+import { getToken } from "api/JWToken";
 
 import { BAD_REQUEST, NOT_FOUND, CONFLICT, OK } from 'api/CustomConst'
-import { loginUser, loadMember } from "features/auth/authSlice"
+import { loginUser, loadMember, logoutUser } from "features/auth/authSlice"
 
 import mainimg from 'assets/images/mainimg.png';
 import kakaotalk_img from 'assets/images/kakaotalk_img.png';
@@ -38,6 +39,16 @@ const Login = () => {
     }
   }, [cookies]) // 
 
+  // 토큰이 이미 있으면 이전페이지로 이동
+  useEffect(()=>{
+    const token =  getToken()
+    if(token){
+      alert('이미 로그인이 되어 있습니다. 이전페이지로 이동합니다.')
+      window.history.go(-1)
+    }else{
+      return
+    }
+  }, [])
 
   const handleSubmit = (e) => {
     console.log({ email, password, isSaved })
