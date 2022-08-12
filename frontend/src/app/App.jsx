@@ -20,7 +20,6 @@ import SignUp from 'features/auth/signup/SignUp'
 import SearchPassword from 'features/auth/login/SearchPassword'
 import ConsultantList from 'features/consulting/consultantList/ConsultantList'
 import Footer from 'common/Footer'
-import TmpDrawing from 'common/drawing/TmpDrawing'
 
 import { Box, Stack } from '@mui/material'
 import { CUSTOMER } from '../api/CustomConst'
@@ -49,7 +48,6 @@ const App = () => {
           <Route path='/login' element={<Login />} />
           <Route path='/searchpassword' element={<SearchPassword />} />
           <Route path='/signup' element={<SignUp />} />
-          <Route path='/tmp' element={<TmpDrawing />} />
         </Routes>
         <Footer />
       </Stack>
