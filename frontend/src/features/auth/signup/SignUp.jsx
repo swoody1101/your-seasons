@@ -232,7 +232,7 @@ const SignUp = () => {
               errorText="이메일 양식을 맞춰주세요."
             />
           {/* //////////////////////////////////////////////////////////// */}
-            <EmailAuthentication
+            {/* <EmailAuthentication
               label="이메일인증"
               id="emailauth"
               // email 중복확인 여부
@@ -252,7 +252,7 @@ const SignUp = () => {
               defaultText="인증번호를 입력해주세요."
               successText="success"
               errorText="인증번호가 일치하지 않습니다."
-            />
+            /> */}
 
             <ValidationInput
               label="패스워드"
@@ -263,7 +263,7 @@ const SignUp = () => {
               maxValue={20}
               defaultText="비밀번호를 입력해주세요. 영문, 숫자, 특수문자를 포함합니다."
               successText="success"
-              errorText="영문, 숫자, 특수문자, 8~20글자"
+              errorText="영문, 숫자, 특수문자 필수 8~20글자"
             />
 
             <ComparePasswordInput
@@ -276,7 +276,7 @@ const SignUp = () => {
               defaultText="비밀번호를 다시한번 입력해주세요."
               incorrectText="비밀번호가 일치하지 않습니다."
               successText="success"
-              errorText="영문, 숫자, 특수문자, 8~20글자 이상"
+              errorText="영문, 숫자, 특수문자 필수 8~20글자"
             />
 
           </Grid>
