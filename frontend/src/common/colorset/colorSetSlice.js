@@ -1,14 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Axios from 'api/Axios'
 import { OK } from 'api/CustomConst'
-import {colorSetData} from './colorSetData'
+import { colorSetData } from './colorSetData'
 
 const initialState = {
   data: colorSetData,
   selectedColor: '',
+  comment: '',
+  tone: '',
   bestColor: [],
   worstColor: [],
-  status: 'idle'
+  status: 'idle',
+  files: ''
 }
 
 
@@ -47,6 +50,15 @@ const ColorSetListSlice = createSlice({
     })
   },
   reducers: {
+    setFiles: (state, action) => {
+      state.files = action.payload
+    },
+    changeComment: (state, action) => {
+      state.comment = action.payload
+    },
+    selectTone: (state, action) => {
+      state.tone = action.payload
+    },
     changeSelectColor: (state, action) => {
       state.selectedColor = action.payload
     },
@@ -88,8 +100,11 @@ const ColorSetListSlice = createSlice({
 })
 
 
-export const { addBestColor, removeSelectColor, changeSelectColor,
+export const {
+  addBestColor, removeSelectColor, changeSelectColor,
   changeBestColor, removeBestColor, addWorstColor,
-  removeWorstColor, sharedColorSet } = ColorSetListSlice.actions;
+  removeWorstColor, sharedColorSet, changeComment,
+  selectTone, setFiles
+} = ColorSetListSlice.actions;
 
 export default ColorSetListSlice.reducer

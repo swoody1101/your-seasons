@@ -34,7 +34,7 @@ const ColorPicker = ({ brushColor, handleColorChange }) => {
       },
       cover: {
         position: 'fixed',
-        top: '0px',
+        top: 'px',
         right: '0px',
         bottom: '0px',
         left: '0px',

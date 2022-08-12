@@ -13,7 +13,7 @@ const Tools = ({ handleToolChange, brushRadius, setBrushRadius, canvasRef }) => 
   }, [brushRadius]);
 
   return (
-    <div style={{ boxShadow: "none", textAlign: "center", marginBottom: "0.5rem" }}>
+    <div style={{ boxShadow: "none", textAlign: "center" }}>
       <div className="slider-container">
         <div className="icon-container">
           <FontAwesomeIcon
@@ -37,11 +37,11 @@ const Tools = ({ handleToolChange, brushRadius, setBrushRadius, canvasRef }) => 
         <p style={{ marginBottom: "4px", marginTop: "4px" }}>{brushSize}</p>
       </div>
       <div className="slider-container">
-        <div style={{ marginBottom: "16px", cursor: "pointer" }}>
+        <div style={{ marginBottom: "12px", cursor: "pointer" }}>
           <FontAwesomeIcon icon={faBackward} onClick={() => canvasRef.current.undo()} />
           <p style={{ marginTop: "0px" }}>undo</p>
         </div>
-        <div style={{ marginBottom: "16px", cursor: "pointer" }}>
+        <div style={{ marginBottom: "12px", cursor: "pointer" }}>
           <FontAwesomeIcon icon={faRefresh} onClick={() => canvasRef.current.clear()} />
           <p style={{ marginTop: "0px" }}>clear</p>
         </div>
