@@ -232,7 +232,7 @@ const SignUp = () => {
               errorText="이메일 양식을 맞춰주세요."
             />
           {/* //////////////////////////////////////////////////////////// */}
-            <EmailAuthentication
+            {/* <EmailAuthentication
               label="이메일인증"
               id="emailauth"
               // email 중복확인 여부
@@ -252,7 +252,7 @@ const SignUp = () => {
               defaultText="인증번호를 입력해주세요."
               successText="success"
               errorText="인증번호가 일치하지 않습니다."
-            />
+            /> */}
 
             <ValidationInput
               label="패스워드"
