@@ -4,8 +4,8 @@ import { Box, Container, styled } from '@mui/material'
 const Footer = () => {
   return (
     <Box sx={{
-      backgroundColor: "#b4004e",
-			color: '#ffffff99',
+      backgroundColor: "#12406A",
+      color: '#ffffff99',
       // marginTop: "3rem"
     }}>
       <FooterContainer>
