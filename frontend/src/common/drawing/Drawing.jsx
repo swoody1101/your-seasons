@@ -40,18 +40,6 @@ function Drawing() {
     <div className="App">
       <div className="container">
         <div className="left-container">
-          <div className="canvass-container">
-            <CanvasDraw
-              ref={canvasRef}
-              brushColor={brushColor}
-              catenaryColor={brushColor}
-              brushRadius={brushRadius}
-              lazyRadius={0}
-              imgSrc={results}
-              canvasWidth={600}
-              canvasHeight={680}
-            />
-          </div>
           <div>
             <ColorPicker
               brushColor={brushColor}
@@ -63,6 +51,18 @@ function Drawing() {
               handleToolChange={toolChange}
               canvasRef={canvasRef}
               brushRadius={brushRadius}
+            />
+          </div>
+          <div className="canvass-container">
+            <CanvasDraw
+              ref={canvasRef}
+              brushColor={brushColor}
+              catenaryColor={brushColor}
+              brushRadius={brushRadius}
+              lazyRadius={0}
+              imgSrc={results}
+              canvasWidth={440}
+              canvasHeight={460}
             />
           </div>
         </div>
