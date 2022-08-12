@@ -50,8 +50,9 @@ const Login = () => {
     }
   }, [])
 
+
   const handleSubmit = (e) => {
-    console.log({ email, password, isSaved })
+    e.preventDefault();
     if (email === '' || password === '') {
       return;
     }
@@ -66,9 +67,8 @@ const Login = () => {
       .unwrap() // 오류처리
       .then((res) => {
         if (res.status === OK) {
-          alert('안녕하세요')
           navigate('/')
-          console.log(res)
+          alert('안녕하세요')
           dispatch(loadMember(res.data.role))
         } else {
           alert('적절한 요청이 아닙니다.')
@@ -125,6 +125,7 @@ const Login = () => {
           sx={{ width: "80%" }}
         >
           <Grid item>
+            <form onSubmit={handleSubmit} >
             <Typography
               component="h1"
               variant="h5"
@@ -168,11 +169,12 @@ const Login = () => {
               type="submit"
               fullWidth
               variant="contained"
-              onClick={handleSubmit}
               sx={{ mt: 3, mb: 2 }}
             >
               로그인
             </Button>
+            </form>
+
             <Grid container
               sx={{
                 display: 'flex',
