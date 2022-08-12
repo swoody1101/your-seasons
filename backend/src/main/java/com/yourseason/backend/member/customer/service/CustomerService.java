@@ -11,6 +11,7 @@ import com.yourseason.backend.member.consultant.domain.ConsultantRepository;
 import com.yourseason.backend.member.customer.controller.dto.*;
 import com.yourseason.backend.member.customer.domain.Customer;
 import com.yourseason.backend.member.customer.domain.CustomerRepository;
+import com.yourseason.backend.reservation.domain.Reservation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -62,6 +63,7 @@ public class CustomerService {
 
         return customer.getReservations()
                 .stream()
+                .filter(Reservation::isActive)
                 .filter(reservation -> reservation.getTime()
                         .atDate(reservation.getDate())
                         .isAfter(LocalDateTime.now()))
