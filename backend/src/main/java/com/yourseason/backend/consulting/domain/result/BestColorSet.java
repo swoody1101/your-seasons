@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Entity
 public class BestColorSet extends BaseTimeEntity {
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "color_set_id")
     private ColorSet colorSet;
 
