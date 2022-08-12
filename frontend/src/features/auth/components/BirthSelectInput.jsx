@@ -58,7 +58,7 @@ export default function BirthSelectInput({
 BirthSelectInput.defaultProps = {
   type: "text",
   label: "",
-  value: ""
+  value: "",
 };
 
 const Container = styled('div')({
