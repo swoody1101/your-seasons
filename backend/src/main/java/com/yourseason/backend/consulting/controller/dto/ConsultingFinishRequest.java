@@ -11,6 +11,8 @@ import java.util.List;
 public class ConsultingFinishRequest {
 
     private Long consultingId;
+    private String tone;
+    private String consultingComment;
     private List<String> bestColorSet;
     private List<String> worstColorSet;
 }
