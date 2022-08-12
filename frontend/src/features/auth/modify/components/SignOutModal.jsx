@@ -9,7 +9,7 @@ import { signOut } from 'features/auth/authSlice'
 import { useDispatch, useSelector } from 'react-redux';
 import { BAD_REQUEST, NOT_FOUND, CONFLICT } from 'api/CustomConst'
 import { useNavigate } from 'react-router-dom';
-import { logoutUser, resetUser } from 'features/auth/authSlice';
+import { logoutUser } from 'features/auth/authSlice';
 
 const style = {
   position: 'absolute',
@@ -37,7 +37,6 @@ const SignOutModal = () => {
       .then((res) => {
         dispatch(logoutUser())
         alert("계정 삭제 요청이 정상적으로 처리되었습니다. 로그아웃 됩니다.")
-        dispatch(resetUser())
         navigate('/')
       })
       .catch((err) => {

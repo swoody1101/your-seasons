@@ -3,8 +3,8 @@ import React, { useState } from 'react'
 import regex from '../components/regex'
 import { searchPasswordFetch } from '../authSlice'
 import { useDispatch } from 'react-redux'
-import { deleteToken } from 'api/JWToken'; 
 import { useNavigate } from 'react-router'
+import { logoutUser } from '../authSlice'
 
 const SearchPassword = () => {
   const [email, setEmail] = useState('')
@@ -19,10 +19,9 @@ const SearchPassword = () => {
       if(regexCheck.test(email)){
         dispatch(searchPasswordFetch(email))
         .then((res)=>{
-          console.log(res)
           if(res.payload){
             alert('비밀번호가 전송되었습니다. 재로그인이 필요합니다.')
-            deleteToken();
+            logoutUser();
             navigate('/login');
           }
           else{

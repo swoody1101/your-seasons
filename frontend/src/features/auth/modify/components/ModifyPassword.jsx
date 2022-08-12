@@ -9,7 +9,7 @@ import ComparePasswordInput from 'features/auth/components/ConfirmPasswordInput'
 import regex from 'features/auth/components/regex';
 import { BAD_REQUEST, NOT_FOUND, CONFLICT } from 'api/CustomConst'
 
-import { logoutUser, modifyPass, resetUser } from 'features/auth/authSlice'
+import { logoutUser, modifyPass } from 'features/auth/authSlice'
 import { useNavigate } from 'react-router'
 
 const ModifyPassword = () => {
@@ -46,7 +46,6 @@ const ModifyPassword = () => {
         setAfterPassword('');
         setRePassword('');
         dispatch(logoutUser())
-        dispatch(resetUser())
         navigate('/login')
         alert("수정이 완료되었습니다. 다시 로그인을 해주세요")
       })

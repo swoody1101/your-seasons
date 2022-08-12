@@ -41,10 +41,10 @@ const Login = () => {
 
   // 토큰이 이미 있으면 이전페이지로 이동
   useEffect(()=>{
-    const token =  getToken()
+    const token = getToken()
     if(token){
-      alert('이미 로그인이 되어 있습니다. 이전페이지로 이동합니다.')
-      window.history.go(-1)
+      alert('이미 로그인이 되어 있습니다. 메인페이지로 이동합니다..')
+      navigate('/')
     }else{
       return
     }

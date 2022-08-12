@@ -34,7 +34,7 @@ const App = () => {
         useLocation().pathname !== '/consult'
         && <ConsultButton />
       }
-      <Stack direction="column" spacing={2} justifyContent="space-between" sx={{ minHeight: "100vh" }}>
+      <Stack direction="column" justifyContent="space-between" sx={{ minHeight: "100vh" }}>
         <Routes>
           <Route path='/' element={<Yourseason />} />
           <Route path='/consult' element={<Consult />} />

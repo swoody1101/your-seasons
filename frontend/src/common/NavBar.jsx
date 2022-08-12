@@ -7,7 +7,7 @@ import {
 } from '@mui/material'
 import { Pets } from '@mui/icons-material'
 
-import { logoutUser, resetUser } from 'features/auth/authSlice';
+import { logoutUser } from 'features/auth/authSlice';
 import MyAvatar from 'common/avatar/MyAvatar';
 
 
@@ -19,9 +19,10 @@ const NavBar = () => {
   const dispatch = useDispatch();
 
   const logout = () => {
+    const isrole = role
+    const nick = logonUser.nickname
     dispatch(logoutUser()) // deleteToken
-    alert(role + "인 " + logonUser.nickname + "님이 로그아웃 되었습니다.") // state 체크 용 추후 삭제
-    dispatch(resetUser()) // state 초기화, logout과 같이 할 지 토의 필요
+    alert(isrole + "인 " + nick + "님이 로그아웃 되었습니다.") // state 체크 용 추후 삭제
     navigate('/')
   }
 

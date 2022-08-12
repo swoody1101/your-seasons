@@ -269,15 +269,13 @@ const authSlice = createSlice({
   reducers: {
     // login reducers
     logoutUser: (state) => {
-      deleteToken();
-      state.isAuthenticated = false;
-    },
-    resetUser: (state) => {
       state.logonUser = {
         nickname: '',
         role: '',
         imageUrl: '/images/default/avatar01.png',
       }
+      state.isAuthenticated = false;
+      deleteToken();
     },
     // modify reducers
     modalOn: (state) => {
@@ -327,7 +325,7 @@ const authSlice = createSlice({
 })
 
 
-export const { logoutUser, resetUser, modifyLogonUser } = authSlice.actions;
+export const { logoutUser, modifyLogonUser } = authSlice.actions;
 export const { modalOn, modalOff } = authSlice.actions;
 
 export default authSlice.reducer

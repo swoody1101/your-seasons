@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import MyProfile from './components/MyProfile'
 import MyResHistory from './myReservation/MyResHistory'
 import MyDiagnosis from './components/MyDiagnosis'
@@ -6,19 +6,28 @@ import MyReview from './myReview/MyReview'
 
 import { Container, Box, Tab } from '@mui/material'
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
+import { getToken } from 'api/JWToken'
 
 const MyPage = () => {
   const [value, setValue] = React.useState('1');
-  const isAuthenticated = useSelector(state=>state.auth.isAuthenticated)
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token =  getToken()
+    if (token){
+      return
+      }else{
+        alert('로그인 후 접근해 주세요');
+        navigate('/login')
+      }
+  }, [])
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
   
   return (<>
-  {
-    isAuthenticated ?
   <Container fixed sx={{ mt: '2rem' }}>
     <MyProfile />
     <br />
@@ -43,12 +52,6 @@ const MyPage = () => {
       </TabContext>
     </Box>
   </Container>
-    :
-    alert('로그인 후 접근해 주세요')
-    && window.go(-1)    
-  }
-
-
   </>
   )
 }

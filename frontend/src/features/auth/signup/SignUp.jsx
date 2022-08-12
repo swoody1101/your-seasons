@@ -22,7 +22,7 @@ import EmailAuthentication from '../components/EmailAuthentication'
 
 import Policy from './Policy'
 import { CONSULTANT, CUSTOMER, OK } from 'api/CustomConst'
-import { nicknameCheck, emailCheck, signUpMember, emailSendCheck, emailAuthCheck } from 'features/auth/authSlice';
+import { nicknameCheck, emailCheck, signUpMember, emailSendCheck, emailAuthCheck, logoutUser } from 'features/auth/authSlice';
 
 
 const SignUp = () => {
@@ -197,9 +197,9 @@ const SignUp = () => {
       .then((res) => {
         console.log(res.payload) // 응답 msg  확인
         if (res.payload === OK) {
-          alert("가입에 성공하였습니다.");
+          alert("가입에 성공하였습니다. 로그인 페이지로 이동합니다.");
            // 로그인상태에서 회원가입으로 이동가능하나, 회원가입시 기존토큰 지워짐
-          deleteToken();
+          dispatch(logoutUser());
           navigate('/login');
         } else {
           alert("가입에 실패하였습니다.");
