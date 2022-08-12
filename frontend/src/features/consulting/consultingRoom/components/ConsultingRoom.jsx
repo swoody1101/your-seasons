@@ -1,7 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { OpenVidu } from 'openvidu-browser';
 import UserVideoComponent from './UserVideoComponent';
@@ -10,10 +9,10 @@ import { Box, Button, Grid, styled, Typography, ButtonGroup, IconButton } from '
 import { Mic, MicOff, Videocam, VideocamOff } from '@mui/icons-material';
 
 
-import { settingModalOn, setCustomer } from 'features/consulting/consultingRoom/consultSlice'
+import { settingModalOn, setCustomer, postConsultingResult } from 'features/consulting/consultingRoom/consultSlice'
 
 import { CONSULTANT, CUSTOMER } from 'api/CustomConst'
-import { sharedColorSet } from 'common/colorset/colorSetSlice'
+import { sharedColorSet, changeComment, selectTone, setFiles } from 'common/colorset/colorSetSlice'
 
 import ColorPalette from 'common/colorset/ColorPalette'
 import SelectedColorSet from 'common/colorset/SelectedColorSet';
@@ -24,9 +23,10 @@ const OPENVIDU_SERVER_SECRET = 'YOUR_SEASONS_SECRET';
 
 // rafce Arrow function style 
 const ConsultingRoom = () => {
+  const { consultingID } = useSelector(state => state.consult.consultingID)
   const { nickname, role, email } = useSelector(state => state.auth.logonUser)
   const { customer, consultantSessionName } = useSelector(state => state.consult)
-  const tmp = email.replace(/[@\.]/g, '-')
+  const tmp = email
   const [mySessionId, setMySessionId] = useState(
     role === CONSULTANT ? tmp : consultantSessionName
   )
@@ -47,8 +47,18 @@ const ConsultingRoom = () => {
   const [isCam, setIsCam] = useState(true)
   const { selectedColor, bestColor, worstColor } = useSelector(state => state.colorSetList)
 
+  // 코멘트, 진단결과 톤, 진단결과 이미지 정보
+  const comment = useSelector(state => state.colorSetList.comment)
+  const selectedTone = useSelector(state => state.colorSetList.tone)
+  const files = useSelector(state => state.colorSetList.files)
+  const consultingFinishRequest = {
+    consultingID: consultingID,
+    comment: comment,
+    tone: selectedTone,
+    bestColorSet: bestColor,
+    worstColorSet: worstColor
+  }
   const dispatch = useDispatch()
-
   useEffect(() => {
     window.addEventListener(
       'beforeunload',
@@ -150,7 +160,13 @@ const ConsultingRoom = () => {
 
   const leaveSession = () => {
     if (session) {
-      session.disconnect();
+      dispatch(postConsultingResult({ files, consultingFinishRequest }))
+        .then(() => {
+          session.disconnect();
+          dispatch(changeComment(''))
+          dispatch(selectTone(''))
+          dispatch(setFiles(''))
+        })
     }
     setOV(null);
     setSession(undefined)
@@ -302,14 +318,6 @@ const ConsultingRoom = () => {
             />
           }
 
-          {
-            role === CUSTOMER &&
-            < ColorPalette
-              isBest={isBest}
-              isWorst={isWorst}
-            />
-          }
-
         </SGridContainer>
       ) : <div />}
 
@@ -387,20 +395,17 @@ const SContainer = styled(Box)({
   height: "97%",
   display: "flex",
   flexDirection: "column",
-  justifyContent: "space-between",
   alignItems: "center",
 })
 
 const SGridContainer = styled(Grid)({
   height: "100%",
-  justifyContent: "center",
   alignItems: "start",
 })
 
 const SGrid = styled(Grid)({
   display: "flex",
   flexDirection: "column",
-  justifyContent: "center",
   alignItems: "center"
 })
 
