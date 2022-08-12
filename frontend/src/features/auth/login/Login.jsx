@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux/es/exports';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 import {
   Container, Button,
   Checkbox, FormControlLabel,
-  TextField, Grid, Link,
+  TextField, Grid,
   Typography, Avatar, styled
 } from '@mui/material';
 import { useMediaQuery } from '@mui/material'
@@ -102,7 +102,7 @@ const Login = () => {
 
 
   return (
-    <Container sx={{}}>
+    <Container>
       <SGrid container
         direction="row"
         justifyContent="center"
@@ -178,10 +178,10 @@ const Login = () => {
                 display: 'flex',
                 justifyContent: 'space-between',
               }}>
-              <Link href="/#" variant="body2">
+              <Link to="/searchpassword" variant="body2">
                 비밀번호 찾기
               </Link>
-              <span><Link href="/signup" variant="body2">{"퍼스널 컬러 찾으러 가기"}</Link></span>
+              <span><Link to="/signup" variant="body2">{"퍼스널 컬러 찾으러 가기"}</Link></span>
             </Grid>
           </Grid>
 
@@ -214,7 +214,6 @@ const CenterGrid = styled(Grid)({
 });
 
 const SGrid = styled(Grid)({
-  // marginTop: "5rem",
   backgroundColor: "#F1F1F190",
   padding: '2rem',
   borderRadius: '1rem',

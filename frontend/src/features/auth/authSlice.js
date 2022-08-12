@@ -151,6 +151,22 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+// 비밀번호 찾기
+export const searchPasswordFetch = createAsyncThunk(
+  'members/email/3?email=member@ssafy.com',
+  async (email, {rejectWithValue}) => {
+    try{
+      const response = await Axios.get(`members/email/3?email=${email}`);
+      if(response.status === OK){
+        return true;
+      }
+    } catch(err){
+      return false
+    }
+  }
+)
+
+
 // userSlice actions
 export const loadMember = createAsyncThunk(
   'auth/loadmember',
