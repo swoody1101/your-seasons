@@ -13,7 +13,7 @@ const MainColorSet = () => {
 	const dispatch = useDispatch()
 	const comment = useSelector(state => state.colorSetList.comment)
 	const selectedTone = useSelector(state => state.colorSetList.tone)
-
+	const files = useSelector(state => state.colorSetList.files)
 	const [
 		{ spring_bright, spring_true, spring_light },
 		{ summer_light, summer_true, summer_soft },
@@ -185,6 +185,7 @@ const MainColorSet = () => {
 								진단표 업로드하기
 								<input hidden accept="image/*" multiple type="file" onChange={onLodaFile} />
 							</Button>
+							{files ? ` ${files[0].name}` : ' 등록된 이미지가 없습니다'}
 						</div>
 					</TabContext>
 				</CTabPanel>

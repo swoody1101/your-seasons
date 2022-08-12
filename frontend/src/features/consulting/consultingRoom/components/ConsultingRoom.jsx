@@ -57,7 +57,6 @@ const ConsultingRoom = () => {
     worstColorSet: worstColor
   }
   const dispatch = useDispatch()
-  console.log(consultingFinishRequest)
   useEffect(() => {
     window.addEventListener(
       'beforeunload',
