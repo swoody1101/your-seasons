@@ -1,4 +1,5 @@
 import React, { useCallback, useState, useRef } from "react";
+import { Card, styled } from '@mui/material';
 import CanvasDraw from "react-canvas-draw";
 import './Drawing.css'
 import Tools from "./components/Tools";
@@ -53,17 +54,21 @@ function Drawing() {
               brushRadius={brushRadius}
             />
           </div>
-          <div className="canvass-container">
-            <CanvasDraw
-              ref={canvasRef}
-              brushColor={brushColor}
-              catenaryColor={brushColor}
-              brushRadius={brushRadius}
-              lazyRadius={0}
-              imgSrc={results}
-              canvasWidth={440}
-              canvasHeight={460}
-            />
+          <div>
+            <ScrollBar>
+              <div className="canvass-container">
+                <CanvasDraw
+                  ref={canvasRef}
+                  brushColor={brushColor}
+                  catenaryColor={brushColor}
+                  brushRadius={brushRadius}
+                  lazyRadius={0}
+                  imgSrc={results}
+                  canvasWidth={430}
+                  canvasHeight={1000}
+                />
+              </div>
+            </ScrollBar>
           </div>
         </div>
       </div>
@@ -72,3 +77,23 @@ function Drawing() {
 }
 
 export default Drawing;
+
+const ScrollBar = styled(Card)((props) => ({
+  width: 'auto',
+  height: '460px',
+  overflow: 'auto',
+  // 스크롤바 두께
+  '&::-webkit-scrollbar': {
+    width: '10px',
+    height: '10px',
+  },
+  '&::-webkit-scrollbar-track': {
+    boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
+    webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
+  },
+  '&::-webkit-scrollbar-thumb': {
+    height: '17%',
+    backgroundColor: '#9B9B9B',
+    borderRadius: 10,
+  }
+}))
