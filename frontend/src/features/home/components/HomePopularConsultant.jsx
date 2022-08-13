@@ -13,13 +13,13 @@ const HomePopularConsultant = () => {
 	// 비어있으면 true
 	const dispatch = useDispatch()
 	const hasConsultants = _.isEmpty(consultants)
-  const [activeItemIndex, setActiveItemIndex] = useState(0);
-  
-  
+	const [activeItemIndex, setActiveItemIndex] = useState(0);
+
+
 	useEffect(() => {
-    dispatch(TopTenListFetch())
+		dispatch(TopTenListFetch())
 	}, [])
-  
+
 	return (
 		<Div>
 			<ColorBox>
@@ -28,33 +28,33 @@ const HomePopularConsultant = () => {
 					gutterBottom component="div"
 				>TOP 10</MainTypography>
 				<SubTypography>전문 컨설턴트에게 퍼스널컬러를 진단받아 보세요</SubTypography>
-        {hasConsultants ?
+				{hasConsultants ?
 					'인기 컨설턴트가 없습니다.'
 					:
-          <>
-					<ItemsCarousel
-						infiniteLoop={false}
-						gutter={50}
-						activePosition={'center'}
-						chevronWidth={60}
-						disableSwipe={false}
-						alwaysShowChevrons={true}
-						// 중단점 md이하일때 하나만 뜨도록, 적용 보류
-						numberOfCards={4}
-						slidesToScroll={2}
-						outsideChevron={true}
-						showSlither={true}
-						firstAndLastGutter={true}
-						activeItemIndex={activeItemIndex}
-						requestToChangeActive={value => setActiveItemIndex(value)}
-						rightChevron={'>'}
-						leftChevron={'<'}
-					>
-						{consultants.map((consultant, idx) =>
-							<ConsultantListItem {...consultant} key={idx}/>
-						)}
-					</ItemsCarousel>
-          </>
+					<>
+						<ItemsCarousel
+							infiniteLoop={false}
+							gutter={50}
+							activePosition={'center'}
+							chevronWidth={60}
+							disableSwipe={false}
+							alwaysShowChevrons={true}
+							// 중단점 md이하일때 하나만 뜨도록, 적용 보류
+							numberOfCards={4}
+							slidesToScroll={2}
+							outsideChevron={true}
+							showSlither={true}
+							firstAndLastGutter={true}
+							activeItemIndex={activeItemIndex}
+							requestToChangeActive={value => setActiveItemIndex(value)}
+							rightChevron={'>'}
+							leftChevron={'<'}
+						>
+							{consultants.map((consultant, idx) =>
+								<ConsultantListItem {...consultant} key={idx} />
+							)}
+						</ItemsCarousel>
+					</>
 
 				}
 				<GoCon>
@@ -82,7 +82,7 @@ const ColorBox = styled(Grid)({
 	margin: "0 auto",
 	width: '90vw',
 	height: '80vh',
-	backgroundColor: '#d1c4e9',
+	backgroundColor: '#EB8F90',
 	display: 'flex',
 	flexDirection: 'column',
 	justifyItems: 'center',
