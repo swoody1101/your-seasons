@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Button, Grid, Box, Modal, CardContent, Card, Typography, styled, CardActionArea, CardActions, Tooltip } from '@mui/material';
 import ConsultantDiagnosisReview from './ConsultantDiagnosisReview';
@@ -53,13 +53,14 @@ export const BasicModal = ({ resultImageUrl }) => {
 const ConsultantDiagnosis = () => {
 	const results = useSelector(state => state.mypage.myConsultantDxData);
 
+
 	return (<>
 		<Div>
 			{isEmpty(results) ? <h2>지난 진단 기록이 없습니다.</h2> : results.map(({ consultingId, tone, consultantNickname, 
 				consultantImageUrl, consultingDate, bestColorSet, worstColorSet, resultImageUrl, comment, hasReview }, index) => (
-				<>
+				<div  key={index}>
 				{/* 카드1 */}
-				<SetCard variant="outlined" key={index}>  
+				<SetCard variant="outlined">  
 
 				<CardContent>
 				<Grid container sx={{display: 'flex', flexFlow: 'no-wrap'}}>
@@ -80,14 +81,18 @@ const ConsultantDiagnosis = () => {
 							{/* 색상결과 */}
 							<Pallete>
 								<PalleteItem sx={{ marginTop: 1 }}>베스트 컬러 | 
-									{bestColorSet.map((color, idx) => <Tooltip title={color} placement="top">
-										<Color key={idx} color={color} /></Tooltip>
-										)}</PalleteItem>
+									{bestColorSet.map((color, idx) => (
+                  <Tooltip title={color} key={idx}  placement="top">
+										<Color color={color} /></Tooltip>
+                  ))}
+                </PalleteItem>
 								<PalleteItem sx={{ marginTop: 1 }}>워스트 컬러 | 
-									{worstColorSet.map((color, idx) => <Tooltip title={color}>
-										<Color key={idx} color={color} /></Tooltip>
-										)}</PalleteItem>
-								</Pallete>
+									{worstColorSet.map((color, idx) => (
+                  <Tooltip key={idx} title={color} >
+										<Color color={color} /></Tooltip>
+									))}
+                </PalleteItem>
+              </Pallete>
 							<Line></Line>
 							{/* 코멘트 */}
 							<CommentBox>
@@ -108,7 +113,7 @@ const ConsultantDiagnosis = () => {
 				</CardActions>
 
 				</SetCard>
-				</>
+				</div>
 			))}
 		</Div>
 	</>)

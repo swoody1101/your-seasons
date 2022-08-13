@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { Grid, Container, styled, Stack } from '@mui/material'
+import { Grid, styled, Stack } from '@mui/material'
 import { useParams } from "react-router-dom";
 import StarRating from "common/starrating/StarRating";
 import MyAvatar from "common/avatar/MyAvatar";

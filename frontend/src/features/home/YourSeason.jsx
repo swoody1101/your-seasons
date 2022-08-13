@@ -5,17 +5,9 @@ import HomeProcess1 from './components/HomeProcess1'
 import HomeProcess2 from './components/HomeProcess2'
 import HomeProcess3 from './components/HomeProcess3'
 import { styled } from '@mui/material'
-import { myConsultantDxFetch } from 'features/mypage/mypageSlice';
-import { useSelector, useDispatch } from 'react-redux';
 
 const YourSeason = () => {
-  const dispatch = useDispatch();
-  const { role } = useSelector(state => state.auth.logonUser)
 
-  //  마이페이지에서 써먹을수 있게 커스터머 로그인시 바로 진단결과 상태 저장
-  if (role === 'CUSTOMER') {
-    dispatch(myConsultantDxFetch())
-  }
   return (
     <Div>
       {/* 당신의 계절을 찾아보세요 */}

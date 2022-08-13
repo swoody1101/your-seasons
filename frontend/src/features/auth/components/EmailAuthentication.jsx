@@ -103,8 +103,8 @@ const CheckBnt = styled(Button)`
   height: ${props => (props.label === '' ? '1.8rem' : '2rem')};
   right: 0;
   top: ${props => (props.label === '' ? '0' : '1rem')};
-  border: ${(isTrueEmail) => (isTrueEmail ? "1px solid #ff7775;" : "1px solid #FF7775")};
-  color: ${(isTrueEmail) => (isTrueEmail ? "#ff7775" : "#d9d9d9")};
+  border: ${(isTrueEmail) => (isTrueEmail ? "1px solid #FF7775;" : "1px solid #FF7775")};
+  color: ${(isTrueEmail) => (isTrueEmail ? "#FF7775" : "#d9d9d9")};
   font-size: 1rem;
   border-radius: 2rem;
 `;
@@ -117,7 +117,7 @@ const CheckSuccessBnt = styled(Button)`
   height: ${props => (props.label === '' ? '1.8rem' : '2rem')};
   right: 0;
   top: ${props => (props.label === '' ? '0' : '1rem')};
-  border: ${(isEmailAuthCheck) => (isEmailAuthCheck ? "1px solid #ff7775;" : "1px solid #d9d9d9")};
+  border: ${(isEmailAuthCheck) => (isEmailAuthCheck ? "1px solid #FF7775;" : "1px solid #d9d9d9")};
   color: ${(isEmailAuthCheck) => (isEmailAuthCheck ? "#FF7775" : "#3C3C3C")};
   font-size: 1rem;
   border-radius: 2rem;

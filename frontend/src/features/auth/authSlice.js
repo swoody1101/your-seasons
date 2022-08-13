@@ -140,7 +140,7 @@ export const loginUser = createAsyncThunk(
     try {
       // start
       const response = await Axios.post('members/login', userInfo);
-      const token = response.headers["authorization"]; // 헤더로 받을 때   
+      const token = response.headers["authorization"]; // 헤더로 받을 때
       saveToken(token);
       return response;
     } catch (err) {
@@ -150,6 +150,22 @@ export const loginUser = createAsyncThunk(
     }
   }
 );
+
+// 비밀번호 찾기
+export const searchPasswordFetch = createAsyncThunk(
+  'members/email/3?email=member@ssafy.com',
+  async (email, {rejectWithValue}) => {
+    try{
+      const response = await Axios.get(`members/email/3?email=${email}`);
+      if(response.status === OK){
+        return true;
+      }
+    } catch(err){
+      return false
+    }
+  }
+)
+
 
 // userSlice actions
 export const loadMember = createAsyncThunk(
@@ -253,15 +269,13 @@ const authSlice = createSlice({
   reducers: {
     // login reducers
     logoutUser: (state) => {
-      deleteToken();
-      state.isAuthenticated = false;
-    },
-    resetUser: (state) => {
       state.logonUser = {
         nickname: '',
         role: '',
         imageUrl: '/images/default/avatar01.png',
       }
+      state.isAuthenticated = false;
+      deleteToken();
     },
     // modify reducers
     modalOn: (state) => {
@@ -311,7 +325,7 @@ const authSlice = createSlice({
 })
 
 
-export const { logoutUser, resetUser, modifyLogonUser } = authSlice.actions;
+export const { logoutUser, modifyLogonUser } = authSlice.actions;
 export const { modalOn, modalOff } = authSlice.actions;
 
 export default authSlice.reducer
