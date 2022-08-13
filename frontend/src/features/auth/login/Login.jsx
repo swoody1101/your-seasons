@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux/es/exports';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 import {
   Container, Button,
   Checkbox, FormControlLabel,
-  TextField, Grid, Link,
+  TextField, Grid,
   Typography, Avatar, styled
 } from '@mui/material';
 import { useMediaQuery } from '@mui/material'
@@ -39,19 +39,27 @@ const Login = () => {
     }
   }, [cookies]) // 
 
-  // 토큰이 이미 있으면 이전페이지로 이동
+
+  // 토큰 expire여부 체크 후 삭제, 또는 이미 있으면 이전페이지로 이동
   useEffect(()=>{
-    const token =  getToken()
-    if(token){
-      alert('이미 로그인이 되어 있습니다. 이전페이지로 이동합니다.')
-      window.history.go(-1)
+    if(window.localStorage.getItem("Authorization")){
+      let date = new Date()
+      if(date > new Date(window.localStorage.getItem("expiredTime"))){
+        dispatch(logoutUser())
+        alert('자동 로그아웃 되었습니다. 로그인이 필요합니다.')
+        return false
+      }else{
+        alert('이미 로그인이 되어 있습니다. 메인페이지로 이동합니다.')
+        navigate('/')
+      }
     }else{
       return
     }
   }, [])
 
+
   const handleSubmit = (e) => {
-    console.log({ email, password, isSaved })
+    e.preventDefault();
     if (email === '' || password === '') {
       return;
     }
@@ -66,9 +74,8 @@ const Login = () => {
       .unwrap() // 오류처리
       .then((res) => {
         if (res.status === OK) {
-          alert('안녕하세요')
           navigate('/')
-          console.log(res)
+          alert('안녕하세요')
           dispatch(loadMember(res.data.role))
         } else {
           alert('적절한 요청이 아닙니다.')
@@ -102,7 +109,7 @@ const Login = () => {
 
 
   return (
-    <Container sx={{}}>
+    <Container>
       <SGrid container
         direction="row"
         justifyContent="center"
@@ -125,6 +132,7 @@ const Login = () => {
           sx={{ width: "80%" }}
         >
           <Grid item>
+            <form onSubmit={handleSubmit} >
             <Typography
               component="h1"
               variant="h5"
@@ -168,20 +176,21 @@ const Login = () => {
               type="submit"
               fullWidth
               variant="contained"
-              onClick={handleSubmit}
               sx={{ mt: 3, mb: 2 }}
             >
               로그인
             </Button>
+            </form>
+
             <Grid container
               sx={{
                 display: 'flex',
                 justifyContent: 'space-between',
               }}>
-              <Link href="/#" variant="body2">
+              <Link to="/searchpassword" variant="body2">
                 비밀번호 찾기
               </Link>
-              <span><Link href="/signup" variant="body2">{"퍼스널 컬러 찾으러 가기"}</Link></span>
+              <span><Link to="/signup" variant="body2">{"퍼스널 컬러 찾으러 가기"}</Link></span>
             </Grid>
           </Grid>
 
@@ -214,7 +223,6 @@ const CenterGrid = styled(Grid)({
 });
 
 const SGrid = styled(Grid)({
-  // marginTop: "5rem",
   backgroundColor: "#F1F1F190",
   padding: '2rem',
   borderRadius: '1rem',

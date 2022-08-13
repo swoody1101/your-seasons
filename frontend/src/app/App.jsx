@@ -17,6 +17,7 @@ import ModifyProfile from 'features/auth/modify/ModifyProfile'
 import ConsultantResPage from 'features/consulting/reservation/ConsultantResPage'
 import Login from 'features/auth/login/Login'
 import SignUp from 'features/auth/signup/SignUp'
+import SearchPassword from 'features/auth/login/SearchPassword'
 import ConsultantList from 'features/consulting/consultantList/ConsultantList'
 import Footer from 'common/Footer'
 
@@ -33,7 +34,7 @@ const App = () => {
         useLocation().pathname !== '/consult'
         && <ConsultButton />
       }
-      <Stack direction="column" spacing={2} justifyContent="space-between" sx={{ minHeight: "100vh" }}>
+      <Stack direction="column" justifyContent="space-between" sx={{ minHeight: "100vh" }}>
         <Routes>
           <Route path='/' element={<Yourseason />} />
           <Route path='/consult' element={<Consult />} />
@@ -45,6 +46,7 @@ const App = () => {
           <Route path='/consultants/detail/:id' element={<ConsultantResPage />} />
           <Route path='/modify' element={<ModifyProfile />} />
           <Route path='/login' element={<Login />} />
+          <Route path='/searchpassword' element={<SearchPassword />} />
           <Route path='/signup' element={<SignUp />} />
         </Routes>
         <Footer />
