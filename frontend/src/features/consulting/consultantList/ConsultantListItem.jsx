@@ -7,6 +7,7 @@ import StarRating from './StarRating'
 import OtherAvatar from '../../../common/avatar/OtherAvatar'
 
 const ConsultantListItem = ({ consultantId, nickname, introduction, starAverage, reviewCount, cost, imageUrl }) => {
+  const iscost = cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 
 	return (<>
 	<Link to={`/consultants/detail/${consultantId}`}>
@@ -34,7 +35,7 @@ const ConsultantListItem = ({ consultantId, nickname, introduction, starAverage,
 					</IntroduceDiv>
 					{/* 가격 */}
 					<Cost>
-						가격: {cost ? cost + ' 원': '등록된 비용이 없습니다.'}
+						가격: {cost ? iscost + ' 원': '등록된 비용이 없습니다.'}
 					</Cost>
 				</CardContent>
 			</CardActionArea>

@@ -7,6 +7,8 @@ import ConsultantListItem from 'features/consulting/consultantList/ConsultantLis
 import ItemsCarousel from 'react-items-carousel'
 import { TopTenListFetch } from 'features/consulting/consultantListSlice';
 
+
+
 const HomePopularConsultant = () => {
 	const consultants = useSelector(state => state.consultantList.topTen)
 
@@ -14,7 +16,34 @@ const HomePopularConsultant = () => {
 	const dispatch = useDispatch()
 	const hasConsultants = _.isEmpty(consultants)
 	const [activeItemIndex, setActiveItemIndex] = useState(0);
+  const [cardNum, setCardNum] = useState(4)
 
+  const handleResize = () => {
+    // console.log(`브라우저 화면 사이즈 x: ${window.innerWidth}, y: ${window.innerHeight}`);
+    if(window.innerWidth<660){
+      setCardNum(1)
+    }
+    if(window.innerWidth<1000){
+      setCardNum(2)
+    }
+    else if(window.innerWidth<1300){
+      setCardNum(3)
+      return
+    }else if(window.innerWidth<1600){
+      setCardNum(4)
+    }else{
+      setCardNum(5)
+      return 
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    handleResize()
+    return () => { // cleanup 
+      window.removeEventListener('resize', handleResize);
+    }
+  }, []);
 
 	useEffect(() => {
 		dispatch(TopTenListFetch())
@@ -36,15 +65,15 @@ const HomePopularConsultant = () => {
 							infiniteLoop={false}
 							gutter={50}
 							activePosition={'center'}
-							chevronWidth={60}
+							chevronWidth={10}
 							disableSwipe={false}
-							alwaysShowChevrons={true}
+							alwaysShowChevrons={false}
 							// 중단점 md이하일때 하나만 뜨도록, 적용 보류
-							numberOfCards={4}
-							slidesToScroll={2}
+							numberOfCards={cardNum} //한 화면에 보여줄 아이템수
+							slidesToScroll={1} // 한번에 슬라이드 시킬 아이템 개수
 							outsideChevron={true}
-							showSlither={true}
-							firstAndLastGutter={true}
+							showSlither={false}
+							firstAndLastGutter={false}
 							activeItemIndex={activeItemIndex}
 							requestToChangeActive={value => setActiveItemIndex(value)}
 							rightChevron={'>'}
@@ -118,3 +147,6 @@ const GoCon = styled(Typography)({
 	letterSpacing: 'var(--font-letter-spacing)',
 	color: '#00000099',
 })
+
+
+

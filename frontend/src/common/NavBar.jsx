@@ -137,8 +137,9 @@ const Logos = styled(Box)(({ theme }) => ({
 
 
 const LogoText = styled(Typography)({
-	fontFamily: 'Happiness-Sans-Title !important',
+	fontFamily: 'malgunbd !important',
 	color: "#FFFFFF",
+	letterSpacing: 'var(--font-letter-spacing)',
 })
 
 
