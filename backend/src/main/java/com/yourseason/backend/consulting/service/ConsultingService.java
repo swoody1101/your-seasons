@@ -104,7 +104,7 @@ public class ConsultingService {
 
     @Transactional
     public Message finishConsulting(Long consultantId, ConsultingFinishRequest consultingFinishRequest, MultipartFile multipartFile) {
-        Consulting consulting = consultingRepository.findById(consultantId)
+        Consulting consulting = consultingRepository.findById(consultingFinishRequest.getConsultingId())
                 .orElseThrow(() -> new NotFoundException(CONSULTING_NOT_FOUND));
         consulting.done();
 
