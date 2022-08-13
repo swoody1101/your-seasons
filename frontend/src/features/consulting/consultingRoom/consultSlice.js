@@ -5,7 +5,7 @@ const initialState = {
   customer: undefined,
   isSetClear: false,
   consultantSessionName: 's-s-s',
-  consultingID: 0,
+  consultingId: 0,
   videobalance: {
     hue: 0.0,
     saturation: 1.0,
