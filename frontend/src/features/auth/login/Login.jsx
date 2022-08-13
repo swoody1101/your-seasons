@@ -39,12 +39,19 @@ const Login = () => {
     }
   }, [cookies]) // 
 
-  // 토큰이 이미 있으면 이전페이지로 이동
+
+  // 토큰 expire여부 체크 후 삭제, 또는 이미 있으면 이전페이지로 이동
   useEffect(()=>{
-    const token = getToken()
-    if(token){
-      alert('이미 로그인이 되어 있습니다. 메인페이지로 이동합니다..')
-      navigate('/')
+    if(window.localStorage.getItem("Authorization")){
+      let date = new Date()
+      if(date > new Date(window.localStorage.getItem("expiredTime"))){
+        dispatch(logoutUser())
+        alert('자동 로그아웃 되었습니다. 로그인이 필요합니다.')
+        return false
+      }else{
+        alert('이미 로그인이 되어 있습니다. 메인페이지로 이동합니다.')
+        navigate('/')
+      }
     }else{
       return
     }

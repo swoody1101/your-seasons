@@ -16,10 +16,10 @@ const ConsultantMyPage = () => {
     const token =  getToken()
     if (token){
       dispatch(consultingResFetch())
-      }else{
-        alert('로그인 후 접근해 주세요');
-        navigate('/login')
-      }
+    }else{
+      alert('로그인 후 접근해 주세요');
+      navigate('/login')
+    }
   }, [])
 
   useEffect(() => {

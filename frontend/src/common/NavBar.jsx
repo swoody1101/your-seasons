@@ -21,7 +21,7 @@ const NavBar = () => {
   const logout = () => {
     const isrole = role
     const nick = logonUser.nickname
-    dispatch(logoutUser()) // deleteToken
+    dispatch(logoutUser()) 
     alert(isrole + "인 " + nick + "님이 로그아웃 되었습니다.") // state 체크 용 추후 삭제
     navigate('/')
   }
