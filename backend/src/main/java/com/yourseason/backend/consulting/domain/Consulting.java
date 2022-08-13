@@ -4,6 +4,7 @@ import com.yourseason.backend.common.domain.BaseTimeEntity;
 import com.yourseason.backend.consulting.domain.result.TestResult;
 import com.yourseason.backend.member.consultant.domain.Consultant;
 import com.yourseason.backend.member.customer.domain.Customer;
+import com.yourseason.backend.reservation.domain.Reservation;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -61,5 +62,13 @@ public class Consulting extends BaseTimeEntity {
 
     public void enterCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public void done() {
+        consultant.getReservations()
+                .stream()
+                .filter(Reservation::isActive)
+                .findFirst()
+                .ifPresent(Reservation::done);
     }
 }
