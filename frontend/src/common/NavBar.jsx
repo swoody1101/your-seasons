@@ -92,9 +92,9 @@ const NavBar = () => {
                   <Link to="consultants">컨설턴트 목록</Link>
                 </Typography>
                 <Link to="mypage">
-                  <Box sx={{ display: 'flex', flexDirection: 'row', alignItem: 'center', gap: '3px' }}>
+                  <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '3px' }}>
                     <Typography variant="h6" sx={{ display: 'inline' }}>
-                      "{nickname}"
+                      {nickname}
                     </Typography>
                     <MyAvatar setSize={4} imgUrl={imageUrl} />
                   </Box>
