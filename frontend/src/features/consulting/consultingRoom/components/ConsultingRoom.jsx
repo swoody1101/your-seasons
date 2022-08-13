@@ -23,10 +23,9 @@ const OPENVIDU_SERVER_SECRET = 'YOUR_SEASONS_SECRET';
 
 // rafce Arrow function style 
 const ConsultingRoom = () => {
-  const { consultingID } = useSelector(state => state.consult.consultingID)
   const { nickname, role, email } = useSelector(state => state.auth.logonUser)
-  const { customer, consultantSessionName } = useSelector(state => state.consult)
-  const tmp = email
+  const { consultingId, customer, consultantSessionName } = useSelector(state => state.consult)
+  const tmp = email.replace(/[@\.]/g, '-')
   const [mySessionId, setMySessionId] = useState(
     role === CONSULTANT ? tmp : consultantSessionName
   )
@@ -52,7 +51,7 @@ const ConsultingRoom = () => {
   const selectedTone = useSelector(state => state.colorSetList.tone)
   const files = useSelector(state => state.colorSetList.files)
   const consultingFinishRequest = {
-    consultingID: consultingID,
+    consultingID: consultingId,
     comment: comment,
     tone: selectedTone,
     bestColorSet: bestColor,
@@ -160,9 +159,9 @@ const ConsultingRoom = () => {
 
   const leaveSession = () => {
     if (session) {
+      session.disconnect();
       dispatch(postConsultingResult({ files, consultingFinishRequest }))
         .then(() => {
-          session.disconnect();
           dispatch(changeComment(''))
           dispatch(selectTone(''))
           dispatch(setFiles(''))
