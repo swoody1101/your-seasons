@@ -35,4 +35,8 @@ public class Color extends BaseTimeEntity {
         this.tone = tone;
         this.colorColorSets = colorColorSets;
     }
+
+    public void addColorColorSet(ColorColorSet colorColorSet) {
+        colorColorSets.add(colorColorSet);
+    }
 }

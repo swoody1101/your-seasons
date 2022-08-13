@@ -56,6 +56,10 @@ public class Reservation extends BaseTimeEntity {
         super.delete();
     }
 
+    public void done() {
+        super.delete();
+    }
+
     private void setCustomer(Customer customer) {
         this.customer = customer;
         customer.getReservations().add(this);
