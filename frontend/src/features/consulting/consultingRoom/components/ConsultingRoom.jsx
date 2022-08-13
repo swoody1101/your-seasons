@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { OpenVidu } from 'openvidu-browser';
 import UserVideoComponent from './UserVideoComponent';
 
-import { Box, Button, Grid, styled, Typography, ButtonGroup, IconButton } from '@mui/material'
+import { Box, Button, Grid, styled, Typography, ButtonGroup, IconButton, CircularProgress } from '@mui/material'
 import { Mic, MicOff, Videocam, VideocamOff } from '@mui/icons-material';
 
 
@@ -39,6 +39,9 @@ const ConsultingRoom = () => {
   const [mainStreamManager, setMainStreamManager] = useState(undefined)
   const [publisher, setPublisher] = useState(undefined)
   const [consultant, setConsultant] = useState(undefined)
+  const [streamManagers, setStreamManagers] = useState(undefined)
+
+  const [testVideo, setTestVideo] = useState(undefined)
 
   const [OV, setOV] = useState(null)
 
@@ -51,13 +54,14 @@ const ConsultingRoom = () => {
   const selectedTone = useSelector(state => state.colorSetList.tone)
   const files = useSelector(state => state.colorSetList.files)
   const consultingFinishRequest = {
-    consultingID: consultingId,
+    consultingId: consultingId,
     comment: comment,
     tone: selectedTone,
     bestColorSet: bestColor,
     worstColorSet: worstColor
   }
   const dispatch = useDispatch()
+
   useEffect(() => {
     window.addEventListener(
       'beforeunload',
@@ -76,36 +80,58 @@ const ConsultingRoom = () => {
       session.on('streamDestroyed', streamDestroyed)
       session.on('exception', exception)
       session.on('signal:colorset', shareColorset)
-      getToken().then((token) => {
-        session
-          .connect(
-            token,
-            {
-              clientData: myUserName,
-            },
-          )
-          .then(() => {
-            let publisher = OV.initPublisher(undefined, {
-              audioSource: undefined,
-              videoSource: undefined,
-              publishAudio: true,
-              publishVideo: true,
-              resolution: '640x480',
-              frameRate: 30,
-              insertMode: 'APPEND',
-              mirror: false,
-            });
-            session.publish(publisher);
-            setMainStreamManager(publisher);
-            setPublisher(publisher);
-            if (role === CUSTOMER) { dispatch(setCustomer(publisher)) }
-            if (role === CONSULTANT) { setConsultant(publisher) }
-            setSession(session)
-          })
-          .catch((error) => { });
-      });
+      getToken().then(sessionConnect);
     }
   }, [session])
+
+  const sessionConnect = (token) => {
+    session
+      .connect(
+        token, { clientData: myUserName, clientRole: role },
+      )
+      .then(() => {
+        let publisher = OV.initPublisher(undefined, {
+          audioSource: undefined,
+          videoSource: undefined,
+          publishAudio: true,
+          publishVideo: true,
+          resolution: '640x480',
+          frameRate: 30,
+          insertMode: 'APPEND',
+          mirror: false,
+        });
+        session.publish(publisher);
+        setMainStreamManager(publisher);
+        setPublisher(publisher);
+        setStreamManagers(session.streamManagers);
+        if (role === CUSTOMER) { dispatch(setCustomer(publisher)) }
+        if (role === CONSULTANT) { setConsultant(publisher) }
+        setSession(session)
+      })
+      .catch((error) => { });
+  }
+
+  useEffect(() => {
+    if (session && session.streamManagers.length > 0) {
+      setStreamManagers(session.streamManagers)
+    }
+  }, [session])
+
+  useEffect(() => {
+    if (streamManagers && role === CUSTOMER) {
+      for (let i = 0; i < streamManagers.length; i++) {
+        if (streamManagers[i].stream.connection) {
+          let subRole = JSON.parse(streamManagers[i].stream.connection.data).clientRole;
+          if (testVideo === undefined && subRole === CUSTOMER) {
+            console.log(streamManagers[i])
+            
+            session.subscribe(streamManagers[i], undefined)
+            setTestVideo(streamManagers[i])
+          }
+        }
+      }
+    }
+  }, [streamManagers])
 
   useEffect(() => {
     if (session && role === CONSULTANT) {
@@ -144,8 +170,9 @@ const ConsultingRoom = () => {
 
   const streamCreated = (event) => {
     const subscriber = session.subscribe(event.stream, undefined);
+    const subRole = JSON.parse(event.stream.connection.data).clientRole;
     if (role === CONSULTANT) { dispatch(setCustomer(subscriber)) }
-    if (role === CUSTOMER) { setConsultant(subscriber) }
+    else if (role === CUSTOMER) { subRole === CUSTOMER ? setTestVideo(subscriber) : setConsultant(subscriber) }
   }
 
   const streamDestroyed = (event) => {
@@ -272,9 +299,9 @@ const ConsultingRoom = () => {
 
   // ---------- render
   return (
-    <SContainer className="container">
+    <SContainer container backgroundColor={`${selectedColor}60`}>
       {session !== undefined ? (
-        <SGridContainer container backgroundColor={`${selectedColor}60`}>
+        <SGridContainer container backgroundColor={`${selectedColor}10`}>
 
           {consultant !== undefined ? (
             <SGrid item xs={12} sm={2}>
@@ -294,7 +321,12 @@ const ConsultingRoom = () => {
                 setIsWorst={setIsWorst}
               />
             </SGrid>
-          ) : null}
+          )
+            :
+            <SpinnerGrid item xs={12} sm={2}>
+              <CircularProgress />
+            </SpinnerGrid>
+          }
 
           {customer !== undefined ? (
             <SGrid item xs={12} sm={6}>
@@ -307,7 +339,12 @@ const ConsultingRoom = () => {
                 isWorst={isWorst}
               />
             </SGrid>
-          ) : null}
+          )
+            :
+            <SpinnerGrid item xs={12} sm={6}>
+              <CircularProgress />
+            </SpinnerGrid>
+          }
 
           {
             role === CONSULTANT &&
@@ -316,9 +353,25 @@ const ConsultingRoom = () => {
               isWorst={isWorst}
             />
           }
-
+          {testVideo !== undefined ? (
+            <SGrid item xs={12} sm={4}>
+              <VideoContainer>
+                <UserVideoComponent
+                  streamManager={testVideo} />
+              </VideoContainer>
+            </SGrid>
+          )
+            :
+            <SpinnerGrid item xs={12} sm={4}>
+              <CircularProgress />
+            </SpinnerGrid>}
         </SGridContainer>
-      ) : <div />}
+      )
+        :
+        <SpinnerGrid container>
+          <Typography variant="h3">"연결을 눌러 주세요."</Typography>
+        </SpinnerGrid>
+      }
 
 
       <Box sx={{
@@ -330,11 +383,11 @@ const ConsultingRoom = () => {
       }}>
         {
           !session ?
-            <Button variant="contained" onClick={joinSession}>
+            <Button variant="contained" onClick={joinSession} sx={{ marginBottom: "1rem" }}>
               연결
             </Button>
             :
-            <ButtonGroup >
+            <ButtonGroup sx={{ marginBottom: "1rem" }}>
               <IconButton
                 color="inherit"
                 onClick={() => {
@@ -355,7 +408,7 @@ const ConsultingRoom = () => {
             </ButtonGroup>
         }
 
-        <ButtonGroup >
+        <ButtonGroup sx={{ marginBottom: "1rem" }}>
           <Button variant="outlined" onClick={() => dispatch(settingModalOn())} >
             화면 조정
           </Button>
@@ -391,7 +444,7 @@ export default ConsultingRoom
 
 const SContainer = styled(Box)({
   padding: "1rem",
-  height: "97%",
+  height: "100%",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
@@ -399,7 +452,16 @@ const SContainer = styled(Box)({
 
 const SGridContainer = styled(Grid)({
   height: "100%",
-  alignItems: "start",
+  alignItems: "center",
+})
+
+const SpinnerGrid = styled(Grid)({
+  width: "100%",
+  height: "100%",
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "center",
+  alignItems: "center"
 })
 
 const SGrid = styled(Grid)({
