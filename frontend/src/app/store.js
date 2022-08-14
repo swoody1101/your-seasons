@@ -13,6 +13,7 @@ import MypageReducer from "features/mypage/mypageSlice";
 // common
 import AvatarReducer from "common/avatar/avatarSlice";
 import ColorSetReducer from 'common/colorset/colorSetSlice'
+import SnackBarReducer from  'common/snackbar/snackbarSlice'
 
 const reducers = combineReducers({
   auth: AuthReducer,
@@ -21,6 +22,7 @@ const reducers = combineReducers({
   consultantList: ConsultantListReducer,
   avatar: AvatarReducer,
   colorSetList: ColorSetReducer,
+  snackbar: SnackBarReducer,
 });
 
 const persistConfig = {

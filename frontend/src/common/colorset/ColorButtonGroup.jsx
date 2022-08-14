@@ -1,31 +1,52 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
+import HeartBrokenIcon from '@mui/icons-material/HeartBroken';
 import { removeSelectColor, addBestColor, removeBestColor, addWorstColor, removeWorstColor } from './colorSetSlice'
 
-import { Box, Button } from '@mui/material'
+import { Box, Fab } from '@mui/material'
 
 const ColorButtonGroup = ({
   isBest,
-  isWorst
+  isWorst,
+  setIsBest,
+  setIsWorst,
+  clickColorFirst,
+  clickColorFirstFunc
 }) => {
   const selectedColor = useSelector(state => state.colorSetList.selectedColor)
   const dispatch = useDispatch()
+
+  const onFirstClick = () => {
+    if(clickColorFirst === false){
+      clickColorFirstFunc();
+      return
+    }else{
+      return
+    }
+  }
+
+
   return (
     <Box container>
-      <Button onClick={() => dispatch(removeSelectColor(selectedColor))}>현재 배경 제거</Button>
-      <FavoriteRoundedIcon sx={{ color: selectedColor }}></FavoriteRoundedIcon>
-      <Button sx={{ display: isBest ? 'none' : '' }}
-        onClick={() => { dispatch(addBestColor(selectedColor)); }}>Add Best</Button>
-      <Button sx={{ display: isBest ? '' : 'none' }}
-        onClick={() => { dispatch(removeBestColor(selectedColor)); }}>Remove Best</Button>
-      <FavoriteRoundedIcon sx={{ color: selectedColor }}></FavoriteRoundedIcon>
-      <Button sx={{ display: isWorst ? 'none' : '' }}
-        onClick={() => { dispatch(addWorstColor(selectedColor)); }}>Add Worst</Button>
-      <Button sx={{ display: isWorst ? '' : 'none' }}
-        onClick={() => { dispatch(removeWorstColor(selectedColor)); }}>Remove Worst</Button>
+      <Fab variant="extended" color="inherit" onClick={() => dispatch(removeSelectColor(selectedColor))}>
+        현재 배경 제거
+      </Fab>
+      {/* bestbtn */}
+      <Fab variant="extended" color="inherit" sx={{ display: isBest ? 'none' : '' }} 
+        onClick={() => { dispatch(addBestColor(selectedColor)); onFirstClick(); }}>
+        <FavoriteRoundedIcon sx={{ color: selectedColor, mr: 1 }} /> 추가 </Fab>
+      <Fab variant="extended" color="inherit" sx={{ display: isBest ? '' : 'none' }} 
+        onClick={() => { dispatch(removeBestColor(selectedColor)); setIsBest(false); }}>
+        <FavoriteRoundedIcon sx={{ color: selectedColor, mr: 1 }} /> 제거 </Fab>
+      {/* worstbtn */}
+      <Fab variant="extended" color="inherit" sx={{ display: isWorst ? 'none' : '' }} 
+        onClick={() => { dispatch(addWorstColor(selectedColor)); onFirstClick(); }}>
+        <HeartBrokenIcon sx={{ color: selectedColor, mr: 1 }} /> 추가 </Fab>
+      <Fab variant="extended" color="inherit" sx={{ display: isWorst ? '' : 'none' }} 
+        onClick={() => { dispatch(removeWorstColor(selectedColor)); setIsWorst(false); }}>
+        <HeartBrokenIcon sx={{ color: selectedColor, mr: 1 }} /> 제거 </Fab>
     </Box>
   )
 }

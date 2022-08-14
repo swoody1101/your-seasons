@@ -9,6 +9,7 @@ import { Box, Button, Grid, styled, Typography, ButtonGroup, IconButton, Circula
 import { Mic, MicOff, Videocam, VideocamOff } from '@mui/icons-material';
 
 
+import { setSnackbarMessage, setSnackBarOpen } from 'common/snackbar/snackbarSlice'; 
 import { settingModalOn, setSession, setCustomer, postConsultingResult } from 'features/consulting/consultingRoom/consultSlice'
 
 import { CONSULTANT, CUSTOMER } from 'api/CustomConst'
@@ -24,6 +25,8 @@ import ColorButtonGroup from 'common/colorset/ColorButtonGroup'
 const OPENVIDU_SERVER_URL = 'https://yourseasons.anveloper.kr:8443';
 const OPENVIDU_SERVER_SECRET = 'YOUR_SEASONS_SECRET';
 
+
+
 // rafce Arrow function style 
 const ConsultingRoom = () => {
   const { nickname, role, email, imageUrl } = useSelector(state => state.auth.logonUser)
@@ -35,6 +38,7 @@ const ConsultingRoom = () => {
 
   const [isBest, setIsBest] = useState(false)
   const [isWorst, setIsWorst] = useState(false)
+  const [clickColorFirst, setClickColorFirst] = useState(false)
 
   const [myUserName, setMyUserName] = useState(nickname)
 
@@ -154,6 +158,17 @@ const ConsultingRoom = () => {
     const newBestColor = JSON.parse(data[1])
     const newWorstColor = JSON.parse(data[2])
     dispatch(sharedColorSet({ newSelectedColor, newBestColor, newWorstColor }))
+  }
+
+  // 하단 alert관련
+  const clickColorFirstFunc = () => {
+    if(clickColorFirst===false){
+      setClickColorFirst(true)
+      dispatch(setSnackbarMessage('컬러를 성공적으로 추가하였습니다! 컬러팔레트 안의 색상을 선택한 후 제거해보세요.'))
+      dispatch(setSnackBarOpen(true))
+    }else{
+      return
+    }
   }
 
   const onbeforeunload = () => {
@@ -301,6 +316,7 @@ const ConsultingRoom = () => {
 
   // ---------- render
   return (
+    <Stack spacing={2} sx={{ width: '100%' }}>
     <SContainer container backgroundColor={`${selectedColor}40`}>
       {session !== undefined ? (
         <SGridContainer container >
@@ -348,8 +364,12 @@ const ConsultingRoom = () => {
                   streamManager={customer} />
               </VideoContainer>
               <ColorButtonGroup
+                clickColorFirstFunc={clickColorFirstFunc}
+                clickColorFirst={clickColorFirst}
                 isBest={isBest}
                 isWorst={isWorst}
+                setIsBest={setIsBest}
+                setIsWorst={setIsWorst}
               />
               {role === CONSULTANT &&
                 <ConSelectedColorSet
@@ -449,6 +469,7 @@ const ConsultingRoom = () => {
         </ButtonGroup>
       </Box>
     </SContainer>
+  </Stack>
   )
 }
 
