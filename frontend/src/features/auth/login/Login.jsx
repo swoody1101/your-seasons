@@ -47,13 +47,11 @@ const Login = () => {
       if(date > new Date(window.localStorage.getItem("expiredTime"))){
         dispatch(logoutUser())
         alert('자동 로그아웃 되었습니다. 로그인이 필요합니다.')
-        return false
       }else{
         alert('이미 로그인이 되어 있습니다. 메인페이지로 이동합니다.')
         navigate('/')
       }
     }else{
-      return
     }
   }, [])
 
