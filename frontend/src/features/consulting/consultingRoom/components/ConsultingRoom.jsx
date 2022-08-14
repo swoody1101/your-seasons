@@ -348,12 +348,15 @@ const ConsultingRoom = () => {
 
           {
             role === CONSULTANT &&
-            < ColorPalette
-              isBest={isBest}
-              isWorst={isWorst}
-            />
+            <SGrid item xs={12} sm={4} sx={{ height: "90%" }}>              
+              < ColorPalette
+                isBest={isBest}
+                isWorst={isWorst}
+              />
+              <Chat />
+            </SGrid>
           }
-          {testVideo !== undefined ? (
+          {customer !== undefined ? (
             <SGrid item xs={12} sm={4} sx={{ height: "90%" }}>
               {/* chat */}
               <Chat />
