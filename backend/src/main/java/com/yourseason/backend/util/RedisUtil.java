@@ -30,7 +30,8 @@ public class RedisUtil {
 
     public static void setDataExpired(String key, String value, long duration) {
         Duration expireDuration = Duration.ofSeconds(duration);
-        staticRedisTemplate.opsForValue().set(key, value, expireDuration);
+        staticRedisTemplate.opsForValue()
+                .set(key, value, expireDuration);
     }
 
     public static boolean validateData(String key, String value) {
