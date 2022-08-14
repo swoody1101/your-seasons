@@ -210,7 +210,7 @@ const SignUp = () => {
   }
 
   return (
-    <Container sx={{ xs: 'none', sm: 'block' }}>
+    <Container sx={{ xs: 'none', sm: 'block', height:'100vh' }}>
       <CssBaseline />
       <SGrid container
         direction="column"
