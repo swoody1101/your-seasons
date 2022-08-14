@@ -119,9 +119,9 @@ const MainColorSet = () => {
                 orientation="vertical"
                 onChange={handleSubChange}
                 sx={{ borderLeft: 1, borderColor: 'divider', width: '25%' }}>
-                <CTab label="소프트" value={1} />
-                <CTab label="트루" value={2} />
-                <CTab label="다크" value={3} />
+                <CTab label="소프트" value={"1"} />
+                <CTab label="트루" value={"2"} />
+                <CTab label="다크" value={"3"} />
               </TabList>
             </Box>
           </TabContext>

@@ -6,11 +6,9 @@ const BestColorSet = ({ setIsBest }) => {
   const bestcolors = useSelector(state => state.colorSetList.bestColor)
   const dispatch = useDispatch()
 
-
-  return (
-    <div>
-      <div>BEST COLOR SET</div>
-      <div style={{ display: 'flex', justifyContent: 'start', alignContent: 'center', backgroundColor: '#f5f5f5', width: '100%', height: 60, border: '1px solid black' }}>
+	return (<>
+		<p>베스트 컬러팔레트</p>
+		<div style={{ display:'flex', justifyContent:'start', alignContent:'center', backgroundColor: '#f5f5f5', width: '100%',  height: 60, border: '1px solid black'}}>
         {bestcolors.map((item, index) => (
           <div
             onClick={() => {
@@ -20,9 +18,8 @@ const BestColorSet = ({ setIsBest }) => {
             style={{ backgroundColor: item, width: 50, height: 50, margin: 5 }}
             key={index}>{item}</div>
         ))}
-      </div>
-    </div>
-  )
+		</div>
+	</>)
 }
 
 export default BestColorSet

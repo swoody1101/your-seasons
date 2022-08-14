@@ -100,7 +100,7 @@ export const emailSendCheck = createAsyncThunk(
     }
   }
 );
-  
+
 // 이메일 발송 후 토큰 체크 
 export const emailAuthCheck = createAsyncThunk(
   'members/email/2',

@@ -20,6 +20,7 @@ import SignUp from 'features/auth/signup/SignUp'
 import SearchPassword from 'features/auth/login/SearchPassword'
 import ConsultantList from 'features/consulting/consultantList/ConsultantList'
 import Footer from 'common/Footer'
+import CustomizedSnackbars from 'common/snackbar/CustomizedSnackbars'
 
 import { Box, Stack } from '@mui/material'
 import { CUSTOMER } from '../api/CustomConst'
@@ -49,6 +50,7 @@ const App = () => {
           <Route path='/searchpassword' element={<SearchPassword />} />
           <Route path='/signup' element={<SignUp />} />
         </Routes>
+        <CustomizedSnackbars /> 
         <Footer />
       </Stack>
     </Box>
