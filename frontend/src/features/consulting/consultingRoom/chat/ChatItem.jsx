@@ -50,5 +50,5 @@ const MessageBox = styled(Box)((props) => ({
 
 const Message = styled('p')((props) => ({
   color: (props.side === "right" ? "#FFFFFF" : "#3f51b5"),
-  fontSize: '1.2rem'
+  fontSize: '1rem'
 }))

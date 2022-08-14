@@ -6,7 +6,7 @@ import MessageIcon from '@mui/icons-material/Message';
 import ChatList from './ChatList'
 import { appendMessageList } from 'features/consulting/consultingRoom/consultSlice'
 
-const Chat = () => {
+const SmallChat = () => {
   const [msg, setMsg] = useState('')
   const { role, imageUrl } = useSelector(state => state.auth.logonUser)
   const { session, messageId } = useSelector(state => state.consult)
@@ -56,7 +56,7 @@ const Chat = () => {
   }
 
   return (
-    <ChatGrid item xs={12} sm={4}>
+    <ChatGrid item xs={12}>
       <ChatContainer>
         <ChatList />
         <IContainer>
@@ -73,10 +73,11 @@ const Chat = () => {
   )
 }
 
-export default Chat
+export default SmallChat
 
 const ChatGrid = styled(Grid)({
-  height: "88%",
+  width: "100%",
+  height: "60%",
   display: "flex",
   flexDirection: "column",
   justifyContent: "flex-end",
@@ -106,9 +107,9 @@ const IContainer = styled(Box)({
 })
 
 const Input = styled('input')({
-  fontSize: "1.2rem",
-  padding: "0.4rem 1rem",
+  fontSize: "1rem",
+  padding: "0.2rem 1rem",
   width: "calc(100% - 40px)",
   border: "1px  solid",
-  borderRadius: "1rem",
+  borderRadius: "0.8rem",
 })

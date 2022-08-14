@@ -15,8 +15,10 @@ import { CONSULTANT, CUSTOMER } from 'api/CustomConst'
 import { sharedColorSet, changeComment, selectTone, setFiles } from 'common/colorset/colorSetSlice'
 
 import Chat from 'features/consulting/consultingRoom/chat/Chat'
+import SmallChat from 'features/consulting/consultingRoom/chat/SmallChat'
 import ColorPalette from 'common/colorset/ColorPalette'
 import SelectedColorSet from 'common/colorset/SelectedColorSet';
+import ConSelectedColorSet from 'common/colorset/ConSelectedColorSet';
 import ColorButtonGroup from 'common/colorset/ColorButtonGroup'
 
 const OPENVIDU_SERVER_URL = 'https://yourseasons.anveloper.kr:8443';
@@ -299,28 +301,39 @@ const ConsultingRoom = () => {
 
   // ---------- render
   return (
-    <SContainer container backgroundColor={`${selectedColor}60`}>
+    <SContainer container backgroundColor={`${selectedColor}40`}>
       {session !== undefined ? (
-        <SGridContainer container backgroundColor={`${selectedColor}10`}>
+        <SGridContainer container >
 
           {consultant !== undefined ? (
-            <SGrid item xs={12} sm={2}>
-              <Typography variant="small"
-                sx={{
-                  fontFamily: 'Happiness-Sans-Regular',
-                }}
-              >컨설턴트</Typography>
-              <VideoContainer>
-                <UserVideoComponent
-                  streamManager={consultant} />
-              </VideoContainer>
-              <SelectedColorSet
-                isBest={isBest}
-                setIsBest={setIsBest}
-                isWorst={isWorst}
-                setIsWorst={setIsWorst}
-              />
-            </SGrid>
+            <Grid container item xs={12} sm={2}
+              sx={{
+                height: "80%",
+                justifyContent: "space-between"
+              }}>
+              <SGrid item>
+                <Typography variant="small"
+                  sx={{
+                    fontFamily: 'Happiness-Sans-Regular',
+                  }}
+                >컨설턴트</Typography>
+                <VideoContainer>
+                  <UserVideoComponent
+                    streamManager={consultant} />
+                </VideoContainer>
+                {
+                  role === CUSTOMER &&
+                  <SelectedColorSet
+                    setIsBest={setIsBest}
+                    setIsWorst={setIsWorst}
+                  />
+                }
+              </SGrid>
+              {
+                role === CONSULTANT &&
+                <SmallChat />
+              }
+            </Grid>
           )
             :
             <SpinnerGrid item xs={12} sm={2}>
@@ -338,6 +351,12 @@ const ConsultingRoom = () => {
                 isBest={isBest}
                 isWorst={isWorst}
               />
+              {role === CONSULTANT &&
+                <ConSelectedColorSet
+                  setIsBest={setIsBest}
+                  setIsWorst={setIsWorst}
+                />
+              }
             </SGrid>
           )
             :
@@ -348,24 +367,16 @@ const ConsultingRoom = () => {
 
           {
             role === CONSULTANT &&
-            <SGrid item xs={12} sm={4} sx={{ height: "90%" }}>              
+            <SGrid item xs={12} sm={4} >
               < ColorPalette
                 isBest={isBest}
                 isWorst={isWorst}
               />
-              <Chat />
             </SGrid>
           }
-          {customer !== undefined ? (
-            <SGrid item xs={12} sm={4} sx={{ height: "90%" }}>
-              {/* chat */}
-              <Chat />
-            </SGrid>
-          )
-            :
-            <SpinnerGrid item xs={12} sm={4}>
-              <CircularProgress />
-            </SpinnerGrid>}
+          {role === CUSTOMER &&
+            <Chat />
+          }
         </SGridContainer>
       )
         :

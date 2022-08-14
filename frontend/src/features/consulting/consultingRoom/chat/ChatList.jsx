@@ -9,7 +9,8 @@ const ChatList = () => {
 
   const msgSetting = () => {
     const msgList = []
-    for (let i = 0; i < messageList.length; i++) {
+    let i = messageList.length < 10 ? 0 : messageList.length - 10
+    for (; i < messageList.length; i++) {
       msgList.push(
         <ChatItem
           key={messageList[i].id}
@@ -38,6 +39,7 @@ export default ChatList
 
 const ListBox = styled(Stack)({
   width: "100%",
-  height: "100%"
+  height: "90%",
+  overflow: "hidden"
 })
 
