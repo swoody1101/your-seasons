@@ -41,9 +41,6 @@ const ConsultingRoom = () => {
   const [mainStreamManager, setMainStreamManager] = useState(undefined)
   const [publisher, setPublisher] = useState(undefined)
   const [consultant, setConsultant] = useState(undefined)
-  const [streamManagers, setStreamManagers] = useState(undefined)
-
-  const [testVideo, setTestVideo] = useState(undefined)
 
   const [OV, setOV] = useState(null)
 
@@ -97,42 +94,21 @@ const ConsultingRoom = () => {
           videoSource: undefined,
           publishAudio: true,
           publishVideo: true,
-          resolution: '640x480',
+          resolution: '1280x960',
           frameRate: 30,
           insertMode: 'APPEND',
           mirror: false,
         });
+        publisher.subscribeToRemote()
         session.publish(publisher);
         setMainStreamManager(publisher);
         setPublisher(publisher);
-        setStreamManagers(session.streamManagers);
         if (role === CUSTOMER) { dispatch(setCustomer(publisher)) }
         if (role === CONSULTANT) { setConsultant(publisher) }
         dispatch(setSession(session))
       })
       .catch((error) => { });
   }
-
-  useEffect(() => {
-    if (session && session.streamManagers.length > 0) {
-      setStreamManagers(session.streamManagers)
-    }
-  }, [session])
-
-  useEffect(() => {
-    if (streamManagers && role === CUSTOMER) {
-      for (let i = 0; i < streamManagers.length; i++) {
-        if (streamManagers[i].stream.connection.connectionId) {
-          let subRole = JSON.parse(streamManagers[i].stream.connection.data).clientRole;
-          if (testVideo === undefined && subRole === CUSTOMER) {
-            console.log(streamManagers[i])
-            // session.subscribe(streamManagers[i])
-            setTestVideo(streamManagers[i])
-          }
-        }
-      }
-    }
-  }, [streamManagers])
 
   useEffect(() => {
     if (session && role === CONSULTANT) {
@@ -172,9 +148,8 @@ const ConsultingRoom = () => {
 
   const streamCreated = (event) => {
     const subscriber = session.subscribe(event.stream, undefined);
-    const subRole = JSON.parse(event.stream.connection.data).clientRole;
     if (role === CONSULTANT) { dispatch(setCustomer(subscriber)) }
-    else if (role === CUSTOMER) { subRole === CUSTOMER ? setTestVideo(subscriber) : setConsultant(subscriber) }
+    else if (role === CUSTOMER) { setConsultant(subscriber) }
   }
 
   const streamDestroyed = (event) => {
@@ -421,34 +396,29 @@ const ConsultingRoom = () => {
         }
 
         <ButtonGroup sx={{ marginBottom: "1rem" }}>
-          <Button variant="outlined" onClick={() => dispatch(settingModalOn())} >
-            화면 조정
-          </Button>
-          <Button variant="outlined"
-            onClick={() => {
-              if (!mainStreamManager.stream.filter) {
-                mainStreamManager.stream
-                  .applyFilter("GStreamerFilter", { "command": "videobalance hue=-1.0 saturation=1.0" })
-                  .then(() => { })
-                  .catch((err) => { console.log(err) });
-              } else {
-                mainStreamManager.stream.removeFilter()
-                  .then(() => {
-                    mainStreamManager.stream
-                      .applyFilter("GStreamerFilter", { "command": "videobalance hue=1.0 saturation=1.0" })
-                      .then(() => { })
-                  })
-              }
-            }}
-          >
-            테스트 버튼
-          </Button>
+          {
+            role === CUSTOMER && customer &&
+            <>
+              <Button variant="outlined" onClick={() => dispatch(settingModalOn())} >
+                화면 조정
+              </Button>
+              <Button variant="outlined"
+                onClick={() => {
+                  if (customer.stream.filter) {
+                    customer.stream.removeFilter()
+                  }
+                }}
+              >
+                톤 필터 지우기
+              </Button>
+            </>
+          }
           <Button variant="contained" onClick={leaveSession}>
             종료
           </Button>
         </ButtonGroup>
       </Box>
-    </SContainer>
+    </SContainer >
   )
 }
 
