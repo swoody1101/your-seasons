@@ -5,7 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { OpenVidu } from 'openvidu-browser';
 import UserVideoComponent from './UserVideoComponent';
 
-import { Box, Button, Grid, styled, Typography, ButtonGroup, IconButton, CircularProgress } from '@mui/material'
+import { Box, Button, Grid, styled, Typography, ButtonGroup, IconButton, CircularProgress, Stack, Snackbar } from '@mui/material'
+import MuiAlert from '@mui/material/Alert';
 import { Mic, MicOff, Videocam, VideocamOff } from '@mui/icons-material';
 
 
@@ -21,6 +22,8 @@ import ColorButtonGroup from 'common/colorset/ColorButtonGroup'
 const OPENVIDU_SERVER_URL = 'https://yourseasons.anveloper.kr:8443';
 const OPENVIDU_SERVER_SECRET = 'YOUR_SEASONS_SECRET';
 
+
+
 // rafce Arrow function style 
 const ConsultingRoom = () => {
   const { nickname, role, email } = useSelector(state => state.auth.logonUser)
@@ -32,6 +35,8 @@ const ConsultingRoom = () => {
 
   const [isBest, setIsBest] = useState(false)
   const [isWorst, setIsWorst] = useState(false)
+  const [clickColorFirst, setClickColorFirst] = useState(false)
+  const [OpenClickColorFirst, setOpenClickColorFirst] = useState(false)
 
   const [myUserName, setMyUserName] = useState(nickname)
   const [session, setSession] = useState(undefined)
@@ -153,6 +158,21 @@ const ConsultingRoom = () => {
     const newWorstColor = JSON.parse(data[2])
     dispatch(sharedColorSet({ newSelectedColor, newBestColor, newWorstColor }))
   }
+
+  // 하단 alert관련
+  const clickColorFirstFunc = () => {
+    if(clickColorFirst===false){
+      setClickColorFirst(true)
+      setOpenClickColorFirst(true)
+    }else{
+      return
+    }
+  }
+
+  const handleClose = () => {
+    console.log('close')
+    setOpenClickColorFirst(false);
+  };
 
   const onbeforeunload = () => {
     leaveSession();
@@ -299,6 +319,7 @@ const ConsultingRoom = () => {
 
   // ---------- render
   return (
+    // <Stack spacing={2} sx={{ width: '100%' }}>
     <SContainer container backgroundColor={`${selectedColor}60`}>
       {session !== undefined ? (
         <SGridContainer container backgroundColor={`${selectedColor}10`}>
@@ -335,8 +356,12 @@ const ConsultingRoom = () => {
                   streamManager={customer} />
               </VideoContainer>
               <ColorButtonGroup
+                clickColorFirstFunc={clickColorFirstFunc}
+                clickColorFirst={clickColorFirst}
                 isBest={isBest}
                 isWorst={isWorst}
+                setIsBest={setIsBest}
+                setIsWorst={setIsWorst}
               />
             </SGrid>
           )
@@ -436,7 +461,16 @@ const ConsultingRoom = () => {
           </Button>
         </ButtonGroup>
       </Box>
+
+      {/* 스택으로 나눠줄 공간 현재 BottomContainer로 분리만 해둠*/}
+      <BottomContainer>
+      {/* 컬러 추가 클릭시, remove방법 알려줌 (1번만 실행) */}
+      <Snackbar open={OpenClickColorFirst} onClose={handleClose} autoHideDuration={6000}
+              message="컬러 추가에 성공하였습니다~! 컬러팔레트 내 색상을 선택한 후 제거해보아요."/>
+    </BottomContainer>
+
     </SContainer>
+
   )
 }
 
@@ -448,6 +482,15 @@ const SContainer = styled(Box)({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
+})
+
+const BottomContainer = styled(Box)({
+  padding: "1rem",
+  height: "100%",
+  display: "flex",
+  flexDirection: "row",
+  // 우선 센터로 정렬
+  justifyContent: "center",
 })
 
 const SGridContainer = styled(Grid)({

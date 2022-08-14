@@ -9,7 +9,7 @@ const WorstColorSet = ({setIsWorst}) => {
 
 
 	return (<>
-		<p>WORST COLOR SET</p>
+		<p>워스트 컬러팔레트</p>
 		<div style={{ display:'flex', justifyContent:'start', alignContent:'center', backgroundColor: '#f5f5f5', width: '100%',  height: 60, border: '1px solid black'}}>
 			{wortcolors.map((item, index)=>(
 				<div

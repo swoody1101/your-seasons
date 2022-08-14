@@ -22,15 +22,18 @@ const HomePopularConsultant = () => {
     // console.log(`브라우저 화면 사이즈 x: ${window.innerWidth}, y: ${window.innerHeight}`);
     if(window.innerWidth<660){
       setCardNum(1)
+      return
     }
     if(window.innerWidth<1000){
       setCardNum(2)
+      return
     }
     else if(window.innerWidth<1300){
       setCardNum(3)
       return
     }else if(window.innerWidth<1600){
       setCardNum(4)
+      return
     }else{
       setCardNum(5)
       return 
@@ -68,7 +71,6 @@ const HomePopularConsultant = () => {
 							chevronWidth={10}
 							disableSwipe={false}
 							alwaysShowChevrons={false}
-							// 중단점 md이하일때 하나만 뜨도록, 적용 보류
 							numberOfCards={cardNum} //한 화면에 보여줄 아이템수
 							slidesToScroll={1} // 한번에 슬라이드 시킬 아이템 개수
 							outsideChevron={true}
