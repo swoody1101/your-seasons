@@ -34,7 +34,7 @@ SelectedColorSet.defaultProps = {
   setIsWorst: () => { }
 }
 
-const ColorSet = (styled('div'))({
+const ColorSet = styled('div')({
   // display: "flex",
   // flexDirection: "row",
 })
