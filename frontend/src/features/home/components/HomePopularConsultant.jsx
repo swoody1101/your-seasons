@@ -22,21 +22,21 @@ const HomePopularConsultant = () => {
     // console.log(`브라우저 화면 사이즈 x: ${window.innerWidth}, y: ${window.innerHeight}`);
     if(window.innerWidth<660){
       setCardNum(1)
-      return
+      return false
     }
     if(window.innerWidth<1000){
       setCardNum(2)
-      return
+      return false
     }
     else if(window.innerWidth<1300){
       setCardNum(3)
-      return
+      return false
     }else if(window.innerWidth<1600){
       setCardNum(4)
-      return
+      return false
     }else{
       setCardNum(5)
-      return 
+      return false
     }
   }
 
