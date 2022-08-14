@@ -29,8 +29,8 @@ const WorstColorSet = ({ setIsWorst }) => {
 export default WorstColorSet
 
 const WorstDiv = styled('div')({
-  // display: "flex",
-  // flexDirection: "column",
+  display: "flex",
+  flexDirection: "column",
 })
 
 const PalleteName = styled('p')({
