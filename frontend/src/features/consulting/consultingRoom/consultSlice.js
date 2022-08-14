@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import Axios, { imgAxios } from 'api/Axios'
 
 const initialState = {
+  session: undefined,
   customer: undefined,
   isSetClear: false,
   consultantSessionName: 's-s-s',
@@ -11,6 +12,16 @@ const initialState = {
     saturation: 1.0,
     brightness: 0.0
   },
+  messageId: 2,
+  messageList: [
+    {
+      id: 1,
+      role: '',
+      imageUrl: '', // '' : mine, '/images/d~' : other
+      side: 'left', // '' : other, 'right' : mine
+      message: '대화를 시작합니다.'
+    }
+  ]
 }
 
 export const openConsulting = createAsyncThunk(
@@ -67,6 +78,18 @@ export const consultSlice = createSlice({
     setCustomer: (state, { payload }) => {
       state.customer = payload
     },
+    setSession: (state, { payload }) => {
+      state.session = payload
+    },
+    appendMessageList: (state, { payload }) => {
+      if (payload.id > state.messageId) {
+        state.messageId = payload.id + 1
+      } else {
+        payload.id = state.messageId
+        state.messageId = state.messageId + 1
+      }
+      state.messageList.push(payload)
+    }
   },
   extraReducers: {
     [getConsultantSessionName.fulfilled]: (state, { payload }) => {
@@ -78,6 +101,6 @@ export const consultSlice = createSlice({
     }, // 임시
   }
 })
-export const { settingModalOn, settingModalOff, setCustomer } = consultSlice.actions;
+export const { settingModalOn, settingModalOff, setSession, setCustomer, appendMessageList } = consultSlice.actions;
 
 export default consultSlice.reducer
