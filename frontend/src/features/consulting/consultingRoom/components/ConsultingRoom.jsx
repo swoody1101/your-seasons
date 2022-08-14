@@ -9,13 +9,16 @@ import { Box, Button, Grid, styled, Typography, ButtonGroup, IconButton, Circula
 import { Mic, MicOff, Videocam, VideocamOff } from '@mui/icons-material';
 
 
-import { settingModalOn, setCustomer, postConsultingResult } from 'features/consulting/consultingRoom/consultSlice'
+import { settingModalOn, setSession, setCustomer, postConsultingResult } from 'features/consulting/consultingRoom/consultSlice'
 
 import { CONSULTANT, CUSTOMER } from 'api/CustomConst'
 import { sharedColorSet, changeComment, selectTone, setFiles } from 'common/colorset/colorSetSlice'
 
+import Chat from 'features/consulting/consultingRoom/chat/Chat'
+import SmallChat from 'features/consulting/consultingRoom/chat/SmallChat'
 import ColorPalette from 'common/colorset/ColorPalette'
 import SelectedColorSet from 'common/colorset/SelectedColorSet';
+import ConSelectedColorSet from 'common/colorset/ConSelectedColorSet';
 import ColorButtonGroup from 'common/colorset/ColorButtonGroup'
 
 const OPENVIDU_SERVER_URL = 'https://yourseasons.anveloper.kr:8443';
@@ -23,8 +26,8 @@ const OPENVIDU_SERVER_SECRET = 'YOUR_SEASONS_SECRET';
 
 // rafce Arrow function style 
 const ConsultingRoom = () => {
-  const { nickname, role, email } = useSelector(state => state.auth.logonUser)
-  const { consultingId, customer, consultantSessionName } = useSelector(state => state.consult)
+  const { nickname, role, email, imageUrl } = useSelector(state => state.auth.logonUser)
+  const { session, customer, consultingId, consultantSessionName } = useSelector(state => state.consult)
   const tmp = email.replace(/[@\.]/g, '-')
   const [mySessionId, setMySessionId] = useState(
     role === CONSULTANT ? tmp : consultantSessionName
@@ -34,7 +37,6 @@ const ConsultingRoom = () => {
   const [isWorst, setIsWorst] = useState(false)
 
   const [myUserName, setMyUserName] = useState(nickname)
-  const [session, setSession] = useState(undefined)
 
   const [mainStreamManager, setMainStreamManager] = useState(undefined)
   const [publisher, setPublisher] = useState(undefined)
@@ -106,7 +108,7 @@ const ConsultingRoom = () => {
         setStreamManagers(session.streamManagers);
         if (role === CUSTOMER) { dispatch(setCustomer(publisher)) }
         if (role === CONSULTANT) { setConsultant(publisher) }
-        setSession(session)
+        dispatch(setSession(session))
       })
       .catch((error) => { });
   }
@@ -120,12 +122,11 @@ const ConsultingRoom = () => {
   useEffect(() => {
     if (streamManagers && role === CUSTOMER) {
       for (let i = 0; i < streamManagers.length; i++) {
-        if (streamManagers[i].stream.connection) {
+        if (streamManagers[i].stream.connection.connectionId) {
           let subRole = JSON.parse(streamManagers[i].stream.connection.data).clientRole;
           if (testVideo === undefined && subRole === CUSTOMER) {
             console.log(streamManagers[i])
-            
-            session.subscribe(streamManagers[i], undefined)
+            // session.subscribe(streamManagers[i])
             setTestVideo(streamManagers[i])
           }
         }
@@ -146,6 +147,7 @@ const ConsultingRoom = () => {
     }
   }, [selectedColor, bestColor, worstColor])
 
+
   const shareColorset = (event) => {
     const data = event.data.split('$$')
     const newSelectedColor = JSON.parse(data[0])
@@ -164,7 +166,7 @@ const ConsultingRoom = () => {
 
   const joinSession = () => {
     const getOV = new OpenVidu();
-    setSession(getOV.initSession())
+    dispatch(setSession(getOV.initSession()))
     setOV(getOV)
   }
 
@@ -195,7 +197,7 @@ const ConsultingRoom = () => {
         })
     }
     setOV(null);
-    setSession(undefined)
+    dispatch(setSession(undefined))
     setMySessionId(role === CONSULTANT ? tmp : consultantSessionName)
     setMyUserName(nickname)
     setConsultant(undefined)
@@ -299,28 +301,39 @@ const ConsultingRoom = () => {
 
   // ---------- render
   return (
-    <SContainer container backgroundColor={`${selectedColor}60`}>
+    <SContainer container backgroundColor={`${selectedColor}40`}>
       {session !== undefined ? (
-        <SGridContainer container backgroundColor={`${selectedColor}10`}>
+        <SGridContainer container >
 
           {consultant !== undefined ? (
-            <SGrid item xs={12} sm={2}>
-              <Typography variant="small"
-                sx={{
-                  fontFamily: 'Happiness-Sans-Regular',
-                }}
-              >컨설턴트</Typography>
-              <VideoContainer>
-                <UserVideoComponent
-                  streamManager={consultant} />
-              </VideoContainer>
-              <SelectedColorSet
-                isBest={isBest}
-                setIsBest={setIsBest}
-                isWorst={isWorst}
-                setIsWorst={setIsWorst}
-              />
-            </SGrid>
+            <Grid container item xs={12} sm={2}
+              sx={{
+                height: "80%",
+                justifyContent: "space-between"
+              }}>
+              <SGrid item>
+                <Typography variant="small"
+                  sx={{
+                    fontFamily: 'Happiness-Sans-Regular',
+                  }}
+                >컨설턴트</Typography>
+                <VideoContainer>
+                  <UserVideoComponent
+                    streamManager={consultant} />
+                </VideoContainer>
+                {
+                  role === CUSTOMER &&
+                  <SelectedColorSet
+                    setIsBest={setIsBest}
+                    setIsWorst={setIsWorst}
+                  />
+                }
+              </SGrid>
+              {
+                role === CONSULTANT &&
+                <SmallChat />
+              }
+            </Grid>
           )
             :
             <SpinnerGrid item xs={12} sm={2}>
@@ -338,6 +351,12 @@ const ConsultingRoom = () => {
                 isBest={isBest}
                 isWorst={isWorst}
               />
+              {role === CONSULTANT &&
+                <ConSelectedColorSet
+                  setIsBest={setIsBest}
+                  setIsWorst={setIsWorst}
+                />
+              }
             </SGrid>
           )
             :
@@ -348,23 +367,16 @@ const ConsultingRoom = () => {
 
           {
             role === CONSULTANT &&
-            < ColorPalette
-              isBest={isBest}
-              isWorst={isWorst}
-            />
-          }
-          {testVideo !== undefined ? (
-            <SGrid item xs={12} sm={4}>
-              <VideoContainer>
-                <UserVideoComponent
-                  streamManager={testVideo} />
-              </VideoContainer>
+            <SGrid item xs={12} sm={4} >
+              < ColorPalette
+                isBest={isBest}
+                isWorst={isWorst}
+              />
             </SGrid>
-          )
-            :
-            <SpinnerGrid item xs={12} sm={4}>
-              <CircularProgress />
-            </SpinnerGrid>}
+          }
+          {role === CUSTOMER &&
+            <Chat />
+          }
         </SGridContainer>
       )
         :
