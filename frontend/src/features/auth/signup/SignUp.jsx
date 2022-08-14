@@ -77,7 +77,8 @@ const SignUp = () => {
 
   const handleCheckEmail = () => {
     dispatch(emailCheck(userEmail))
-      .then((res) => {
+    .then((res) => {
+        console.log(res)
         console.log(res.payload);
         if (res.payload) {
           alert("인증완료");
@@ -92,6 +93,7 @@ const SignUp = () => {
   const handleSendEmail = () => {
     dispatch(emailSendCheck(userEmail))
     .then((res) => {
+      console.log(res)
       if(res.payload){
         alert('인증번호가 전송되었습니다. 이메일을 확인해주세요.')
         setIsEmailSend(true)
@@ -233,7 +235,7 @@ const SignUp = () => {
             />
           {/* //////////////////////////////////////////////////////////// */}
             {/* <EmailAuthentication
-              label="이메일인증"
+              label="이메일 인증번호 입력"
               id="emailauth"
               // email 중복확인 여부
               isTrueEmail={isEmailCheck}

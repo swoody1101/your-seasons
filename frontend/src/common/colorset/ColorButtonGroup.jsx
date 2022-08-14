@@ -30,21 +30,21 @@ const ColorButtonGroup = ({
 
   return (
     <Box container>
-      <Fab variant="extended" onClick={() => dispatch(removeSelectColor(selectedColor))}>
+      <Fab variant="extended" color="inherit" onClick={() => dispatch(removeSelectColor(selectedColor))}>
         현재 배경 제거
       </Fab>
       {/* bestbtn */}
-      <Fab variant="extended" sx={{ display: isBest ? 'none' : '' }} 
+      <Fab variant="extended" color="inherit" sx={{ display: isBest ? 'none' : '' }} 
         onClick={() => { dispatch(addBestColor(selectedColor)); onFirstClick(); }}>
         <FavoriteRoundedIcon sx={{ color: selectedColor, mr: 1 }} /> 추가 </Fab>
-      <Fab variant="extended" sx={{ display: isBest ? '' : 'none' }} 
+      <Fab variant="extended" color="inherit" sx={{ display: isBest ? '' : 'none' }} 
         onClick={() => { dispatch(removeBestColor(selectedColor)); setIsBest(false); }}>
         <FavoriteRoundedIcon sx={{ color: selectedColor, mr: 1 }} /> 제거 </Fab>
       {/* worstbtn */}
-      <Fab variant="extended" sx={{ display: isWorst ? 'none' : '' }} 
+      <Fab variant="extended" color="inherit" sx={{ display: isWorst ? 'none' : '' }} 
         onClick={() => { dispatch(addWorstColor(selectedColor)); onFirstClick(); }}>
         <HeartBrokenIcon sx={{ color: selectedColor, mr: 1 }} /> 추가 </Fab>
-      <Fab variant="extended" sx={{ display: isWorst ? '' : 'none' }} 
+      <Fab variant="extended" color="inherit" sx={{ display: isWorst ? '' : 'none' }} 
         onClick={() => { dispatch(removeWorstColor(selectedColor)); setIsWorst(false); }}>
         <HeartBrokenIcon sx={{ color: selectedColor, mr: 1 }} /> 제거 </Fab>
     </Box>
