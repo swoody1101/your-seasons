@@ -475,23 +475,23 @@ insert into worst_color_set(created_date, last_modified_date, is_active, color_s
 insert into worst_color_set(created_date, last_modified_date, is_active, color_set_id) values (now(), now(), 1, 12);
 insert into worst_color_set(created_date, last_modified_date, is_active, color_set_id) values (now(), now(), 1, 14);
 
--- 진단결과
-insert into test_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '가을 소프트 타입이어서 베이지나 아이보리색의 톤온톤 코디가 가장 잘 어울리실 거에요~', '', 1, 1, 1, 7);
-insert into test_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '고객님은 여름 소프트까지 소화가능한 가을 소프트 타입이세요! 고명도 + 저채도의 톤이 가장 잘 맞아요!', '', 1, 2, 2, 7);
-insert into test_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '고객님을 보면 봄날의 햇살이 생각나네요 봄 브라이트세요!', '', 1, 3, 3, 1);
-insert into test_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '봉쥬르 고객님! 여태까지 웜톤인줄 아셨다구요? 아니에요 아니에요~ 고객님은 채도가 높은 색이 잘 어울리시는 겨울 브라이트 톤이세요! 이젠 맥 칠리 대신 맥 루비우 바르기로 약속!', '', 1, 4, 4, 10);
-insert into test_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '봉쥬르님은 확실히 쿨톤이세요! 쨍한 색감이 잘 어울리시거든요! 제가 본 봉쥬르님의 톤은 겨울 트루이십니다! 봉쥬르님은 탁한 색감을 쓰시면 안돼요! 말린 장미 노노 MLBB 노노!', '', 1, 5, 5, 11);
-insert into test_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '금발은 절대 하시면 안돼요! 오히려 노안이 될 수 있어요! 본연의 머리색을 그대로 유지하시는 게 베스트입니다!', '', 1, 6, 6, 3);
-insert into test_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '그윽한 음영 메이크업보다는 핑크핑크한 메이크업이 잘 어울리세요! 치크는 크리니크의 멜론팝 추천드려요~!', '', 1, 7, 7, 3);
+-- 컨설턴트 진단결과
+insert into consulting_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '가을 소프트 타입이어서 베이지나 아이보리색의 톤온톤 코디가 가장 잘 어울리실 거에요~', '', 1, 1, 1, 7);
+insert into consulting_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '고객님은 여름 소프트까지 소화가능한 가을 소프트 타입이세요! 고명도 + 저채도의 톤이 가장 잘 맞아요!', '', 1, 2, 2, 7);
+insert into consulting_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '고객님을 보면 봄날의 햇살이 생각나네요 봄 브라이트세요!', '', 1, 3, 3, 1);
+insert into consulting_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '봉쥬르 고객님! 여태까지 웜톤인줄 아셨다구요? 아니에요 아니에요~ 고객님은 채도가 높은 색이 잘 어울리시는 겨울 브라이트 톤이세요! 이젠 맥 칠리 대신 맥 루비우 바르기로 약속!', '', 1, 4, 4, 10);
+insert into consulting_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '봉쥬르님은 확실히 쿨톤이세요! 쨍한 색감이 잘 어울리시거든요! 제가 본 봉쥬르님의 톤은 겨울 트루이십니다! 봉쥬르님은 탁한 색감을 쓰시면 안돼요! 말린 장미 노노 MLBB 노노!', '', 1, 5, 5, 11);
+insert into consulting_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '금발은 절대 하시면 안돼요! 오히려 노안이 될 수 있어요! 본연의 머리색을 그대로 유지하시는 게 베스트입니다!', '', 1, 6, 6, 3);
+insert into consulting_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values (now(), now(), '그윽한 음영 메이크업보다는 핑크핑크한 메이크업이 잘 어울리세요! 치크는 크리니크의 멜론팝 추천드려요~!', '', 1, 7, 7, 3);
 
 -- 컨설팅
-insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'bestcon-gmail-com', 1, 0, 1, 1, 1);
-insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'anjolryeo-gmail-com', 1, 0, 1, 2, 2);
-insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'consultant-gmail-com', 1, 0, 1, 3, 3);
-insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'apple-gmail-com', 1, 0, 2, 4, 4);
-insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'bestcon-gmail-com', 0, 0, 2, 1, 5);
-insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'bestcon-gmail-com', 1, 0, 3, 1, 6);
-insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, test_result_id) values (now(), now(), 'anjolryeo-gmail-com', 0, 0, 3, 2, 7);
+insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, consulting_result_id) values (now(), now(), 'bestcon-gmail-com', 1, 0, 1, 1, 1);
+insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, consulting_result_id) values (now(), now(), 'anjolryeo-gmail-com', 1, 0, 1, 2, 2);
+insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, consulting_result_id) values (now(), now(), 'consultant-gmail-com', 1, 0, 1, 3, 3);
+insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, consulting_result_id) values (now(), now(), 'apple-gmail-com', 1, 0, 2, 4, 4);
+insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, consulting_result_id) values (now(), now(), 'bestcon-gmail-com', 0, 0, 2, 1, 5);
+insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, consulting_result_id) values (now(), now(), 'bestcon-gmail-com', 1, 0, 3, 1, 6);
+insert into consulting(created_date, last_modified_date, session_id, has_review, is_active, customer_id, consultant_id, consulting_result_id) values (now(), now(), 'anjolryeo-gmail-com', 0, 0, 3, 2, 7);
 
 -- 리뷰
 insert into review(created_date, last_modified_date, is_active, comment, star, consultant_id, consulting_id, customer_id) values (now(), now(), 1, '이런 컨설팅은 태어나서 처음이에요! 너무너무 좋으신 분이에요 강추 드립니다!', 5, 1, 1, 1);
