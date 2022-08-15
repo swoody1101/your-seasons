@@ -26,6 +26,5 @@ const Consult = () => {
 export default Consult
 
 const ConsultContainer = styled(Box)({
-  // marginTop: '5vh',
-  height: "100vh"
+  height: "100%"
 })

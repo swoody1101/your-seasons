@@ -35,7 +35,7 @@ const NavBar = () => {
     }
   })
 
-  return (<>
+  return (<div>
 		<ThemeProvider theme={transparentTheme} >
       <AppBar position="sticky" variant="transparent">
         <StyledToolbar>
@@ -111,7 +111,7 @@ const NavBar = () => {
       </AppBar>
 		</ThemeProvider>
     <Outlet />
-  </>
+  </div>
   )
 }
 

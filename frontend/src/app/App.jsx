@@ -34,9 +34,9 @@ const App = () => {
         useLocation().pathname !== '/consult'
         && <ConsultButton />
       }
-      <Stack direction="column" justifyContent="space-between" sx={{ minHeight: "100vh" }}>
+      <Stack direction="column" justifyContent='space-between' sx={{ minHeight: "100vh" }}>
         <Routes>
-          {/* nav */}
+          {/* nav하위에 속한 컴포넌트  */}
           <Route element={<NavBar />}>
             <Route path='/' element={<Yourseason />} />
             <Route path='/consultants' element={<ConsultantList />} />
@@ -54,7 +54,7 @@ const App = () => {
           <Route path='/consult' element={<Consult />} />
         </Routes>
         <CustomizedSnackbars /> 
-        <Footer />
+        <Footer/>
       </Stack>
     </Box>
   )
