@@ -1,4 +1,4 @@
-package com.yourseason.backend.consulting.domain.result;
+package com.yourseason.backend.common;
 
 import com.yourseason.backend.common.domain.BaseTimeEntity;
 import com.yourseason.backend.common.domain.ColorSet;

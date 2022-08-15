@@ -1,5 +1,7 @@
 package com.yourseason.backend.consulting.domain.result;
 
+import com.yourseason.backend.common.BestColorSet;
+import com.yourseason.backend.common.WorstColorSet;
 import com.yourseason.backend.common.domain.BaseTimeEntity;
 import com.yourseason.backend.common.domain.Tone;
 import lombok.AccessLevel;
