@@ -11,10 +11,10 @@ import com.yourseason.backend.consulting.consultant.controller.dto.ConsultingJoi
 import com.yourseason.backend.consulting.consultant.controller.dto.ConsultingRequest;
 import com.yourseason.backend.consulting.consultant.domain.Consulting;
 import com.yourseason.backend.consulting.consultant.domain.ConsultingRepository;
-import com.yourseason.backend.consulting.common.BestColorSet;
+import com.yourseason.backend.consulting.common.domain.BestColorSet;
 import com.yourseason.backend.consulting.consultant.domain.result.ConsultingResult;
 import com.yourseason.backend.consulting.consultant.domain.result.ConsultingResultRepository;
-import com.yourseason.backend.consulting.common.WorstColorSet;
+import com.yourseason.backend.consulting.common.domain.WorstColorSet;
 import com.yourseason.backend.member.consultant.domain.Consultant;
 import com.yourseason.backend.member.consultant.domain.ConsultantRepository;
 import com.yourseason.backend.member.customer.domain.Customer;

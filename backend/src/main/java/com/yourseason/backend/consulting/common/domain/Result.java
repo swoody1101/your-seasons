@@ -1,4 +1,4 @@
-package com.yourseason.backend.consulting.common;
+package com.yourseason.backend.consulting.common.domain;
 
 import com.yourseason.backend.common.domain.BaseTimeEntity;
 import com.yourseason.backend.common.domain.Tone;

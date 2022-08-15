@@ -1,9 +1,9 @@
 package com.yourseason.backend.consulting.consultant.domain.result;
 
-import com.yourseason.backend.consulting.common.BestColorSet;
-import com.yourseason.backend.consulting.common.WorstColorSet;
+import com.yourseason.backend.consulting.common.domain.BestColorSet;
+import com.yourseason.backend.consulting.common.domain.WorstColorSet;
 import com.yourseason.backend.common.domain.Tone;
-import com.yourseason.backend.consulting.common.Result;
+import com.yourseason.backend.consulting.common.domain.Result;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
