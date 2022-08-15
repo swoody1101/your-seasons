@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 public class Consulting extends BaseTimeEntity {
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "test_result_id")
+    @JoinColumn(name = "consulting_result_id")
     private ConsultingResult consultingResult;
 
     @ManyToOne(fetch = FetchType.LAZY)
