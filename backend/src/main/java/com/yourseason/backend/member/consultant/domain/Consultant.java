@@ -1,6 +1,6 @@
 package com.yourseason.backend.member.consultant.domain;
 
-import com.yourseason.backend.consulting.domain.Consulting;
+import com.yourseason.backend.consulting.consultant.domain.Consulting;
 import com.yourseason.backend.member.common.domain.Member;
 import com.yourseason.backend.reservation.domain.Reservation;
 import com.yourseason.backend.review.domain.Review;

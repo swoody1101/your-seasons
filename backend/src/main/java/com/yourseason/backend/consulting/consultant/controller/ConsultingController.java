@@ -1,11 +1,11 @@
-package com.yourseason.backend.consulting.controller;
+package com.yourseason.backend.consulting.consultant.controller;
 
 import com.yourseason.backend.common.domain.Message;
-import com.yourseason.backend.consulting.controller.dto.ConsultingCreateResponse;
-import com.yourseason.backend.consulting.controller.dto.ConsultingFinishRequest;
-import com.yourseason.backend.consulting.controller.dto.ConsultingJoinResponse;
-import com.yourseason.backend.consulting.controller.dto.ConsultingRequest;
-import com.yourseason.backend.consulting.service.ConsultingService;
+import com.yourseason.backend.consulting.consultant.controller.dto.ConsultingFinishRequest;
+import com.yourseason.backend.consulting.consultant.controller.dto.ConsultingJoinResponse;
+import com.yourseason.backend.consulting.consultant.controller.dto.ConsultingCreateResponse;
+import com.yourseason.backend.consulting.consultant.controller.dto.ConsultingRequest;
+import com.yourseason.backend.consulting.consultant.service.ConsultingService;
 import com.yourseason.backend.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
