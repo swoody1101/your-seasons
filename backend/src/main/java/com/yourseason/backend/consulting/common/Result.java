@@ -2,8 +2,6 @@ package com.yourseason.backend.consulting.common;
 
 import com.yourseason.backend.common.domain.BaseTimeEntity;
 import com.yourseason.backend.common.domain.Tone;
-import com.yourseason.backend.consulting.common.BestColorSet;
-import com.yourseason.backend.consulting.common.WorstColorSet;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +12,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @MappedSuperclass
-public abstract class TestResult extends BaseTimeEntity {
+public abstract class Result extends BaseTimeEntity {
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "best_color_set_id")
@@ -28,8 +26,8 @@ public abstract class TestResult extends BaseTimeEntity {
     @JoinColumn(name = "tone_id")
     private Tone tone;
 
-    public TestResult(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate,
-                      BestColorSet bestColorSet, WorstColorSet worstColorSet, Tone tone) {
+    public Result(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate,
+                  BestColorSet bestColorSet, WorstColorSet worstColorSet, Tone tone) {
         super(id, createdDate, lastModifiedDate, deletedDate, true);
         this.bestColorSet = bestColorSet;
         this.worstColorSet = worstColorSet;

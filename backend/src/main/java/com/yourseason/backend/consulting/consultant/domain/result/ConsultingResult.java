@@ -3,7 +3,7 @@ package com.yourseason.backend.consulting.consultant.domain.result;
 import com.yourseason.backend.consulting.common.BestColorSet;
 import com.yourseason.backend.consulting.common.WorstColorSet;
 import com.yourseason.backend.common.domain.Tone;
-import com.yourseason.backend.consulting.common.TestResult;
+import com.yourseason.backend.consulting.common.Result;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AttributeOverride(name = "id", column = @Column(name = "consulting_result_id"))
 @Entity
-public class ConsultingResult extends TestResult {
+public class ConsultingResult extends Result {
 
     private String consultingComment;
     private String consultingFile;
