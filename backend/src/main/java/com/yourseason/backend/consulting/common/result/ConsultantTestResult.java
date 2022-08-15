@@ -16,32 +16,15 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AttributeOverride(name = "id", column = @Column(name = "test_result_id"))
 @Entity
-public class ConsultantTestResult extends BaseTimeEntity {
-
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "best_color_set_id")
-    private BestColorSet bestColorSet;
-
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "worst_color_set_id")
-    private WorstColorSet worstColorSet;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tone_id")
-    private Tone tone;
+public class ConsultantTestResult extends TestResult {
 
     private String consultingComment;
-
     private String consultingFile;
 
-    @Builder
-    public ConsultantTestResult(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDateTime deletedDate,
-                                BestColorSet bestColorSet, WorstColorSet worstColorSet, Tone tone, String consultingFile, String consultingComment) {
-        super(id, createdTime, lastModifiedTime, deletedDate, true);
-        this.bestColorSet = bestColorSet;
-        this.worstColorSet = worstColorSet;
-        this.tone = tone;
-        this.consultingFile = consultingFile;
+    public ConsultantTestResult(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate,
+                                BestColorSet bestColorSet, WorstColorSet worstColorSet, Tone tone, String consultingComment, String consultingFile) {
+        super(id, createdDate, lastModifiedDate, deletedDate, bestColorSet, worstColorSet, tone);
         this.consultingComment = consultingComment;
+        this.consultingFile = consultingFile;
     }
 }
