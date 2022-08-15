@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AttributeOverride(name = "id", column = @Column(name = "test_result_id"))
 @Entity
-public class TestResult extends BaseTimeEntity {
+public class ConsultantTestResult extends BaseTimeEntity {
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "best_color_set_id")
@@ -35,8 +35,8 @@ public class TestResult extends BaseTimeEntity {
     private String consultingFile;
 
     @Builder
-    public TestResult(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDateTime deletedDate,
-                      BestColorSet bestColorSet, WorstColorSet worstColorSet, Tone tone, String consultingFile, String consultingComment) {
+    public ConsultantTestResult(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDateTime deletedDate,
+                                BestColorSet bestColorSet, WorstColorSet worstColorSet, Tone tone, String consultingFile, String consultingComment) {
         super(id, createdTime, lastModifiedTime, deletedDate, true);
         this.bestColorSet = bestColorSet;
         this.worstColorSet = worstColorSet;
