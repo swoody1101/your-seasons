@@ -35,6 +35,7 @@ SelectedColorSet.defaultProps = {
 }
 
 const ColorSet = styled('div')({
-  // display: "flex",
-  // flexDirection: "row",
+  // minWidth: 500,
+  backgroundColor: 'red',
+  width: 500,
 })

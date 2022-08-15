@@ -15,7 +15,7 @@ const BestColorSet = ({ setIsBest }) => {
               dispatch(changeSelectColor(item));
               setIsBest(true)
             }}
-            style={{ backgroundColor: item, width: 50, height: 50, margin: 5 }}
+            style={{ backgroundColor: item, width: 40, height: 40, margin: 5 }}
             key={index}>{item}</div>
         ))}
 		</div>

@@ -80,7 +80,7 @@ export default Drawing;
 
 const ScrollBar = styled(Card)((props) => ({
   width: 'auto',
-  height: '460px',
+  height: '397px',
   overflow: 'auto',
   // 스크롤바 두께
   '&::-webkit-scrollbar': {
@@ -93,7 +93,7 @@ const ScrollBar = styled(Card)((props) => ({
   },
   '&::-webkit-scrollbar-thumb': {
     height: '17%',
-    backgroundColor: '#9B9B9B',
+    backgroundColor: '#1976d2',
     borderRadius: 10,
   }
 }))

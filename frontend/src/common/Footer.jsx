@@ -19,7 +19,6 @@ const Footer = () => {
 export default Footer
 
 const FooterContainer = styled(Container)({
-  position: "relative",
   padding: "1rem",
   textAlign: "center",
   fontSize: "1.2rem",

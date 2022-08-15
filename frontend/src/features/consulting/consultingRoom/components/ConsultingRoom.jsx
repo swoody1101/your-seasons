@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { OpenVidu } from 'openvidu-browser';
 import UserVideoComponent from './UserVideoComponent';
 
-import { Box, Button, Grid, styled, Typography, ButtonGroup, IconButton, CircularProgress } from '@mui/material'
+import { Box, Button, Grid, styled, Typography, ButtonGroup, IconButton, CircularProgress, Card } from '@mui/material'
 import { Mic, MicOff, Videocam, VideocamOff } from '@mui/icons-material';
 
 
@@ -175,7 +175,7 @@ const ConsultingRoom = () => {
     console.warn(exception);
   }
 
-
+  // 컨설턴트, 고객 종료시 분리 필요
   const leaveSession = () => {
     if (session) {
       session.disconnect();
@@ -291,10 +291,12 @@ const ConsultingRoom = () => {
 
   // ---------- render
   return (
+    // <div style={{height: '100%'}}>
     <SContainer container backgroundColor={`${selectedColor}40`}>
-      {session !== undefined ? (
-        <SGridContainer container >
 
+      {session !== undefined ? (
+        // 세션 연결시
+        <SGridContainer container >      
           {consultant !== undefined ? (
             <Grid container item xs={12} sm={2}
               sx={{
@@ -311,13 +313,14 @@ const ConsultingRoom = () => {
                   <UserVideoComponent
                     streamManager={consultant} />
                 </VideoContainer>
-                {
+                {/*하단으로 위치이동 */}
+                {/* {
                   role === CUSTOMER &&
                   <SelectedColorSet
                     setIsBest={setIsBest}
                     setIsWorst={setIsWorst}
                   />
-                }
+                } */}
               </SGrid>
               {
                 role === CONSULTANT &&
@@ -332,11 +335,14 @@ const ConsultingRoom = () => {
           }
 
           {customer !== undefined ? (
+            // 유저 비디오 및 베스트 및 컬러셋
             <SGrid item xs={12} sm={6}>
               <VideoContainer>
                 <UserVideoComponent
                   streamManager={customer} />
               </VideoContainer>
+              {/* 유저 비디오 하단 || 현재 배경제거, 베스트, 워스트 컬러 버튼*/}
+              {/* 버튼선택하는게 role이 컨설턴트가 아니여도 상관없는지 ??*/}
               <ColorButtonGroup
                 clickColorFirstFunc={clickColorFirstFunc}
                 clickColorFirst={clickColorFirst}
@@ -345,12 +351,13 @@ const ConsultingRoom = () => {
                 setIsBest={setIsBest}
                 setIsWorst={setIsWorst}
               />
-              {role === CONSULTANT &&
+              {/*하단으로 위치이동 */}
+              {/* {role === CONSULTANT &&
                 <ConSelectedColorSet
                   setIsBest={setIsBest}
                   setIsWorst={setIsWorst}
                 />
-              }
+              } */}
             </SGrid>
           )
             :
@@ -359,6 +366,7 @@ const ConsultingRoom = () => {
             </SpinnerGrid>
           }
 
+          {/* 우측 컬러팔레트, 채팅*/}
           {
             role === CONSULTANT &&
             <SGrid item xs={12} sm={4} >
@@ -374,26 +382,43 @@ const ConsultingRoom = () => {
         </SGridContainer>
       )
         :
+        // 세션 연결 안됐을시
         <SpinnerGrid container>
           <Typography variant="h3">"연결을 눌러 주세요."</Typography>
         </SpinnerGrid>
       }
 
-
+      {/* 하단 || 선택된 베스트, 워스트 컬러팔레트 || 마이크, 카메라, 종료버튼 */}
       <Box sx={{
         display: 'flex',
         flexDirection: 'row',
         justifyContent: "space-between",
+        alignSelf: 'center',
+        height: '10%',
         width: '100%',
         maxWidth: '80%',
       }}>
         {
+          // 세션연결 안됐을시
           !session ?
             <Button variant="contained" onClick={joinSession} sx={{ marginBottom: "1rem" }}>
               연결
             </Button>
             :
+            // 세션 연결시
             <ButtonGroup sx={{ marginBottom: "1rem" }}>
+              {/* 베스트,워스트 컬러셋 */}
+              { role === CONSULTANT ?
+                <ConSelectedColorSet
+                  setIsBest={setIsBest}
+                  setIsWorst={setIsWorst}
+                />
+              :
+                <SelectedColorSet
+                  setIsBest={setIsBest}
+                  setIsWorst={setIsWorst}
+                />
+              }
               <IconButton
                 color="inherit"
                 onClick={() => {
@@ -414,6 +439,7 @@ const ConsultingRoom = () => {
             </ButtonGroup>
         }
 
+        {/* 공용|| 화면조정, 필터, 종료 */}
         <ButtonGroup sx={{ marginBottom: "1rem" }}>
           {
             role === CUSTOMER && customer &&
@@ -432,30 +458,49 @@ const ConsultingRoom = () => {
               </Button>
             </>
           }
+
           <Button variant="contained" onClick={leaveSession}>
             종료
           </Button>
         </ButtonGroup>
       </Box>
     </SContainer >
+    // </div>
   )
 }
 
 export default ConsultingRoom
 
+// 전체포함 margin으로 띄운 상태
 const SContainer = styled(Box)({
-  padding: "1rem",
-  height: "100%",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
+  justifyContent: 'center',
+  padding: "1rem",
+  margin: '3vh',
+  height: "94vh",
+
+  boxSizing: 'border-box',
+  border: '3px solid black',
+  borderRadius: '15px',
 })
 
+// 공용버튼 제외 모두 포함 (상위)
+// height 90% / 나머지 10% 하단
 const SGridContainer = styled(Grid)({
-  height: "100%",
+  height: "90%",
   alignItems: "center",
 })
 
+// 하위 그리드
+const SGrid = styled(Grid)({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center"
+})
+
+// 연결안됐을시 스피너
 const SpinnerGrid = styled(Grid)({
   width: "100%",
   height: "100%",
@@ -465,12 +510,7 @@ const SpinnerGrid = styled(Grid)({
   alignItems: "center"
 })
 
-const SGrid = styled(Grid)({
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center"
-})
-
+// 비디오 컨테이너
 const VideoContainer = styled(Box)({
   width: "90%",
   borderRadius: "1rem",
