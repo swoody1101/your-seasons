@@ -26,7 +26,6 @@ export const myConsultantDxFetch = createAsyncThunk(
   async () => {
     return Axios.get('customers/2')
       .then(res => {
-        console.log(res)
 
         if (res.status === OK) {
           return res.data
