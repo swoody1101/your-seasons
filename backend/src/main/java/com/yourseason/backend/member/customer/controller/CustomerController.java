@@ -60,6 +60,14 @@ public class CustomerController {
                 .body(response);
     }
 
+    @GetMapping("/5")
+    public ResponseEntity<List<SelfConsultingResultResponse>> getMySelfConsultings(@RequestHeader("Authorization") String token) {
+        List<SelfConsultingResultResponse> response = customerService.getMySelfConsultings(JwtUtil.getMemberId(token));
+        log.info("고객 마이페이지 - 지난 자가진단 기록 조회 성공 ");
+        return ResponseEntity.ok()
+                .body(response);
+    }
+
     @PatchMapping
     public ResponseEntity<Message> updateCustomer(@RequestHeader("Authorization") String token,
                                                   @RequestBody CustomerUpdateRequest customerUpdateRequest) {
