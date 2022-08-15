@@ -341,14 +341,17 @@ const ConsultingRoom = () => {
               <CircularProgress />
             </SpinnerGrid>
           }
-          <ColorButtonGroup
-            clickColorFirstFunc={clickColorFirstFunc}
-            clickColorFirst={clickColorFirst}
-            isBest={isBest}
-            isWorst={isWorst}
-            setIsBest={setIsBest}
-            setIsWorst={setIsWorst}
-          />
+          {
+            role === CONSULTANT &&
+            <ColorButtonGroup
+              clickColorFirstFunc={clickColorFirstFunc}
+              clickColorFirst={clickColorFirst}
+              isBest={isBest}
+              isWorst={isWorst}
+              setIsBest={setIsBest}
+              setIsWorst={setIsWorst}
+            />
+          }
         </SGrid>
 
           {/* 우측 컬러팔레트, 채팅*/}
@@ -454,7 +457,7 @@ const ConsultingRoom = () => {
                     {isCam ? <Videocam /> : <VideocamOff color="secondary" />}
                   </CustomIconButton>
                   {/*  화면조정, 필터, 종료 */}
-                  <ButtonGroup>
+                  <ButtonGroup style={{ gap:3}}>
                     <BottomBtn variant="contained" onClick={() => dispatch(settingModalOn())} >
                       화면 조정
                     </BottomBtn>
@@ -498,8 +501,7 @@ const SContainer = styled(Box)({
   border: '2px solid #5A4D4D',
   backgroundColor: '#FAFAFA',
   borderRadius: '15px',
-  spreadRadius: 5,
-  blurRadius: 7, 
+  boxShadow: '1px 2px 9px #B1B7B7',
 })
 
 

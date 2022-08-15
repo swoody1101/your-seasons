@@ -31,7 +31,7 @@ const ColorButtonGroup = ({
   return (
     <Div>
       <CustomFab variant="extended" onClick={() => dispatch(removeSelectColor(selectedColor))}>
-        현재 배경 제거
+        선택 색상 제거
       </CustomFab>
       {/* bestbtn */}
       <CustomFab variant="extended" sx={{ display: isBest ? 'none' : '' }} 

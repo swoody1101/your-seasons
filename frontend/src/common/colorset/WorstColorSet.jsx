@@ -13,7 +13,7 @@ const WorstColorSet = ({ setIsWorst }) => {
 
 	return (
   <Div>
-		<p>워스트 컬러팔레트</p>
+		<Text>워스트 컬러팔레트</Text>
 		<Pallete >
         {!isEmpty(wortcolors) ? wortcolors.map((item, index) => (
           <Tooltip title={item} key={index}  placement="top">
@@ -43,16 +43,19 @@ const Div = styled(Box)({
   gap: 5,
 })
 
+const Text = styled('p')({
+  color: '#5A4D4D',
+  fontWeight: 'bold',
+})
+
 const Pallete = styled(Card)({
   display:'flex', 
   justifyContent:'start', 
   alignItems:'center', 
-  backgroundColor: '#f5f5f5', 
-  border: '1px solid black',
+  backgroundColor: '#F5F5F5', 
+  border: '1px solid #5A4D4D',
   height: 34, 
   width: 323,
-  // maxWidth: 323,
-  // width: '100%',
 })
 
 const ColorItem = styled(Box)((props) => ({
