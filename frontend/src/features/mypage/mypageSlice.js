@@ -6,6 +6,7 @@ import { NO_CONTENT, OK } from '../../api/CustomConst'
 const initialState = {
   // customer state
   myConsultantDxData: [],
+  selfDxData: [],
   myReviewsData: [],
   myResData: [],
 
@@ -24,6 +25,26 @@ export const myConsultantDxFetch = createAsyncThunk(
   'mypage/myConsultantDxFetch',
   async () => {
     return Axios.get('customers/2')
+      .then(res => {
+
+        if (res.status === OK) {
+          return res.data
+        } else {
+          alert('진단기록을 불러올 수 없습니다.')
+          return false
+        }
+      })
+      .catch(error => {
+        alert('진단기록을 불러올 수 없습니다.')
+        return false
+      })
+  }
+)
+
+export const selfDxFetch = createAsyncThunk(
+  'mypage/selfDxFetch',
+  async () => {
+    return Axios.get('customers/5')
       .then(res => {
         if (res.status === OK) {
           return res.data
@@ -243,7 +264,7 @@ const mypageSlice = createSlice({
   initialState,
   extraReducers: (builder) => {
     // customer extra reducers ==============================
-    // 진단기록 슬라이스
+    // 컨설팅 진단기록 슬라이스
     builder.addCase(myConsultantDxFetch.pending, (state, action) => {
       state.status = 'loading';
     })
@@ -254,6 +275,18 @@ const mypageSlice = createSlice({
     builder.addCase(myConsultantDxFetch.rejected, (state, action) => {
       state.status = 'failed';
     })
+    // 자가진단 기록 슬라이스
+    builder.addCase(selfDxFetch.pending, (state, action) => {
+      state.status = 'loading';
+    })
+    builder.addCase(selfDxFetch.fulfilled, (state, { payload }) => {
+      state.status = 'succeeded';
+      state.selfDxData = payload;
+    })
+    builder.addCase(selfDxFetch.rejected, (state, action) => {
+      state.status = 'failed';
+    })
+
     // 내 예약 슬라이스
     builder.addCase(myResFetch.pending, (state, action) => {
       state.status = 'Loading';
