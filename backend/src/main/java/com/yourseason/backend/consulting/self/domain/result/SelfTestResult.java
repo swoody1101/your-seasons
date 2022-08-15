@@ -4,7 +4,6 @@ import com.yourseason.backend.common.domain.Tone;
 import com.yourseason.backend.consulting.common.BestColorSet;
 import com.yourseason.backend.consulting.common.TestResult;
 import com.yourseason.backend.consulting.common.WorstColorSet;
-import com.yourseason.backend.consulting.self.domain.percentage.Percentage;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

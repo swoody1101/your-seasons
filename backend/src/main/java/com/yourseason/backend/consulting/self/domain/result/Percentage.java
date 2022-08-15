@@ -1,4 +1,4 @@
-package com.yourseason.backend.consulting.self.domain.percentage;
+package com.yourseason.backend.consulting.self.domain.result;
 
 
 import com.yourseason.backend.common.domain.BaseTimeEntity;
