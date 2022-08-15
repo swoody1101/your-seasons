@@ -12,8 +12,8 @@ import com.yourseason.backend.consulting.consultant.controller.dto.ConsultingReq
 import com.yourseason.backend.consulting.consultant.domain.Consulting;
 import com.yourseason.backend.consulting.consultant.domain.ConsultingRepository;
 import com.yourseason.backend.consulting.common.BestColorSet;
-import com.yourseason.backend.consulting.consultant.domain.result.ConsultantTestResult;
-import com.yourseason.backend.consulting.consultant.domain.result.ConsultantTestResultRepository;
+import com.yourseason.backend.consulting.consultant.domain.result.ConsultingResult;
+import com.yourseason.backend.consulting.consultant.domain.result.ConsultingResultRepository;
 import com.yourseason.backend.consulting.common.WorstColorSet;
 import com.yourseason.backend.member.consultant.domain.Consultant;
 import com.yourseason.backend.member.consultant.domain.ConsultantRepository;
@@ -57,7 +57,7 @@ public class ConsultingService {
     private final ReservationRepository reservationRepository;
     private final ColorRepository colorRepository;
     private final ToneRepository toneRepository;
-    private final ConsultantTestResultRepository consultantTestResultRepository;
+    private final ConsultingResultRepository consultingResultRepository;
 
     @Transactional
     public ConsultingCreateResponse createConsulting(Long consultantId, ConsultingRequest consultingRequest) {
@@ -125,14 +125,14 @@ public class ConsultingService {
         Tone tone = toneRepository.findByName(consultingFinishRequest.getTone())
                 .orElseThrow(() -> new NotFoundException(TONE_NOT_FOUND));
 
-        ConsultantTestResult consultantTestResult = ConsultantTestResult.builder()
+        ConsultingResult consultingResult = ConsultingResult.builder()
                 .tone(tone)
                 .consultingComment(consultingFinishRequest.getConsultingComment())
                 .bestColorSet(bestColorSet)
                 .worstColorSet(worstColorSet)
                 .consultingFile(consultingFile)
                 .build();
-        consultantTestResultRepository.save(consultantTestResult);
+        consultingResultRepository.save(consultingResult);
         return new Message("succeeded");
     }
 

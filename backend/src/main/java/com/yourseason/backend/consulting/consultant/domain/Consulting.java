@@ -1,7 +1,7 @@
 package com.yourseason.backend.consulting.consultant.domain;
 
 import com.yourseason.backend.common.domain.BaseTimeEntity;
-import com.yourseason.backend.consulting.consultant.domain.result.ConsultantTestResult;
+import com.yourseason.backend.consulting.consultant.domain.result.ConsultingResult;
 import com.yourseason.backend.member.consultant.domain.Consultant;
 import com.yourseason.backend.member.customer.domain.Customer;
 import com.yourseason.backend.reservation.domain.Reservation;
@@ -22,7 +22,7 @@ public class Consulting extends BaseTimeEntity {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "test_result_id")
-    private ConsultantTestResult consultantTestResult;
+    private ConsultingResult consultingResult;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "consultant_id")
@@ -39,9 +39,9 @@ public class Consulting extends BaseTimeEntity {
 
     @Builder
     public Consulting(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate,
-                      ConsultantTestResult consultantTestResult, String sessionId, boolean hasReview, Consultant consultant, Customer customer) {
+                      ConsultingResult consultingResult, String sessionId, boolean hasReview, Consultant consultant, Customer customer) {
         super(id, createdDate, lastModifiedDate, deletedDate, true);
-        this.consultantTestResult = consultantTestResult;
+        this.consultingResult = consultingResult;
         this.consultant = consultant;
         this.customer = customer;
         this.sessionId = sessionId;

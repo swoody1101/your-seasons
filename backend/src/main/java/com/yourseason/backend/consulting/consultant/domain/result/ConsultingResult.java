@@ -14,16 +14,16 @@ import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AttributeOverride(name = "id", column = @Column(name = "consultant_test_result_id"))
+@AttributeOverride(name = "id", column = @Column(name = "consulting_result_id"))
 @Entity
-public class ConsultantTestResult extends TestResult {
+public class ConsultingResult extends TestResult {
 
     private String consultingComment;
     private String consultingFile;
 
     @Builder
-    public ConsultantTestResult(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate,
-                                BestColorSet bestColorSet, WorstColorSet worstColorSet, Tone tone, String consultingComment, String consultingFile) {
+    public ConsultingResult(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate,
+                            BestColorSet bestColorSet, WorstColorSet worstColorSet, Tone tone, String consultingComment, String consultingFile) {
         super(id, createdDate, lastModifiedDate, deletedDate, bestColorSet, worstColorSet, tone);
         this.consultingComment = consultingComment;
         this.consultingFile = consultingFile;
