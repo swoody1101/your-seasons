@@ -1,7 +1,7 @@
 package com.yourseason.backend.review.domain;
 
 import com.yourseason.backend.common.domain.BaseTimeEntity;
-import com.yourseason.backend.consulting.domain.Consulting;
+import com.yourseason.backend.consulting.consultant.domain.Consulting;
 import com.yourseason.backend.member.consultant.domain.Consultant;
 import com.yourseason.backend.member.customer.domain.Customer;
 import lombok.AccessLevel;
