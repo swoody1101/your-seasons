@@ -20,7 +20,7 @@ import java.util.List;
 @Entity
 public class SelfConsultingResult extends Result {
 
-    @OneToMany(mappedBy = "selfTestResult", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "selfConsultingResult", cascade = CascadeType.PERSIST)
     private List<Percentage> percentages = new ArrayList<>();
 
     @Builder
