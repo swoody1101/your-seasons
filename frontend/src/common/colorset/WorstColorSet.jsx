@@ -1,45 +1,64 @@
-import { styled } from '@mui/material';
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Box, Card, styled, Tooltip } from '@mui/material';
+import { isEmpty } from 'lodash'
+
 import { changeSelectColor } from './colorSetSlice'
 
 
 const WorstColorSet = ({ setIsWorst }) => {
   const wortcolors = useSelector(state => state.colorSetList.worstColor);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
 
 	return (
-  <WorstDiv>
+  <Div>
 		<p>워스트 컬러팔레트</p>
 		<Pallete >
-        {wortcolors.map((item, index) => (
-          <div
+        {!isEmpty(wortcolors) ? wortcolors.map((item, index) => (
+          <Tooltip title={item} key={index}  placement="top">
+          <ColorItem
+            item={item}
             onClick={() => {
               dispatch(changeSelectColor(item));
               setIsWorst(true)
-            }}
-            style={{ backgroundColor: item, width: 40, height: 40, margin: 5 }}
-            key={index}>{item}</div>
-        ))}
+            }} key={index}/>
+          </Tooltip>
+        ))
+      :
+      <p style={{margin:'auto'}}>
+      최대 10개의 컬러를 추가할 수 있어요.
+      </p>
+      }
 		</Pallete>
-  </WorstDiv>
+  </Div>
 )
 }
 export default WorstColorSet
 
-const WorstDiv = styled('div')({
-  // display: "flex",
-  // flexDirection: "column",
+const Div = styled(Box)({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  gap: 5,
 })
 
-
-const Pallete = styled('div')({
+const Pallete = styled(Card)({
   display:'flex', 
   justifyContent:'start', 
-  alignContent:'center', 
+  alignItems:'center', 
   backgroundColor: '#f5f5f5', 
-  width: '100%',  
-  height: 60, 
   border: '1px solid black',
+  height: 34, 
+  width: 323,
+  // maxWidth: 323,
+  // width: '100%',
 })
+
+const ColorItem = styled(Box)((props) => ({
+  backgroundColor: props.item, 
+  width: 30, 
+  height: 30, 
+  margin: 1,
+  cursor: 'pointer',
+}))

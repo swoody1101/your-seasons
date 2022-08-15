@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Grid, Button, styled } from '@mui/material'
+import { Grid, styled } from '@mui/material'
 
 import BestColorSet from './BestColorSet'
 import WorstColorSet from './WorstColorSet'
@@ -14,11 +14,11 @@ const ConSelectedColorSet = ({
   const selectedColor = useSelector(state => state.colorSetList.selectedColor)
 
   return (
-    <ConGrid item>
-      <div style={{ backgroundColor: selectedColor, width: "40", height: "40" }} />
+    <MainDiv>
+      {/* <div style={{ backgroundColor: selectedColor, width: "40", height: "40" }} /> */}
       <BestColorSet setIsBest={setIsBest} />
       <WorstColorSet setIsWorst={setIsWorst} />
-    </ConGrid>
+    </MainDiv>
   )
 }
 
@@ -29,9 +29,8 @@ ConSelectedColorSet.defaultProps = {
   setIsWorst: () => { }
 }
 
-const ConGrid = styled(Grid)({
-  display: "flex",
-  flexDirection: "row",
-  justifyContent: "center",
-  backgroundColor: 'red',
+const MainDiv = styled(Grid)({
+  display: 'flex',
+  flexDirection: 'row',
+  gap: 10,
 })

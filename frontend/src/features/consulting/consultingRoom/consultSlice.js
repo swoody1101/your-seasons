@@ -94,7 +94,7 @@ export const consultSlice = createSlice({
   extraReducers: {
     [getConsultantSessionName.fulfilled]: (state, { payload }) => {
       state.consultantSessionName = payload.sessionId
-      state.consultingID = payload.consultingID
+      state.consultingId = payload.consultingId
     },
     [getConsultantSessionName.rejected]: (state, { payload }) => {
       state.consultantSessionName = 's-s-s'

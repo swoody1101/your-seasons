@@ -46,7 +46,7 @@ const MainColorSet = () => {
   }
 
   return (
-    <SGrid item xs={12}>
+    <SGrid item>
       <TabContext value={value} sx={{ height: '100%' }}>
         <Box sx={{ borderBottom: 'divider' }}>
           <TabList onChange={handleChange} sx={{ borderBottom: 'divider' }}>
