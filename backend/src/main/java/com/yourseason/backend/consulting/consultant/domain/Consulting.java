@@ -1,7 +1,7 @@
-package com.yourseason.backend.consulting.domain;
+package com.yourseason.backend.consulting.consultant.domain;
 
 import com.yourseason.backend.common.domain.BaseTimeEntity;
-import com.yourseason.backend.consulting.domain.result.TestResult;
+import com.yourseason.backend.consulting.common.result.TestResult;
 import com.yourseason.backend.member.consultant.domain.Consultant;
 import com.yourseason.backend.member.customer.domain.Customer;
 import com.yourseason.backend.reservation.domain.Reservation;

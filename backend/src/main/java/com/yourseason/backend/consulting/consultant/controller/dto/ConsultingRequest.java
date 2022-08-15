@@ -1,4 +1,4 @@
-package com.yourseason.backend.consulting.controller.dto;
+package com.yourseason.backend.consulting.consultant.controller.dto;
 
 import lombok.AccessLevel;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.yourseason.backend.consulting.domain.result;
+package com.yourseason.backend.consulting.common.result;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
