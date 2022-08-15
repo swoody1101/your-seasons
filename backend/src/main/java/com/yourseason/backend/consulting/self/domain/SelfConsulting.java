@@ -1,7 +1,7 @@
 package com.yourseason.backend.consulting.self.domain;
 
 import com.yourseason.backend.common.domain.BaseTimeEntity;
-import com.yourseason.backend.consulting.self.domain.result.SelfTestResult;
+import com.yourseason.backend.consulting.self.domain.result.SelfConsultingResult;
 import com.yourseason.backend.member.customer.domain.Customer;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -22,14 +22,14 @@ public class SelfConsulting extends BaseTimeEntity {
     private Customer customer;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "self_test_result_id")
-    private SelfTestResult selfTestResult;
+    @JoinColumn(name = "self_consulting_result_id")
+    private SelfConsultingResult selfConsultingResult;
 
     @Builder
     public SelfConsulting(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate,
-                          Customer customer, SelfTestResult selfTestResult) {
+                          Customer customer, SelfConsultingResult selfConsultingResult) {
         super(id, createdDate, lastModifiedDate, deletedDate, true);
         this.customer = customer;
-        this.selfTestResult = selfTestResult;
+        this.selfConsultingResult = selfConsultingResult;
     }
 }

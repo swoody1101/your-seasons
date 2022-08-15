@@ -16,16 +16,16 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AttributeOverride(name = "id", column = @Column(name = "self_test_result_id"))
+@AttributeOverride(name = "id", column = @Column(name = "self_consulting_result_id"))
 @Entity
-public class SelfTestResult extends TestResult {
+public class SelfConsultingResult extends TestResult {
 
     @OneToMany(mappedBy = "selfTestResult", cascade = CascadeType.PERSIST)
     private List<Percentage> percentages = new ArrayList<>();
 
     @Builder
-    public SelfTestResult(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate,
-                          BestColorSet bestColorSet, WorstColorSet worstColorSet, Tone tone, List<Percentage> percentages) {
+    public SelfConsultingResult(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate,
+                                BestColorSet bestColorSet, WorstColorSet worstColorSet, Tone tone, List<Percentage> percentages) {
         super(id, createdDate, lastModifiedDate, deletedDate, bestColorSet, worstColorSet, tone);
         this.percentages = percentages;
     }
