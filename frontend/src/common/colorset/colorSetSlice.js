@@ -52,7 +52,13 @@ const ColorSetListSlice = createSlice({
       state.files = action.payload
     },
     changeComment: (state, action) => {
-      state.comment = action.payload
+      // 1000자 최대
+      if(state.comment.length<999){
+        state.comment = action.payload
+      }else{
+        alert('1000자 이상 입력할 수 없습니다.')
+        return
+      }
     },
     selectTone: (state, action) => {
       state.tone = action.payload

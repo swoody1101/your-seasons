@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   open: false,
   snackbarMessage: '',
+  snackbarSeverity: 'info',
 }
 
 export const SnackBarSlice = createSlice({
@@ -15,8 +16,15 @@ export const SnackBarSlice = createSlice({
     setSnackbarMessage: (state, {payload}) => {
       state.snackbarMessage = payload
     },
+    setSnackBarSeverity: (state, {payload}) => {
+      if (payload){
+        state.snackbarSeverity = payload
+      }else{
+        state.snackbarSeverity = 'info'
+      }
+    }
   },
 })
-export const { setSnackBarOpen, setSnackbarMessage } = SnackBarSlice.actions;
+export const { setSnackBarOpen, setSnackbarMessage, setSnackBarSeverity } = SnackBarSlice.actions;
 
 export default SnackBarSlice.reducer

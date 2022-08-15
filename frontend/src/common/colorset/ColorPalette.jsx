@@ -21,10 +21,9 @@ ColorPalette.defaultProps = {
 }
 
 const SGrid = styled(Grid)({
-	width: '100%',
-	height: '100%',
 	display: "flex",
-	flexDirection: "row",
 	justifyContent: "center",
-	alignItems: "center"
+	// width: '100%',
+	// height: '100%',
+	// flexDirection: "row",
 })

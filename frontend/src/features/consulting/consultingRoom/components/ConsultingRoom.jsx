@@ -31,7 +31,8 @@ const OPENVIDU_SERVER_SECRET = 'YOUR_SEASONS_SECRET';
 const ConsultingRoom = () => {
   const nickname= "asdf"
   const email="s-s-s"
-  const {  role, imageUrl } = useSelector(state => state.auth.logonUser)
+  const role= "CONSULTANT"
+  const {  imageUrl } = useSelector(state => state.auth.logonUser)
   const { session, customer, consultingId, consultantSessionName } = useSelector(state => state.consult)
   const tmp = email.replace(/[@\.]/g, '-')
   const [mySessionId, setMySessionId] = useState(
@@ -357,12 +358,18 @@ const ConsultingRoom = () => {
           {/* 우측 컬러팔레트, 채팅*/}
           {
             role === CONSULTANT &&
-            <SGrid item xs={12} sm={4} >
-              < ColorPalette
+            // sgrid
+            <Grid item xs={12} sm={4}
+            sx={{  display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            height: '100%',
+            }}>
+              <ColorPalette
                 isBest={isBest}
                 isWorst={isWorst}
               />
-            </SGrid>
+            </Grid>
           }
           {role === CUSTOMER &&
             <Chat />
@@ -517,7 +524,8 @@ const SGridContainer = styled(Grid)({
 const SGrid = styled(Grid)({
   display: "flex",
   flexDirection: "column",
-  alignItems: "center"
+  alignItems: "center",
+  height: '100%',
 })
 
 // 연결안됐을시 스피너
@@ -562,6 +570,7 @@ const CustomIconButton = styled(IconButton)((props)=>({
 	fontWeight: 'normal',
   border: '1px solid #66635C',
 	borderRadius: '10%',
+  height: '3rem',
 }))
 
 const BottomBtn = styled(Button)((props)=>({
@@ -575,6 +584,7 @@ const BottomBtn = styled(Button)((props)=>({
 	fontWeight: 'normal',
   border: '1px solid #66635C',
 	// width: `${props.wd}px`,
+  height: '3rem',
 }))
 
 // 1-2그룹 => 마이크,캠,종료
