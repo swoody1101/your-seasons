@@ -33,4 +33,5 @@ const ConGrid = styled(Grid)({
   display: "flex",
   flexDirection: "row",
   justifyContent: "center",
+  backgroundColor: 'red',
 })

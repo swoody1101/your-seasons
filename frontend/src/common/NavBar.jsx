@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, Outlet } from 'react-router-dom';
 import {
   AppBar, Box, createTheme, ThemeProvider,
   Toolbar, Typography, styled
@@ -35,7 +35,7 @@ const NavBar = () => {
     }
   })
 
-  return (
+  return (<div>
 		<ThemeProvider theme={transparentTheme} >
       <AppBar position="sticky" variant="transparent">
         <StyledToolbar>
@@ -110,6 +110,8 @@ const NavBar = () => {
         </StyledToolbar>
       </AppBar>
 		</ThemeProvider>
+    <Outlet />
+  </div>
   )
 }
 

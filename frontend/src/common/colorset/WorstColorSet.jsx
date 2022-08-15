@@ -11,7 +11,7 @@ const WorstColorSet = ({ setIsWorst }) => {
 
 	return (
   <WorstDiv>
-		<PalleteName>워스트 컬러팔레트</PalleteName>
+		<p>워스트 컬러팔레트</p>
 		<Pallete >
         {wortcolors.map((item, index) => (
           <div
@@ -19,7 +19,7 @@ const WorstColorSet = ({ setIsWorst }) => {
               dispatch(changeSelectColor(item));
               setIsWorst(true)
             }}
-            style={{ backgroundColor: item, width: 50, height: 50, margin: 5 }}
+            style={{ backgroundColor: item, width: 40, height: 40, margin: 5 }}
             key={index}>{item}</div>
         ))}
 		</Pallete>
@@ -33,10 +33,6 @@ const WorstDiv = styled('div')({
   // flexDirection: "column",
 })
 
-const PalleteName = styled('p')({
-  display: "flex",
-  flexDirection: "row",
-})
 
 const Pallete = styled('div')({
   display:'flex', 
