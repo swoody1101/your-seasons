@@ -21,9 +21,9 @@ const MyProfile = () => {
     dispatch(myConsultantDxFetch())
   }, [])
 
-  // useEffect(() => {
-  //   dispatch(selfDxFetch())
-  // }, [])
+  useEffect(() => {
+    dispatch(selfDxFetch())
+  }, [])
 
 
   const diagnosis = () => {
