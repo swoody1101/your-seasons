@@ -14,12 +14,16 @@ import FABRIC4 from 'features/consulting/consultingRoom/fabric/fabric004.png'
 
 const CoverFilter = () => {
   const { selectedColor } = useSelector(state => state.colorSetList)
-  const colorString = getFilter(selectedColor)
   const [img, setImg] = useState(FABRIC0)
   const [isFilter, setIsFilter] = useState(!!selectedColor)
   const [hvalue, setHvalue] = useState(4.0)
   const [falue, setFalue] = useState(0)
   const fabric = [FABRIC0, FABRIC1, FABRIC2, FABRIC3, FABRIC4]
+  const colorString = () => {
+    if (selectedColor) {
+      return getFilter(selectedColor)
+    }
+  } 
 
   const handelFabric = () => {
     const value = falue + 1
