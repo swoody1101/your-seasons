@@ -43,7 +43,7 @@ const MyProfile = () => {
   }
 
   return (
-    <Grid container>
+    <Grid container sx={{ backgroundColor: "white", borderRadius: "10px" }}>
       {/* 이미지 */}
       <Grid item xs={12} sm={3} sx={{
         display: 'flex',
