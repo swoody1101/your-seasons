@@ -56,7 +56,7 @@ const Chat = () => {
   }
 
   return (
-    <ChatGrid item xs={12} sm={4}>
+    <ChatGrid>
       <ChatContainer>
         <ChatList />
         <IContainer>

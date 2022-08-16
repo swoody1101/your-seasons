@@ -29,10 +29,10 @@ const OPENVIDU_SERVER_SECRET = 'YOUR_SEASONS_SECRET';
 
 // rafce Arrow function style 
 const ConsultingRoom = () => {
-  const nickname = 's-s'
-  const email = 's-s'
-  const role = 'CONSULTANT'
-  const {  imageUrl } = useSelector(state => state.auth.logonUser) //nickname, email, role,
+  // const nickname = 's-s'
+  // const email = 's-s'
+  // const role = 'CONSULTANT'
+  const { nickname, email, role, imageUrl } = useSelector(state => state.auth.logonUser) //nickname, email, role,
   const { session, customer, consultingId, consultantSessionName } = useSelector(state => state.consult)
   const tmp = email.replace(/[@\.]/g, '-')
   const [mySessionId, setMySessionId] = useState(
@@ -308,7 +308,7 @@ const ConsultingRoom = () => {
               }}>
               <SGrid item >
                 <VideoContainer>
-                  <UserVideoComponent role={role}
+                  <UserVideoComponent
                     streamManager={consultant} />
                 </VideoContainer>
               </SGrid>
@@ -324,11 +324,11 @@ const ConsultingRoom = () => {
             </SpinnerGrid>
           }
 
-        <SGrid item xs={12} sm={6}>
+        <UserVideoSGrid item xs={12} sm={6}>
           {customer !== undefined ? (
             // 유저 비디오 및 베스트 및 컬러셋
               <VideoContainer>
-                <UserVideoComponent role={role}
+                <UserVideoComponent
                   streamManager={customer} />
               </VideoContainer>
           )
@@ -348,17 +348,17 @@ const ConsultingRoom = () => {
               setIsWorst={setIsWorst}
             />
           }
-        </SGrid>
+        </UserVideoSGrid>
 
           {/* 우측 컬러팔레트, 채팅*/}
           {
             role === CONSULTANT &&
             // sgrid
             <Grid item xs={12} sm={4}
-            sx={{  display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            height: '100%',
+              sx={{  display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              height: '100%',
             }}>
               <ColorPalette
                 isBest={isBest}
@@ -366,10 +366,19 @@ const ConsultingRoom = () => {
               />
             </Grid>
           }
-          {role === CUSTOMER &&
-          <SGrid>
+          {
+            role === CUSTOMER &&
+            <Grid item xs={12} sm={4}
+            sx={{ 
+              display: "flex",
+              justifyContent: "end",
+              height: "80%",
+              flexDirection: "column",
+              width: '100%',
+            }}>
             <Chat />
-          </SGrid>
+            </Grid>
+            
           }
         </SGridContainer>
       )
@@ -513,7 +522,7 @@ const SContainer = styled(Box)({
 // 공용버튼 제외 모두 포함 (상위)
 // height 90% / 나머지 10% 하단
 const SGridContainer = styled(Grid)({
-  height: "90%",
+  height: '84vh',  //"90%",
   display: 'flex',
   alignItems: "center",
   // columnGap: 2,
@@ -544,15 +553,21 @@ const VideoContainer = styled(Box)({
   // padding: "1rem",
 })
 
+const UserVideoSGrid = styled(Grid)({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "end",
+})
+
 
 // 하단 10%
 const BottomBox = styled(Box)({
   // backgroundColor: 'blue',
+  height: '10vh',//'10%',
   display: 'flex',
   flexDirection: 'row',
   justifyContent: "space-between",
   alignItems: 'center',
-  height: '10%',
   width: '100%',
   maxWidth: '90%',
 })
