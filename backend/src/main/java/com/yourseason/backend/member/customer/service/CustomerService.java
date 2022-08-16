@@ -125,6 +125,35 @@ public class CustomerService {
                 .collect(Collectors.toList());
     }
 
+    public List<SelfConsultingResultResponse> getMySelfConsultings(Long customerId) {
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
+
+        return customer.getSelfConsultings()
+                .stream()
+                .map(selfConsulting -> SelfConsultingResultResponse.builder()
+                        .selfConsultingId(selfConsulting.getId())
+                        .selfConsultingDate(selfConsulting.getCreatedDate().toLocalDate())
+                        .tone(selfConsulting.getSelfConsultingResult().getTone().getName())
+                        .bestColorSet(selfConsulting.getSelfConsultingResult().getBestColorSet().getColorSet().getColorColorSets()
+                                .stream()
+                                .map(colorColorSet -> colorColorSet.getColor().getHex())
+                                .collect(Collectors.toList()))
+                        .worstColorSet(selfConsulting.getSelfConsultingResult().getWorstColorSet().getColorSet().getColorColorSets()
+                                .stream()
+                                .map(colorColorSet -> colorColorSet.getColor().getHex())
+                                .collect(Collectors.toList()))
+                        .percentages(selfConsulting.getSelfConsultingResult().getPercentages()
+                                .stream()
+                                .map(percentage -> PercentageResponse.builder()
+                                        .tone(percentage.getTone().getName())
+                                        .percentage(percentage.getPercentage())
+                                        .build())
+                                .collect(Collectors.toList()))
+                        .build())
+                .collect(Collectors.toList());
+    }
+
     public Message updateCustomer(Long customerId, CustomerUpdateRequest customerUpdateRequest) {
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));

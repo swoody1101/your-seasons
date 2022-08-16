@@ -28,14 +28,6 @@ public class CustomerController {
                 .body(message);
     }
 
-    @GetMapping("/4")
-    public ResponseEntity<CustomerResponse> getCustomer(@RequestHeader("Authorization") String token) {
-        CustomerResponse response = customerService.getCustomerInfo(JwtUtil.getMemberId(token));
-        log.info("고객 마이페이지 - 정보 수정 페이지 조회 성공");
-        return ResponseEntity.ok()
-                .body(response);
-    }
-
     @GetMapping("/1")
     public ResponseEntity<List<ReservationListResponse>> getMyReservations(@RequestHeader("Authorization") String token) {
         List<ReservationListResponse> responses = customerService.getMyReservations(JwtUtil.getMemberId(token));
@@ -58,6 +50,22 @@ public class CustomerController {
         log.info("고객 마이페이지 - 리뷰 조회 성공");
         return ResponseEntity.ok()
                 .body(responses);
+    }
+
+    @GetMapping("/4")
+    public ResponseEntity<CustomerResponse> getCustomer(@RequestHeader("Authorization") String token) {
+        CustomerResponse response = customerService.getCustomerInfo(JwtUtil.getMemberId(token));
+        log.info("고객 마이페이지 - 정보 수정 페이지 조회 성공");
+        return ResponseEntity.ok()
+                .body(response);
+    }
+
+    @GetMapping("/5")
+    public ResponseEntity<List<SelfConsultingResultResponse>> getMySelfConsultings(@RequestHeader("Authorization") String token) {
+        List<SelfConsultingResultResponse> response = customerService.getMySelfConsultings(JwtUtil.getMemberId(token));
+        log.info("고객 마이페이지 - 지난 자가진단 기록 조회 성공 ");
+        return ResponseEntity.ok()
+                .body(response);
     }
 
     @PatchMapping

@@ -1,6 +1,7 @@
 package com.yourseason.backend.member.customer.domain;
 
 import com.yourseason.backend.consulting.consultant.domain.Consulting;
+import com.yourseason.backend.consulting.self.domain.SelfConsulting;
 import com.yourseason.backend.member.common.domain.Member;
 import com.yourseason.backend.reservation.domain.Reservation;
 import com.yourseason.backend.review.domain.Review;
@@ -24,6 +25,9 @@ public class Customer extends Member {
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST)
     private List<Consulting> consultings = new ArrayList<>();
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST)
+    private List<SelfConsulting> selfConsultings = new ArrayList<>();
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST)
     private List<Reservation> reservations = new ArrayList<>();
