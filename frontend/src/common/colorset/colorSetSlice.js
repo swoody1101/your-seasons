@@ -32,8 +32,6 @@ export const ColorSetListFetch = createAsyncThunk(
 )
 
 
-
-
 const ColorSetListSlice = createSlice({
   name: 'colorsetList',
   initialState,
@@ -54,7 +52,13 @@ const ColorSetListSlice = createSlice({
       state.files = action.payload
     },
     changeComment: (state, action) => {
-      state.comment = action.payload
+      // 1000자 최대
+      if(state.comment.length<999){
+        state.comment = action.payload
+      }else{
+        alert('1000자 이상 입력할 수 없습니다.')
+        return
+      }
     },
     selectTone: (state, action) => {
       state.tone = action.payload
@@ -66,20 +70,32 @@ const ColorSetListSlice = createSlice({
       state.selectedColor = ''
     },
     addBestColor: (state, action) => {
-      if (state.bestColor.includes(action.payload)) {
-        return alert('이미 존재하는 컬러입니다.')
-      } else {
-        state.bestColor.push(action.payload);
+      if (state.bestColor.length<10) {
+        if (state.bestColor.includes(action.payload)) {
+          alert('이미 존재하는 컬러입니다.')
+          return
+        } else {
+          state.bestColor.push(action.payload);
+        }
+      } else{
+        alert('최대 10개의 컬러를 추가할 수 있습니다.')
+        return
       }
     },
     removeBestColor: (state, action) => {
       state.bestColor = state.bestColor.filter((color) => color !== action.payload)
     },
     addWorstColor: (state, action) => {
-      if (state.worstColor.includes(action.payload)) {
-        return alert('이미 존재하는 컬러입니다.')
-      } else {
-        state.worstColor.push(action.payload);
+      if (state.worstColor.length<10){
+        if (state.worstColor.includes(action.payload)) {
+          alert('이미 존재하는 컬러입니다.')
+          return
+        } else {
+          state.worstColor.push(action.payload);
+        }
+      } else{
+        alert('최대 10개의 컬러를 추가할 수 있습니다.')
+        return
       }
     },
     removeWorstColor: (state, action) => {

@@ -81,6 +81,10 @@ const ChatGrid = styled(Grid)({
   flexDirection: "column",
   justifyContent: "flex-end",
   overflow: "hidden",
+  backgroundColor: "#F5F5F5",
+  border: '2px solid #5A4D4D99',
+  borderRadius: '10px',
+  padding: '10px',
 })
 
 const ChatContainer = styled(Grid)({
@@ -89,10 +93,7 @@ const ChatContainer = styled(Grid)({
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
-  backgroundColor: "#FFFFFF10",
   borderRadius: "4px",
-  margin: "4px",
-  padding: "4px",
   overflow: "hidden",
 })
 
@@ -102,13 +103,13 @@ const IContainer = styled(Box)({
   display: "flex",
   flexDirection: "row",
   justifyContent: "center",
-  alignContent: "center"
+  alignContent: "center",
 })
 
 const Input = styled('input')({
-  fontSize: "1.2rem",
+  fontSize: "1rem",
   padding: "0.4rem 1rem",
   width: "calc(100% - 40px)",
-  border: "1px  solid",
+  border: '2px solid #5A4D4D99',
   borderRadius: "1rem",
 })
