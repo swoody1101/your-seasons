@@ -8,7 +8,6 @@ export default function EmailAuthentication({
   // 인증번호 발송 여부
   handleSendCheck,
   isSend,
-  setIsSend,
   //value, setvalue
   value,
   setValue,
@@ -18,21 +17,32 @@ export default function EmailAuthentication({
   handleValueCheck,
   defaultText,
   successText,
-  errorText,
 }) {
   const [isError, setIsError] = useState(true);
   const [helperText, setHelperText] = useState(defaultText);
 
   const HandleOnChange = (e) => {
     setValue(e.target.value);
+    setIsEmailAuthCheck(false)
+    setIsError(false)
+    setHelperText(successText)
+
+    if (e.target.value === "") {
+      setIsError(true);
+      setHelperText(defaultText)
+    }
+
   };
 
   const handleCheck = () => {
     handleSendCheck();
   };
+
   const handleCheckAuth = () => {
     handleValueCheck();
   }
+
+
   return (
     <Container>
       <Label>{label}</Label>
@@ -103,8 +113,8 @@ const CheckBnt = styled(Button)`
   height: ${props => (props.label === '' ? '1.8rem' : '2rem')};
   right: 0;
   top: ${props => (props.label === '' ? '0' : '1rem')};
-  border: ${(isTrueEmail) => (isTrueEmail ? "1px solid #FF7775;" : "1px solid #FF7775")};
-  color: ${(isTrueEmail) => (isTrueEmail ? "#FF7775" : "#d9d9d9")};
+  border: ${(isTrueEmail) => (isTrueEmail ? "1px solid #ff7775;" : "1px solid #ff7775")};
+  color: ${(isTrueEmail) => (isTrueEmail ? "#3C3C3C" : "#ff7775")};
   font-size: 1rem;
   border-radius: 2rem;
 `;
@@ -117,8 +127,8 @@ const CheckSuccessBnt = styled(Button)`
   height: ${props => (props.label === '' ? '1.8rem' : '2rem')};
   right: 0;
   top: ${props => (props.label === '' ? '0' : '1rem')};
-  border: ${(isEmailAuthCheck) => (isEmailAuthCheck ? "1px solid #FF7775;" : "1px solid #d9d9d9")};
-  color: ${(isEmailAuthCheck) => (isEmailAuthCheck ? "#FF7775" : "#3C3C3C")};
+  border: ${(isEmailAuthCheck) => (isEmailAuthCheck ? "1px solid #6b95ff;" : "1px solid #ff7775")};
+  color: ${(isEmailAuthCheck) => (isEmailAuthCheck ? "#3C3C3C" : "#ff7775")};
   font-size: 1rem;
   border-radius: 2rem;
 `;
