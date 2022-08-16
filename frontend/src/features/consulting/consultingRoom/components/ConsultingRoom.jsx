@@ -29,10 +29,7 @@ const OPENVIDU_SERVER_SECRET = 'YOUR_SEASONS_SECRET';
 
 // rafce Arrow function style 
 const ConsultingRoom = () => {
-  const nickname= "asdf"
-  const email="s-s-s"
-  const role= "CONSULTANT"
-  const {  imageUrl } = useSelector(state => state.auth.logonUser)
+  const { nickname, email, role, imageUrl } = useSelector(state => state.auth.logonUser)
   const { session, customer, consultingId, consultantSessionName } = useSelector(state => state.consult)
   const tmp = email.replace(/[@\.]/g, '-')
   const [mySessionId, setMySessionId] = useState(
@@ -294,26 +291,21 @@ const ConsultingRoom = () => {
 
   // ---------- render
   return (
-    // backgroundColor={`${selectedColor}40`}
-    <SContainer container>
+    <SContainer container >
 
       {session !== undefined ? (
         // 세션 연결시
-        <SGridContainer container >      
+        <SGridContainer container spacing={2}>      
           {consultant !== undefined ? (
             <Grid container item xs={12} sm={2}
               sx={{
                 height: "80%",
-                justifyContent: "space-between"
+                justifyContent: "space-between",
+                gap: 2,
               }}>
-              <SGrid item>
-                <Typography variant="small"
-                  sx={{
-                    fontFamily: 'Happiness-Sans-Regular',
-                  }}
-                >컨설턴트</Typography>
+              <SGrid item >
                 <VideoContainer>
-                  <UserVideoComponent
+                  <UserVideoComponent role={role}
                     streamManager={consultant} />
                 </VideoContainer>
               </SGrid>
@@ -333,7 +325,7 @@ const ConsultingRoom = () => {
           {customer !== undefined ? (
             // 유저 비디오 및 베스트 및 컬러셋
               <VideoContainer>
-                <UserVideoComponent
+                <UserVideoComponent role={role}
                   streamManager={customer} />
               </VideoContainer>
           )
@@ -372,7 +364,9 @@ const ConsultingRoom = () => {
             </Grid>
           }
           {role === CUSTOMER &&
+          <SGrid>
             <Chat />
+          </SGrid>
           }
         </SGridContainer>
       )
@@ -517,7 +511,9 @@ const SContainer = styled(Box)({
 // height 90% / 나머지 10% 하단
 const SGridContainer = styled(Grid)({
   height: "90%",
+  display: 'flex',
   alignItems: "center",
+  // columnGap: 2,
 })
 
 // 하위 그리드
@@ -525,7 +521,7 @@ const SGrid = styled(Grid)({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  height: '100%',
+  // height: '100%',
 })
 
 // 연결안됐을시 스피너
@@ -540,9 +536,9 @@ const SpinnerGrid = styled(Grid)({
 
 // 비디오 컨테이너
 const VideoContainer = styled(Box)({
-  width: "90%",
-  borderRadius: "1rem",
-  padding: "1rem",
+  width: "100%",
+  // borderRadius: "1rem",
+  // padding: "1rem",
 })
 
 

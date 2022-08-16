@@ -7,7 +7,7 @@ const ColorPalette = ({
 	setIsWorst
 }) => {
 	return (
-		<SGrid item xs={12} sm={4}>
+		<SGrid>
 			<MainColorSet setIsBest={setIsBest} setIsWorst={setIsWorst} />
 		</SGrid>
 	)
