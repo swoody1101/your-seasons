@@ -29,7 +29,10 @@ const OPENVIDU_SERVER_SECRET = 'YOUR_SEASONS_SECRET';
 
 // rafce Arrow function style 
 const ConsultingRoom = () => {
-  const { nickname, email, role, imageUrl } = useSelector(state => state.auth.logonUser)
+  const nickname = 's-s'
+  const email = 's-s'
+  const role = 'CONSULTANT'
+  const {  imageUrl } = useSelector(state => state.auth.logonUser) //nickname, email, role,
   const { session, customer, consultingId, consultantSessionName } = useSelector(state => state.consult)
   const tmp = email.replace(/[@\.]/g, '-')
   const [mySessionId, setMySessionId] = useState(
