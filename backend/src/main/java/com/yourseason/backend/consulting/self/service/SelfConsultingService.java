@@ -60,7 +60,6 @@ public class SelfConsultingService {
                     .orElseThrow(() -> new NotFoundException(COLOR_NOT_FOUND));
             toneCountingMap.merge(color.getTone().getName(), 1, Integer::sum);
         }
-        System.out.println(toneCountingMap.toString());
 
         int bestColorCount = selfConsultingFinishRequest.getBestColorSet().size();
         List<Percentage> percentages = new ArrayList<>();
