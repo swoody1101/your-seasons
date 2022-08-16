@@ -3,12 +3,13 @@ import { useSelector } from 'react-redux';
 import {
 	Grid, Box, CardContent,
 	Card, Typography, styled,
-	Tooltip
+	Tooltip, CircularProgress
 } from '@mui/material';
 import { isEmpty } from 'lodash'
 
 const SelfDiagnosis = () => {
 	const results = useSelector(state => state.mypage.selfDxData);
+	console.log(results)
 	return (
 		<Div>
 			{isEmpty(results) ? <h2>자가 진단 기록이 없습니다.</h2> : results.map(({ tone, selfConsultingDate,
@@ -22,7 +23,7 @@ const SelfDiagnosis = () => {
 									{/* 컨설턴트정보, 날짜 */}
 									<Forflex>
 										<MainText>
-											자가진단결과 | {tone} | 일시: {selfConsultingDate}일
+											자가진단결과 | {tone} | 일시: {selfConsultingDate.slice(0, 4)}년 {selfConsultingDate.slice(5, 7)}월 {selfConsultingDate.slice(8, 10)}일
 										</MainText>
 									</Forflex>
 									<TextBox>
@@ -44,9 +45,34 @@ const SelfDiagnosis = () => {
 										<Line></Line>
 										{/* 코멘트 */}
 										<CommentBox>
-											{percentages.map((res) => {
-												<SubText> {res.tone}톤 {res.percentage}% </SubText>
-											})}
+											<FlexDiv>
+												{percentages.map((res) => (
+													<FlexDiv>
+														<SubText>
+															{res.tone}톤
+														</SubText>
+														<Box sx={{ position: 'relative', display: 'inline-flex' }}>
+															<CircularProgress variant="determinate" value={res.percentage} color='success' />
+															<Box
+																sx={{
+																	top: 0,
+																	left: 0,
+																	bottom: 0,
+																	right: 0,
+																	position: 'absolute',
+																	display: 'flex',
+																	alignItems: 'center',
+																	justifyContent: 'center',
+																}}
+															>
+																<Typography variant="caption" component="div" color="text.success">
+																	{`${res.percentage}%`}
+																</Typography>
+															</Box>
+														</Box>
+													</FlexDiv>
+												))}
+											</FlexDiv>
 										</CommentBox>
 									</TextBox>
 								</Grid>
@@ -96,9 +122,12 @@ const Line = styled(Typography)({
 })
 
 const SubText = styled(Typography)({
+	display: 'flex',
+	flexDirection: 'column',
+	justifyContent: 'center',
 	fontSize: 16,
 	fontWeight: 'bold',
-	marginBottom: 6,
+	margin: '0px 8px'
 })
 
 const MainText = styled(Typography)({
@@ -140,3 +169,9 @@ const Color = styled('div')((props) => ({
 	margin: 5,
 	cursor: 'pointer',
 }))
+
+const FlexDiv = styled('div')({
+	display: 'flex',
+	marginBottom: '8px',
+	marginRight: '16px'
+})
