@@ -34,7 +34,7 @@ public class SelfConsulting extends BaseTimeEntity {
     }
 
     public void done() {
-        super.delete();
+        delete();
     }
 
     public void updateResult(SelfConsultingResult selfConsultingResult) {
