@@ -1,6 +1,6 @@
 import { Grid, styled, Typography } from '@mui/material'
 import React from 'react'
-import ExampleImg from '../../../assets/images/homeSlide/ExampleDiagnosis.jpg'
+import ExampleImg from '../../../assets/images/homeSlide/HP3_1.png'
 
 const HomeProcess3 = () => {
 	return (
@@ -67,5 +67,5 @@ const SubTypography = styled(Typography)({
 
 const ColorsetImg = styled('img')({
 	filter: 'blur(5px)',
-	width: '20vw',
+	width: '23vw',
 })
