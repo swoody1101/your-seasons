@@ -48,6 +48,7 @@ public class ConsultingService {
     private static final String FAIL_TO_SAVE_CONSULTING_INFO = "컨설팅 정보 저장에 실패했습니다.";
     private static final String FAIL_TO_SAVE_CONSULTING_FILE = "컨설팅 진단표 저장에 실패했습니다.";
     private static final String CONSULTING_EXISTS = "개설된 컨설팅이 존재합니다.";
+    private static final String WRONG_ACCESS = "잘못된 접근입니다.";
     private static final String SESSION_DELIMITER = "-";
     private static final String EMAIL_FORMAT = "[@.]";
 
@@ -103,9 +104,14 @@ public class ConsultingService {
     }
 
     @Transactional
-    public Message finishConsulting(ConsultingFinishRequest consultingFinishRequest, MultipartFile multipartFile) {
+    public Message finishConsulting(Long consultantId, ConsultingFinishRequest consultingFinishRequest, MultipartFile multipartFile) {
+        Consultant consultant = consultantRepository.findById(consultantId)
+                .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
         Consulting consulting = consultingRepository.findById(consultingFinishRequest.getConsultingId())
                 .orElseThrow(() -> new NotFoundException(CONSULTING_NOT_FOUND));
+        if(!consultant.equals(consulting.getConsultant())) {
+            throw new WrongAccessException(WRONG_ACCESS);
+        }
         consulting.done();
 
         String consultingFile = saveImage(multipartFile);
