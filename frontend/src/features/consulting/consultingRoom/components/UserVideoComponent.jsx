@@ -18,19 +18,21 @@ const UserVideoComponent = ({ streamManager }) => {
     <div>
       {streamManager !== undefined ? (
         <>
-        { subRole === CONSULTANT &&
-          <ConsultantStream>
-            <OpenViduVideoComponent streamManager={streamManager} />
-            <CustomTypography>{getNicknameTag()} 컨설턴트</CustomTypography>
-          </ConsultantStream>
-        }
-        { subRole === CUSTOMER &&
-          <CustomerStream>
-            <OpenViduVideoComponent streamManager={streamManager} />
-            <CoverFilter />
-            <CustomTypography>{getNicknameTag()} 님</CustomTypography>
-          </CustomerStream>
-        }
+          {subRole === CONSULTANT &&
+            <ConsultantStream>
+              <CustomTypography>{getNicknameTag()} 컨설턴트</CustomTypography>
+              <OpenViduVideoComponent streamManager={streamManager} />
+            </ConsultantStream>
+          }
+          {subRole === CUSTOMER &&
+            <CustomerStream>
+              <div style={{ position: "relative", }}>
+                <OpenViduVideoComponent streamManager={streamManager} />
+                <CoverFilter />
+              </div>
+              <CustomTypography>{getNicknameTag()} 님</CustomTypography>
+            </CustomerStream>
+          }
         </>
       ) : null}
     </div>
@@ -69,7 +71,7 @@ const CustomerStream = styled(Box)({
 })
 
 const CustomTypography = styled(Typography)({
-  color: "#5A4D4D" ,
+  color: "#5A4D4D",
   fontSize: '1rem',
   fontWeight: 'bold',
   textAlign: 'center',
