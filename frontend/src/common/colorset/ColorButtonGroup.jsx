@@ -30,9 +30,9 @@ const ColorButtonGroup = ({
 
   return (
     <Div>
-      <CustomFab variant="extended" onClick={() => dispatch(removeSelectColor(selectedColor))}>
+      {/* <CustomFab variant="extended" onClick={() => dispatch(removeSelectColor(selectedColor))}>
         선택 색상 제거
-      </CustomFab>
+      </CustomFab> */}
       {/* bestbtn */}
       <CustomFab variant="extended" sx={{ display: isBest ? 'none' : '' }} 
         onClick={() => { dispatch(addBestColor(selectedColor)); onFirstClick(); }}>
