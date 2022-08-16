@@ -11,6 +11,7 @@ import FABRIC1 from 'features/consulting/consultingRoom/fabric/fabric001.png'
 import FABRIC2 from 'features/consulting/consultingRoom/fabric/fabric002.png'
 import FABRIC3 from 'features/consulting/consultingRoom/fabric/fabric003.png'
 import FABRIC4 from 'features/consulting/consultingRoom/fabric/fabric004.png'
+import FABRIC5 from 'features/consulting/consultingRoom/fabric/fabric005.png'
 
 const CoverFilter = () => {
   const { selectedColor } = useSelector(state => state.colorSetList)
@@ -20,7 +21,7 @@ const CoverFilter = () => {
   const [isFilter, setIsFilter] = useState(false)
   const [hvalue, setHvalue] = useState(4.0)
   const [falue, setFalue] = useState(0)
-  const fabric = [FABRIC0, FABRIC1, FABRIC2, FABRIC3, FABRIC4]
+  const fabric = [FABRIC0, FABRIC1, FABRIC2, FABRIC3, FABRIC4, FABRIC5]
   const [colorString, setColorString] = useState('opacity(1.0)')
 
   useEffect(() => {
@@ -55,7 +56,7 @@ const CoverFilter = () => {
 
   const handelFabric = () => {
     const value = falue + 1
-    if (value > 4) {
+    if (value > 5) {
       const f = fabric[0]
       setImg(f)
       setFalue(0)
