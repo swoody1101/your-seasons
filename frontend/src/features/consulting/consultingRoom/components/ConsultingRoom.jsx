@@ -29,7 +29,7 @@ const OPENVIDU_SERVER_SECRET = 'YOUR_SEASONS_SECRET';
 
 // rafce Arrow function style 
 const ConsultingRoom = () => {
-  const { nickname, role, email, imageUrl } = useSelector(state => state.auth.logonUser)
+  const { nickname, email, role, imageUrl } = useSelector(state => state.auth.logonUser)
   const { session, customer, consultingId, consultantSessionName } = useSelector(state => state.consult)
   const tmp = email.replace(/[@\.]/g, '-')
   const [mySessionId, setMySessionId] = useState(
@@ -291,36 +291,23 @@ const ConsultingRoom = () => {
 
   // ---------- render
   return (
-    // <div style={{height: '100%'}}>
-    <SContainer container backgroundColor={`${selectedColor}40`}>
+    <SContainer container >
 
       {session !== undefined ? (
         // 세션 연결시
-        <SGridContainer container >      
+        <SGridContainer container spacing={2}>      
           {consultant !== undefined ? (
             <Grid container item xs={12} sm={2}
               sx={{
                 height: "80%",
-                justifyContent: "space-between"
+                justifyContent: "space-between",
+                gap: 2,
               }}>
-              <SGrid item>
-                <Typography variant="small"
-                  sx={{
-                    fontFamily: 'Happiness-Sans-Regular',
-                  }}
-                >컨설턴트</Typography>
+              <SGrid item >
                 <VideoContainer>
-                  <UserVideoComponent
+                  <UserVideoComponent role={role}
                     streamManager={consultant} />
                 </VideoContainer>
-                {/*하단으로 위치이동 */}
-                {/* {
-                  role === CUSTOMER &&
-                  <SelectedColorSet
-                    setIsBest={setIsBest}
-                    setIsWorst={setIsWorst}
-                  />
-                } */}
               </SGrid>
               {
                 role === CONSULTANT &&
@@ -334,50 +321,52 @@ const ConsultingRoom = () => {
             </SpinnerGrid>
           }
 
+        <SGrid item xs={12} sm={6}>
           {customer !== undefined ? (
             // 유저 비디오 및 베스트 및 컬러셋
-            <SGrid item xs={12} sm={6}>
               <VideoContainer>
-                <UserVideoComponent
+                <UserVideoComponent role={role}
                   streamManager={customer} />
               </VideoContainer>
-              {/* 유저 비디오 하단 || 현재 배경제거, 베스트, 워스트 컬러 버튼*/}
-              {/* 버튼선택하는게 role이 컨설턴트가 아니여도 상관없는지 ??*/}
-              <ColorButtonGroup
-                clickColorFirstFunc={clickColorFirstFunc}
-                clickColorFirst={clickColorFirst}
-                isBest={isBest}
-                isWorst={isWorst}
-                setIsBest={setIsBest}
-                setIsWorst={setIsWorst}
-              />
-              {/*하단으로 위치이동 */}
-              {/* {role === CONSULTANT &&
-                <ConSelectedColorSet
-                  setIsBest={setIsBest}
-                  setIsWorst={setIsWorst}
-                />
-              } */}
-            </SGrid>
           )
             :
             <SpinnerGrid item xs={12} sm={6}>
               <CircularProgress />
             </SpinnerGrid>
           }
+          {
+            role === CONSULTANT &&
+            <ColorButtonGroup
+              clickColorFirstFunc={clickColorFirstFunc}
+              clickColorFirst={clickColorFirst}
+              isBest={isBest}
+              isWorst={isWorst}
+              setIsBest={setIsBest}
+              setIsWorst={setIsWorst}
+            />
+          }
+        </SGrid>
 
           {/* 우측 컬러팔레트, 채팅*/}
           {
             role === CONSULTANT &&
-            <SGrid item xs={12} sm={4} >
-              < ColorPalette
+            // sgrid
+            <Grid item xs={12} sm={4}
+            sx={{  display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            height: '100%',
+            }}>
+              <ColorPalette
                 isBest={isBest}
                 isWorst={isWorst}
               />
-            </SGrid>
+            </Grid>
           }
           {role === CUSTOMER &&
+          <SGrid>
             <Chat />
+          </SGrid>
           }
         </SGridContainer>
       )
@@ -388,84 +377,112 @@ const ConsultingRoom = () => {
         </SpinnerGrid>
       }
 
+        
+
       {/* 하단 || 선택된 베스트, 워스트 컬러팔레트 || 마이크, 카메라, 종료버튼 */}
-      <Box sx={{
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: "space-between",
-        alignSelf: 'center',
-        height: '10%',
-        width: '100%',
-        maxWidth: '80%',
-      }}>
+      <BottomBox>
         {
           // 세션연결 안됐을시
           !session ?
-            <Button variant="contained" onClick={joinSession} sx={{ marginBottom: "1rem" }}>
+          <>
+            <BottomBtn variant="contained" onClick={joinSession}>
               연결
-            </Button>
+            </BottomBtn>
+            <BottomBtn variant="contained" onClick={leaveSession}>
+              종료
+            </BottomBtn>
+          </>
             :
-            // 세션 연결시
-            <ButtonGroup sx={{ marginBottom: "1rem" }}>
-              {/* 베스트,워스트 컬러셋 */}
+            // 세션 연결시 
+            <> 
+              {/* 베스트,워스트 컬러셋 || 마이크,캠,종료버튼 */}
               { role === CONSULTANT ?
+              // 컨설턴트
+              <>
+                {/* 컬러셋 */}
                 <ConSelectedColorSet
                   setIsBest={setIsBest}
                   setIsWorst={setIsWorst}
-                />
+                  />
+                <MicCamExitGroup>
+                  {/* 마이크 */}
+                  <CustomIconButton
+                    color="inherit"
+                    onClick={() => {
+                      publisher.publishAudio(!isMic)
+                      setIsMic(!isMic)
+                    }}>
+                    {isMic ? <Mic /> : <MicOff color="secondary" />}
+                  </CustomIconButton>
+                  {/* 캠 */}
+                  <CustomIconButton
+                    color="inherit"
+                    onClick={() => {
+                      publisher.publishVideo(!isCam)
+                      setIsCam(!isCam)
+                    }}>
+                    {isCam ? <Videocam /> : <VideocamOff color="secondary" />}
+                  </CustomIconButton>
+                  {/* 종료 */}
+                  <BottomBtn variant="contained" onClick={leaveSession}>
+                    종료
+                  </BottomBtn>
+                </MicCamExitGroup>
+              </>
               :
+              // 유저
+              <>
+                {/* 컬러셋 */}
                 <SelectedColorSet
                   setIsBest={setIsBest}
                   setIsWorst={setIsWorst}
-                />
+                  />
+                {/* 마이크,캠 + 필터 + 종료*/}
+                <MicCamExitGroup>
+                  {/* 마이크 */}
+                  <CustomIconButton
+                    color="inherit"
+                    onClick={() => {
+                      publisher.publishAudio(!isMic)
+                      setIsMic(!isMic)
+                    }}>
+                    {isMic ? <Mic /> : <MicOff color="secondary" />}
+                  </CustomIconButton>
+                  {/* 캠 */}
+                  <CustomIconButton
+                    color="inherit"
+                    onClick={() => {
+                      publisher.publishVideo(!isCam)
+                      setIsCam(!isCam)
+                    }}>
+                    {isCam ? <Videocam /> : <VideocamOff color="secondary" />}
+                  </CustomIconButton>
+                  {/*  화면조정, 필터, 종료 */}
+                  <ButtonGroup style={{ gap:3}}>
+                    <BottomBtn variant="contained" onClick={() => dispatch(settingModalOn())} >
+                      화면 조정
+                    </BottomBtn>
+                    <BottomBtn variant="contained"
+                      onClick={() => {
+                        if (customer.stream.filter) {
+                          customer.stream.removeFilter()
+                        }
+                      }}
+                    >
+                      톤 필터 지우기
+                    </BottomBtn>
+                    <BottomBtn variant="contained" onClick={leaveSession}>
+                      종료
+                    </BottomBtn>
+                  </ButtonGroup>
+              </MicCamExitGroup>
+              </>
               }
-              <IconButton
-                color="inherit"
-                onClick={() => {
-                  publisher.publishAudio(!isMic)
-                  setIsMic(!isMic)
-                }}>
-                {isMic ? <Mic /> : <MicOff color="secondary" />}
-              </IconButton>
-
-              <IconButton
-                color="inherit"
-                onClick={() => {
-                  publisher.publishVideo(!isCam)
-                  setIsCam(!isCam)
-                }}>
-                {isCam ? <Videocam /> : <VideocamOff color="secondary" />}
-              </IconButton>
-            </ButtonGroup>
-        }
-
-        {/* 공용|| 화면조정, 필터, 종료 */}
-        <ButtonGroup sx={{ marginBottom: "1rem" }}>
-          {
-            role === CUSTOMER && customer &&
-            <>
-              <Button variant="outlined" onClick={() => dispatch(settingModalOn())} >
-                화면 조정
-              </Button>
-              <Button variant="outlined"
-                onClick={() => {
-                  if (customer.stream.filter) {
-                    customer.stream.removeFilter()
-                  }
-                }}
-              >
-                톤 필터 지우기
-              </Button>
             </>
-          }
+        }
+      </BottomBox>
 
-          <Button variant="contained" onClick={leaveSession}>
-            종료
-          </Button>
-        </ButtonGroup>
-      </Box>
     </SContainer >
-    // </div>
   )
 }
 
@@ -482,22 +499,29 @@ const SContainer = styled(Box)({
   height: "94vh",
 
   boxSizing: 'border-box',
-  border: '3px solid black',
+  border: '2px solid #5A4D4D',
+  backgroundColor: '#FAFAFA',
   borderRadius: '15px',
+  boxShadow: '1px 2px 9px #B1B7B7',
 })
+
+
 
 // 공용버튼 제외 모두 포함 (상위)
 // height 90% / 나머지 10% 하단
 const SGridContainer = styled(Grid)({
   height: "90%",
+  display: 'flex',
   alignItems: "center",
+  // columnGap: 2,
 })
 
 // 하위 그리드
 const SGrid = styled(Grid)({
   display: "flex",
   flexDirection: "column",
-  alignItems: "center"
+  alignItems: "center",
+  // height: '100%',
 })
 
 // 연결안됐을시 스피너
@@ -512,8 +536,56 @@ const SpinnerGrid = styled(Grid)({
 
 // 비디오 컨테이너
 const VideoContainer = styled(Box)({
-  width: "90%",
-  borderRadius: "1rem",
-  padding: "1rem",
+  width: "100%",
+  // borderRadius: "1rem",
+  // padding: "1rem",
 })
 
+
+// 하단 10%
+const BottomBox = styled(Box)({
+  // backgroundColor: 'blue',
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: "space-between",
+  alignItems: 'center',
+  height: '10%',
+  width: '100%',
+  maxWidth: '90%',
+})
+
+
+const CustomIconButton = styled(IconButton)((props)=>({
+	backgroundColor: '#99968D',
+	color: 'white',
+	'&:hover': {
+		backgroundColor: '#66635C',
+		color: 'black',
+		fontWeight: 'normal',
+},
+	fontWeight: 'normal',
+  border: '1px solid #66635C',
+	borderRadius: '10%',
+  height: '3rem',
+}))
+
+const BottomBtn = styled(Button)((props)=>({
+	backgroundColor: '#99968D',
+	color: 'white',
+	'&:hover': {
+		backgroundColor: '#66635C',
+		color: 'black',
+		fontWeight: 'normal',
+},
+	fontWeight: 'normal',
+  border: '1px solid #66635C',
+	// width: `${props.wd}px`,
+  height: '3rem',
+}))
+
+// 1-2그룹 => 마이크,캠,종료
+const MicCamExitGroup = styled(Grid)({
+  display: 'flex',
+  flexDirection: 'row',
+  gap: 3,
+})

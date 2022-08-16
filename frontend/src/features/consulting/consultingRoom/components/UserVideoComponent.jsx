@@ -2,7 +2,7 @@ import React from 'react';
 import OpenViduVideoComponent from './OvVideo';
 
 import { Box, styled, Typography } from '@mui/material'
-import { CUSTOMER } from 'api/CustomConst'
+import { CUSTOMER, CONSULTANT } from 'api/CustomConst'
 
 import CoverFilter from './CoverFilter'
 
@@ -10,20 +10,28 @@ const UserVideoComponent = ({ streamManager }) => {
   const subRole = JSON.parse(streamManager.stream.connection.data).clientRole;
 
   const getNicknameTag = () => {
-    // Gets the nickName of the user
     return JSON.parse(streamManager.stream.connection.data).clientData;
   }
+
 
   return (
     <div>
       {streamManager !== undefined ? (
-        <StreamBox>
-          <Typography>{getNicknameTag()}</Typography>
-          <OpenViduVideoComponent streamManager={streamManager} />
-          {subRole === CUSTOMER &&
+        <>
+        { subRole === CONSULTANT &&
+          <ConsultantStream>
+            <OpenViduVideoComponent streamManager={streamManager} />
+            <CustomTypography>{getNicknameTag()} 컨설턴트</CustomTypography>
+          </ConsultantStream>
+        }
+        { subRole === CUSTOMER &&
+          <CustomerStream>
+            <OpenViduVideoComponent streamManager={streamManager} />
             <CoverFilter />
-          }
-        </StreamBox>
+            <CustomTypography>{getNicknameTag()} 님</CustomTypography>
+          </CustomerStream>
+        }
+        </>
       ) : null}
     </div>
   );
@@ -31,10 +39,38 @@ const UserVideoComponent = ({ streamManager }) => {
 
 export default UserVideoComponent
 
-const StreamBox = styled(Box)({
-  position: "relative",
+const ConsultantStream = styled(Box)({
+  // height: '70%',
   width: '100%',
+  overflow: "hidden",
+  backgroundColor: "#F5F5F5",
+  border: '2px solid #5A4D4D99',
+  borderRadius: '10px',
+  // padding: '3px',
   video: {
     width: '100%',
+    // height: '70%',
   }
+})
+
+const CustomerStream = styled(Box)({
+  position: "relative",
+  // height: '70%',
+  width: '100%',
+  overflow: "hidden",
+  backgroundColor: "#F5F5F5",
+  border: '2px solid #5A4D4D99',
+  borderRadius: '10px',
+  // padding: '3px',
+  video: {
+    width: '100%',
+    // height: '70%',
+  }
+})
+
+const CustomTypography = styled(Typography)({
+  color: "#5A4D4D" ,
+  fontSize: '1rem',
+  fontWeight: 'bold',
+  textAlign: 'center',
 })
