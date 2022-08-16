@@ -7,7 +7,7 @@ const ColorPalette = ({
 	setIsWorst
 }) => {
 	return (
-		<SGrid item xs={12} sm={4}>
+		<SGrid>
 			<MainColorSet setIsBest={setIsBest} setIsWorst={setIsWorst} />
 		</SGrid>
 	)
@@ -21,10 +21,9 @@ ColorPalette.defaultProps = {
 }
 
 const SGrid = styled(Grid)({
-	width: '100%',
-	height: '100%',
 	display: "flex",
-	flexDirection: "row",
 	justifyContent: "center",
-	alignItems: "center"
+	// width: '100%',
+	// height: '100%',
+	// flexDirection: "row",
 })

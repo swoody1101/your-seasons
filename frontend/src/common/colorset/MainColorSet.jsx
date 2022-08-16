@@ -6,6 +6,7 @@ import { TabContext, TabList, TabPanel } from '@mui/lab';
 import ColorPaletteBox from './PaletteBox'
 import Drawing from 'common/drawing/Drawing';
 import { changeComment, selectTone, setFiles } from './colorSetSlice';
+import { setSnackBarOpen, setSnackbarMessage, setSnackBarSeverity } from 'common/snackbar/snackbarSlice';
 
 
 
@@ -46,19 +47,30 @@ const MainColorSet = () => {
   }
 
   return (
-    <SGrid item xs={12}>
-      <TabContext value={value} sx={{ height: '100%' }}>
+    <SGrid item>
+      <TabContext value={value}>
         <Box sx={{ borderBottom: 'divider' }}>
           <TabList onChange={handleChange} sx={{ borderBottom: 'divider' }}>
             <Tab label="봄" value={"1"} onClick={() => { setIsDrwaing(true) }} />
             <Tab label="여름" value={"2"} onClick={() => { setIsDrwaing(true) }} />
             <Tab label="가을" value={"3"} onClick={() => { setIsDrwaing(true) }} />
             <Tab label="겨울" value={"4"} onClick={() => { setIsDrwaing(true) }} />
-            <Tab label="진단결과" value={"5"} onClick={() => { setIsDrwaing(false) }} />
+            <Tab label="진단결과" value={"5"} onClick={(e) => {
+              if(window.confirm('진단결과를 저장하셨나요? 이동시, 체크하신 결과표가 초기화됩니다.')){
+                setIsDrwaing(false);
+                
+              }else{
+                setValue("1")
+                return 
+              }
+              // dispatch(setSnackBarOpen(true));
+              // dispatch(setSnackbarMessage('진단결과가 저장되지 않습니다. 사진을 저장한 후 업로드 해주세요.'));
+              // dispatch(setSnackBarSeverity('info'));
+              }} />
           </TabList>
         </Box>
         <CTabPanel value={"1"}>
-          <TabContext value={subValue} sx={{ height: '100%' }}>
+          <TabContext value={subValue}>
             <Box sx={{ display: 'flex', padding: '0' }}>
               <CTabPanel value={"1"}>
                 <ColorPaletteBox colorSet={spring_bright} />
@@ -104,7 +116,7 @@ const MainColorSet = () => {
           </TabContext>
         </CTabPanel>
         <CTabPanel value={"3"}>
-          <TabContext value={subValue} sx={{ height: '100%' }}>
+          <TabContext value={subValue}>
             <Box sx={{ display: 'flex' }}>
               <CTabPanel value={"1"}>
                 <ColorPaletteBox colorSet={autumn_soft} />
@@ -127,7 +139,7 @@ const MainColorSet = () => {
           </TabContext>
         </CTabPanel>
         <CTabPanel value={"4"}>
-          <TabContext value={subValue} sx={{ height: '100%' }}>
+          <TabContext value={subValue}>
             <Box sx={{ display: 'flex' }}>
               <CTabPanel value={"1"}>
                 <ColorPaletteBox colorSet={winter_bright} />
@@ -150,17 +162,23 @@ const MainColorSet = () => {
           </TabContext>
         </CTabPanel>
         <CTabPanel value={"5"}>
-          <TabContext value={subValue} sx={{ height: '100%', width: '100%' }}>
-            진단결과
+          <TabContext value={subValue} >
+            코멘트
             <TextField
-              size='small'
-              label="코멘트"
+                sx={{
+                  // width: { sm: 200, md: 300 },
+                  "& .MuiInputBase-root": {
+                      height: 300
+                  }
+              }}
+              multiline={true}
+              size='medium'
+              label="컨설턴트님의 꿀팁을 남겨주세요(1000자 이하)"
               name="request"
               margin="normal"
               value={comment}
               onChange={(e) => { dispatch(changeComment(e.target.value)) }}
-              multiline
-              rows={1}
+              rows={10}
               autoComplete="request"
               autoFocus
               required
@@ -203,12 +221,13 @@ const SGrid = styled(Grid)({
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
+  gap: 30,
 })
 
 const CTab = styled(Tab)({
   padding: "0px",
   minHeight: "24px",
-  height: "24px"
+  height: "30px",
 })
 
 const CTabPanel = styled(TabPanel)({

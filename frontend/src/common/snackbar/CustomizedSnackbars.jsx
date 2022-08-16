@@ -2,7 +2,7 @@ import React from 'react';
 import { Stack, Button, Snackbar } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 
-import { setSnackBarOpen, setSnackbarMessage } from './snackbarSlice'
+import { setSnackBarOpen, setSnackbarMessage, setSnackBarSeverity } from './snackbarSlice'
 import { useDispatch, useSelector } from 'react-redux';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
@@ -12,7 +12,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 const CustomizedSnackbars = () => {
   // open = true, false
   const dispatch = useDispatch()
-  const { open, snackbarMessage } = useSelector(state => state.snackbar) 
+  const { open, snackbarMessage, snackbarSeverity } = useSelector(state => state.snackbar) 
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -20,11 +20,12 @@ const CustomizedSnackbars = () => {
     }
     dispatch(setSnackBarOpen(false));
     dispatch(setSnackbarMessage(''));
+    dispatch(setSnackBarSeverity('info'))
   };
 
   return (<>
     <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
-      <Alert onClose={handleClose} severity="info" sx={{ width: '100%' }}>
+      <Alert onClose={handleClose} severity={snackbarSeverity} sx={{ width: '100%' }}>
         {snackbarMessage}
       </Alert>
     </Snackbar>
