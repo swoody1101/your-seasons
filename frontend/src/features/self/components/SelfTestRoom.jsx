@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { OpenVidu } from 'openvidu-browser';
 import UserVideoComponent from './UserVideoComponent';
@@ -51,6 +52,7 @@ const SelfTestRoom = () => {
   const selectedTone = useSelector(state => state.colorSetList.tone)
 
   const dispatch = useDispatch()
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.addEventListener(
@@ -306,8 +308,10 @@ const SelfTestRoom = () => {
               <BottomBtn variant="contained" onClick={joinSession}>
                 연결
               </BottomBtn>
-              <BottomBtn variant="contained" onClick={leaveSession}>
-                종료
+              <BottomBtn variant="contained" onClick={() => {
+                navigate('/')
+              }}>
+                돌아가기
               </BottomBtn>
             </>
             :
