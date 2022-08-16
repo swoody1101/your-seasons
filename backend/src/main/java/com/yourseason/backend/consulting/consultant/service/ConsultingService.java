@@ -1,20 +1,20 @@
-package com.yourseason.backend.consulting.service;
+package com.yourseason.backend.consulting.consultant.service;
 
 import com.yourseason.backend.common.domain.*;
 import com.yourseason.backend.common.exception.BadRequestException;
 import com.yourseason.backend.common.exception.InternalServerErrorException;
 import com.yourseason.backend.common.exception.NotFoundException;
 import com.yourseason.backend.common.exception.WrongAccessException;
-import com.yourseason.backend.consulting.controller.dto.ConsultingCreateResponse;
-import com.yourseason.backend.consulting.controller.dto.ConsultingFinishRequest;
-import com.yourseason.backend.consulting.controller.dto.ConsultingJoinResponse;
-import com.yourseason.backend.consulting.controller.dto.ConsultingRequest;
-import com.yourseason.backend.consulting.domain.Consulting;
-import com.yourseason.backend.consulting.domain.ConsultingRepository;
-import com.yourseason.backend.consulting.domain.result.BestColorSet;
-import com.yourseason.backend.consulting.domain.result.TestResult;
-import com.yourseason.backend.consulting.domain.result.TestResultRepository;
-import com.yourseason.backend.consulting.domain.result.WorstColorSet;
+import com.yourseason.backend.consulting.consultant.controller.dto.ConsultingCreateResponse;
+import com.yourseason.backend.consulting.consultant.controller.dto.ConsultingFinishRequest;
+import com.yourseason.backend.consulting.consultant.controller.dto.ConsultingJoinResponse;
+import com.yourseason.backend.consulting.consultant.controller.dto.ConsultingRequest;
+import com.yourseason.backend.consulting.consultant.domain.Consulting;
+import com.yourseason.backend.consulting.consultant.domain.ConsultingRepository;
+import com.yourseason.backend.consulting.common.domain.BestColorSet;
+import com.yourseason.backend.consulting.consultant.domain.result.ConsultingResult;
+import com.yourseason.backend.consulting.consultant.domain.result.ConsultingResultRepository;
+import com.yourseason.backend.consulting.common.domain.WorstColorSet;
 import com.yourseason.backend.member.consultant.domain.Consultant;
 import com.yourseason.backend.member.consultant.domain.ConsultantRepository;
 import com.yourseason.backend.member.customer.domain.Customer;
@@ -57,7 +57,7 @@ public class ConsultingService {
     private final ReservationRepository reservationRepository;
     private final ColorRepository colorRepository;
     private final ToneRepository toneRepository;
-    private final TestResultRepository testResultRepository;
+    private final ConsultingResultRepository consultingResultRepository;
 
     @Transactional
     public ConsultingCreateResponse createConsulting(Long consultantId, ConsultingRequest consultingRequest) {
@@ -125,14 +125,14 @@ public class ConsultingService {
         Tone tone = toneRepository.findByName(consultingFinishRequest.getTone())
                 .orElseThrow(() -> new NotFoundException(TONE_NOT_FOUND));
 
-        TestResult testResult = TestResult.builder()
+        ConsultingResult consultingResult = ConsultingResult.builder()
                 .tone(tone)
                 .consultingComment(consultingFinishRequest.getConsultingComment())
                 .bestColorSet(bestColorSet)
                 .worstColorSet(worstColorSet)
                 .consultingFile(consultingFile)
                 .build();
-        testResultRepository.save(testResult);
+        consultingResultRepository.save(consultingResult);
         return new Message("succeeded");
     }
 
