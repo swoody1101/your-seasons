@@ -72,5 +72,6 @@ public class Customer extends Member {
 
     public void createSelfConsulting(SelfConsulting selfConsulting) {
         selfConsultings.add(selfConsulting);
+        selfConsulting.enterCustomer(this);
     }
 }
