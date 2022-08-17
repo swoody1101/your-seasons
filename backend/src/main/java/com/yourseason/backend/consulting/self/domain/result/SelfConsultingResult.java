@@ -20,13 +20,18 @@ import java.util.List;
 @Entity
 public class SelfConsultingResult extends Result {
 
-    @OneToMany(mappedBy = "selfConsultingResult", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "selfConsultingResult", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Percentage> percentages = new ArrayList<>();
 
     @Builder
     public SelfConsultingResult(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate,
                                 BestColorSet bestColorSet, WorstColorSet worstColorSet, Tone tone, List<Percentage> percentages) {
         super(id, createdDate, lastModifiedDate, deletedDate, bestColorSet, worstColorSet, tone);
+        setPercentages(percentages);
+    }
+
+    private void setPercentages(List<Percentage> percentages) {
         this.percentages = percentages;
+        percentages.forEach(percentage -> percentage.addSelfConsultingResult(this));
     }
 }
