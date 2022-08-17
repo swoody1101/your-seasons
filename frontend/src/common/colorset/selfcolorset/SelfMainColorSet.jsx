@@ -23,7 +23,7 @@ const MainColorSet = () => {
 		<ColorCard variant="outlined" >
 			{/* map돌려서 하나의 컬러셋씩 내려주기(계절별) */}
 				{seasonColorSet().map((seasonObj, index)=>(
-					<MainColorSetItem seasonObj={seasonObj} key={index} season={index}/>
+					<MainColorSetItem seasonObj={seasonObj} key={index} />
 					))}
 		</ColorCard>
 		{/* 버튼 */}
@@ -48,19 +48,20 @@ const CustomCard = styled(Card)((props)=>({
 }))
 
 const ColorCard = styled(Box)((props)=>({
-	width: '320px',
-	height: '500px',
+	width: '100%',
+	height: '40vh',
+  paddingLeft: '13px',
 	overflow: 'auto',
   margin: 'auto',
   '&::-webkit-scrollbar': {
-    width: '18px'
+    width: '13px'
   },
   '&::-webkit-scrollbar-track': {
     boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
     webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
   },
   '&::-webkit-scrollbar-thumb':{
-    height: '17%',
+    height: '13px',
     backgroundColor: '#F9C5C7',
     borderRadius: 10,
 	}
