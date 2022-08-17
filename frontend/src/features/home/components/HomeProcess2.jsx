@@ -36,7 +36,7 @@ const Grid1 = styled(Grid)({
 	justifyContent: 'start',
 	alignItems: 'center',
 	justifyContent: 'center',
-	backgroundColor: '#eeeeee',
+	backgroundColor: '#eceff1',
 })
 
 const Grid2 = styled(Grid)({

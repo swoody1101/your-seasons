@@ -7,11 +7,6 @@ const initialState = {
   isSetClear: false,
   consultantSessionName: 's-s-s',
   consultingId: 0,
-  videobalance: {
-    hue: 0.0,
-    saturation: 1.0,
-    brightness: 0.0
-  },
   messageId: 2,
   messageList: [
     {

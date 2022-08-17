@@ -26,7 +26,7 @@ public class Customer extends Member {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST)
     private List<Consulting> consultings = new ArrayList<>();
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "customer", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<SelfConsulting> selfConsultings = new ArrayList<>();
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST)
@@ -38,10 +38,11 @@ public class Customer extends Member {
     @Builder
     public Customer(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDateTime deletedDate,
                     String email, String password, String name, LocalDate birth, String nickname, String contact, String imageUrl,
-                    List<Consulting> consultings, List<Reservation> reservations, List<Review> reviews) {
+                    List<Consulting> consultings, List<SelfConsulting> selfConsultings, List<Reservation> reservations, List<Review> reviews) {
         super(id, createdTime, lastModifiedTime, deletedDate,
                 email, password, name, birth, nickname, contact, imageUrl);
         this.consultings = consultings;
+        this.selfConsultings = selfConsultings;
         this.reservations = reservations;
         this.reviews = reviews;
     }
@@ -67,5 +68,10 @@ public class Customer extends Member {
     public void joinConsulting(Consulting consulting) {
         consultings.add(consulting);
         consulting.enterCustomer(this);
+    }
+
+    public void createSelfConsulting(SelfConsulting selfConsulting) {
+        selfConsultings.add(selfConsulting);
+        selfConsulting.enterCustomer(this);
     }
 }

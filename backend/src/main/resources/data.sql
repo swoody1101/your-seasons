@@ -664,8 +664,8 @@ insert into self_consulting_result(created_date, last_modified_date, is_active, 
 insert into self_consulting_result(created_date, last_modified_date, is_active, best_color_set_id, worst_color_set_id, tone_id) values ('2022-07-30 22:20:00', '2022-07-30 22:20:00', 1, 9, 9, 5);
 
 -- 자가 진단
-insert into self_consulting(created_date, last_modified_date, is_active, customer_id, self_consulting_result_id) values ('2022-07-10 22:00:00', '2022-07-10 22:20:00', 1, 1, 1);
-insert into self_consulting(created_date, last_modified_date, is_active, customer_id, self_consulting_result_id) values ('2022-07-30 22:00:00', '2022-07-30 22:20:00', 1, 1, 2);
+insert into self_consulting(created_date, last_modified_date, is_active, customer_id, self_consulting_result_id) values ('2022-07-10 22:00:00', '2022-07-10 22:20:00', 0, 1, 1);
+insert into self_consulting(created_date, last_modified_date, is_active, customer_id, self_consulting_result_id) values ('2022-07-30 22:00:00', '2022-07-30 22:20:00', 0, 1, 2);
 
 -- 퍼센티지
 insert into percentage(created_date, last_modified_date, is_active, tone_id, percentage, self_consulting_result_id) values ('2022-07-10 22:20:00', '2022-07-10 22:20:00', 1, 6, 70, 1);

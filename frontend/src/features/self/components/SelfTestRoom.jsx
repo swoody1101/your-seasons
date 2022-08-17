@@ -10,14 +10,12 @@ import { Box, Button, Grid, styled, Typography, ButtonGroup, IconButton, Circula
 import { Mic, MicOff, Videocam, VideocamOff } from '@mui/icons-material';
 
 
-import { setSnackbarMessage, setSnackBarOpen } from 'common/snackbar/snackbarSlice'; 
-import { settingModalOn, setSession, setCustomer, postConsultingResult } from 'features/consulting/consultingRoom/consultSlice'
+import { setSnackbarMessage, setSnackBarOpen } from 'common/snackbar/snackbarSlice';
+import { settingModalOn, setSession, setCustomer } from 'features/self/selfSlice'
 
 import { CONSULTANT, CUSTOMER } from 'api/CustomConst'
 import { sharedColorSet, changeComment, selectTone, setFiles } from 'common/colorset/colorSetSlice'
 
-import Chat from 'features/consulting/consultingRoom/chat/Chat'
-import SmallChat from 'features/consulting/consultingRoom/chat/SmallChat'
 import ColorPalette from 'common/colorset/ColorPalette'
 import SelectedColorSet from 'common/colorset/SelectedColorSet';
 import ConSelectedColorSet from 'common/colorset/ConSelectedColorSet';
@@ -26,19 +24,12 @@ import ColorButtonGroup from 'common/colorset/ColorButtonGroup'
 const OPENVIDU_SERVER_URL = 'https://yourseasons.anveloper.kr:8443';
 const OPENVIDU_SERVER_SECRET = 'YOUR_SEASONS_SECRET';
 
-
-
 // rafce Arrow function style 
-const ConsultingRoom = () => {
-  // const nickname = 's-s'
-  // const email = 's-s'
-  // const role = 'CONSULTANT'
+const SelfTestRoom = () => {
   const { nickname, email, role, imageUrl } = useSelector(state => state.auth.logonUser) //nickname, email, role,
-  const { session, customer, consultingId, consultantSessionName } = useSelector(state => state.consult)
+  const { session, customer } = useSelector(state => state.self)
   const tmp = email.replace(/[@\.]/g, '-')
-  const [mySessionId, setMySessionId] = useState(
-    role === CONSULTANT ? tmp : consultantSessionName
-  )
+  const [mySessionId, setMySessionId] = useState(tmp)
 
   const [isBest, setIsBest] = useState(false)
   const [isWorst, setIsWorst] = useState(false)
@@ -59,14 +50,7 @@ const ConsultingRoom = () => {
   // 코멘트, 진단결과 톤, 진단결과 이미지 정보
   const comment = useSelector(state => state.colorSetList.comment)
   const selectedTone = useSelector(state => state.colorSetList.tone)
-  const files = useSelector(state => state.colorSetList.files)
-  const consultingFinishRequest = {
-    consultingId: consultingId,
-    comment: comment,
-    tone: selectedTone,
-    bestColorSet: bestColor,
-    worstColorSet: worstColor
-  }
+
   const dispatch = useDispatch()
   const navigate = useNavigate();
 
@@ -87,7 +71,6 @@ const ConsultingRoom = () => {
       session.on('streamCreated', streamCreated)
       session.on('streamDestroyed', streamDestroyed)
       session.on('exception', exception)
-      session.on('signal:colorset', shareColorset)
       getToken().then(sessionConnect);
     }
   }, [session])
@@ -112,42 +95,19 @@ const ConsultingRoom = () => {
         session.publish(publisher);
         setMainStreamManager(publisher);
         setPublisher(publisher);
-        if (role === CUSTOMER) { dispatch(setCustomer(publisher)) }
-        if (role === CONSULTANT) { setConsultant(publisher) }
+        dispatch(setCustomer(publisher))
         dispatch(setSession(session))
       })
       .catch((error) => { });
   }
 
-  useEffect(() => {
-    if (session && role === CONSULTANT) {
-      const data =
-        `${JSON.stringify(selectedColor)}$$${JSON.stringify(bestColor)}$$${JSON.stringify(worstColor)}`;
-
-      session.signal({
-        data,
-        to: [],
-        type: 'colorset'
-      }).then(() => { }).catch(() => { })
-    }
-  }, [selectedColor, bestColor, worstColor])
-
-
-  const shareColorset = (event) => {
-    const data = event.data.split('$$')
-    const newSelectedColor = JSON.parse(data[0])
-    const newBestColor = JSON.parse(data[1])
-    const newWorstColor = JSON.parse(data[2])
-    dispatch(sharedColorSet({ newSelectedColor, newBestColor, newWorstColor }))
-  }
-
   // 하단 alert관련
   const clickColorFirstFunc = () => {
-    if(clickColorFirst===false){
+    if (clickColorFirst === false) {
       setClickColorFirst(true)
       dispatch(setSnackbarMessage('컬러를 성공적으로 추가하였습니다! 컬러팔레트 안의 색상을 선택한 후 제거해보세요.'))
       dispatch(setSnackBarOpen(true))
-    }else{
+    } else {
       return
     }
   }
@@ -168,8 +128,7 @@ const ConsultingRoom = () => {
 
   const streamCreated = (event) => {
     const subscriber = session.subscribe(event.stream, undefined);
-    if (role === CONSULTANT) { dispatch(setCustomer(subscriber)) }
-    else if (role === CUSTOMER) { setConsultant(subscriber) }
+    console.log(subscriber) // 불필요
   }
 
   const streamDestroyed = (event) => {
@@ -180,20 +139,13 @@ const ConsultingRoom = () => {
     console.warn(exception);
   }
 
-  // 컨설턴트, 고객 종료시 분리 필요
   const leaveSession = () => {
     if (session) {
       session.disconnect();
-      dispatch(postConsultingResult({ files, consultingFinishRequest }))
-        .then(() => {
-          dispatch(changeComment(''))
-          dispatch(selectTone(''))
-          dispatch(setFiles(''))
-        })
     }
     setOV(null);
     dispatch(setSession(undefined))
-    setMySessionId(role === CONSULTANT ? tmp : consultantSessionName)
+    setMySessionId(tmp)
     setMyUserName(nickname)
     setConsultant(undefined)
     setCustomer(undefined)
@@ -297,50 +249,23 @@ const ConsultingRoom = () => {
   // ---------- render
   return (
     <SContainer container >
-
       {session !== undefined ? (
         // 세션 연결시
-        <SGridContainer container spacing={2}>      
-          {consultant !== undefined ? (
-            <Grid container item xs={12} sm={2}
-              sx={{
-                height: "80%",
-                justifyContent: "space-between",
-                gap: 2,
-              }}>
-              <SGrid item >
-                <VideoContainer>
-                  <UserVideoComponent
-                    streamManager={consultant} />
-                </VideoContainer>
-              </SGrid>
-              {
-                role === CONSULTANT &&
-                <SmallChat />
-              }
-            </Grid>
-          )
-            :
-            <SpinnerGrid item xs={12} sm={2}>
-              <CircularProgress />
-            </SpinnerGrid>
-          }
-
-        <UserVideoSGrid item xs={12} sm={6}>
-          {customer !== undefined ? (
-            // 유저 비디오 및 베스트 및 컬러셋
+        <SGridContainer container spacing={2}>
+          <SGrid item xs={12} sm={1} />
+          <UserVideoSGrid item xs={12} sm={6}>
+            {customer !== undefined ? (
+              // 유저 비디오 및 베스트 및 컬러셋
               <VideoContainer>
                 <UserVideoComponent
                   streamManager={customer} />
               </VideoContainer>
-          )
-            :
-            <SpinnerGrid item xs={12} sm={6}>
-              <CircularProgress />
-            </SpinnerGrid>
-          }
-          {
-            role === CONSULTANT &&
+            )
+              :
+              <SpinnerGrid item xs={12} sm={6}>
+                <CircularProgress />
+              </SpinnerGrid>
+            }
             <ColorButtonGroup
               clickColorFirstFunc={clickColorFirstFunc}
               clickColorFirst={clickColorFirst}
@@ -349,39 +274,20 @@ const ConsultingRoom = () => {
               setIsBest={setIsBest}
               setIsWorst={setIsWorst}
             />
-          }
-        </UserVideoSGrid>
-
-          {/* 우측 컬러팔레트, 채팅*/}
-          {
-            role === CONSULTANT &&
-            // sgrid
-            <Grid item xs={12} sm={4}
-              sx={{  display: "flex",
+          </UserVideoSGrid>
+          <SGrid item xs={12} sm={1} />
+          <Grid item xs={12} sm={4}
+            sx={{
+              display: "flex",
               flexDirection: "column",
               alignItems: "center",
               height: '100%',
             }}>
-              <ColorPalette
-                isBest={isBest}
-                isWorst={isWorst}
-              />
-            </Grid>
-          }
-          {
-            role === CUSTOMER &&
-            <Grid item xs={12} sm={4}
-            sx={{ 
-              display: "flex",
-              justifyContent: "end",
-              height: "80%",
-              flexDirection: "column",
-              width: '100%',
-            }}>
-            <Chat />
-            </Grid>
-            
-          }
+            <ColorPalette
+              isBest={isBest}
+              isWorst={isWorst}
+            />
+          </Grid>
         </SGridContainer>
       )
         :
@@ -391,118 +297,79 @@ const ConsultingRoom = () => {
         </SpinnerGrid>
       }
 
-        
+
 
       {/* 하단 || 선택된 베스트, 워스트 컬러팔레트 || 마이크, 카메라, 종료버튼 */}
       <BottomBox>
         {
           // 세션연결 안됐을시
           !session ?
-          <>
-            <BottomBtn variant="contained" onClick={joinSession}>
-              연결
-            </BottomBtn>
+            <>
+              <BottomBtn variant="contained" onClick={joinSession}>
+                연결
+              </BottomBtn>
               <BottomBtn variant="contained" onClick={() => {
                 navigate('/')
               }}>
                 돌아가기
               </BottomBtn>
-          </>
+            </>
             :
             // 세션 연결시 
-            <> 
+            <>
               {/* 베스트,워스트 컬러셋 || 마이크,캠,종료버튼 */}
-              { role === CONSULTANT ?
-              // 컨설턴트
-              <>
-                {/* 컬러셋 */}
-                <ConSelectedColorSet
-                  setIsBest={setIsBest}
-                  setIsWorst={setIsWorst}
-                  />
-                <MicCamExitGroup>
-                  {/* 마이크 */}
-                  <CustomIconButton
-                    color="inherit"
+              {/* 컬러셋 */}
+              <SelectedColorSet
+                setIsBest={setIsBest}
+                setIsWorst={setIsWorst}
+              />
+              {/* 마이크,캠 + 필터 + 종료*/}
+              <MicCamExitGroup>
+                {/* 마이크 */}
+                <CustomIconButton
+                  color="inherit"
+                  onClick={() => {
+                    publisher.publishAudio(!isMic)
+                    setIsMic(!isMic)
+                  }}>
+                  {isMic ? <Mic /> : <MicOff color="secondary" />}
+                </CustomIconButton>
+                {/* 캠 */}
+                <CustomIconButton
+                  color="inherit"
+                  onClick={() => {
+                    publisher.publishVideo(!isCam)
+                    setIsCam(!isCam)
+                  }}>
+                  {isCam ? <Videocam /> : <VideocamOff color="secondary" />}
+                </CustomIconButton>
+                {/*  화면조정, 필터, 종료 */}
+                <ButtonGroup style={{ gap: 3 }}>
+                  <BottomBtn variant="contained" onClick={() => dispatch(settingModalOn())} >
+                    화면 조정
+                  </BottomBtn>
+                  <BottomBtn variant="contained"
                     onClick={() => {
-                      publisher.publishAudio(!isMic)
-                      setIsMic(!isMic)
-                    }}>
-                    {isMic ? <Mic /> : <MicOff color="secondary" />}
-                  </CustomIconButton>
-                  {/* 캠 */}
-                  <CustomIconButton
-                    color="inherit"
-                    onClick={() => {
-                      publisher.publishVideo(!isCam)
-                      setIsCam(!isCam)
-                    }}>
-                    {isCam ? <Videocam /> : <VideocamOff color="secondary" />}
-                  </CustomIconButton>
-                  {/* 종료 */}
+                      if (customer.stream.filter) {
+                        customer.stream.removeFilter()
+                      }
+                    }}
+                  >
+                    톤 필터 지우기
+                  </BottomBtn>
                   <BottomBtn variant="contained" onClick={leaveSession}>
                     종료
                   </BottomBtn>
-                </MicCamExitGroup>
-              </>
-              :
-              // 유저
-              <>
-                {/* 컬러셋 */}
-                <SelectedColorSet
-                  setIsBest={setIsBest}
-                  setIsWorst={setIsWorst}
-                  />
-                {/* 마이크,캠 + 필터 + 종료*/}
-                <MicCamExitGroup>
-                  {/* 마이크 */}
-                  <CustomIconButton
-                    color="inherit"
-                    onClick={() => {
-                      publisher.publishAudio(!isMic)
-                      setIsMic(!isMic)
-                    }}>
-                    {isMic ? <Mic /> : <MicOff color="secondary" />}
-                  </CustomIconButton>
-                  {/* 캠 */}
-                  <CustomIconButton
-                    color="inherit"
-                    onClick={() => {
-                      publisher.publishVideo(!isCam)
-                      setIsCam(!isCam)
-                    }}>
-                    {isCam ? <Videocam /> : <VideocamOff color="secondary" />}
-                  </CustomIconButton>
-                  {/*  화면조정, 필터, 종료 */}
-                  <ButtonGroup style={{ gap:3}}>
-                    <BottomBtn variant="contained" onClick={() => dispatch(settingModalOn())} >
-                      화면 조정
-                    </BottomBtn>
-                    <BottomBtn variant="contained"
-                      onClick={() => {
-                        if (customer.stream.filter) {
-                          customer.stream.removeFilter()
-                        }
-                      }}
-                    >
-                      톤 필터 지우기
-                    </BottomBtn>
-                    <BottomBtn variant="contained" onClick={leaveSession}>
-                      종료
-                    </BottomBtn>
-                  </ButtonGroup>
+                </ButtonGroup>
               </MicCamExitGroup>
-              </>
-              }
-            </>
-        }
+            </>}
       </BottomBox>
 
     </SContainer >
   )
 }
 
-export default ConsultingRoom
+export default SelfTestRoom
 
 // 전체포함 margin으로 띄운 상태
 const SContainer = styled(Box)({
@@ -577,31 +444,31 @@ const BottomBox = styled(Box)({
 })
 
 
-const CustomIconButton = styled(IconButton)((props)=>({
-	backgroundColor: '#99968D',
-	color: 'white',
-	'&:hover': {
-		backgroundColor: '#66635C',
-		color: 'black',
-		fontWeight: 'normal',
-},
-	fontWeight: 'normal',
+const CustomIconButton = styled(IconButton)((props) => ({
+  backgroundColor: '#99968D',
+  color: 'white',
+  '&:hover': {
+    backgroundColor: '#66635C',
+    color: 'black',
+    fontWeight: 'normal',
+  },
+  fontWeight: 'normal',
   border: '1px solid #66635C',
-	borderRadius: '10%',
+  borderRadius: '10%',
   height: '3rem',
 }))
 
-const BottomBtn = styled(Button)((props)=>({
-	backgroundColor: '#99968D',
-	color: 'white',
-	'&:hover': {
-		backgroundColor: '#66635C',
-		color: 'black',
-		fontWeight: 'normal',
-},
-	fontWeight: 'normal',
+const BottomBtn = styled(Button)((props) => ({
+  backgroundColor: '#99968D',
+  color: 'white',
+  '&:hover': {
+    backgroundColor: '#66635C',
+    color: 'black',
+    fontWeight: 'normal',
+  },
+  fontWeight: 'normal',
   border: '1px solid #66635C',
-	// width: `${props.wd}px`,
+  // width: `${props.wd}px`,
   height: '3rem',
 }))
 

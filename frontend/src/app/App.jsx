@@ -11,6 +11,7 @@ import NavBar from 'common/NavBar'
 import ConsultButton from 'common/consulting/ConsultButton'
 import Yourseason from 'features/home/YourSeason'
 import Consult from 'features/consulting/consultingRoom/Consult'
+import Self from 'features/self/Self'
 import MyPage from 'features/mypage/customers/MyPage'
 import ConsultantMyPage from 'features/mypage/consultants/ConsultantMyPage'
 import ModifyProfile from 'features/auth/modify/ModifyProfile'
@@ -27,11 +28,12 @@ import { CUSTOMER } from '../api/CustomConst'
 
 const App = () => {
   const { role } = useSelector((state) => state.auth.logonUser)
-
+  const { pathname } = useLocation()
   return (
     <Box >
       {
-        useLocation().pathname !== '/consult'
+        pathname !== '/consult'
+        && pathname !== '/self'
         && <ConsultButton />
       }
       <Stack direction="column" justifyContent='space-between' sx={{ minHeight: "100vh" }}>
@@ -42,7 +44,7 @@ const App = () => {
             <Route path='/consultants' element={<ConsultantList />} />
             <Route path='/mypage' element={
               role === CUSTOMER
-              ? <MyPage /> : <ConsultantMyPage />
+                ? <MyPage /> : <ConsultantMyPage />
             } />
             <Route path='/consultants/detail/:id' element={<ConsultantResPage />} />
             <Route path='/modify' element={<ModifyProfile />} />
@@ -52,9 +54,10 @@ const App = () => {
           </Route>
           {/* not-nav */}
           <Route path='/consult' element={<Consult />} />
+          <Route path='/self' element={<Self />} />
         </Routes>
-        <CustomizedSnackbars /> 
-        <Footer/>
+        <CustomizedSnackbars />
+        <Footer />
       </Stack>
     </Box>
   )
