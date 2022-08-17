@@ -27,9 +27,10 @@ export default ConsultantResPage
 
 const Img = styled('img')({
 	position: "absolute",
+  marginTop: "-70px",
 	minWidth: "940px",
 	minHeight: "22px",
-	height: "220px",
+	height: "290px",
 	width: "100vw",
 })
 

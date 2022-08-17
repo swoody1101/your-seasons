@@ -43,11 +43,12 @@ const ConsultantMyPage = () => {
 export default ConsultantMyPage
 
 const Img = styled('img')({
-  position: "absolute",
-  minWidth: "940px",
-  minHeight: "22px",
-  height: "220px",
-  width: "100vw",
+	position: "absolute",
+  marginTop: "-70px",
+	minWidth: "940px",
+	minHeight: "22px",
+	height: "290px",
+	width: "100vw",
 })
 
 const CContainer = styled(Container)({
