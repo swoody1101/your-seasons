@@ -55,20 +55,18 @@ public class SelfConsultingService {
                 .colorSet(requestWorstColorSet)
                 .build();
 
-        Map<String, Integer> toneCountingMap = new TreeMap<>(Collections.reverseOrder());
-
+        Map<String, Integer> toneCountings = new TreeMap<>(Collections.reverseOrder());
         selfConsultingFinishRequest.getBestColorSet()
                 .stream()
                 .map(hex -> colorRepository.findByHex(hex)
                         .orElseThrow(() -> new NotFoundException(COLOR_NOT_FOUND)))
-                .forEach(color -> toneCountingMap.merge(color.getTone().getName(), 1, Integer::sum));
-
+                .forEach(color -> toneCountings.merge(color.getTone().getName(), 1, Integer::sum));
         int bestColorCount = selfConsultingFinishRequest.getBestColorSet().size();
         List<Percentage> percentages = new ArrayList<>();
-        toneCountingMap.forEach((tone, count) -> {
+        toneCountings.forEach((tone, count) -> {
             percentages.add(Percentage.builder()
                     .tone(toneRepository.findByName(tone).get())
-                    .percentage(count / bestColorCount)
+                    .percentage(count * 100 / bestColorCount)
                     .build());
         });
 
