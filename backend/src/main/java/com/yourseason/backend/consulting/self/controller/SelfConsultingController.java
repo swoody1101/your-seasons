@@ -21,9 +21,9 @@ public class SelfConsultingController {
 
     @PostMapping
     public ResponseEntity<SelfConsultingCreateResponse> createSelfConsulting(@RequestHeader("Authorization") String token) {
-        SelfConsultingCreateResponse selfConsultingCreateResponse = selfConsultingService.createSelfConsulting(JwtUtil.getMemberId(token));
+        SelfConsultingCreateResponse response = selfConsultingService.createSelfConsulting(JwtUtil.getMemberId(token));
         log.info("자가 진단 개설 성공");
         return ResponseEntity.ok()
-                .body(selfConsultingCreateResponse);
+                .body(response);
     }
 }
