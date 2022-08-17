@@ -2,6 +2,7 @@ package com.yourseason.backend.interceptor;
 
 import com.yourseason.backend.common.exception.WrongAccessException;
 import com.yourseason.backend.util.JwtUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.regex.Pattern;
 
+@Slf4j
 public class JwtAuthInterceptor implements HandlerInterceptor {
 
     private static final String CONSULTANT_REQUEST = "/api/v1/consultants";
@@ -22,6 +24,7 @@ public class JwtAuthInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object Handler) {
         String requestURI = request.getRequestURI();
         String requestMethod = request.getMethod();
+        log.info("요청 URI: " + requestURI);
         if (CONSULTANT_REQUEST.equals(requestURI) && HttpMethod.POST.matches(requestMethod)
                 || CUSTOMER_REQUEST.equals(requestURI) && HttpMethod.POST.matches(requestMethod)
                 || CONSULTANT_REQUEST.equals(requestURI) && HttpMethod.GET.matches(requestMethod)

@@ -28,7 +28,10 @@ const MyProfile = () => {
 
   const diagnosis = () => {
     if (tone === '') {
-      return <Link to="/consultants" variant="body2">진단하러 가기</Link>
+      return (<>
+        <Link to="/consultants" variant="body2">진단받으러 가기</Link><br/>
+        <Link to="/self" variant="body2">자기 진단 하기</Link>
+      </>)
     } else {
       return <Diagnosis>마지막 진단 결과: {tone}톤 입니다.</Diagnosis>
     }
@@ -43,7 +46,7 @@ const MyProfile = () => {
   }
 
   return (
-    <Grid container>
+    <Grid container sx={{ backgroundColor: "white", borderRadius: "10px" }}>
       {/* 이미지 */}
       <Grid item xs={12} sm={3} sx={{
         display: 'flex',

@@ -13,14 +13,14 @@ const ConsultantListItem = ({ consultantId, nickname, introduction, starAverage,
 	<Link to={`/consultants/detail/${consultantId}`}>
 		<CardItem>
 			<CardActionArea>
-				<div style={{display:'flex', justifyContent:'center'}}>
+				<div style={{display:'flex', justifyContent:'center', paddingTop:5}}>
 					<OtherAvatar imgUrl={imageUrl} setSize={14} />
 				</div>
 				<CardContent>
 					{/* 닉네임 */}
 					<Nickname>
 						컨설턴트
-						<span style={{fontSize:20}}>{nickname}</span>
+						<span style={{fontSize:20}}> {nickname}</span>
 					</Nickname>
 					{/* 별점 */}
 					<StarReview>
@@ -47,13 +47,14 @@ export default ConsultantListItem
 
 const CardItem = styled(Card)({
 	width: 250, 
-	height: 300, 
+	height: 300,
 	boxSizing: 'border-box',
 })
 
 
 const IntroduceDiv = styled('div')({
-	height: 40,
+  paddingTop: 5,
+	height: 58,
 	// backgroundColor: 'pink',
 })
 

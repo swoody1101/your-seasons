@@ -7,7 +7,6 @@ import ConsultingRoom from './components/ConsultingRoom'
 import CameraTest from './components/CameraTest';
 
 const Consult = () => {
-  // const [isSetClear, setIsSetClear] = useState(false);
   const { isSetClear } = useSelector(state => state.consult)
   return (
     <ConsultContainer>

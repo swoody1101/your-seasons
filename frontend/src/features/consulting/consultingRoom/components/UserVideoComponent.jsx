@@ -2,10 +2,14 @@ import React from 'react';
 import OpenViduVideoComponent from './OvVideo';
 
 import { Box, styled, Typography } from '@mui/material'
+import { CUSTOMER, CONSULTANT } from 'api/CustomConst'
 
-const UserVideoComponent = ({ streamManager, role }) => {
+import CoverFilter from './CoverFilter'
+
+const UserVideoComponent = ({ streamManager }) => {
+  const subRole = JSON.parse(streamManager.stream.connection.data).clientRole;
+
   const getNicknameTag = () => {
-    // Gets the nickName of the user
     return JSON.parse(streamManager.stream.connection.data).clientData;
   }
 
@@ -14,30 +18,27 @@ const UserVideoComponent = ({ streamManager, role }) => {
     <div>
       {streamManager !== undefined ? (
         <>
-        {
-        role==='CONSULTANT' &&
-        <ConsultantStream>
-          <OpenViduVideoComponent streamManager={streamManager} />
-          <CustomTypography>{getNicknameTag()} 컨설턴트</CustomTypography>
-        </ConsultantStream>
-        }
-        {role!=='CONSULTANT' &&
-        <CustomerStream>
-          <OpenViduVideoComponent streamManager={streamManager} />
-          <CustomTypography>{getNicknameTag()} 님</CustomTypography>
-        </CustomerStream>
-        }
+          {subRole === CONSULTANT &&
+            <ConsultantStream>
+              <CustomTypography>{getNicknameTag()} 컨설턴트</CustomTypography>
+              <OpenViduVideoComponent streamManager={streamManager} />
+
+            </ConsultantStream>
+          }
+          {subRole === CUSTOMER &&
+            <CustomerStream>
+              <div style={{ position: 'relative', }}>
+                <OpenViduVideoComponent streamManager={streamManager} />
+                <CoverFilter />
+              </div>
+              <CustomTypography>{getNicknameTag()} 님</CustomTypography>
+            </CustomerStream>
+          }
         </>
       ) : null}
     </div>
   );
 }
-
-
-// <StreamBox>
-// <OpenViduVideoComponent streamManager={streamManager} />
-// <CustomTypography>{getNicknameTag()} 컨설턴트</CustomTypography>
-// </StreamBox>
 
 export default UserVideoComponent
 
@@ -69,9 +70,8 @@ const CustomerStream = styled(Box)({
   }
 })
 
-
 const CustomTypography = styled(Typography)({
-  color: "#5A4D4D" ,
+  color: "#5A4D4D",
   fontSize: '1rem',
   fontWeight: 'bold',
   textAlign: 'center',

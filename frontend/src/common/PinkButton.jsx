@@ -14,10 +14,10 @@ const PinkButton = ({ btnText, width, isClick} ) => {
 export default PinkButton
 
 const IsButton = styled(Button)((props)=>({
-	backgroundColor: 'pink',
+	backgroundColor: '#FFB471',
 	color: 'black',
 	'&:hover': {
-		backgroundColor: 'pink',
+		backgroundColor: '#FFB471',
 		color: 'white',
 		fontWeight: 'normal',
 },

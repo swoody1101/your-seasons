@@ -88,7 +88,7 @@ const SignUp = () => {
         }
       })
   }
-  ////////////////////////////////////////////////////////////
+
   // 이메일 발송 완료
   const handleSendEmail = () => {
     dispatch(emailSendCheck(userEmail))
@@ -105,7 +105,6 @@ const SignUp = () => {
   }
   // 발송된 토큰 체크
   const handleCheckEmailAuth = () => {
-    console.log(emailAuth);
     const data = {
       email: userEmail,
       authToken: emailAuth,
@@ -116,14 +115,15 @@ const SignUp = () => {
       if(res.payload){
         alert('이메일 인증이 완료되었습니다.')
         setIsEmailAuthCheck(true)
+        return true
       }else{
         alert('이메일 인증에 실패하였습니다.')
         setIsEmailAuthCheck(false)
         setEmailAuth('')
+        return false
       }
     })
   }
-  ////////////////////////////////////////////////////////////
 
 
   const handleCheckNickname = () => {
@@ -147,12 +147,11 @@ const SignUp = () => {
       return;
     }
 
-    ///////////////////////////////////////////////////////////////////
     // emailauthentication: 이메일 인증여부 
-    // if(!isEmailAuthCheck) {
-    //   alert("이메일 인증을 해주세요.")
-    //   return;
-    // }
+    if(!isEmailAuthCheck) {
+      alert("이메일 인증을 해주세요.")
+      return;
+    }
 
     // password : success 이후에 사용할 수 없는 문자 1개를 추가해도 로직이 넘어가 마지막에 한번더 체크
     if (!password
@@ -233,8 +232,8 @@ const SignUp = () => {
               successText="success"
               errorText="이메일 양식을 맞춰주세요."
             />
-          {/* //////////////////////////////////////////////////////////// */}
-            {/* <EmailAuthentication
+
+            <EmailAuthentication
               label="이메일 인증번호 입력"
               id="emailauth"
               // email 중복확인 여부
@@ -254,7 +253,7 @@ const SignUp = () => {
               defaultText="인증번호를 입력해주세요."
               successText="success"
               errorText="인증번호가 일치하지 않습니다."
-            /> */}
+            />
 
             <ValidationInput
               label="패스워드"

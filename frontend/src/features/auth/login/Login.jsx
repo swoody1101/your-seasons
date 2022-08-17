@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { useMediaQuery } from '@mui/material'
 import { useCookies } from 'react-cookie'
-import { getToken } from "api/JWToken";
+import { isEmpty } from "lodash";
 
 import { BAD_REQUEST, NOT_FOUND, CONFLICT, OK } from 'api/CustomConst'
 import { loginUser, loadMember, logoutUser } from "features/auth/authSlice"
@@ -42,7 +42,7 @@ const Login = () => {
 
   // 토큰 expire여부 체크 후 삭제, 또는 이미 있으면 이전페이지로 이동
   useEffect(()=>{
-    if(window.localStorage.getItem("Authorization")){
+    if(!isEmpty(window.localStorage.getItem(("Authorization")))){
       let date = new Date()
       if(date > new Date(window.localStorage.getItem("expiredTime"))){
         dispatch(logoutUser())

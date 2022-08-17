@@ -221,7 +221,7 @@ const SGrid = styled(Grid)({
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
-  gap: 30,
+  gap: 5,
 })
 
 const CTab = styled(Tab)({

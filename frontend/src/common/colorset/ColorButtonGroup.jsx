@@ -18,7 +18,8 @@ const ColorButtonGroup = ({
   const selectedColor = useSelector(state => state.colorSetList.selectedColor)
   const dispatch = useDispatch()
   
-  const onFirstClick = () => {
+  const onClick = (e) => {
+    console.log(JSON.stringify(e))
     if(clickColorFirst === false){
       clickColorFirstFunc();
       return
@@ -30,19 +31,19 @@ const ColorButtonGroup = ({
 
   return (
     <Div>
-      <CustomFab variant="extended" onClick={() => dispatch(removeSelectColor(selectedColor))}>
+      {/* <CustomFab variant="extended" onClick={() => dispatch(removeSelectColor(selectedColor))}>
         선택 색상 제거
-      </CustomFab>
+      </CustomFab> */}
       {/* bestbtn */}
       <CustomFab variant="extended" sx={{ display: isBest ? 'none' : '' }} 
-        onClick={() => { dispatch(addBestColor(selectedColor)); onFirstClick(); }}>
+        onClick={() => { dispatch(addBestColor(selectedColor)); onClick(); }}>
         <FavoriteRoundedIcon sx={{ color: selectedColor, mr: 1 }} /> 추가 </CustomFab>
       <CustomFab variant="extended" sx={{ display: isBest ? '' : 'none' }} 
         onClick={() => { dispatch(removeBestColor(selectedColor)); setIsBest(false); }}>
         <FavoriteRoundedIcon sx={{ color: selectedColor, mr: 1 }} /> 제거 </CustomFab>
       {/* worstbtn */}
       <CustomFab variant="extended" sx={{ display: isWorst ? 'none' : '' }} 
-        onClick={() => { dispatch(addWorstColor(selectedColor)); onFirstClick(); }}>
+        onClick={() => { dispatch(addWorstColor(selectedColor)); onClick(); }}>
         <HeartBrokenIcon sx={{ color: selectedColor, mr: 1 }} /> 추가 </CustomFab>
       <Fab variant="extended" sx={{ display: isWorst ? '' : 'none' }} 
         onClick={() => { dispatch(removeWorstColor(selectedColor)); setIsWorst(false); }}>

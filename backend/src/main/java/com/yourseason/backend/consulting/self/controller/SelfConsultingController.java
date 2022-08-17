@@ -1,7 +1,9 @@
 package com.yourseason.backend.consulting.self.controller;
 
+
 import com.yourseason.backend.common.domain.Message;
 import com.yourseason.backend.consulting.self.controller.dto.SelfConsultingFinishRequest;
+import com.yourseason.backend.consulting.self.controller.dto.SelfConsultingCreateResponse;
 import com.yourseason.backend.consulting.self.service.SelfConsultingService;
 import com.yourseason.backend.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,14 @@ import org.springframework.web.bind.annotation.*;
 public class SelfConsultingController {
 
     private final SelfConsultingService selfConsultingService;
+
+    @PostMapping
+    public ResponseEntity<SelfConsultingCreateResponse> createSelfConsulting(@RequestHeader("Authorization") String token) {
+        SelfConsultingCreateResponse response = selfConsultingService.createSelfConsulting(JwtUtil.getMemberId(token));
+        log.info("자가 진단 개설 성공");
+        return ResponseEntity.ok()
+                .body(response);
+    }
 
     @PostMapping("/1")
     public ResponseEntity<Message> finishSelfConsulting(@RequestHeader("Authorization") String token,
