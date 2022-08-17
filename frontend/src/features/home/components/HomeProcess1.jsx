@@ -1,7 +1,9 @@
 import React from 'react'
 import { Grid, styled, Typography } from '@mui/material'
+import MeetingDog from '../../../assets/images/homeSlide/HP1_meetingdog.jpg'
 import PeopleMeeting from '../../../assets/images/homeSlide/HP1_meetingpeople.jpg'
 import SmilePeople from '../../../assets/images/homeSlide/HP1_smilepeople.jpg'
+import Drape from '../../../assets/images/homeSlide/HP1_drape.jpg'
 
 const HomeProcess1 = () => {
 	return (
@@ -16,13 +18,11 @@ const HomeProcess1 = () => {
 				</SubTypography>
 			</Grid1>
 			<Grid2 item xs={6} >
-        {/* <Img src={Drape} /> */}
-        <img style={{width: '30%'}} />
-				<Img src={PeopleMeeting} />
+        <Img src={MeetingDog} />
 				<Img src={SmilePeople} />
-        <img style={{width: '30%'}} />
+				<Img src={Drape} />
+				<Img src={PeopleMeeting} />
 
-				{/* <Img src={Drape} /> */}
 			</Grid2>
 		</BigGrid>
 	)
@@ -71,6 +71,6 @@ const SubTypography = styled(Typography)({
 
 
 const Img = styled('img')({
-	width: '70%',
+	width: '50%',
 })
 
