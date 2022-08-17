@@ -25,11 +25,14 @@ public class SelfConsulting extends BaseTimeEntity {
     @JoinColumn(name = "self_consulting_result_id")
     private SelfConsultingResult selfConsultingResult;
 
+    private String sessionId;
+
     @Builder
     public SelfConsulting(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate,
-                          Customer customer, SelfConsultingResult selfConsultingResult) {
+                          Customer customer, SelfConsultingResult selfConsultingResult, String sessionId) {
         super(id, createdDate, lastModifiedDate, deletedDate, true);
         this.customer = customer;
         this.selfConsultingResult = selfConsultingResult;
+        this.sessionId = sessionId;
     }
 }
