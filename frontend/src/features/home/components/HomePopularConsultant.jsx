@@ -90,6 +90,7 @@ const HomePopularConsultant = () => {
 				}
 				<GoCon>
 					<Link to={'/consultants'}
+            style={{color: '#00000090'}}
             onClick={()=>{window.scrollTo(0,0);}}>컨설턴트 더 보기</Link>
 				</GoCon>
 			</ColorBox>

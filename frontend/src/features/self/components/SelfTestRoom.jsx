@@ -16,7 +16,7 @@ import { settingModalOn, setSession, setCustomer } from 'features/self/selfSlice
 import { CONSULTANT, CUSTOMER } from 'api/CustomConst'
 import { sharedColorSet, changeComment, selectTone, setFiles } from 'common/colorset/colorSetSlice'
 
-import ColorPalette from 'common/colorset/ColorPalette'
+import SelfColorPalette from 'common/colorset/selfcolorset/SelfColorPalette'
 import SelectedColorSet from 'common/colorset/SelectedColorSet';
 import ConSelectedColorSet from 'common/colorset/ConSelectedColorSet';
 import ColorButtonGroup from 'common/colorset/ColorButtonGroup'
@@ -279,11 +279,11 @@ const SelfTestRoom = () => {
           <Grid item xs={12} sm={4}
             sx={{
               display: "flex",
-              flexDirection: "column",
+              flexDirection: "row",
               alignItems: "center",
               height: '100%',
             }}>
-            <ColorPalette
+            <SelfColorPalette
               isBest={isBest}
               isWorst={isWorst}
             />
