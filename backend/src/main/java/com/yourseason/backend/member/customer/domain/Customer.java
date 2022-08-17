@@ -30,9 +30,6 @@ public class Customer extends Member {
     private List<SelfConsulting> selfConsultings = new ArrayList<>();
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST)
-    private List<SelfConsulting> selfConsultings = new ArrayList<>();
-
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST)
     private List<Reservation> reservations = new ArrayList<>();
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST)
