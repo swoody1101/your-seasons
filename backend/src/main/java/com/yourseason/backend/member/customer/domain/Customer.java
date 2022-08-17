@@ -26,7 +26,7 @@ public class Customer extends Member {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST)
     private List<Consulting> consultings = new ArrayList<>();
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "customer", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<SelfConsulting> selfConsultings = new ArrayList<>();
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST)
