@@ -41,10 +41,8 @@ public class ConsultingService {
     private static final String CONSULTING_NOT_FOUND = "해당 컨설팅을 찾을 수 없습니다.";
     private static final String CONSULTING_NOT_OPENED = "컨설팅이 개설되지 않았습니다.";
     private static final String CAN_NOT_ENTER_CONSULTING = "해당 컨설팅에 입장하실 수 없습니다.";
-    private static final String ALREADY_ENTER_CONSULTING = "이미 입장한 컨설팅입니다.";
     private static final String FAIL_TO_SAVE_CONSULTING_INFO = "컨설팅 정보 저장에 실패했습니다.";
     private static final String FAIL_TO_SAVE_CONSULTING_FILE = "컨설팅 진단표 저장에 실패했습니다.";
-    private static final String CONSULTING_EXISTS = "개설된 컨설팅이 존재합니다.";
     private static final String WRONG_ACCESS = "잘못된 접근입니다.";
     private static final String WRONG_CONTENT_TYPE = "잘못된 확장자입니다.";
     private static final String SESSION_DELIMITER = "-";
