@@ -13,7 +13,7 @@ const HomeProcess2 = () => {
 			톤보정을 통한 걱정없는 화상 서비스
 		</MainTypography>
     <SubTypography>
-			밝기, 채도, 명도 조절로 내 피부와 비슷하게
+			색조, 채도, 밝기 조절로 내 피부와 비슷하게
     </SubTypography>
 	</Grid2>
 </BigGrid>
@@ -36,7 +36,7 @@ const Grid1 = styled(Grid)({
 	justifyContent: 'start',
 	alignItems: 'center',
 	justifyContent: 'center',
-	backgroundColor: '#eceff1',
+	// backgroundColor: '#eceff1',
 })
 
 const Grid2 = styled(Grid)({
