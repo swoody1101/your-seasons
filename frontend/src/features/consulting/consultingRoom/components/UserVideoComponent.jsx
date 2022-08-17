@@ -22,12 +22,15 @@ const UserVideoComponent = ({ streamManager }) => {
             <ConsultantStream>
               <CustomTypography>{getNicknameTag()} 컨설턴트</CustomTypography>
               <OpenViduVideoComponent streamManager={streamManager} />
+
             </ConsultantStream>
           }
           {subRole === CUSTOMER &&
             <CustomerStream>
+              <div style={{ position: 'relative', }}>
                 <OpenViduVideoComponent streamManager={streamManager} />
                 <CoverFilter />
+              </div>
               <CustomTypography>{getNicknameTag()} 님</CustomTypography>
             </CustomerStream>
           }

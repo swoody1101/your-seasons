@@ -16,7 +16,7 @@ import FABRIC5 from 'assets/fabric/fabric005.png'
 const CoverFilter = () => {
   const { selectedColor } = useSelector(state => state.colorSetList)
   const { role } = useSelector(state => state.auth.logonUser)
-  const { session } = useSelector(state => state.consult)
+  const { session } = useSelector(state => state.self)
   const [img, setImg] = useState(FABRIC0)
   const [isFilter, setIsFilter] = useState(false)
   const [hvalue, setHvalue] = useState(4.0)
