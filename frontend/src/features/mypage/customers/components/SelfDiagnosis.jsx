@@ -1,15 +1,20 @@
-import React from 'react'
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
 import {
 	Grid, Box, CardContent,
 	Card, Typography, styled,
 	Tooltip, CircularProgress
 } from '@mui/material';
 import { isEmpty } from 'lodash'
+import { selfDxFetch } from "features/mypage/mypageSlice";
+
 
 const SelfDiagnosis = () => {
 	const results = useSelector(state => state.mypage.selfDxData);
-	console.log(results)
+	const dispatch = useDispatch();
+	useEffect(() => {
+		dispatch(selfDxFetch())
+	}, [])
 	return (
 		<Div>
 			{isEmpty(results) ? <h2>자가 진단 기록이 없습니다.</h2> : results.map(({ tone, selfConsultingDate,

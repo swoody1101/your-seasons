@@ -41,6 +41,29 @@ const CameraTest = () => {
       <SContainer>
         <SGridContainer container>
           <SGrid item xs={12} sm={3}>
+            <NotiText>
+              <WarningIcon sx={{
+                color: "black",
+                backgroundColor: "yellow",
+                fontSize: "3rem",
+                padding: "0.2rem",
+                border: "0.2rem solid black",
+                borderRadius: "100%"
+              }} />
+              <Typography variant="h6">
+                밝기 조절을 최소화 하기 위해<br />
+                본인의 피부톤과 화면의 색상이<br />
+                일치하는 곳에서 촬영해주시기 바랍니다.
+              </Typography>
+            </NotiText>
+          </SGrid>
+          <SGrid item xs={12} sm={6}>
+            <VideoContainer>
+              <UserVideoComponent
+                streamManager={customer} />
+            </VideoContainer>
+          </SGrid>
+          <SGrid item xs={12} sm={3}>
             <Controller >
               <Typography variant="h5">HSB 컨트롤러</Typography>
               <Typography variant="h6">색조 (HUE)</Typography>
@@ -86,29 +109,6 @@ const CameraTest = () => {
                 * 마우스가 스크롤에서 벗어나면 적용이 됩니다.
               </Typography>
             </Controller>
-          </SGrid>
-          <SGrid item xs={12} sm={6}>
-            <VideoContainer>
-              <UserVideoComponent
-                streamManager={customer} />
-            </VideoContainer>
-          </SGrid>
-          <SGrid item xs={12} sm={3}>
-            <NotiText>
-              <WarningIcon sx={{
-                color: "black",
-                backgroundColor: "yellow",
-                fontSize: "3rem",
-                padding: "0.2rem",
-                border: "0.2rem solid black",
-                borderRadius: "100%"
-              }} />
-              <Typography variant="h6">
-                밝기 조절을 최소화 하기 위해<br />
-                본인의 피부톤과 화면의 색상이<br />
-                일치하는 곳에서 촬영해주시기 바랍니다.
-              </Typography>
-            </NotiText>
           </SGrid>
         </SGridContainer>
         <Button onClick={() => { dispatch(settingModalOff()) }} variant="contained" sx={{ xs: { width: "100%" }, width: "40%" }}>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ConsultingResBtnItem from './ConsultingResBtnItem'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -88,12 +88,16 @@ const ConsultingResBtn = (props) => {
 
   }
 
+  useEffect(() => {
+    setPickedTime('')
+  }, [props.pickedDate])
 
-  let pickeTimeContent = ''
+  let pickeTimeContent = '상담을 원하는 시간을 선택해주세요.'
+  let timeContent = ''
   if (pickedTime === '') {
-    pickeTimeContent = '상담을 원하는 시간을 선택해주세요.'
+    timeContent = ''
   } else if (pickedTime !== '') {
-    pickeTimeContent = pickedTime.slice(0, 2) + '시를 선택하셨습니다.'
+    timeContent = `${props.pickedDate.slice(0, 4)}년 ${props.pickedDate.slice(5, 7)}월 ${props.pickedDate.slice(8, 10)}일 ${pickedTime.slice(0, 2)}시`
   }
 
   if (props.reservations.length > 0) {
@@ -198,9 +202,10 @@ const ConsultingResBtn = (props) => {
           required
           fullWidth />
       </Box>
-      <Box sx={{ display: "flex", justifyContent: "end" }}>
+      <Box sx={{ display: "flex", justifyContent: "end", alignItems: "center", fontWeight: 'bold', fontSize: '14px' }}>
+        {timeContent}
         <Button
-          sx={{ color: "pink", fontWeight: 'bold' }}
+          sx={{ color: "pink" }}
           onClick={reservationHandler}
         >예약 하기</Button>
       </Box>
