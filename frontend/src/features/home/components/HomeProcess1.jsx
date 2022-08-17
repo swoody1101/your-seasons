@@ -1,9 +1,8 @@
 import React from 'react'
-import { Grid, styled, Typography } from '@mui/material'
-import MeetingDog from '../../../assets/images/homeSlide/HP1_meetingdog.jpg'
+import { Link } from 'react-router-dom';
+import { Box, Grid, styled, Typography } from '@mui/material'
 import PeopleMeeting from '../../../assets/images/homeSlide/HP1_meetingpeople.jpg'
 import SmilePeople from '../../../assets/images/homeSlide/HP1_smilepeople.jpg'
-import Drape from '../../../assets/images/homeSlide/HP1_drape.jpg'
 
 const HomeProcess1 = () => {
 	return (
@@ -13,15 +12,24 @@ const HomeProcess1 = () => {
 					화상으로 받는 퍼스널컬러 진단
 				</MainTypography>
 				<SubTypography>
-					드레이프 천을 응용한
+          가상배경을 활용한
 					신개념 퍼스널컬러 진단 서비스
 				</SubTypography>
 			</Grid1>
 			<Grid2 item xs={6} >
-        <Img src={MeetingDog} />
+
+        <ImgSub>
+          <ImgMainTypography>혼자하는 자가진단 서비스</ImgMainTypography>
+          <Link to={'/self'} onClick={()=>{window.scrollTo(0,0);}}><ImgSubTypography>자가진단 하러가기</ImgSubTypography></Link>
+        </ImgSub>
 				<Img src={SmilePeople} />
-				<Img src={Drape} />
-				<Img src={PeopleMeeting} />
+
+        <Img src={PeopleMeeting} />
+        <ImgSub>
+          <ImgMainTypography>컨설턴트 님과의 1:1 진단 서비스</ImgMainTypography>
+          <Link to={'/consultants'} onClick={()=>{window.scrollTo(0,0);}}><ImgSubTypography>컨설턴트 더보기</ImgSubTypography></Link>
+        </ImgSub>
+
 
 			</Grid2>
 		</BigGrid>
@@ -74,3 +82,53 @@ const Img = styled('img')({
 	width: '50%',
 })
 
+const ImgSub = styled(Box)({
+  position: 'relative',
+	width: '50%',
+  height: '50%',
+})
+
+const ImgMainTypography = styled(Typography)({
+  position: 'absolute',
+	fontFamily: 'malgunbd !important',
+	fontSize: '1.5rem',
+	letterSpacing: 'var(--font-letter-spacing)',
+	color:  '#000000', //"#b4004f",
+	paddingTop: '30%',
+  paddingLeft: '15%',
+  "@keyframes popularIn": {
+    from: {
+      transform: "translateX(-10rem)",
+      opacity: 0,
+    },
+    to: {
+      transform: "translateX(0)",
+      opacity: 1,
+    }
+  },
+  animation: "popularIn 1s ease",
+  animationDirection: "alternate"
+})
+
+const ImgSubTypography = styled(Typography)({
+  position: 'absolute',
+	fontFamily: 'malgunbd !important',
+	fontSize: 'var(--font-sub-size)',
+	letterSpacing: 'var(--font-letter-spacing)',
+  textDecoration: 'underline',
+	color: '#00000090',
+  paddingTop: '40%',
+  paddingLeft: '15%',
+  "@keyframes popularIn": {
+    from: {
+      transform: "translateX(-10rem)",
+      opacity: 0,
+    },
+    to: {
+      transform: "translateX(0)",
+      opacity: 1,
+    }
+  },
+  animation: "popularIn 1s ease",
+  animationDirection: "alternate"
+})

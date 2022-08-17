@@ -66,6 +66,6 @@ const SubTypography = styled(Typography)({
 })
 
 const ColorsetImg = styled('img')({
-	filter: 'blur(5px)',
+	filter: 'blur(4px)',
 	width: '23vw',
 })
