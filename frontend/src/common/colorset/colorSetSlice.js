@@ -53,9 +53,9 @@ const ColorSetListSlice = createSlice({
     },
     changeComment: (state, action) => {
       // 1000자 최대
-      if(state.comment.length<999){
+      if (state.comment.length < 999) {
         state.comment = action.payload
-      }else{
+      } else {
         alert('1000자 이상 입력할 수 없습니다.')
         return
       }
@@ -66,18 +66,23 @@ const ColorSetListSlice = createSlice({
     changeSelectColor: (state, action) => {
       state.selectedColor = action.payload
     },
+    resetColor: (state, action) => {
+      state.selectedColor = ''
+      state.bestColor = []
+      state.worstColor = []
+    },
     removeSelectColor: (state, action) => {
       state.selectedColor = ''
     },
     addBestColor: (state, action) => {
-      if (state.bestColor.length<10) {
+      if (state.bestColor.length < 10) {
         if (state.bestColor.includes(action.payload)) {
           alert('이미 존재하는 컬러입니다.')
           return
         } else {
           state.bestColor.push(action.payload);
         }
-      } else{
+      } else {
         alert('최대 10개의 컬러를 추가할 수 있습니다.')
         return
       }
@@ -86,14 +91,14 @@ const ColorSetListSlice = createSlice({
       state.bestColor = state.bestColor.filter((color) => color !== action.payload)
     },
     addWorstColor: (state, action) => {
-      if (state.worstColor.length<10){
+      if (state.worstColor.length < 10) {
         if (state.worstColor.includes(action.payload)) {
           alert('이미 존재하는 컬러입니다.')
           return
         } else {
           state.worstColor.push(action.payload);
         }
-      } else{
+      } else {
         alert('최대 10개의 컬러를 추가할 수 있습니다.')
         return
       }
@@ -120,7 +125,7 @@ export const {
   addBestColor, removeSelectColor, changeSelectColor,
   changeBestColor, removeBestColor, addWorstColor,
   removeWorstColor, sharedColorSet, changeComment,
-  selectTone, setFiles
+  selectTone, setFiles, resetColor
 } = ColorSetListSlice.actions;
 
 export default ColorSetListSlice.reducer

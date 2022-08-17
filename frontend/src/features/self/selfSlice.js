@@ -6,15 +6,31 @@ const initialState = {
   customer: undefined,
   isSetClear: false,
   mySessionName: 's-s-s',
+  selfConsultingId: 0,
+  state: 'idle'
 }
 
 export const selfConsulting = createAsyncThunk(
   'self/openConsulting',
-  async (reservationId, { rejectWithValue }) => {
+  async (payload, { rejectWithValue }) => {
     try {
-      const response = await Axios.post(`consultings`, { reservationId: reservationId })
+      const response = await Axios.post(`self-consultings`)
       return response.data
     } catch (err) {
+      return rejectWithValue(err)
+    }
+  }
+)
+
+export const selfConsultingClose = createAsyncThunk(
+  'self/selfConsultingClose',
+  async (payload, { rejectWithValue }) => {
+    try {
+      console.log(payload)
+      const response = await Axios.post(`self-consultings/1`, payload)
+      return response.data
+    } catch (err) {
+      console.log(err)
       return rejectWithValue(err)
     }
   }
@@ -37,8 +53,17 @@ export const selfSlice = createSlice({
       state.session = payload
     },
   },
-  extraReducers: {
-
+  extraReducers: (builder) => {
+    builder.addCase(selfConsulting.pending, (state, action) => {
+      state.status = 'loading';
+    })
+    builder.addCase(selfConsulting.fulfilled, (state, { payload }) => {
+      state.status = 'succeeded';
+      state.selfConsultingId = payload.selfConsultingId;
+    })
+    builder.addCase(selfConsulting.rejected, (state, action) => {
+      state.status = 'failed';
+    })
   }
 })
 

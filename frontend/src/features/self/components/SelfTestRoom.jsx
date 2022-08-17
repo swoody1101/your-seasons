@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -6,28 +6,27 @@ import { useNavigate } from 'react-router-dom';
 import { OpenVidu } from 'openvidu-browser';
 import UserVideoComponent from './UserVideoComponent';
 
-import { Box, Button, Grid, styled, Typography, ButtonGroup, IconButton, CircularProgress, Card } from '@mui/material'
+import { Box, Button, Grid, styled, Typography, ButtonGroup, IconButton, CircularProgress } from '@mui/material'
 import { Mic, MicOff, Videocam, VideocamOff } from '@mui/icons-material';
 
 
 import { setSnackbarMessage, setSnackBarOpen } from 'common/snackbar/snackbarSlice';
 import { settingModalOn, setSession, setCustomer } from 'features/self/selfSlice'
-
-import { CONSULTANT, CUSTOMER } from 'api/CustomConst'
-import { sharedColorSet, changeComment, selectTone, setFiles } from 'common/colorset/colorSetSlice'
+import { selfConsulting, selfConsultingClose } from 'features/self/selfSlice';
 
 import ColorPalette from 'common/colorset/ColorPalette'
 import SelectedColorSet from 'common/colorset/SelectedColorSet';
-import ConSelectedColorSet from 'common/colorset/ConSelectedColorSet';
 import ColorButtonGroup from 'common/colorset/ColorButtonGroup'
+import { resetColor } from 'common/colorset/colorSetSlice';
 
 const OPENVIDU_SERVER_URL = 'https://yourseasons.anveloper.kr:8443';
 const OPENVIDU_SERVER_SECRET = 'YOUR_SEASONS_SECRET';
 
 // rafce Arrow function style 
 const SelfTestRoom = () => {
-  const { nickname, email, role, imageUrl } = useSelector(state => state.auth.logonUser) //nickname, email, role,
-  const { session, customer } = useSelector(state => state.self)
+  const { nickname, email, role } = useSelector(state => state.auth.logonUser) //nickname, email, role,
+  const { session, customer, selfConsultingId } = useSelector(state => state.self)
+  console.log(selfConsultingId)
   const tmp = email.replace(/[@\.]/g, '-')
   const [mySessionId, setMySessionId] = useState(tmp)
 
@@ -45,14 +44,16 @@ const SelfTestRoom = () => {
 
   const [isMic, setIsMic] = useState(true)
   const [isCam, setIsCam] = useState(true)
-  const { selectedColor, bestColor, worstColor } = useSelector(state => state.colorSetList)
-
-  // 코멘트, 진단결과 톤, 진단결과 이미지 정보
-  const comment = useSelector(state => state.colorSetList.comment)
-  const selectedTone = useSelector(state => state.colorSetList.tone)
+  const { bestColor, worstColor } = useSelector(state => state.colorSetList)
 
   const dispatch = useDispatch()
   const navigate = useNavigate();
+
+  const dataSet = {
+    selfConsultingId: selfConsultingId,
+    bestColorSet: bestColor,
+    worstColorSet: worstColor
+  }
 
   useEffect(() => {
     window.addEventListener(
@@ -122,8 +123,11 @@ const SelfTestRoom = () => {
 
   const joinSession = () => {
     const getOV = new OpenVidu();
-    dispatch(setSession(getOV.initSession()))
-    setOV(getOV)
+    dispatch(selfConsulting())
+      .then((res) => {
+        dispatch(setSession(getOV.initSession()))
+        setOV(getOV)
+      })
   }
 
   const streamCreated = (event) => {
@@ -140,11 +144,18 @@ const SelfTestRoom = () => {
   }
 
   const leaveSession = () => {
-    if (session) {
-      session.disconnect();
+    if (worstColor.length < 1 | bestColor.length < 1) {
+      alert('베스트컬러와 워스트컬러 팔레트를 1개 이상씩 채워주세요')
+    } else if (session) {
+      dispatch(selfConsultingClose(dataSet))
+        .then(() => {
+          session.disconnect();
+          dispatch(resetColor())
+          dispatch(setSession(undefined))
+          window.location.reload()
+        })
     }
     setOV(null);
-    dispatch(setSession(undefined))
     setMySessionId(tmp)
     setMyUserName(nickname)
     setConsultant(undefined)
@@ -364,7 +375,6 @@ const SelfTestRoom = () => {
               </MicCamExitGroup>
             </>}
       </BottomBox>
-
     </SContainer >
   )
 }
