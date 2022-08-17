@@ -27,13 +27,19 @@ const CoverFilter = () => {
   useEffect(() => {
     if (session) {
       session.on('signal:filter', (event) => {
-        const data = JSON.parse(event.data)
-        setHvalue(data.height)
-        setFalue(data.filter)
+        const { height, filter } = JSON.parse(event.data)
+        setHvalue(height)
+        setFalue(filter)
+        setImg(fabric[filter])
         setIsFilter(true)
       })
     }
   }, [session])
+
+  useEffect(() => {
+    console.log(hvalue)
+    console.log(falue)
+  }, [hvalue, falue])
 
   const handleFilter = () => {
     const data = {
