@@ -16,7 +16,7 @@ const MyAvatar = (
 export default MyAvatar
 
 const SetAvatar = styled(Avatar)((props) => ({
-  backgroundColor: "pink",
+  backgroundColor: "#FFB471",
   width: `${props.si * 10}px`,
   height: `${props.si * 10}px`,
   img: {

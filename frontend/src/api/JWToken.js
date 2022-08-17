@@ -1,11 +1,11 @@
+import { isEmpty } from "lodash";
 const tokenName = "Authorization"
 const expireToken = "expiredTime"
 
 
-
 export const getToken = () => {
   let date = new Date()
-  if(window.localStorage.getItem(tokenName)){
+  if(!isEmpty(window.localStorage.getItem(tokenName))){
     if(date > new Date(window.localStorage.getItem(expireToken))){
       // window.location.href = 'http://localhost:3000/' + "login"
       window.location.href = "https://yourseasons.ssafy.io/login"
