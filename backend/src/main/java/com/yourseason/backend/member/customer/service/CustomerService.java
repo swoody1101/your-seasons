@@ -17,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,6 +64,8 @@ public class CustomerService {
 
         return customer.getReservations()
                 .stream()
+                .sorted(Comparator.comparing(Reservation::getDate)
+                        .thenComparing(Reservation::getTime))
                 .filter(Reservation::isActive)
                 .filter(reservation -> reservation.getTime()
                         .atDate(reservation.getDate())
