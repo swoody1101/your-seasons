@@ -8,9 +8,38 @@ const Pallete = ({ colorset, tone, setIsBest, setIsWorst }) => {
 
 	const dispatch = useDispatch()
 
+  
+  const select = () => {
+    if(tone==='spring_bright'){
+    return '봄 브라이트'
+  }else if(tone==='spring_true'){
+    return '봄 트루'
+  }else if(tone==='spring_light'){
+    return '봄 라이트'
+  }else if(tone==='summer_light'){
+    return '여름 라이트'
+  }else if(tone==='summer_true'){
+    return '여름 트루'
+  }else if(tone==='summer_soft'){
+    return '여름 소프트'
+  }else if(tone==='autumn_soft'){
+    return '가을 소프트'
+  }else if(tone==='autumn_true'){
+    return '가을 트루'
+  }else if(tone==='autumn_dark'){
+    return '가을 다크'
+  }else if(tone==='winter_bright'){
+    return '겨울 브라이트'
+  }else if(tone==='winter_true'){
+    return '겨울 트루'
+  }else if(tone==='winter_dark'){
+    return '겨울 다크'
+  }}
+
+
 	return <>
 		{/* 한 팔레트당 색상 20개 씩 존재 */}
-		<p style={{ padding: 5, color: 'rainbow' }}>	{tone} </p>
+		<p style={{ padding: 5, color: 'rainbow' }}>	{select(tone)}</p>
 		<Grid item sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
 			{colorset.map((item, index) => (
 				<div style={{ backgroundColor: item, width: 50, height: 50, margin: 1 }}
@@ -32,6 +61,9 @@ const MainColorSetItem = ({ seasonObj, setIsBest, setIsWorst }) => {
 		}
 		return seasonTone
 	}
+
+
+
 
 	return (
 		<Grid container sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>

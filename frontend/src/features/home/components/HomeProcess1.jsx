@@ -12,7 +12,7 @@ const HomeProcess1 = () => {
 					화상으로 받는 퍼스널컬러 진단
 				</MainTypography>
 				<SubTypography>
-					드레이프 천을 응용한
+          가상배경을 활용한
 					신개념 퍼스널컬러 진단 서비스
 				</SubTypography>
 			</Grid1>
