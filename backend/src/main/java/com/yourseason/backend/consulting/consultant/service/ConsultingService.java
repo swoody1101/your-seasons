@@ -11,7 +11,6 @@ import com.yourseason.backend.consulting.consultant.controller.dto.ConsultingReq
 import com.yourseason.backend.consulting.consultant.domain.Consulting;
 import com.yourseason.backend.consulting.consultant.domain.ConsultingRepository;
 import com.yourseason.backend.consulting.consultant.domain.result.ConsultingResult;
-import com.yourseason.backend.consulting.consultant.domain.result.ConsultingResultRepository;
 import com.yourseason.backend.member.consultant.domain.Consultant;
 import com.yourseason.backend.member.consultant.domain.ConsultantRepository;
 import com.yourseason.backend.member.customer.domain.Customer;
@@ -54,7 +53,6 @@ public class ConsultingService {
     private final ReservationRepository reservationRepository;
     private final ColorRepository colorRepository;
     private final ToneRepository toneRepository;
-    private final ConsultingResultRepository consultingResultRepository;
 
     @Transactional
     public ConsultingCreateResponse createConsulting(Long consultantId, ConsultingRequest consultingRequest) {
@@ -106,7 +104,6 @@ public class ConsultingService {
         if(!consultant.equals(consulting.getConsultant())) {
             throw new WrongAccessException(WRONG_ACCESS);
         }
-        consulting.done();
 
         String consultingFile = saveImage(multipartFile);
 
@@ -132,7 +129,9 @@ public class ConsultingService {
                 .worstColorSet(worstColorSet)
                 .consultingFile(consultingFile)
                 .build();
-        consultingResultRepository.save(consultingResult);
+
+        consulting.done(consultingResult);
+        consultingRepository.save(consulting);
         return new Message("succeeded");
     }
 

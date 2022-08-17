@@ -12,7 +12,6 @@ import com.yourseason.backend.consulting.self.domain.SelfConsulting;
 import com.yourseason.backend.consulting.self.domain.SelfConsultingRepository;
 import com.yourseason.backend.consulting.self.domain.result.Percentage;
 import com.yourseason.backend.consulting.self.domain.result.SelfConsultingResult;
-import com.yourseason.backend.consulting.self.domain.result.SelfConsultingResultRepository;
 import com.yourseason.backend.member.customer.domain.Customer;
 import com.yourseason.backend.member.customer.domain.CustomerRepository;
 import lombok.RequiredArgsConstructor;
@@ -95,8 +94,7 @@ public class SelfConsultingService {
                 .tone(bestTone)
                 .build();
 
-        selfConsulting.updateResult(selfConsultingResult);
-        selfConsulting.done();
+        selfConsulting.done(selfConsultingResult);
         selfConsultingRepository.save(selfConsulting);
         return new Message("succeeded");
     }
