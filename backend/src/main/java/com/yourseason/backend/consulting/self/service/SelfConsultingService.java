@@ -26,6 +26,7 @@ public class SelfConsultingService {
     private static final String CUSTOMER_NOT_FOUND = "해당 회원을 찾을 수 없습니다.";
     private static final String SELF_CONSULTING_NOT_FOUND = "해당 자가진단을 찾을 수 없습니다.";
     private static final String WRONG_ACCESS = "잘못된 접근입니다.";
+    private static final int BEST_TONE = 0;
 
     private final ColorRepository colorRepository;
     private final CustomerRepository customerRepository;
@@ -55,11 +56,12 @@ public class SelfConsultingService {
                 .build();
 
         Map<String, Integer> toneCountingMap = new TreeMap<>(Collections.reverseOrder());
-        for (String hex : selfConsultingFinishRequest.getBestColorSet()) {
-            Color color = colorRepository.findByHex(hex)
-                    .orElseThrow(() -> new NotFoundException(COLOR_NOT_FOUND));
-            toneCountingMap.merge(color.getTone().getName(), 1, Integer::sum);
-        }
+
+        selfConsultingFinishRequest.getBestColorSet()
+                .stream()
+                .map(hex -> colorRepository.findByHex(hex)
+                        .orElseThrow(() -> new NotFoundException(COLOR_NOT_FOUND)))
+                .forEach(color -> toneCountingMap.merge(color.getTone().getName(), 1, Integer::sum));
 
         int bestColorCount = selfConsultingFinishRequest.getBestColorSet().size();
         List<Percentage> percentages = new ArrayList<>();
@@ -70,7 +72,7 @@ public class SelfConsultingService {
                     .build());
         });
 
-        Tone bestTone = percentages.get(0).getTone();
+        Tone bestTone = percentages.get(BEST_TONE).getTone();
 
         SelfConsultingResult selfConsultingResult = SelfConsultingResult.builder()
                 .bestColorSet(bestColorSet)
