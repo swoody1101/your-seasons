@@ -17,7 +17,7 @@ public class SelfConsultingController {
 
     private final SelfConsultingService selfConsultingService;
 
-    @PostMapping
+    @PostMapping("/1")
     public ResponseEntity<Message> finishSelfConsulting(@RequestHeader("Authorization") String token,
                                                         @RequestBody SelfConsultingFinishRequest selfConsultingFinishRequest) {
         Message message = selfConsultingService.finishSelfConsulting(JwtUtil.getMemberId(token), selfConsultingFinishRequest);
