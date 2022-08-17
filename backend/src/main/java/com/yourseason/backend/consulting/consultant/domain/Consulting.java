@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 @Entity
 public class Consulting extends BaseTimeEntity {
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "consulting_result_id")
     private ConsultingResult consultingResult;
 
@@ -64,12 +64,17 @@ public class Consulting extends BaseTimeEntity {
         this.customer = customer;
     }
 
-    public void done() {
+    public void done(ConsultingResult consultingResult) {
+        this.consultingResult = consultingResult;
+        endReservation();
+        delete();
+    }
+
+    private void endReservation() {
         consultant.getReservations()
                 .stream()
                 .filter(Reservation::isActive)
                 .findFirst()
                 .ifPresent(Reservation::done);
-        delete();
     }
 }
