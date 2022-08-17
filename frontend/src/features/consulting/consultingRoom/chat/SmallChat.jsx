@@ -82,6 +82,10 @@ const ChatGrid = styled(Grid)({
   flexDirection: "column",
   justifyContent: "flex-end",
   overflow: "hidden",
+  borderRadius: "4px",
+  backgroundColor: "#F5F5F5",
+  border: '2px solid #5A4D4D99',
+  padding: '10px',
 })
 
 const ChatContainer = styled(Grid)({
@@ -90,10 +94,10 @@ const ChatContainer = styled(Grid)({
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
-  backgroundColor: "#FFFFFF10",
-  borderRadius: "4px",
-  margin: "4px",
-  padding: "4px",
+  // backgroundColor: "#FFFFFF10",
+  // borderRadius: "4px",
+  // margin: "4px",
+  // padding: "4px",
   overflow: "hidden",
 })
 

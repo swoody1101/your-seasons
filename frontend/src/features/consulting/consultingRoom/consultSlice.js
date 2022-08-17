@@ -7,11 +7,6 @@ const initialState = {
   isSetClear: false,
   consultantSessionName: 's-s-s',
   consultingId: 0,
-  videobalance: {
-    hue: 0.0,
-    saturation: 1.0,
-    brightness: 0.0
-  },
   messageId: 2,
   messageList: [
     {
@@ -94,7 +89,7 @@ export const consultSlice = createSlice({
   extraReducers: {
     [getConsultantSessionName.fulfilled]: (state, { payload }) => {
       state.consultantSessionName = payload.sessionId
-      state.consultingID = payload.consultingID
+      state.consultingId = payload.consultingId
     },
     [getConsultantSessionName.rejected]: (state, { payload }) => {
       state.consultantSessionName = 's-s-s'

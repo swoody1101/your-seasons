@@ -7,7 +7,7 @@ import { Stack, Grid, styled } from '@mui/material';
 import MyAvatar from "common/avatar/MyAvatar";
 import PinkButton from "common/PinkButton";
 import { loadMember } from 'features/auth/authSlice'
-import { myConsultantDxFetch } from "features/mypage/mypageSlice";
+import { myConsultantDxFetch, selfDxFetch } from "features/mypage/mypageSlice";
 
 
 const MyProfile = () => {
@@ -16,19 +16,26 @@ const MyProfile = () => {
   const { nickname, role, imageUrl } = useSelector(state => state.auth.logonUser)
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
-  useEffect(()=>{
+
+  useEffect(() => {
     dispatch(myConsultantDxFetch())
+  }, [])
+
+  useEffect(() => {
+    dispatch(selfDxFetch())
   }, [])
 
 
   const diagnosis = () => {
-    if ( tone === '' ) {
-      return <Link to="/consultants" variant="body2">진단하러 가기</Link>
+    if (tone === '') {
+      return (<>
+        <Link to="/consultants" variant="body2">진단받으러 가기</Link><br/>
+        <Link to="/self" variant="body2">자기 진단 하기</Link>
+      </>)
     } else {
       return <Diagnosis>마지막 진단 결과: {tone}톤 입니다.</Diagnosis>
-		}
-	}
+    }
+  }
 
   const handleModify = () => {
     navigate('/modify')
@@ -37,16 +44,16 @@ const MyProfile = () => {
         // console.log(res)
       })
   }
-	
+
   return (
-		<Grid container>
+    <Grid container sx={{ backgroundColor: "white", borderRadius: "10px" }}>
       {/* 이미지 */}
       <Grid item xs={12} sm={3} sx={{
-				display: 'flex',
+        display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-        <MyAvatar setSize={16} imgUrl={imageUrl}/>
+        <MyAvatar setSize={16} imgUrl={imageUrl} />
       </Grid>
       {/* 프로필  TEXT */}
       <Grid item xs={12} sm={9}>
@@ -54,11 +61,11 @@ const MyProfile = () => {
           <h3>{nickname} 님</h3>
           <div>{diagnosis()}</div>
           {/* 내 정보 수정 */}
-            <PinkButton 
-              isClick={handleModify}
-							width="120"
-							btnText="내정보수정"
-            /> 
+          <PinkButton
+            isClick={handleModify}
+            width="120"
+            btnText="내정보수정"
+          />
         </ProfileText>
       </Grid>
     </Grid>
@@ -67,9 +74,9 @@ const MyProfile = () => {
 export default MyProfile;
 
 PinkButton.defaultProps = {
-	isClick: () => { },
-	width: "",
-	btnText: "",
+  isClick: () => { },
+  width: "",
+  btnText: "",
 }
 
 const ProfileText = styled(Stack)({
@@ -77,8 +84,8 @@ const ProfileText = styled(Stack)({
   flexDirection: "column",
   paddingTop: "20px",
   paddingLeft: "20px",
-	height: "180px",
-	justifyContent: "space-evenly",
+  height: "180px",
+  justifyContent: "space-evenly",
 })
 
 const Diagnosis = styled('div')({

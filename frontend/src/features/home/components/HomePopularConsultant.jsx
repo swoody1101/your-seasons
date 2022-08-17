@@ -89,7 +89,8 @@ const HomePopularConsultant = () => {
 
 				}
 				<GoCon>
-					<Link to={'/consultants'}>컨설턴트 더 보기</Link>
+					<Link to={'/consultants'}
+            onClick={()=>{window.scrollTo(0,0);}}>컨설턴트 더 보기</Link>
 				</GoCon>
 			</ColorBox>
 		</Div >

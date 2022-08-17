@@ -38,9 +38,10 @@ public class ConsultingController {
     }
 
     @PostMapping("/1")
-    public ResponseEntity<Message> finishConsulting(@RequestPart ConsultingFinishRequest consultingFinishRequest,
+    public ResponseEntity<Message> finishConsulting(@RequestHeader("Authorization") String token,
+                                                    @RequestPart ConsultingFinishRequest consultingFinishRequest,
                                                     @RequestPart("file") MultipartFile multipartFile) {
-        Message message = consultingService.finishConsulting(consultingFinishRequest, multipartFile);
+        Message message = consultingService.finishConsulting(JwtUtil.getMemberId(token), consultingFinishRequest, multipartFile);
         log.info("컨설팅 종료 후 진단 결과 저장 성공");
         return ResponseEntity.ok()
                 .body(message);

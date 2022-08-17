@@ -70,5 +70,6 @@ public class Consulting extends BaseTimeEntity {
                 .filter(Reservation::isActive)
                 .findFirst()
                 .ifPresent(Reservation::done);
+        delete();
     }
 }

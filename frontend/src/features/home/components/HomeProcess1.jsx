@@ -1,6 +1,6 @@
 import React from 'react'
 import { Grid, styled, Typography } from '@mui/material'
-import DogMeeting from '../../../assets/images/homeSlide/HP1_meetingdog.jpg'
+import MeetingDog from '../../../assets/images/homeSlide/HP1_meetingdog.jpg'
 import PeopleMeeting from '../../../assets/images/homeSlide/HP1_meetingpeople.jpg'
 import SmilePeople from '../../../assets/images/homeSlide/HP1_smilepeople.jpg'
 import Drape from '../../../assets/images/homeSlide/HP1_drape.jpg'
@@ -13,15 +13,16 @@ const HomeProcess1 = () => {
 					화상으로 받는 퍼스널컬러 진단
 				</MainTypography>
 				<SubTypography>
-					가상배경을 활용한
+					드레이프 천을 응용한
 					신개념 퍼스널컬러 진단 서비스
 				</SubTypography>
 			</Grid1>
-			<Grid2 item xs={6}>
-				<Img src={DogMeeting} />
-				<Img src={PeopleMeeting} />
-				<Img src={Drape} />
+			<Grid2 item xs={6} >
+        <Img src={MeetingDog} />
 				<Img src={SmilePeople} />
+				<Img src={Drape} />
+				<Img src={PeopleMeeting} />
+
 			</Grid2>
 		</BigGrid>
 	)
@@ -50,7 +51,7 @@ const Grid2 = styled(Grid)({
 	flexFlow: 'row wrap',
 	justifyContent: 'start',
 	alignItems: 'center',
-	backgroundColor: '#eceff1',
+	backgroundColor: '#FFFFFF',
 })
 
 const MainTypography = styled(Typography)({
@@ -70,6 +71,6 @@ const SubTypography = styled(Typography)({
 
 
 const Img = styled('img')({
-	width: '50%'
+	width: '50%',
 })
 

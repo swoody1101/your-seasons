@@ -14,31 +14,31 @@ export default function ConsultingResCalendar(props) {
   const today = new Date()
   const { closedDays, role } = useSelector(state => state.auth.logonUser)
   const dayOff = []
-  
+
   let date = (today.getFullYear()) + '-' + ('0' + (today.getMonth() + 1)).slice(-2)
-  + '-' + ('0' + today.getDate()).slice(-2);
-  
+    + '-' + ('0' + today.getDate()).slice(-2);
+
   const [dateState, setDateState] = useState(new Date())
   const [pickedDate, setPickedDate] = useState(date)
-  
+
   const changeDate = (event) => {
     const date = (event.getFullYear()) + '-' + ('0' + (event.getMonth() + 1)).slice(-2)
-    + '-' + ('0' + event.getDate()).slice(-2);
-    
+      + '-' + ('0' + event.getDate()).slice(-2);
+
     setPickedDate(date)
     setDateState(event)
   }
-  
+
   const changeDayOffHandler = () => {
     const closeday = {
       "closedDay": pickedDate
     }
     dispatch(closeDay(closeday))
-    .then(() => {
-      dispatch(loadMember(role))
-    })
+      .then(() => {
+        dispatch(loadMember(role))
+      })
   }
-  
+
   const cancelDayOffHandler = () => {
     let closedDayId = null
     closedDays.forEach((res) => {
@@ -47,46 +47,47 @@ export default function ConsultingResCalendar(props) {
       }
     })
     dispatch(deleteClosedDay(closedDayId))
-    .then(() => {
-      dispatch(loadMember(role))
+      .then(() => {
+        dispatch(loadMember(role))
       })
+  }
+
+  const titleContent = ({ activeStartDate, date, view }) => {
+    let resTimeTable = []
+    const newdate = ((date.getFullYear()) + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2))
+    if (view === "month" && dayOff.includes(newdate)) {
+      return <PinkdDiv>휴무일</PinkdDiv>
     }
-    
-    const titleContent = ({ activeStartDate, date, view }) => {
-      let resTimeTable = []
-      const newdate = ((date.getFullYear()) + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2))
-      if (view === "month" && dayOff.includes(newdate)) {
-        return <PinkdDiv>휴무일</PinkdDiv>
-      }
-      // if문 변경
-      
-    if(!isEmpty(props.reservations)){
+    // if문 변경
+
+    if (!isEmpty(props.reservations)) {
       props.reservations.forEach(res => {
         resTimeTable.push(res.reservationDate)
-    })
-    }else{
+      })
+    } else {
       return
     }
-    
-      if (view === "month" && resTimeTable.includes(newdate)) {
-        return <BlueDiv>예약 확인</BlueDiv>
-      }
-    }
 
-    // const tileDisabled = ({ date, view }) =>
-    // (view === "month" && dayOff.includes(((date.getFullYear()) + '-' + ('0' + (date.getMonth() + 1)).slice(-2)
-    //   + '-' + ('0' + date.getDate()).slice(-2))))
+    if (view === "month" && resTimeTable.includes(newdate)) {
+      return <BlueDiv>예약 확인</BlueDiv>
+    }
+  }
+
+  // const tileDisabled = ({ date, view }) =>
+  // (view === "month" && dayOff.includes(((date.getFullYear()) + '-' + ('0' + (date.getMonth() + 1)).slice(-2)
+  //   + '-' + ('0' + date.getDate()).slice(-2))))
 
 
 
   // if문이라 아래에서 실행해줌. 기존코드 if문 X ==> if문으로 변경 및 함수실행으로 바꿈
   // 변경코드 1
+  let filteredReservation = []
   const filteredReservations = () => {
-    if(!isEmpty(props.reservations)){
-      props.reservations.filter(res => {
-      return res.reservationDate === pickedDate
-    })
-    }else{
+    if (!isEmpty(props.reservations)) {
+      filteredReservation = props.reservations.filter(res => {
+        return res.reservationDate === pickedDate
+      })
+    } else {
       return
     }
   }
@@ -95,22 +96,22 @@ export default function ConsultingResCalendar(props) {
   let reservedDate = []
   let btn = ''
   const resdate = () => {
-    if(!isEmpty(props.reservations)){
+    if (!isEmpty(props.reservations)) {
       props.reservations.forEach(res => {
         reservedDate.push(res.reservationDate)
-    })
-    }else{
+      })
+    } else {
       return
     }
   }
   resdate()
   // 변경코드 3
   const closeday = () => {
-    if(!isEmpty(closedDays)){
+    if (!isEmpty(closedDays)) {
       closedDays.forEach((off) => {
         dayOff.push(off.date)
       })
-    }else{
+    } else {
       return
     }
   }
@@ -118,8 +119,8 @@ export default function ConsultingResCalendar(props) {
 
   if (dayOff.includes(pickedDate)) {
     btn = <Button
-    onClick={cancelDayOffHandler}
-    variant="outlined"
+      onClick={cancelDayOffHandler}
+      variant="outlined"
       startIcon={<ContentPaste />}>
       근무일 지정
     </Button>
@@ -164,7 +165,7 @@ export default function ConsultingResCalendar(props) {
 
         </Grid>
         <Grid item xs={12} sm={4}>
-          <ConsultingResHistory reservation={filteredReservations} />
+          <ConsultingResHistory reservation={filteredReservation} />
         </Grid>
       </Grid>
     </Box>
