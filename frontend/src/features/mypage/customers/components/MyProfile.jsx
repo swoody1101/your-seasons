@@ -21,19 +21,18 @@ const MyProfile = () => {
     dispatch(myConsultantDxFetch())
   }, [])
 
-  useEffect(() => {
-    dispatch(selfDxFetch())
-  }, [])
-
-
   const diagnosis = () => {
     if (tone === '') {
       return (<>
-        <Link to="/consultants" variant="body2">진단받으러 가기</Link><br/>
-        <Link to="/self" variant="body2">자기 진단 하기</Link>
+        <Link to="/consultants" variant="body2">진단받으러 가기</Link><br />
+        <Link to="/self" variant="body2">자가진단 하러가기</Link>
       </>)
     } else {
-      return <Diagnosis>마지막 진단 결과: {tone}톤 입니다.</Diagnosis>
+      return (<>
+        <Diagnosis>마지막 컨설팅 결과: {tone}톤 입니다.</Diagnosis>
+        <br />
+        <Link to="/self" variant="body2">자가진단 하러가기</Link>
+      </>)
     }
   }
 
