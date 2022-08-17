@@ -11,7 +11,7 @@ export default function BasicRating({ starAverage }) {
       }}
     >
 			<div style={{ backgroundColor: 'white', width: '80%', display:'flex', justifyContent:'center'}}>
-				<div style={{display:'flex', alignContent:'center'}}><p style={{ marginTop:7, paddingLeft:2, marginRight:5}}>  </p> <Rating name="read-only" value={starAverage} readOnly/> </div>
+				<div style={{display:'flex', alignContent:'center'}}><p style={{ marginTop:7, paddingLeft:5, marginRight:5}}>  </p> <Rating name="read-only" value={starAverage} readOnly/> </div>
 			</div>
     </Box>
   );
