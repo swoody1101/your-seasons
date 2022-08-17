@@ -11,8 +11,10 @@ import { Mic, MicOff, Videocam, VideocamOff } from '@mui/icons-material';
 
 
 import { setSnackbarMessage, setSnackBarOpen } from 'common/snackbar/snackbarSlice';
-import { settingModalOn, setSession, setCustomer } from 'features/self/selfSlice'
-import { selfConsulting, selfConsultingClose } from 'features/self/selfSlice';
+import {
+  selfConsulting, selfConsultingClose,
+  settingModalOn, setSession, setCustomer
+} from 'features/self/selfSlice'
 
 import SelfColorPalette from 'common/colorset/selfcolorset/SelfColorPalette'
 import SelectedColorSet from 'common/colorset/SelectedColorSet';
@@ -26,7 +28,6 @@ const OPENVIDU_SERVER_SECRET = 'YOUR_SEASONS_SECRET';
 const SelfTestRoom = () => {
   const { nickname, email, role } = useSelector(state => state.auth.logonUser) //nickname, email, role,
   const { session, customer, selfConsultingId } = useSelector(state => state.self)
-  console.log(selfConsultingId)
   const tmp = email.replace(/[@\.]/g, '-')
   const [mySessionId, setMySessionId] = useState(tmp)
 
@@ -34,11 +35,7 @@ const SelfTestRoom = () => {
   const [isWorst, setIsWorst] = useState(false)
   const [clickColorFirst, setClickColorFirst] = useState(false)
 
-  const [myUserName, setMyUserName] = useState(nickname)
-
-  const [mainStreamManager, setMainStreamManager] = useState(undefined)
   const [publisher, setPublisher] = useState(undefined)
-  const [consultant, setConsultant] = useState(undefined)
 
   const [OV, setOV] = useState(null)
 
@@ -79,7 +76,7 @@ const SelfTestRoom = () => {
   const sessionConnect = (token) => {
     session
       .connect(
-        token, { clientData: myUserName, clientRole: role },
+        token, { clientData: nickname, clientRole: role },
       )
       .then(() => {
         let publisher = OV.initPublisher(undefined, {
@@ -94,7 +91,6 @@ const SelfTestRoom = () => {
         });
         publisher.subscribeToRemote()
         session.publish(publisher);
-        setMainStreamManager(publisher);
         setPublisher(publisher);
         dispatch(setCustomer(publisher))
         dispatch(setSession(session))
@@ -122,12 +118,10 @@ const SelfTestRoom = () => {
   }
 
   const joinSession = () => {
-    const getOV = new OpenVidu();
+    const getOV = new OpenVidu();    
+    dispatch(setSession(getOV.initSession()))
+    setOV(getOV)
     dispatch(selfConsulting())
-      .then((res) => {
-        dispatch(setSession(getOV.initSession()))
-        setOV(getOV)
-      })
   }
 
   const streamCreated = (event) => {
@@ -147,9 +141,9 @@ const SelfTestRoom = () => {
     if (worstColor.length < 1 | bestColor.length < 1) {
       alert('베스트컬러와 워스트컬러 팔레트를 1개 이상씩 채워주세요')
     } else if (session) {
+      session.disconnect();
       dispatch(selfConsultingClose(dataSet))
         .then(() => {
-          session.disconnect();
           dispatch(resetColor())
           dispatch(setSession(undefined))
           window.location.reload()
@@ -157,8 +151,6 @@ const SelfTestRoom = () => {
     }
     setOV(null);
     setMySessionId(tmp)
-    setMyUserName(nickname)
-    setConsultant(undefined)
     setCustomer(undefined)
   }
 
