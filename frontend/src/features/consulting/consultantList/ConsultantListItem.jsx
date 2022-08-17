@@ -20,7 +20,7 @@ const ConsultantListItem = ({ consultantId, nickname, introduction, starAverage,
 					{/* 닉네임 */}
 					<Nickname>
 						컨설턴트
-						<span style={{fontSize:20}}>{nickname}</span>
+						<span style={{fontSize:20}}> {nickname}</span>
 					</Nickname>
 					{/* 별점 */}
 					<StarReview>
