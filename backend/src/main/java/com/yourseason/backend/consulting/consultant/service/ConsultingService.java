@@ -69,7 +69,6 @@ public class ConsultingService {
         if (!consultant.equals(reservation.getConsultant())) {
             throw new WrongAccessException(CAN_NOT_ENTER_CONSULTING);
         }
-        checkConsultingExistence(consultant);
         String sessionId = getSessionId(consultant);
         consultant.createConsulting(getNewConsulting(consultant, sessionId));
         consultantRepository.save(consultant);
@@ -95,7 +94,6 @@ public class ConsultingService {
                 .filter(Consulting::isActive)
                 .findFirst()
                 .orElseThrow(() -> new BadRequestException(CONSULTING_NOT_OPENED));
-        checkContainingCustomer(consulting);
         customer.joinConsulting(consulting);
         customerRepository.save(customer);
         return ConsultingJoinResponse.builder()
@@ -182,21 +180,5 @@ public class ConsultingService {
                 .map(Consulting::getId)
                 .findFirst()
                 .orElseThrow(() -> new InternalServerErrorException(FAIL_TO_SAVE_CONSULTING_INFO));
-    }
-
-    private void checkContainingCustomer(Consulting consulting) {
-        if (consulting.getCustomer() != null) {
-            throw new BadRequestException(ALREADY_ENTER_CONSULTING);
-        }
-    }
-
-    private void checkConsultingExistence(Consultant consultant) {
-        consultant.getConsultings()
-                .stream()
-                .filter(Consulting::isActive)
-                .findFirst()
-                .ifPresent(consulting -> {
-                    throw new BadRequestException(CONSULTING_EXISTS);
-                });
     }
 }
