@@ -34,4 +34,8 @@ public class Percentage extends BaseTimeEntity {
         this.tone = tone;
         this.selfConsultingResult = selfConsultingResult;
     }
+
+    public void addSelfConsultingResult(SelfConsultingResult selfConsultingResult) {
+        this.selfConsultingResult = selfConsultingResult;
+    }
 }

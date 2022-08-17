@@ -16,6 +16,7 @@ import com.yourseason.backend.member.customer.domain.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.*;
 
 @RequiredArgsConstructor
@@ -32,8 +33,8 @@ public class SelfConsultingService {
     private final CustomerRepository customerRepository;
     private final ToneRepository toneRepository;
     private final SelfConsultingRepository selfConsultingRepository;
-    private final SelfConsultingResultRepository selfConsultingResultRepository;
 
+    @Transactional
     public Message finishSelfConsulting(Long customerId, SelfConsultingFinishRequest selfConsultingFinishRequest) {
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
@@ -78,11 +79,10 @@ public class SelfConsultingService {
                 .percentages(percentages)
                 .tone(bestTone)
                 .build();
-        selfConsultingResultRepository.save(selfConsultingResult);
 
         selfConsulting.updateResult(selfConsultingResult);
-        selfConsultingRepository.save(selfConsulting);
         selfConsulting.done();
+        selfConsultingRepository.save(selfConsulting);
         return new Message("succeeded");
     }
 
