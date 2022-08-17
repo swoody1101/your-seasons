@@ -21,7 +21,7 @@ public class SelfConsulting extends BaseTimeEntity {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "self_consulting_result_id")
     private SelfConsultingResult selfConsultingResult;
 
@@ -38,5 +38,13 @@ public class SelfConsulting extends BaseTimeEntity {
 
     public void enterCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public void done() {
+        delete();
+    }
+
+    public void updateResult(SelfConsultingResult selfConsultingResult) {
+        this.selfConsultingResult = selfConsultingResult;
     }
 }
