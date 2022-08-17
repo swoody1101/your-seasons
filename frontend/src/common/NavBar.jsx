@@ -40,7 +40,7 @@ const NavBar = () => {
       <AppBar position="sticky" variant="transparent">
         <StyledToolbar>
           <Logos>
-            <Link to="/" >
+            <Link to="/" onClick={()=>{window.scrollTo(0,0);}}>
               <LogoText
                 variant="h5"
                 sx={{ display: { xs: "none", sm: "block", color: 'black !important' }, }}
@@ -54,7 +54,7 @@ const NavBar = () => {
           {
             nickname === undefined || nickname === ''
               ?
-              <Navs>
+              <Navs onClick={()=>{window.scrollTo(0,0);}}>
                 <Typography
                   variant="h6"
                   sx={{ display: { xs: "none", sm: "block" } }}
@@ -81,7 +81,7 @@ const NavBar = () => {
                 </Typography>
               </Navs>
               :
-              <Navs>
+              <Navs onClick={()=>{window.scrollTo(0,0);}}>
                 <Typography
                   variant="h6"
                   sx={{ display: { xs: "none", sm: "block" } }}
