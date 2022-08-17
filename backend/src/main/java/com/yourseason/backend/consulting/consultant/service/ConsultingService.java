@@ -1,10 +1,7 @@
 package com.yourseason.backend.consulting.consultant.service;
 
 import com.yourseason.backend.common.domain.*;
-import com.yourseason.backend.common.exception.BadRequestException;
-import com.yourseason.backend.common.exception.InternalServerErrorException;
-import com.yourseason.backend.common.exception.NotFoundException;
-import com.yourseason.backend.common.exception.WrongAccessException;
+import com.yourseason.backend.common.exception.*;
 import com.yourseason.backend.consulting.common.domain.BestColorSet;
 import com.yourseason.backend.consulting.common.domain.WorstColorSet;
 import com.yourseason.backend.consulting.consultant.controller.dto.ConsultingCreateResponse;
@@ -49,6 +46,7 @@ public class ConsultingService {
     private static final String FAIL_TO_SAVE_CONSULTING_FILE = "컨설팅 진단표 저장에 실패했습니다.";
     private static final String CONSULTING_EXISTS = "개설된 컨설팅이 존재합니다.";
     private static final String WRONG_ACCESS = "잘못된 접근입니다.";
+    private static final String WRONG_CONTENT_TYPE = "잘못된 확장자입니다.";
     private static final String SESSION_DELIMITER = "-";
     private static final String EMAIL_FORMAT = "[@.]";
 
@@ -141,18 +139,33 @@ public class ConsultingService {
     }
 
     private String saveImage(MultipartFile multipartFile) {
-        StringBuilder imageUploadPath = new StringBuilder(System.getProperty("user.dir"));
-        imageUploadPath.append("/src/main/resources/img");
+	checkContentType(multipartFile);
+
+        StringBuilder imageUploadPath = new StringBuilder(new File("").getAbsolutePath());
+        imageUploadPath.append("img");
+	File imageFile = new File(imageUploadPath.toString());
+	if (!imageFile.exists()) {
+		imageFile.mkdir();
+	}
         String fileName = LocalDateTime.now() + multipartFile.getOriginalFilename();
         imageUploadPath.append(File.separator)
                 .append(fileName);
         try {
             multipartFile.transferTo(new File(imageUploadPath.toString()));
         } catch (IOException e) {
-            e.printStackTrace();
             throw new InternalServerErrorException(FAIL_TO_SAVE_CONSULTING_FILE);
         }
         return imageUploadPath.toString();
+    }
+
+    private void checkContentType(MultipartFile multipartFile) {
+     	if (isWrongContentType(multipartFile.getContentType())) {
+            throw new WrongFormException(WRONG_CONTENT_TYPE);
+        }
+    }
+
+    private boolean isWrongContentType(String contentType) {
+	return !(contentType.contains("image/jpg") || contentType.contains("image/jpeg") || contentType.contains("image/png"));
     }
 
     private void toColorColorSet(ColorSet requestWorstColorSet, List<String> colorSet) {
