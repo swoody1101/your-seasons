@@ -101,7 +101,7 @@ public class ConsultingService {
                 .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
         Consulting consulting = consultingRepository.findById(consultingFinishRequest.getConsultingId())
                 .orElseThrow(() -> new NotFoundException(CONSULTING_NOT_FOUND));
-        if(!consultant.equals(consulting.getConsultant())) {
+        if (!consultant.equals(consulting.getConsultant())) {
             throw new WrongAccessException(WRONG_ACCESS);
         }
 
@@ -136,14 +136,14 @@ public class ConsultingService {
     }
 
     private String saveImage(MultipartFile multipartFile) {
-	checkContentType(multipartFile);
+        checkContentType(multipartFile);
 
-        StringBuilder imageUploadPath = new StringBuilder(new File("").getAbsolutePath());
+        StringBuilder imageUploadPath = new StringBuilder(new File("/home/ubuntu").getAbsolutePath());
         imageUploadPath.append("img");
-	File imageFile = new File(imageUploadPath.toString());
-	if (!imageFile.exists()) {
-		imageFile.mkdir();
-	}
+        File imageFile = new File(imageUploadPath.toString());
+        if (!imageFile.exists()) {
+            imageFile.mkdir();
+        }
         String fileName = LocalDateTime.now() + multipartFile.getOriginalFilename();
         imageUploadPath.append(File.separator)
                 .append(fileName);
@@ -156,13 +156,13 @@ public class ConsultingService {
     }
 
     private void checkContentType(MultipartFile multipartFile) {
-     	if (isWrongContentType(multipartFile.getContentType())) {
+        if (isWrongContentType(multipartFile.getContentType())) {
             throw new WrongFormException(WRONG_CONTENT_TYPE);
         }
     }
 
     private boolean isWrongContentType(String contentType) {
-	return !(contentType.contains("image/jpg") || contentType.contains("image/jpeg") || contentType.contains("image/png"));
+        return !(contentType.contains("image/jpg") || contentType.contains("image/jpeg") || contentType.contains("image/png"));
     }
 
     private void toColorColorSet(ColorSet requestWorstColorSet, List<String> colorSet) {

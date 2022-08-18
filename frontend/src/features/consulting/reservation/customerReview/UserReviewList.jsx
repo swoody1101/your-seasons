@@ -14,6 +14,7 @@ const UserReviewList = props => {
           rating={review.star}
           date={review.createdDate}
           review={review.comment}
+          imageUrl={review.imageUrl}
         />
       ))}
     </div>

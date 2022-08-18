@@ -27,7 +27,9 @@ const ModifyConsultant = () => {
       setHelperText('100만원을 초과할 수 없습니다.')
     }
   }
-  
+
+  const iscost = cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+
 
   const handleModify = () => {
     const modiData = {
@@ -68,7 +70,7 @@ const ModifyConsultant = () => {
           isModiIntro ?
             <IntroGrid item xs={12}>
               <Textarea
-								placeholder={'소개글 앞의 30자는 <컨설턴트목록>에 노출됩니다. 150자 이내로 작성해주세요.'}
+                placeholder={'소개글 앞의 30자는 <컨설턴트목록>에 노출됩니다. 150자 이내로 작성해주세요.'}
                 value={newIntroduction}
                 onChange={e => setNewIntroduction(e.target.value)} />
             </IntroGrid>
@@ -95,7 +97,7 @@ const ModifyConsultant = () => {
                   onChange={handleCost} />
                 :
                 <Grid item>
-                  <StyledSpan >{cost}원</StyledSpan>
+                  <StyledSpan >{cost ? iscost + ' 원' : ''}</StyledSpan>
                   <Button
                     onClick={
                       () => setIsModiCost(true)

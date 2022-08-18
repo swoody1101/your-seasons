@@ -5,9 +5,8 @@ import UserReviewList from "./UserReviewList"
 
 const ConsultingReview = () => {
 	const reviews = useSelector(state => state.consultantList.cosultingReview)
-
 	return (
-			<UserReviewList reviews={reviews} />
+		<UserReviewList reviews={reviews} />
 	)
 }
 
