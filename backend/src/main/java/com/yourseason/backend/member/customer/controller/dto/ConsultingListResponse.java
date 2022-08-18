@@ -20,6 +20,6 @@ public class ConsultingListResponse {
     private List<String> bestColorSet;
     private List<String> worstColorSet;
     private byte[] consultingFile;
-    private String comment;
+    private String consultingComment;
     private boolean hasReview;
 }
