@@ -64,7 +64,7 @@ public class ConsultingService {
             throw new WrongAccessException(CAN_NOT_ENTER_CONSULTING);
         }
         String sessionId = getSessionId(consultant);
-        consultant.createConsulting(getNewConsulting(consultant, sessionId));
+        consultant.createConsulting(getConsulting(consultant, sessionId));
         consultantRepository.save(consultant);
         return ConsultingCreateResponse.builder()
                 .consultingId(getConsultingId(consultant))
@@ -176,11 +176,15 @@ public class ConsultingService {
         return String.join(SESSION_DELIMITER, consultant.getEmail().split(EMAIL_FORMAT));
     }
 
-    private Consulting getNewConsulting(Consultant consultant, String sessionId) {
-        return Consulting.builder()
-                .consultant(consultant)
-                .sessionId(sessionId)
-                .build();
+    private Consulting getConsulting(Consultant consultant, String sessionId) {
+        return consultant.getConsultings()
+                .stream()
+                .filter(Consulting::isActive)
+                .findFirst()
+                .orElseGet(() -> Consulting.builder()
+                        .consultant(consultant)
+                        .sessionId(sessionId)
+                        .build());
     }
 
     private Long getConsultingId(Consultant consultant) {
