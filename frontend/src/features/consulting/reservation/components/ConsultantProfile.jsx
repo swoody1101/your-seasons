@@ -10,7 +10,6 @@ const ConsultantProfile = () => {
 	const dispatch = useDispatch()
 	const consultantId = useParams().id
 	const { nickname, introduction, cost, starAverage, imageUrl } = useSelector(state => state.consultantList.consultantDetail)
-	const iscost = cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 
 	useEffect(() => {
 		dispatch(ConsultantDetailFetch(consultantId))
@@ -38,7 +37,7 @@ const ConsultantProfile = () => {
 						<div>{starAverage === 0 ? '등록된 별점이 없습니다.' : <StarRating starrating={starAverage} />}</div>
 					</MainText>
 					<Introduction>{introduction ? introduction : '등록된 자기소개가 없습니다.'}</Introduction>
-					<p>진단비용: {cost ? iscost + '원' : '등록된 비용이 없습니다.'}</p>
+					<p>진단비용: {cost ? cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '원' : '등록된 비용이 없습니다.'}</p>
 				</ProfileText>
 			</Grid>
 		</Grid>
