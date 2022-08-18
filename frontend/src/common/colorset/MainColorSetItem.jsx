@@ -1,14 +1,17 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Grid, styled, Typography } from '@mui/material';
+import { Grid, styled, Tooltip, Typography } from '@mui/material';
 import { changeSelectColor } from './colorSetSlice';
 
 const Pallete = ({ colorset, tone, setIsBest, setIsWorst }) => {
-	const selectedColor = useSelector(state => state.colorSetList.selectedColor)
+	const {selectedColor,bestColor,worstColor } = useSelector(state => state.colorSetList)
 
 	const dispatch = useDispatch()
 
-  
+  console.log(selectedColor)
+  console.log(bestColor)
+  console.log(worstColor)
+
   const select = () => {
     if(tone==='spring_bright'){
     return '봄 브라이트'
@@ -42,8 +45,9 @@ const Pallete = ({ colorset, tone, setIsBest, setIsWorst }) => {
 		<SubTypography>{select(tone)}</SubTypography>
 		<Grid item sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'start' }}>
 			{colorset.map((item, index) => (
-				<div style={{ backgroundColor: item, width: 50, height: 50, margin: 1, borderRadius:3 }}
-					key={index} onClick={() => { dispatch(changeSelectColor(item)); setIsBest(false); setIsWorst(false) }}></div>
+                  <Tooltip title={item} key={index}  placement="top">
+				<div style={{ backgroundColor: item, width: 50, height: 50, margin: 1, borderRadius:3 , cursor: 'pointer'}}
+				     onClick={() => { dispatch(changeSelectColor(item)); }}></div></Tooltip> //setIsBest(false); setIsWorst(false)  ?
 			))}
 		</Grid>
 
