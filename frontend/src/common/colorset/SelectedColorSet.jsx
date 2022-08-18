@@ -15,8 +15,8 @@ const SelectedColorSet = ({
 
   return (
     <MainDiv>
-      <BestColorSet/>
-      <WorstColorSet/>
+      <BestColorSet setIsBest={setIsBest}/>
+      <WorstColorSet setIsWorst={setIsWorst}/>
     </MainDiv>
   )
 }
