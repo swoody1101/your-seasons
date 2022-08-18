@@ -4,11 +4,13 @@ insert into customer(created_date, last_modified_date, image_url, email, passwor
 insert into customer(created_date, last_modified_date, image_url, email, password, name, birth, nickname, contact, is_active) values ('2022-07-06 22:00:00', '2022-07-06 22:00:00', '/images/default/avatar30.png', 'ansi@ssafy.com', '$2a$10$9Hf028.NDOlrPslwfQwaT.4rRWWLUvbNNLSEIMUFfGi.h7qbftAyq', '김지수', '1992-07-22', '김지수', '010-9999-9999', 1);  -- 비밀번호 ansi1212
 insert into customer(created_date, last_modified_date, image_url, email, password, name, birth, nickname, contact, is_active) values ('2022-07-08 22:00:00', '2022-07-08 22:00:00', '/images/default/avatar32.png', 'a@a.a', '$2a$10$YiTBk/9ZU8MF.wvdW02ATOWOLdYduYe3wW73kRsr9L/Bjpc/WUoJK', '권예슬', '1992-07-22', '권예슬', '010-1111-1111', 1);  -- 비밀번호 asdfasdf
 insert into customer(created_date, last_modified_date, image_url, email, password, name, birth, nickname, contact, is_active) values ('2022-07-10 22:00:00', '2022-07-10 22:00:00', '/images/default/avatar09.png', 'user@c.c', '$2a$10$JASiZGS6dP.iFMBO7ckNqusv2LSUXnfJQ5GE2x3MePMpayFs9Y47W', '정아현', '1999-01-01', '정아현', '010-2222-2222', 1);  -- 비밀번호 useruser
+
 insert into customer(created_date, last_modified_date, image_url, email, password, name, birth, nickname, contact, is_active) values ('2022-07-10 22:00:00', '2022-07-10 22:00:00', '/images/default/avatar26.png', 'park@naver.com', '$2a$10$JASiZGS6dP.iFMBO7ckNqusv2LSUXnfJQ5GE2x3MePMpayFs9Y47W', '박성현', '1999-01-01', '박성현', '010-3333-3333', 1);  -- 비밀번호 useruser
 insert into customer(created_date, last_modified_date, image_url, email, password, name, birth, nickname, contact, is_active) values ('2022-07-10 22:00:00', '2022-07-10 22:00:00', '/images/default/avatar29.png', 'jeong@naver.com', '$2a$10$JASiZGS6dP.iFMBO7ckNqusv2LSUXnfJQ5GE2x3MePMpayFs9Y47W', '박정현', '1999-01-01', '박정현', '010-4444-4444', 1);  -- 비밀번호 useruser
 insert into customer(created_date, last_modified_date, image_url, email, password, name, birth, nickname, contact, is_active) values ('2022-07-10 22:00:00', '2022-07-10 22:00:00', '/images/default/avatar21.png', 'win@naver.com', '$2a$10$JASiZGS6dP.iFMBO7ckNqusv2LSUXnfJQ5GE2x3MePMpayFs9Y47W', '이긴호', '1999-01-01', '이긴호', '010-3333-3333', 1);  -- 비밀번호 useruser
 insert into customer(created_date, last_modified_date, image_url, email, password, name, birth, nickname, contact, is_active) values ('2022-07-10 22:00:00', '2022-07-10 22:00:00', '/images/default/avatar13.png', 'hyoek@naver.com', '$2a$10$JASiZGS6dP.iFMBO7ckNqusv2LSUXnfJQ5GE2x3MePMpayFs9Y47W', '박준혁', '1999-01-01', '박준혁', '010-3333-3333', 1);  -- 비밀번호 useruser
 insert into customer(created_date, last_modified_date, image_url, email, password, name, birth, nickname, contact, is_active) values ('2022-07-10 22:00:00', '2022-07-10 22:00:00', '/images/default/avatar19.png', 'seo@naver.com', '$2a$10$JASiZGS6dP.iFMBO7ckNqusv2LSUXnfJQ5GE2x3MePMpayFs9Y47W', '박서은', '1999-01-01', '박서은', '010-3333-3333', 1);  -- 비밀번호 useruser
+
 insert into customer(created_date, last_modified_date, image_url, email, password, name, birth, nickname, contact, is_active) values ('2022-07-10 22:00:00', '2022-07-10 22:00:00', '/images/default/avatar22.png', 'yuji@naver.com', '$2a$10$JASiZGS6dP.iFMBO7ckNqusv2LSUXnfJQ5GE2x3MePMpayFs9Y47W', '성유지', '1999-01-01', '성유지', '010-3333-3333', 1);  -- 비밀번호 useruser
 
 -- 자격증
@@ -47,40 +49,42 @@ insert into closed_day(created_date, last_modified_date, date, is_active, consul
 insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values ('2022-06-20 23:00:00', '2022-06-20 23:00:00', '2022-08-07', 1, 1);
 insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values ('2022-06-20 23:00:00', '2022-06-20 23:00:00', '2022-08-08', 1, 1);
 insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values ('2022-06-20 23:00:00', '2022-06-20 23:00:00', '2022-08-15', 1, 1);
+
 insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values ('2022-06-20 23:00:00', '2022-06-20 23:00:00', '2022-08-20', 1, 1);
 insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values ('2022-06-20 23:00:00', '2022-06-20 23:00:00', '2022-08-21', 1, 1);
 insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values ('2022-06-20 23:00:00', '2022-06-20 23:00:00', '2022-08-27', 1, 1);
 insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values ('2022-06-20 23:00:00', '2022-06-20 23:00:00', '2022-08-28', 1, 1);
-
 insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values ('2022-06-22 23:00:00', '2022-06-22 23:00:00', '2022-07-30', 2, 1); -- 안졸리나 졸리의 휴무일
+
 insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values ('2022-06-22 23:00:00', '2022-06-22 23:00:00', '2022-07-31', 2, 1);
 insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values ('2022-06-22 23:00:00', '2022-06-22 23:00:00', '2022-08-07', 2, 1);
 insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values ('2022-06-22 23:00:00', '2022-06-22 23:00:00', '2022-08-08', 2, 1);
 insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values ('2022-06-22 23:00:00', '2022-06-22 23:00:00', '2022-08-15', 2, 1);
 insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values ('2022-06-22 23:00:00', '2022-06-22 23:00:00', '2022-08-20', 2, 1);
+
 insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values ('2022-06-22 23:00:00', '2022-06-22 23:00:00', '2022-08-21', 2, 1);
 insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values ('2022-06-22 23:00:00', '2022-06-22 23:00:00', '2022-08-27', 2, 1);
 insert into closed_day(created_date, last_modified_date, date, is_active, consultant_id) values ('2022-06-22 23:00:00', '2022-06-22 23:00:00', '2022-08-28', 2, 1);
 
 -- 예약
-insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 19:00:00', '2022-08-12 19:00:00', '2022-08-19', '15:00:00', '정확한 톤을 꼭 알고 싶어요! 지금 4번째 진단이에요!', 1, 1, 4);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:00:00', '2022-08-12 14:00:00', '2022-08-18', '11:00:00', '저에게 맞는 화장품을 찾고 싶어요!', 1, 2, 2);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-18', '13:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 2, 3);
-
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-22', '9:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-22', '10:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-22', '11:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
+
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-22', '13:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-22', '14:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-22', '15:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-22', '16:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-22', '17:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
-insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-22', '18:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 
+insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-22', '18:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-23', '9:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-23', '10:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-23', '11:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-23', '13:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
+
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-23', '14:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-23', '15:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-23', '16:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
@@ -92,46 +96,49 @@ insert into reservation(created_date, last_modified_date, date, time, request, i
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-24', '11:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-24', '13:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-24', '14:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
+
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-24', '15:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-24', '16:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-24', '17:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-24', '18:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
-
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-25', '9:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
+
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-25', '10:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-25', '11:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-25', '13:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-25', '14:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-25', '15:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
+
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-25', '16:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-25', '17:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-25', '18:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
-
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-26', '9:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-26', '10:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
+
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-26', '11:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-26', '13:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-26', '14:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-26', '15:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-26', '16:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
+
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-26', '17:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-26', '18:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
-
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-29', '9:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-29', '10:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-29', '11:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
+
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-29', '13:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-29', '14:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-29', '15:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
-
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-30', '11:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-30', '14:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
+
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-30', '15:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-30', '16:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-30', '17:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
-
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-31', '9:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-31', '10:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
+
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-31', '11:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-31', '16:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
 insert into reservation(created_date, last_modified_date, date, time, request, is_active, customer_id, consultant_id) values ('2022-08-12 14:30:00', '2022-08-12 14:30:00', '2022-08-31', '17:00:00', '제게 맞는 화장품과 코디를 추천받고 싶습니다!', 1, 1, 1);
@@ -142,11 +149,13 @@ insert into tone(created_date, last_modified_date, name, is_active) values ('202
 insert into tone(created_date, last_modified_date, name, is_active) values ('2022-01-01 00:00:00', '2022-01-01 00:00:00', '봄 라이트', 1);
 insert into tone(created_date, last_modified_date, name, is_active) values ('2022-01-01 00:00:00', '2022-01-01 00:00:00', '여름 라이트', 1);
 insert into tone(created_date, last_modified_date, name, is_active) values ('2022-01-01 00:00:00', '2022-01-01 00:00:00', '여름 트루', 1);
+
 insert into tone(created_date, last_modified_date, name, is_active) values ('2022-01-01 00:00:00', '2022-01-01 00:00:00', '여름 소프트', 1);
 insert into tone(created_date, last_modified_date, name, is_active) values ('2022-01-01 00:00:00', '2022-01-01 00:00:00', '가을 소프트', 1);
 insert into tone(created_date, last_modified_date, name, is_active) values ('2022-01-01 00:00:00', '2022-01-01 00:00:00', '가을 트루', 1);
 insert into tone(created_date, last_modified_date, name, is_active) values ('2022-01-01 00:00:00', '2022-01-01 00:00:00', '가을 다크', 1);
 insert into tone(created_date, last_modified_date, name, is_active) values ('2022-01-01 00:00:00', '2022-01-01 00:00:00', '겨울 브라이트', 1);
+
 insert into tone(created_date, last_modified_date, name, is_active) values ('2022-01-01 00:00:00', '2022-01-01 00:00:00', '겨울 트루', 1);
 insert into tone(created_date, last_modified_date, name, is_active) values ('2022-01-01 00:00:00', '2022-01-01 00:00:00', '겨울 다크', 1);
 
@@ -621,6 +630,7 @@ insert into best_color_set(created_date, last_modified_date, is_active, color_se
 insert into best_color_set(created_date, last_modified_date, is_active, color_set_id) values ('2022-08-01 20:00:00', '2022-08-01 20:00:00', 1, 5);
 insert into best_color_set(created_date, last_modified_date, is_active, color_set_id) values ('2022-07-10 14:00:00', '2022-07-10 14:00:00', 1, 7);
 insert into best_color_set(created_date, last_modified_date, is_active, color_set_id) values ('2022-07-15 19:00:00', '2022-07-15 19:00:00', 1, 9);
+
 insert into best_color_set(created_date, last_modified_date, is_active, color_set_id) values ('2022-07-13 20:00:00', '2022-07-13 20:00:00', 1, 11);
 insert into best_color_set(created_date, last_modified_date, is_active, color_set_id) values ('2022-07-23 17:00:00', '2022-07-23 17:00:00', 1, 13);
 insert into best_color_set(created_date, last_modified_date, is_active, color_set_id) values ('2022-07-10 22:20:00', '2022-07-10 22:20:00', 1, 15);
@@ -633,6 +643,7 @@ insert into worst_color_set(created_date, last_modified_date, is_active, color_s
 insert into worst_color_set(created_date, last_modified_date, is_active, color_set_id) values ('2022-08-01 20:00:00', '2022-08-01 20:00:00', 1, 6);
 insert into worst_color_set(created_date, last_modified_date, is_active, color_set_id) values ('2022-07-10 14:00:00', '2022-07-10 14:00:00', 1, 8);
 insert into worst_color_set(created_date, last_modified_date, is_active, color_set_id) values ('2022-07-15 19:00:00', '2022-07-15 19:00:00', 1, 10);
+
 insert into worst_color_set(created_date, last_modified_date, is_active, color_set_id) values ('2022-07-13 20:00:00', '2022-07-13 20:00:00', 1, 12);
 insert into worst_color_set(created_date, last_modified_date, is_active, color_set_id) values ('2022-07-23 17:00:00', '2022-07-23 17:00:00', 1, 14);
 insert into worst_color_set(created_date, last_modified_date, is_active, color_set_id) values ('2022-07-10 22:20:00', '2022-07-10 22:20:00', 1, 16);
