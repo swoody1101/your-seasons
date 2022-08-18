@@ -30,12 +30,6 @@ function Drawing() {
     [lastPenColor]
   );
 
-  // const saveData = () => {
-  //   // const data = canvasRef.current.getSaveData();
-  //   // console.log(canvasRef.current.getDataURL("png", ""))
-  //   // canvasRef2.current.loadSaveData(data)
-
-  // };
 
   return (
     <div className="App">

@@ -21,7 +21,6 @@ const ConsultantProfile = () => {
 		navigate('/modify')
 		dispatch(loadMember(role)).unwrap()
 			.then((res) => {
-				console.log(res)
 			})
 	}
 	// 마이페이지 접속시 

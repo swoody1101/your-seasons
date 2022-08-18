@@ -114,11 +114,10 @@ const SelfTestRoom = () => {
   }
 
   const deleteSubscriber = (streamManager) => {
-    console.log(streamManager)
   }
 
   const joinSession = () => {
-    const getOV = new OpenVidu();    
+    const getOV = new OpenVidu();
     dispatch(setSession(getOV.initSession()))
     setOV(getOV)
     dispatch(selfConsulting())
@@ -126,7 +125,6 @@ const SelfTestRoom = () => {
 
   const streamCreated = (event) => {
     const subscriber = session.subscribe(event.stream, undefined);
-    console.log(subscriber) // 불필요
   }
 
   const streamDestroyed = (event) => {
@@ -183,7 +181,6 @@ const SelfTestRoom = () => {
           },
         })
         .then((response) => {
-          console.log('CREATE SESION', response);
           resolve(response.data.id);
         })
         .catch((response) => {
@@ -191,7 +188,6 @@ const SelfTestRoom = () => {
           if (error?.response?.status === 409) {
             resolve(sessionId);
           } else {
-            console.log(error);
             console.warn(
               'No connection to OpenVidu Server. This may be a certificate error at ' +
               OPENVIDU_SERVER_URL,
@@ -242,7 +238,6 @@ const SelfTestRoom = () => {
           },
         })
         .then((response) => {
-          console.log('TOKEN', response);
           resolve(response.data.token);
         })
         .catch((error) => reject(error));
