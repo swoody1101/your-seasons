@@ -51,8 +51,8 @@ const SelfDiagnosis = () => {
 										{/* 코멘트 */}
 										<CommentBox>
 											<FlexDiv>
-												{percentages.map((res) => (
-													<FlexDiv>
+												{percentages.map((res, idx) => (
+													<FlexDiv key={idx}>
 														<SubText>
 															{res.tone}톤
 														</SubText>

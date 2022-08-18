@@ -6,7 +6,6 @@ import { TabContext, TabList, TabPanel } from '@mui/lab';
 import ColorPaletteBox from './PaletteBox'
 import Drawing from 'common/drawing/Drawing';
 import { changeComment, selectTone, setFiles } from './colorSetSlice';
-import { setSnackBarOpen, setSnackbarMessage, setSnackBarSeverity } from 'common/snackbar/snackbarSlice';
 
 
 

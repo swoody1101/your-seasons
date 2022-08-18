@@ -4,8 +4,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import HeartBrokenIcon from '@mui/icons-material/HeartBroken';
 import { removeSelectColor, addBestColor, removeBestColor, addWorstColor, removeWorstColor } from './colorSetSlice'
+import { setSnackBarOpen, setSnackbarMessage, setSnackBarSeverity } from 'common/snackbar/snackbarSlice';
 
 import { Box, Fab, styled } from '@mui/material'
+import { isEmpty } from 'lodash';
 
 const ColorButtonGroup = ({
   isBest,
@@ -19,12 +21,15 @@ const ColorButtonGroup = ({
   const dispatch = useDispatch()
   
   const onClick = (e) => {
-    console.log(JSON.stringify(e))
-    if(clickColorFirst === false){
-      clickColorFirstFunc();
-      return
+    if(!isEmpty(e)){
+      if(clickColorFirst === false){
+        clickColorFirstFunc();
+        return
+      }else{
+        return
+      }
     }else{
-      return
+
     }
   }
 
@@ -35,15 +40,40 @@ const ColorButtonGroup = ({
         선택 색상 제거
       </CustomFab> */}
       {/* bestbtn */}
-      <CustomFab variant="extended" sx={{ display: isBest ? 'none' : '' }} 
-        onClick={() => { dispatch(addBestColor(selectedColor)); onClick(); }}>
-        <FavoriteRoundedIcon sx={{ color: selectedColor, mr: 1 }} /> 추가 </CustomFab>
+      <CustomFab variant="extended" sx={{ display: isBest ? 'none' : '' }}
+        onClick={() => { 
+          if(!isEmpty(selectedColor)){
+            if(clickColorFirst === false){
+              clickColorFirstFunc();
+            }else{
+            }
+            dispatch(addBestColor(selectedColor));
+          }else{
+            dispatch(setSnackBarOpen(true))
+            dispatch(setSnackbarMessage('컬러를 추가해주세요'))
+            dispatch(setSnackBarSeverity('error'))
+          }
+          }}>
+        <FavoriteRoundedIcon sx={{ color: selectedColor, mr: 1 }} 
+        /> 추가 </CustomFab>
       <CustomFab variant="extended" sx={{ display: isBest ? '' : 'none' }} 
-        onClick={() => { dispatch(removeBestColor(selectedColor)); setIsBest(false); }}>
+        onClick={() => {dispatch(removeBestColor(selectedColor)); setIsBest(false);}}>
         <FavoriteRoundedIcon sx={{ color: selectedColor, mr: 1 }} /> 제거 </CustomFab>
       {/* worstbtn */}
       <CustomFab variant="extended" sx={{ display: isWorst ? 'none' : '' }} 
-        onClick={() => { dispatch(addWorstColor(selectedColor)); onClick(); }}>
+        onClick={() => { 
+          if(!isEmpty(selectedColor)){
+            if(clickColorFirst === false){
+              clickColorFirstFunc();
+            }else{
+            }
+            dispatch(addWorstColor(selectedColor));
+          }else{
+            dispatch(setSnackBarOpen(true))
+            dispatch(setSnackbarMessage('컬러를 추가해주세요'))
+            dispatch(setSnackBarSeverity('error'))
+          }
+          }}>
         <HeartBrokenIcon sx={{ color: selectedColor, mr: 1 }} /> 추가 </CustomFab>
       <Fab variant="extended" sx={{ display: isWorst ? '' : 'none' }} 
         onClick={() => { dispatch(removeWorstColor(selectedColor)); setIsWorst(false); }}>
