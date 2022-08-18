@@ -7,7 +7,7 @@ import { OpenVidu } from 'openvidu-browser';
 import UserVideoComponent from './UserVideoComponent';
 
 import { Box, Button, Grid, styled, Typography, ButtonGroup, IconButton, CircularProgress } from '@mui/material'
-import { Mic, MicOff, Videocam, VideocamOff, WindowOutlined } from '@mui/icons-material';
+import { Mic, MicOff, Videocam, VideocamOff } from '@mui/icons-material';
 
 
 import { setSnackbarMessage, setSnackBarOpen } from 'common/snackbar/snackbarSlice';
@@ -124,7 +124,7 @@ const SelfTestRoom = () => {
   }
 
   const streamCreated = (event) => {
-    const subscriber = session.subscribe(event.stream, undefined);
+    // const subscriber = session.subscribe(event.stream, undefined);
   }
 
   const streamDestroyed = (event) => {
@@ -133,10 +133,6 @@ const SelfTestRoom = () => {
 
   const exception = (exception) => {
     console.warn(exception);
-  }
-
-  const func = () =>{
-    
   }
 
   const leaveSession = () => {
@@ -483,6 +479,5 @@ const SubTypography = styled(Typography)({
   fontWeight: 'bold',
 	letterSpacing: 'var(--font-letter-spacing)',
 	color: '#003151',
-  padding: 5,
   padding:'auto',
 })

@@ -1,8 +1,8 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux/es/exports';
-import { Box, Button, ImageList, Avatar, styled } from '@mui/material'
+import { Box, Button, Avatar, styled } from '@mui/material'
 
-import { BAD_REQUEST, NOT_FOUND, CONFLICT, CONSULTANT } from 'api/CustomConst'
+import { BAD_REQUEST, NOT_FOUND, CONFLICT } from 'api/CustomConst'
 import { modalOff, modifyMember, loadMember } from 'features/auth/authSlice';
 
 const Sample = () => {
@@ -30,11 +30,6 @@ const Sample = () => {
       .then(() => {
         dispatch(loadMember(role))
         alert("수정이 완료되었습니다.")
-        const modi = {
-          nickname: common.nickname,
-          role: role,
-          imageUrl: common.imageUrl
-        }
         dispatch(modalOff())
       })
       .catch((err) => {
