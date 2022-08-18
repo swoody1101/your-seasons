@@ -29,12 +29,10 @@ export const myConsultantDxFetch = createAsyncThunk(
         if (res.status === OK) {
           return res.data
         } else {
-          alert('진단기록을 불러올 수 없습니다.')
           return false
         }
       })
       .catch(error => {
-        alert('진단기록을 불러올 수 없습니다.')
         return false
       })
   }
@@ -48,12 +46,10 @@ export const selfDxFetch = createAsyncThunk(
         if (res.status === OK) {
           return res.data
         } else {
-          alert('진단기록을 불러올 수 없습니다.')
           return false
         }
       })
       .catch(error => {
-        alert('진단기록을 불러올 수 없습니다.')
         return false
       })
   }
@@ -104,12 +100,10 @@ export const myReviewFetch = createAsyncThunk(
         if (res.status === OK) {
           return res.data
         } else {
-          alert('후기를 불러올 수 없습니다.')
           return false
         }
       })
       .catch(error => {
-        alert('후기를 불러올 수 없습니다.')
         return false
       })
   }
