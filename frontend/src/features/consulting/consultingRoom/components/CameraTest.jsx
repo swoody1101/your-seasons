@@ -113,7 +113,7 @@ const CameraTest = () => {
             </Controller>
           </SGrid>
         </SGridContainer>
-        <Button onClick={() => { dispatch(settingModalOff()) }} variant="contained" sx={{ xs: { width: "100%" }, width: "40%" }}>
+        <Button onClick={() => { dispatch(settingModalOff()) }} variant="contained" sx={{ xs: { width: "100%" }, width: "40%" , marginTop: 3}}>
           세팅완료
         </Button>
       </SContainer>
