@@ -21,7 +21,7 @@ const NavBar = () => {
   const logout = () => {
     const isrole = role
     const nick = logonUser.nickname
-    dispatch(logoutUser()) 
+    dispatch(logoutUser())
     alert(isrole + "인 " + nick + "님이 로그아웃 되었습니다.") // state 체크 용 추후 삭제
     navigate('/')
   }
@@ -36,11 +36,11 @@ const NavBar = () => {
   })
 
   return (<div>
-		<ThemeProvider theme={transparentTheme} >
+    <ThemeProvider theme={transparentTheme} >
       <AppBar position="sticky" variant="transparent">
         <StyledToolbar>
           <Logos>
-            <Link to="/" onClick={()=>{window.scrollTo(0,0);}}>
+            <Link to="/" onClick={() => { window.scrollTo(0, 0); }}>
               <LogoText
                 variant="h5"
                 sx={{ display: { xs: "none", sm: "block", color: 'black !important' }, }}
@@ -54,7 +54,7 @@ const NavBar = () => {
           {
             nickname === undefined || nickname === ''
               ?
-              <Navs onClick={()=>{window.scrollTo(0,0);}}>
+              <Navs onClick={() => { window.scrollTo(0, 0); }}>
                 <Typography
                   variant="h6"
                   sx={{ display: { xs: "none", sm: "block" } }}
@@ -81,13 +81,17 @@ const NavBar = () => {
                 </Typography>
               </Navs>
               :
-              <Navs onClick={()=>{window.scrollTo(0,0);}}>
+              <Navs onClick={() => { window.scrollTo(0, 0); }}>
                 <Typography
                   variant="h6"
                   sx={{ display: { xs: "none", sm: "block" } }}
                 >
-								<Link to="/">홈</Link>
+                  <Link to="/">홈</Link>
                 </Typography>
+                {role === 'CUSTOMER' &&
+                  <Typography variant="h6" sx={{ display: { xs: "none", sm: "block" } }} >
+                    <Link to="/self">자가진단</Link>
+                  </Typography>}
                 <Typography variant="h6" sx={{ display: { xs: "none", sm: "block" } }} >
                   <Link to="consultants">컨설턴트 목록</Link>
                 </Typography>
@@ -109,7 +113,7 @@ const NavBar = () => {
           </UserBox>
         </StyledToolbar>
       </AppBar>
-		</ThemeProvider>
+    </ThemeProvider>
     <Outlet />
   </div>
   )
@@ -120,9 +124,9 @@ export default NavBar
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
   backgroundColor: "transparent",
-		'&:hover': {
-			backgroundColor: "#ffffff80 !important",
-			},
+  '&:hover': {
+    backgroundColor: "#ffffff80 !important",
+  },
   justifyContent: "space-between",
 })
 
@@ -139,9 +143,9 @@ const Logos = styled(Box)(({ theme }) => ({
 
 
 const LogoText = styled(Typography)({
-	fontFamily: 'malgunbd !important',
-	color: "#FFFFFF",
-	letterSpacing: 'var(--font-letter-spacing)',
+  fontFamily: 'malgunbd !important',
+  color: "#FFFFFF",
+  letterSpacing: 'var(--font-letter-spacing)',
 })
 
 
@@ -153,7 +157,7 @@ const Navs = styled(Box)(({ theme }) => ({
   fontFamily: "Happiness-Sans-Title",
   a: {
     color: "black",
-		textShadow: '2px 2px 6px gray'
+    textShadow: '2px 2px 6px gray'
   }
 }))
 
