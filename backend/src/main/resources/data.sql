@@ -668,6 +668,12 @@ insert into consulting(created_date, last_modified_date, deleted_date, session_i
 insert into consulting(created_date, last_modified_date, deleted_date, session_id, has_review, is_active, customer_id, consultant_id, consulting_result_id) values ('2022-07-23 15:00:00', '2022-07-23 16:00:00', '2022-07-23 16:00:00', 'bestcon-gmail-com', 1, 0, 4, 1, 10);
 
 insert into consulting(created_date, last_modified_date, deleted_date, session_id, has_review, is_active, customer_id, consultant_id, consulting_result_id) values ('2022-07-23 17:00:00', '2022-07-23 18:00:00', '2022-07-23 18:00:00', 'bestcon-gmail-com', 1, 0, 5, 1, 11);
+insert into consulting(created_date, last_modified_date, deleted_date, session_id, has_review, is_active, customer_id, consultant_id, consulting_result_id) values ('2022-07-24 13:00:00', '2022-07-24 14:00:00', '2022-07-24 14:00:00', 'bestcon-gmail-com', 1, 0, 6, 1, 12);
+insert into consulting(created_date, last_modified_date, deleted_date, session_id, has_review, is_active, customer_id, consultant_id, consulting_result_id) values ('2022-07-24 14:00:00', '2022-07-24 15:00:00', '2022-07-24 15:00:00', 'bestcon-gmail-com', 1, 0, 7, 1, 13);
+insert into consulting(created_date, last_modified_date, deleted_date, session_id, has_review, is_active, customer_id, consultant_id, consulting_result_id) values ('2022-07-24 15:00:00', '2022-07-24 16:00:00', '2022-07-24 16:00:00', 'bestcon-gmail-com', 1, 0, 8, 1, 14);
+insert into consulting(created_date, last_modified_date, deleted_date, session_id, has_review, is_active, customer_id, consultant_id, consulting_result_id) values ('2022-07-24 16:00:00', '2022-07-24 17:00:00', '2022-07-24 17:00:00', 'bestcon-gmail-com', 1, 0, 9, 1, 15);
+insert into consulting(created_date, last_modified_date, deleted_date, session_id, has_review, is_active, customer_id, consultant_id, consulting_result_id) values ('2022-07-24 17:00:00', '2022-07-24 18:00:00', '2022-07-24 18:00:00', 'bestcon-gmail-com', 1, 0, 10, 1, 16);
+insert into consulting(created_date, last_modified_date, deleted_date, session_id, has_review, is_active, customer_id, consultant_id, consulting_result_id) values ('2022-07-24 18:00:00', '2022-07-24 19:00:00', '2022-07-24 19:00:00', 'bestcon-gmail-com', 1, 0, 11, 1, 17);
 
 -- 자가 진단결과
 insert into self_consulting_result(created_date, last_modified_date, is_active, best_color_set_id, worst_color_set_id, tone_id) values ('2022-07-10 22:20:00', '2022-07-10 22:20:00', 1, 8, 8, 6);
