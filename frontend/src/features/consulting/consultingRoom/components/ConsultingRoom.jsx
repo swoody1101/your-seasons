@@ -59,11 +59,13 @@ const ConsultingRoom = () => {
   const files = useSelector(state => state.colorSetList.files)
   const consultingFinishRequest = {
     consultingId: consultingId,
-    comment: comment,
+    consultingComment: comment,
     tone: selectedTone,
     bestColorSet: bestColor,
     worstColorSet: worstColor
   }
+
+  console.log(consultingFinishRequest)
 
   const dispatch = useDispatch()
   const navigate = useNavigate();
