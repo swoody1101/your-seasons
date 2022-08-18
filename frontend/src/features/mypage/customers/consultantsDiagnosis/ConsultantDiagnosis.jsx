@@ -22,7 +22,7 @@ const style = {
 	overflow: 'scroll',
 };
 
-export const BasicModal = ({ resultImageUrl }) => {
+export const BasicModal = ({ consultingFile }) => {
 	const [open, setOpen] = useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
@@ -40,7 +40,7 @@ export const BasicModal = ({ resultImageUrl }) => {
 					<Typography id="modal-modal-title" variant="span" component="h3">
 						퍼스널컬러 진단결과
 					</Typography>
-					{resultImageUrl !== "" ? <img src={resultImageUrl} style={{ width: '100%' }} />
+					{consultingFile !== "" ? <img src={consultingFile} style={{ width: '100%' }} />
 						: <><p style={{ margin: '8px 0px' }}>진단결과표를 제공하지 않은 상담입니다.</p></>}
 
 				</Box>
@@ -57,7 +57,7 @@ const ConsultantDiagnosis = () => {
 	return (<>
 		<Div>
 			{isEmpty(results) ? <h2>지난 진단 기록이 없습니다.</h2> : results.map(({ consultingId, tone, consultantNickname,
-				consultantImageUrl, consultingDate, bestColorSet, worstColorSet, resultImageUrl, comment, hasReview }, index) => (
+				consultantImageUrl, consultingDate, bestColorSet, worstColorSet, consultingFile, comment, hasReview }, index) => (
 				<div key={index}>
 					{/* 카드1 */}
 					<SetCard variant="outlined">
@@ -107,7 +107,7 @@ const ConsultantDiagnosis = () => {
 
 						<CardActions sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
 							{/* 이미지 모달 */}
-							<BasicModal resultImageUrl={resultImageUrl} comment={comment} />
+							<BasicModal consultingFile={`data:image/jpg;base64,${consultingFile}`} comment={comment} />
 							{/* 리뷰작성 모달 */}
 							<ConsultantDiagnosisReview consultingId={consultingId} consultantNickname={consultantNickname} hasReview={hasReview} />
 						</CardActions>

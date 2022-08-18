@@ -7,7 +7,7 @@ import { OpenVidu } from 'openvidu-browser';
 import UserVideoComponent from './UserVideoComponent';
 
 import { Box, Button, Grid, styled, Typography, ButtonGroup, IconButton, CircularProgress } from '@mui/material'
-import { Mic, MicOff, Videocam, VideocamOff } from '@mui/icons-material';
+import { Mic, MicOff, Videocam, VideocamOff, WindowOutlined } from '@mui/icons-material';
 
 
 import { setSnackbarMessage, setSnackBarOpen } from 'common/snackbar/snackbarSlice';
@@ -137,6 +137,10 @@ const SelfTestRoom = () => {
     console.warn(exception);
   }
 
+  const func = () =>{
+    
+  }
+
   const leaveSession = () => {
     if (worstColor.length < 1 | bestColor.length < 1) {
       alert('베스트컬러와 워스트컬러 팔레트를 1개 이상씩 채워주세요')
@@ -146,7 +150,9 @@ const SelfTestRoom = () => {
         .then(() => {
           dispatch(resetColor())
           dispatch(setSession(undefined))
-          window.location.reload()
+          alert('상담이 종료되었습니다. 마이페이지에서 진단결과를 확인해주세요.')
+          navigate('/')
+          // window.location.reload()
         })
     }
     setOV(null);
@@ -296,7 +302,9 @@ const SelfTestRoom = () => {
         :
         // 세션 연결 안됐을시
         <SpinnerGrid container>
-          <Typography variant="h3">"연결을 눌러 주세요."</Typography>
+          <SubTypography>
+            연결을 누르면 
+            자가진단 방에 입장합니다.</SubTypography>
         </SpinnerGrid>
       }
 
@@ -384,8 +392,8 @@ const SContainer = styled(Box)({
   height: "94vh",
 
   boxSizing: 'border-box',
-  border: '2px solid #5A4D4D',
-  backgroundColor: '#FAFAFA',
+  border: '2px solid #5A4D4D70',
+  backgroundColor: '#eeeeee',
   borderRadius: '15px',
   boxShadow: '1px 2px 9px #B1B7B7',
 })
@@ -398,7 +406,6 @@ const SGridContainer = styled(Grid)({
   height: '84vh',  //"90%",
   display: 'flex',
   alignItems: "center",
-  // columnGap: 2,
 })
 
 // 하위 그리드
@@ -406,7 +413,6 @@ const SGrid = styled(Grid)({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  // height: '100%',
 })
 
 // 연결안됐을시 스피너
@@ -422,8 +428,6 @@ const SpinnerGrid = styled(Grid)({
 // 비디오 컨테이너
 const VideoContainer = styled(Box)({
   width: "100%",
-  // borderRadius: "1rem",
-  // padding: "1rem",
 })
 
 const UserVideoSGrid = styled(Grid)({
@@ -435,7 +439,6 @@ const UserVideoSGrid = styled(Grid)({
 
 // 하단 10%
 const BottomBox = styled(Box)({
-  // backgroundColor: 'blue',
   height: '10vh',//'10%',
   display: 'flex',
   flexDirection: 'row',
@@ -469,8 +472,7 @@ const BottomBtn = styled(Button)((props) => ({
     fontWeight: 'normal',
   },
   fontWeight: 'normal',
-  border: '1px solid #66635C',
-  // width: `${props.wd}px`,
+  border: '1px solid #66635C70',
   height: '3rem',
 }))
 
@@ -479,4 +481,13 @@ const MicCamExitGroup = styled(Grid)({
   display: 'flex',
   flexDirection: 'row',
   gap: 3,
+})
+
+const SubTypography = styled(Typography)({
+	fontSize: '35px',
+  fontWeight: 'bold',
+	letterSpacing: 'var(--font-letter-spacing)',
+	color: '#003151',
+  padding: 5,
+  padding:'auto',
 })

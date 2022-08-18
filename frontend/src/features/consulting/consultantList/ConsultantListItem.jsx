@@ -13,7 +13,7 @@ const ConsultantListItem = ({ consultantId, nickname, introduction, starAverage,
 	<Link to={`/consultants/detail/${consultantId}`}>
 		<CardItem>
 			<CardActionArea>
-				<div style={{display:'flex', justifyContent:'center'}}>
+				<div style={{display:'flex', justifyContent:'center', marginTop: 9}}>
 					<OtherAvatar imgUrl={imageUrl} setSize={14} />
 				</div>
 				<CardContent>

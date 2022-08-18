@@ -51,7 +51,7 @@ const Pallete = styled(Card)({
   justifyContent:'start', 
   alignItems:'center', 
   backgroundColor: '#F5F5F5', 
-  border: '1px solid #5A4D4D',
+  border: '1px solid #5A4D4D80',
   height: 34, 
   width: 323,
 })
@@ -63,4 +63,5 @@ const ColorItem = styled(Box)((props) => ({
   height: 30, 
   margin: 1,
   cursor: 'pointer',
+  borderRadius: '5px',
 }))
