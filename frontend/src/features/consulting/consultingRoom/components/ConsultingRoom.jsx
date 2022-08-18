@@ -156,7 +156,6 @@ const ConsultingRoom = () => {
   }
 
   const deleteSubscriber = (streamManager) => {
-    console.log(streamManager)
   }
 
   const joinSession = () => {
@@ -241,7 +240,6 @@ const ConsultingRoom = () => {
           },
         })
         .then((response) => {
-          console.log('CREATE SESION', response);
           resolve(response.data.id);
         })
         .catch((response) => {
@@ -249,7 +247,6 @@ const ConsultingRoom = () => {
           if (error?.response?.status === 409) {
             resolve(sessionId);
           } else {
-            console.log(error);
             console.warn(
               'No connection to OpenVidu Server. This may be a certificate error at ' +
               OPENVIDU_SERVER_URL,
@@ -300,7 +297,6 @@ const ConsultingRoom = () => {
           },
         })
         .then((response) => {
-          console.log('TOKEN', response);
           resolve(response.data.token);
         })
         .catch((error) => reject(error));

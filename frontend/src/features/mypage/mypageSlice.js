@@ -26,7 +26,6 @@ export const myConsultantDxFetch = createAsyncThunk(
   async () => {
     return Axios.get('customers/2')
       .then(res => {
-
         if (res.status === OK) {
           return res.data
         } else {
@@ -35,7 +34,6 @@ export const myConsultantDxFetch = createAsyncThunk(
         }
       })
       .catch(error => {
-        console.log('진단',error)
         alert('진단기록을 불러올 수 없습니다.')
         return false
       })
@@ -55,7 +53,6 @@ export const selfDxFetch = createAsyncThunk(
         }
       })
       .catch(error => {
-        console.log('자가진단',error)
         alert('진단기록을 불러올 수 없습니다.')
         return false
       })
@@ -85,7 +82,6 @@ export const deleteResFetch = createAsyncThunk(
   async (reservationId) => {
     return Axios.delete(`reservations/${reservationId}`)
       .then(res => {
-        console.log(res.status)
         if (res.status === OK) {
           alert('예약이 취소되었습니다.')
           return true

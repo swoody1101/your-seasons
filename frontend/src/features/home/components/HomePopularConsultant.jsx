@@ -16,37 +16,36 @@ const HomePopularConsultant = () => {
 	const dispatch = useDispatch()
 	const hasConsultants = _.isEmpty(consultants)
 	const [activeItemIndex, setActiveItemIndex] = useState(0);
-  const [cardNum, setCardNum] = useState(4)
+	const [cardNum, setCardNum] = useState(4)
 
-  const handleResize = () => {
-    // console.log(`브라우저 화면 사이즈 x: ${window.innerWidth}, y: ${window.innerHeight}`);
-    if(window.innerWidth<660){
-      setCardNum(1)
-      return false
-    }
-    if(window.innerWidth<1000){
-      setCardNum(2)
-      return false
-    }
-    else if(window.innerWidth<1300){
-      setCardNum(3)
-      return false
-    }else if(window.innerWidth<1600){
-      setCardNum(4)
-      return false
-    }else{
-      setCardNum(5)
-      return false
-    }
-  }
+	const handleResize = () => {
+		if (window.innerWidth < 660) {
+			setCardNum(1)
+			return false
+		}
+		if (window.innerWidth < 1000) {
+			setCardNum(2)
+			return false
+		}
+		else if (window.innerWidth < 1300) {
+			setCardNum(3)
+			return false
+		} else if (window.innerWidth < 1600) {
+			setCardNum(4)
+			return false
+		} else {
+			setCardNum(5)
+			return false
+		}
+	}
 
-  useEffect(() => {
-    window.addEventListener('resize', handleResize);
-    handleResize()
-    return () => { // cleanup 
-      window.removeEventListener('resize', handleResize);
-    }
-  }, []);
+	useEffect(() => {
+		window.addEventListener('resize', handleResize);
+		handleResize()
+		return () => { // cleanup 
+			window.removeEventListener('resize', handleResize);
+		}
+	}, []);
 
 	useEffect(() => {
 		dispatch(TopTenListFetch())
@@ -90,8 +89,8 @@ const HomePopularConsultant = () => {
 				}
 				<GoCon>
 					<Link to={'/consultants'}
-            style={{color: '#00000090'}}
-            onClick={()=>{window.scrollTo(0,0);}}>컨설턴트 더 보기</Link>
+						style={{ color: '#00000090' }}
+						onClick={() => { window.scrollTo(0, 0); }}>컨설턴트 더 보기</Link>
 				</GoCon>
 			</ColorBox>
 		</Div >

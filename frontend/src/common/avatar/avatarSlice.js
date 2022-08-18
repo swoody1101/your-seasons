@@ -22,10 +22,8 @@ const avatarSlice = createSlice({
   initialState,
   extraReducers: {
     [registAvatar.fulfilled]: (state, { payload }) => {
-      console.log(payload)
     },
     [registAvatar.rejected]: (state) => {
-      console.log(state)
     },
   }
 })

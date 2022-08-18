@@ -15,7 +15,6 @@ const ModifyAvatar = ({ imageUrl }) => {
 
   const handleChangeImage = (e) => {
     // 파일전송은 추후
-    console.log(e)
   }
 
 
@@ -31,8 +30,8 @@ const ModifyAvatar = ({ imageUrl }) => {
     >
       <MyAvatar
         setSize={22}
-				imgUrl={imageUrl}
-				/>
+        imgUrl={imageUrl}
+      />
       {isDirect
         ?
         <ButtonGroup
@@ -56,7 +55,7 @@ const ModifyAvatar = ({ imageUrl }) => {
         >
           <Button
             // onClick={() => setIsDirect(!isDirect)}
-							onClick={() => alert('곧 지원될 기능이에요🎵. 먼저 기본 아바타를 선택해주세요.')}
+            onClick={() => alert('곧 지원될 기능이에요🎵. 먼저 기본 아바타를 선택해주세요.')}
           ><Typography>{"직접등록"}</Typography></Button>
           <Button
             onClick={handleSample}

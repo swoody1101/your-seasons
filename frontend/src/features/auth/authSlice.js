@@ -49,7 +49,6 @@ export const signUpMember = createAsyncThunk(
   'auth/signup',
   async (userInfo, { rejectWithValue }) => {
     try {
-      console.log("비동기 요청 회원가입") // 비동기 위치표시
       let response
 
       if (userInfo.role === CUSTOMER) {
@@ -74,7 +73,6 @@ export const emailCheck = createAsyncThunk(
   'auth/emailcheck',
   async (email, { rejectWithValue }) => {
     try {
-      console.log("비동기 요청 이메일 중복확인") // 비동기 위치표시
       const response = await Axios.get(`members/validation/1?email=${email}`);
       if (response.status === OK) {
         return true;
@@ -95,7 +93,6 @@ export const emailSendCheck = createAsyncThunk(
         return true;
       }
     } catch (err) {
-      console.log(rejectWithValue(err))
       return false;
     }
   }
@@ -104,14 +101,13 @@ export const emailSendCheck = createAsyncThunk(
 // 이메일 발송 후 토큰 체크 
 export const emailAuthCheck = createAsyncThunk(
   'members/email/2',
-  async (payload, {rejectWithValue}) => {
+  async (payload, { rejectWithValue }) => {
     try {
       const response = await Axios.post('members/email/2', payload)
-      if(response.status === OK){
+      if (response.status === OK) {
         return true;
-      } 
+      }
     } catch (err) {
-      console.log(rejectWithValue(err))
       return false
     }
   }
@@ -122,7 +118,6 @@ export const nicknameCheck = createAsyncThunk(
   'auth/nicknamecheck',
   async (nickname, { rejectWithValue }) => {
     try {
-      console.log("비동기 요청 닉네임 중복확인") // 비동기 위치표시
       const response = await Axios.get(`members/validation/2?nickname=${nickname}`);
       if (response.status === OK) {
         return true;
@@ -154,13 +149,13 @@ export const loginUser = createAsyncThunk(
 // 비밀번호 찾기
 export const searchPasswordFetch = createAsyncThunk(
   'members/email/3?email=member@ssafy.com',
-  async (email, {rejectWithValue}) => {
-    try{
+  async (email, { rejectWithValue }) => {
+    try {
       const response = await Axios.get(`members/email/3?email=${email}`);
-      if(response.status === OK){
+      if (response.status === OK) {
         return true;
       }
-    } catch(err){
+    } catch (err) {
       return false
     }
   }
@@ -202,7 +197,6 @@ export const modifyMember = createAsyncThunk(
         } // 고객 수정정보
         response = await Axios.patch('customers', modi);
       } else if (payload.role === CONSULTANT) {
-        console.log(payload)
         const modi = {
           nickname: payload.nickname,
           contact: payload.contact,
@@ -210,7 +204,6 @@ export const modifyMember = createAsyncThunk(
           introduction: payload.introduction,
           cost: payload.cost
         } // 컨설턴트 수정정보
-        console.log(modi)
         response = await Axios.patch('consultants', modi);
       }
       const token = response.headers["authorization"]; // 헤더로 받을 때   
@@ -225,7 +218,6 @@ export const modifyMember = createAsyncThunk(
 export const modifyPass = createAsyncThunk(
   'auth/modifypass',
   async (payload, { rejectWithValue }) => {
-    console.log(payload)
     try {
       let response;
       const data = {
@@ -315,7 +307,6 @@ const authSlice = createSlice({
     },
     [loadMember.fulfilled]: (state, { payload }) => {
       state.status = 'succeeded';
-      console.log("로드멤버", payload)
       state.logonUser = payload.data
     },
     [loadMember.rejected]: (state) => {

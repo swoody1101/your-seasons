@@ -58,7 +58,6 @@ const ConsultingResBtn = (props) => {
   }
 
   const reservationHandler = () => {
-    console.log(role)
     if (role === 'CUSTOMER') {
       const reservation = {
         reservationDate: props.pickedDate,

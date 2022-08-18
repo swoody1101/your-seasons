@@ -49,7 +49,6 @@ const Chat = () => {
 
   const textChat = (event) => {
     const data = JSON.parse(event.data)
-    console.log(data)
     if (data.role !== role) {
       dispatch(appendMessageList(data))
     }

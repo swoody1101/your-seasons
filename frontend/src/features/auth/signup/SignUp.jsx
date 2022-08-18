@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { deleteToken } from 'api/JWToken'; 
+import { deleteToken } from 'api/JWToken';
 
 import {
   Button, CssBaseline,
@@ -77,9 +77,7 @@ const SignUp = () => {
 
   const handleCheckEmail = () => {
     dispatch(emailCheck(userEmail))
-    .then((res) => {
-        console.log(res)
-        console.log(res.payload);
+      .then((res) => {
         if (res.payload) {
           alert("인증완료");
           setIsEmailCheck(true);
@@ -92,16 +90,15 @@ const SignUp = () => {
   // 이메일 발송 완료
   const handleSendEmail = () => {
     dispatch(emailSendCheck(userEmail))
-    .then((res) => {
-      console.log(res)
-      if(res.payload){
-        alert('인증번호가 전송되었습니다. 이메일을 확인해주세요.')
-        setIsEmailSend(true)
-      }else{
-        alert('이메일 전송에 실패하였습니다.')
-        setIsEmailSend(false)
-      }
-    })
+      .then((res) => {
+        if (res.payload) {
+          alert('인증번호가 전송되었습니다. 이메일을 확인해주세요.')
+          setIsEmailSend(true)
+        } else {
+          alert('이메일 전송에 실패하였습니다.')
+          setIsEmailSend(false)
+        }
+      })
   }
   // 발송된 토큰 체크
   const handleCheckEmailAuth = () => {
@@ -110,27 +107,24 @@ const SignUp = () => {
       authToken: emailAuth,
     }
     dispatch(emailAuthCheck(data))
-    .then((res) => {
-      console.log('이메일 체크후 결과',res)
-      if(res.payload){
-        alert('이메일 인증이 완료되었습니다.')
-        setIsEmailAuthCheck(true)
-        return true
-      }else{
-        alert('이메일 인증에 실패하였습니다.')
-        setIsEmailAuthCheck(false)
-        setEmailAuth('')
-        return false
-      }
-    })
+      .then((res) => {
+        if (res.payload) {
+          alert('이메일 인증이 완료되었습니다.')
+          setIsEmailAuthCheck(true)
+          return true
+        } else {
+          alert('이메일 인증에 실패하였습니다.')
+          setIsEmailAuthCheck(false)
+          setEmailAuth('')
+          return false
+        }
+      })
   }
 
 
   const handleCheckNickname = () => {
-    console.log(nickname);
     dispatch(nicknameCheck(nickname))
       .then((res) => {
-        console.log(res.payload);
         if (res.payload) {
           alert("인증완료");
           setIsNicknameCheck(true);
@@ -148,7 +142,7 @@ const SignUp = () => {
     }
 
     // emailauthentication: 이메일 인증여부 
-    if(!isEmailAuthCheck) {
+    if (!isEmailAuthCheck) {
       alert("이메일 인증을 해주세요.")
       return;
     }
@@ -193,13 +187,11 @@ const SignUp = () => {
       alert("회원가입 약관에 동의해주세요.");
       return;
     }
-    console.log(data);
     dispatch(signUpMember(data))
       .then((res) => {
-        console.log(res.payload) // 응답 msg  확인
         if (res.payload === OK) {
           alert("가입에 성공하였습니다. 로그인 페이지로 이동합니다.");
-           // 로그인상태에서 회원가입으로 이동가능하나, 회원가입시 기존토큰 지워짐
+          // 로그인상태에서 회원가입으로 이동가능하나, 회원가입시 기존토큰 지워짐
           dispatch(logoutUser());
           navigate('/login');
         } else {
@@ -209,7 +201,7 @@ const SignUp = () => {
   }
 
   return (
-    <Container sx={{ xs: 'none', sm: 'block', height:'100vh' }}>
+    <Container sx={{ xs: 'none', sm: 'block', height: '100vh' }}>
       <CssBaseline />
       <SGrid container
         direction="column"
@@ -218,7 +210,7 @@ const SignUp = () => {
         <Grid container item xs={12} sx={{}}>
           <Grid item xs={12} sm={6} p={1} >
 
-          <ConfirmValidationInput
+            <ConfirmValidationInput
               autofocus
               label="이메일"
               id="email"
@@ -282,19 +274,19 @@ const SignUp = () => {
 
           </Grid>
           <Grid item xs={12} sm={6} p={1}>
-              <ConfirmValidationInput
-                autofocus
-                label="닉네임"
-                value={nickname}
-                setValue={setNickname}
-                isCheck={isNicknameCheck}
-                setIsCheck={setIsNicknameCheck}
-                handleValueCheck={handleCheckNickname}
-                regexCheck={regex.nickname}
-                defaultText="닉네임을 입력해주세요."
-                successText="success"
-                errorText="닉네임 양식을 맞춰주세요."
-              />
+            <ConfirmValidationInput
+              autofocus
+              label="닉네임"
+              value={nickname}
+              setValue={setNickname}
+              isCheck={isNicknameCheck}
+              setIsCheck={setIsNicknameCheck}
+              handleValueCheck={handleCheckNickname}
+              regexCheck={regex.nickname}
+              defaultText="닉네임을 입력해주세요."
+              successText="success"
+              errorText="닉네임 양식을 맞춰주세요."
+            />
             <Grid container item sx={{ padding: '0' }}>
               <Grid item xs={6} >
                 <ValidationInput
@@ -310,7 +302,7 @@ const SignUp = () => {
                 />
               </Grid>
               <Grid item xs={6} >
-              <BirthSelectInput
+                <BirthSelectInput
                   label="생년월일"
                   type="date"
                   value={birth}
@@ -357,7 +349,6 @@ const SignUp = () => {
             control={
               <Checkbox value={agreeChecked}
                 onChange={() => {
-                  console.log(!agreeChecked)
                   setAgreeChcked(!agreeChecked)
                 }} color="primary"
               />

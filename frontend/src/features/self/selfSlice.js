@@ -26,11 +26,9 @@ export const selfConsultingClose = createAsyncThunk(
   'self/selfConsultingClose',
   async (payload, { rejectWithValue }) => {
     try {
-      console.log(payload)
       const response = await Axios.post(`self-consultings/1`, payload)
       return response.data
     } catch (err) {
-      console.log(err)
       return rejectWithValue(err)
     }
   }
