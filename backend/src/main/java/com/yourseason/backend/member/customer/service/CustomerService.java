@@ -125,7 +125,7 @@ public class CustomerService {
                                 .map(colorColorSet -> colorColorSet.getColor().getHex())
                                 .collect(Collectors.toList()))
                         .consultingFile(getConsultingFile(consulting))
-                        .comment(consulting.getConsultingResult().getConsultingComment())
+                        .consultingComment(consulting.getConsultingResult().getConsultingComment())
                         .hasReview(consulting.hasReview())
                         .build())
                 .collect(Collectors.toList());
