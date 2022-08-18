@@ -6,7 +6,6 @@ import SmilePeople from '../../../assets/images/homeSlide/HP1_smilepeople.jpg'
 import { useSelector } from 'react-redux';
 
 const HomeProcess1 = () => {
-  const { role } = useSelector((state) => state.auth.logonUser)
 
 	return (
 		<BigGrid container>
@@ -23,10 +22,7 @@ const HomeProcess1 = () => {
 
         <ImgSub>
           <ImgMainTypography>혼자하는 자가진단 서비스</ImgMainTypography>
-          {
-            role === 'CUSTOMER' &&
             <Link to={'/self'} onClick={()=>{window.scrollTo(0,0);}}><ImgSubTypography>자가진단 하러가기</ImgSubTypography></Link>
-          }
         </ImgSub>
 				<Img src={SmilePeople} />
 

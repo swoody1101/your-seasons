@@ -20,20 +20,6 @@ const ColorButtonGroup = ({
   const selectedColor = useSelector(state => state.colorSetList.selectedColor)
   const dispatch = useDispatch()
   
-  const onClick = (e) => {
-    if(!isEmpty(e)){
-      if(clickColorFirst === false){
-        clickColorFirstFunc();
-        return
-      }else{
-        return
-      }
-    }else{
-
-    }
-  }
-
-
   return (
     <Div>
       {/* <CustomFab variant="extended" onClick={() => dispatch(removeSelectColor(selectedColor))}>
@@ -75,9 +61,9 @@ const ColorButtonGroup = ({
           }
           }}>
         <HeartBrokenIcon sx={{ color: selectedColor, mr: 1 }} /> <SubTypography>추가</SubTypography> </CustomFab>
-      <Fab variant="extended" sx={{ display: isWorst ? '' : 'none' }} 
+      <CustomFab variant="extended" sx={{ display: isWorst ? '' : 'none' }} 
         onClick={() => { dispatch(removeWorstColor(selectedColor)); setIsWorst(false); }}>
-        <HeartBrokenIcon sx={{ color: selectedColor, mr: 1 }} /> <SubTypography>제거</SubTypography> </Fab>
+        <HeartBrokenIcon sx={{ color: selectedColor, mr: 1 }} /> <SubTypography>제거</SubTypography> </CustomFab>
     </Div>
   )
 }
@@ -107,7 +93,7 @@ const CustomFab = styled(Fab)({
   border: '1px solid #5A4D4D80',
   borderRadius: '5px',
   marginTop: '3px',
-  height: '30px',
+  height: '35px',
 })
 
 const SubTypography = styled(Typography)({

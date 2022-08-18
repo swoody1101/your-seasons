@@ -32,7 +32,7 @@ const OPENVIDU_SERVER_SECRET = 'YOUR_SEASONS_SECRET';
 const ConsultingRoom = () => {
   const { nickname, email, role } = useSelector(state => state.auth.logonUser)
   const { session, customer, consultingId, consultantSessionName } = useSelector(state => state.consult)
-  const tmp = email.replace(/[@\.]/g, '-')
+  const tmp = email?.replace(/[@\.]/g, '-')
   const [mySessionId, setMySessionId] = useState(
     role === CONSULTANT ? tmp : consultantSessionName
   )
@@ -185,8 +185,7 @@ const ConsultingRoom = () => {
         alert('톤 정보를 입력해주세요.')
       } else if (files === '') {
         alert('진단 결과표를 등록해 주세요.')
-      }
-      else if (session) {
+      } else if (session) {
         session.disconnect();
         dispatch(postConsultingResult({ files, consultingFinishRequest }))
           .then(() => {
