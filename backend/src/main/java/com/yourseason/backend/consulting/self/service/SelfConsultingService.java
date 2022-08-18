@@ -70,7 +70,7 @@ public class SelfConsultingService {
                 .colorSet(requestWorstColorSet)
                 .build();
 
-        Map<String, Integer> toneCountings = new TreeMap<>(Collections.reverseOrder());
+        Map<String, Integer> toneCountings = new HashMap<>();
         selfConsultingFinishRequest.getBestColorSet()
                 .stream()
                 .map(hex -> colorRepository.findByHex(hex)
@@ -85,6 +85,7 @@ public class SelfConsultingService {
                     .build());
         });
 
+        percentages.sort(Comparator.comparing(Percentage::getPercentage).reversed());
         Tone bestTone = percentages.get(BEST_TONE).getTone();
 
         SelfConsultingResult selfConsultingResult = SelfConsultingResult.builder()
