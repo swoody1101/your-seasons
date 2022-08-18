@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React from 'react'
 
 import { Grid, styled } from '@mui/material'
 
@@ -11,12 +10,11 @@ const SelectedColorSet = ({
   setIsBest,
   setIsWorst
 }) => {
-  const selectedColor = useSelector(state => state.colorSetList.selectedColor)
 
   return (
     <MainDiv>
-      <BestColorSet setIsBest={setIsBest}/>
-      <WorstColorSet setIsWorst={setIsWorst}/>
+      <BestColorSet setIsBest={setIsBest} />
+      <WorstColorSet setIsWorst={setIsWorst} />
     </MainDiv>
   )
 }

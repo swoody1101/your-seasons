@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import ConsultantDiagnosis from '../consultantsDiagnosis/ConsultantDiagnosis'
 import SelfDiagnosis from './SelfDiagnosis';
-import { Container, Box, Tab } from '@mui/material'
+import { Box, Tab } from '@mui/material'
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 // Mydiagnosis(자가진단도 넣게되면, 컴포넌트 분리 필요함)
 // 따라서, 내 진단(mydiagnosis) -> (컨설턴트진단, 셀프진단 컴포넌트 있음)

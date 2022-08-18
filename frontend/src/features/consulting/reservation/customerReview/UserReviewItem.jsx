@@ -1,7 +1,6 @@
 import React from "react";
 import { Grid, CardContent, Card, Typography, CardActionArea, styled, Box } from '@mui/material';
 
-import ProfileImage from 'assets/images/yourseasonlogo.png';
 import StarRating from "common/starrating/StarRating";
 import OtherAvatar from "common/avatar/OtherAvatar";
 

@@ -5,12 +5,9 @@ import { Box, Button, Container, Grid, styled, Typography, Slider } from '@mui/m
 
 import { settingModalOff } from 'features/consulting/consultingRoom/consultSlice'
 
-import { OpenVidu } from 'openvidu-browser';
 import UserVideoComponent from './UserVideoComponent';
 
 import WarningIcon from '@mui/icons-material/Warning';
-import MicIcon from '@mui/icons-material/Mic';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
 const CameraTest = () => {
   const { customer } = useSelector(state => state.consult)

@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import MainColorSetItem from '../MainColorSetItem'
-import { Box, Card, CardActions, CardContent, Button, styled } from '@mui/material';
+import { Box, Card, CardActions, Button, styled } from '@mui/material';
 
 
 
 const MainColorSet = () => {
-  const dispatch = useDispatch()
 	const colorSet = useSelector(state=>state.colorSetList.data)
 	const [season, setSeason] = useState('spring')
 

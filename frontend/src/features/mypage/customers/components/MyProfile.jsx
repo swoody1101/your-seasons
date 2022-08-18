@@ -7,7 +7,7 @@ import { Stack, Grid, styled } from '@mui/material';
 import MyAvatar from "common/avatar/MyAvatar";
 import PinkButton from "common/PinkButton";
 import { loadMember } from 'features/auth/authSlice'
-import { myConsultantDxFetch, selfDxFetch } from "features/mypage/mypageSlice";
+import { myConsultantDxFetch } from "features/mypage/mypageSlice";
 
 
 const MyProfile = () => {

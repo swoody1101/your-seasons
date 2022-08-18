@@ -1,5 +1,5 @@
 import React from 'react';
-import { Stack, Button, Snackbar } from '@mui/material';
+import { Snackbar } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 
 import { setSnackBarOpen, setSnackbarMessage, setSnackBarSeverity } from './snackbarSlice'
@@ -12,7 +12,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 const CustomizedSnackbars = () => {
   // open = true, false
   const dispatch = useDispatch()
-  const { open, snackbarMessage, snackbarSeverity } = useSelector(state => state.snackbar) 
+  const { open, snackbarMessage, snackbarSeverity } = useSelector(state => state.snackbar)
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {

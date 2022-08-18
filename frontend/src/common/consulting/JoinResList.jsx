@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux/es/exports';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import OtherAvatar from 'common/avatar/OtherAvatar'
 import { CUSTOMER, CONSULTANT, BAD_REQUEST, NOT_FOUND, CONFLICT } from 'api/CustomConst'
-import { Box, Button, Typography, styled, Stack, ButtonGroup } from '@mui/material'
+import { Box, Button, Typography, styled, Stack } from '@mui/material'
 import { getConsultantSessionName, openConsulting } from 'features/consulting/consultingRoom/consultSlice'
 
 const JoinResList = () => {

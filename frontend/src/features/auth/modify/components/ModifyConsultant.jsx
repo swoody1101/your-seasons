@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { ButtonGroup, Button, Container, Grid, styled, TextField } from '@mui/material'
@@ -148,17 +148,6 @@ const IntroGrid = styled(Grid)({
   minHeight: '200px',
   position: 'relative',
   pontSize: '2rem',
-  button: {
-    position: 'absolute',
-    bottom: '0.2rem',
-    right: '0.4rem',
-  }
-})
-
-const CostGrid = styled(Grid)({
-  padding: '0.4rem',
-  minHeight: '3rem',
-  position: 'relative',
   button: {
     position: 'absolute',
     bottom: '0.2rem',
