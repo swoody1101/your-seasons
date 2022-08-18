@@ -15,6 +15,7 @@ const UserReviewList = props => {
           rating={review.star}
           date={review.createdDate}
           review={review.comment}
+          imageUrl={review.imageUrl}
         />
       ))}
     </Div>
@@ -24,8 +25,8 @@ const UserReviewList = props => {
 export default UserReviewList
 
 const Div = styled('div')({
-	maxWidth: '100%',
-	display: 'flex',
-	flexDirection: 'column-reverse',
-	gap: 10,
+  maxWidth: '100%',
+  display: 'flex',
+  flexDirection: 'column-reverse',
+  gap: 10,
 })
