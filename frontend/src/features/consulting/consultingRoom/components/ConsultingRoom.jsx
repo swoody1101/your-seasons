@@ -196,7 +196,8 @@ const ConsultingRoom = () => {
             dispatch(selectTone(''))
             dispatch(setFiles(''))
             dispatch(resetColor())
-            window.location.reload()
+            navigate('/')
+            // window.location.reload()
           })
       }
     }
@@ -525,7 +526,7 @@ const SContainer = styled(Box)({
   height: "94vh",
 
   boxSizing: 'border-box',
-  border: '2px solid #5A4D4D',
+  border: '2px solid #5A4D4D99',
   backgroundColor: '#FAFAFA',
   borderRadius: '15px',
   boxShadow: '1px 2px 9px #B1B7B7',
@@ -610,7 +611,7 @@ const BottomBtn = styled(Button)((props) => ({
     fontWeight: 'normal',
   },
   fontWeight: 'normal',
-  border: '1px solid #66635C',
+  border: '1px solid #66635C70',
   // width: `${props.wd}px`,
   height: '3rem',
 }))

@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import ConsultantListItem from './ConsultantListItem'
 import { useDispatch, useSelector } from 'react-redux'
-import { Grid, MenuItem, FormControl, Select, styled, Paper, InputBase } from '@mui/material'
 import { ConsultantListFetch,  } from './../consultantListSlice'
-import SearchIcon from '@mui/icons-material/Search';
-import IconButton from '@mui/material/IconButton';
 import { setConValue, ConsultantSearchFetch } from 'features/consulting/consultantListSlice';
 import { isEmpty } from 'lodash'
+import EB8F90 from 'assets/images/EB8F90.jpg'
+
+import { Grid, MenuItem, FormControl, Select, styled, Paper, InputBase } from '@mui/material'
+import SearchIcon from '@mui/icons-material/Search';
+import IconButton from '@mui/material/IconButton';
 
 const ConsultantList = () => {
 	const value = useSelector(state => state.consultantList.conValue)
@@ -31,6 +33,7 @@ const ConsultantList = () => {
 
 	return (
 		<BackDiv>
+      {/* <Img src={EB8F90} /> */}
 			<Div>
 				<TopDiv>
 					{/* search bar */}
@@ -92,7 +95,17 @@ const ConsultantList = () => {
 
 export default ConsultantList
 
+// const Img = styled('img')({
+// 	position: "absolute",
+//   marginTop: "-70px",
+// 	minWidth: "940px",
+// 	minHeight: "22px",
+// 	height: "500px",
+// 	width: "100vw",
+// })
+
 const BackDiv = styled('div')({
+  // position: "relative",
 	display: 'flex',
 	flexDirection: 'row',
 	justifyContent: 'center',

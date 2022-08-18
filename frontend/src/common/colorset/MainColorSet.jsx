@@ -183,6 +183,7 @@ const MainColorSet = () => {
               required
               fullWidth
               helperText="진단 결과에 대한 컨설턴트님의 의견을 남겨주십시오" />
+            
             <TextField
               id="tone-select"
               select
@@ -197,6 +198,8 @@ const MainColorSet = () => {
                 </MenuItem>
               ))}
             </TextField>
+            <br />
+            진단표 업로드 (JPG 파일 업로드)
             <div>
               <Button variant="contained" component="label">
                 진단표 업로드하기

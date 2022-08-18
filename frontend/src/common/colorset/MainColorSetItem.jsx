@@ -42,7 +42,7 @@ const Pallete = ({ colorset, tone, setIsBest, setIsWorst }) => {
 		<SubTypography>{select(tone)}</SubTypography>
 		<Grid item sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'start' }}>
 			{colorset.map((item, index) => (
-				<div style={{ backgroundColor: item, width: 50, height: 50, margin: 1 }}
+				<div style={{ backgroundColor: item, width: 50, height: 50, margin: 1, borderRadius:3 }}
 					key={index} onClick={() => { dispatch(changeSelectColor(item)); setIsBest(false); setIsWorst(false) }}></div>
 			))}
 		</Grid>

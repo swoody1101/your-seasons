@@ -27,17 +27,14 @@ const UserVideoComponent = ({ streamManager }) => {
 export default UserVideoComponent
 
 const CustomerStream = styled(Box)({
-  // height: '70%',
   position: 'relative',
   width: '100%',
   overflow: "hidden",
-  backgroundColor: "#F5F5F5",
-  border: '2px solid #5A4D4D99',
+  backgroundColor: "#FAFAFA",
+  border: '2px solid #5A4D4D60',
   borderRadius: '10px',
-  // padding: '3px',
   video: {
     width: '100%',
-    // height: '70%',
   }
 })
 

@@ -57,16 +57,13 @@ const ConsultantStream = styled(Box)({
 })
 
 const CustomerStream = styled(Box)({
-  // height: '70%',
   width: '100%',
   overflow: "hidden",
-  backgroundColor: "#F5F5F5",
-  border: '2px solid #5A4D4D99',
+  backgroundColor: "#F5F3F8",
+  border: '2px solid #5A4D4D80',
   borderRadius: '10px',
-  // padding: '3px',
   video: {
     width: '100%',
-    // height: '70%',
   }
 })
 

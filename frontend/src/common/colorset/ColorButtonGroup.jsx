@@ -6,7 +6,7 @@ import HeartBrokenIcon from '@mui/icons-material/HeartBroken';
 import { removeSelectColor, addBestColor, removeBestColor, addWorstColor, removeWorstColor } from './colorSetSlice'
 import { setSnackBarOpen, setSnackbarMessage, setSnackBarSeverity } from 'common/snackbar/snackbarSlice';
 
-import { Box, Fab, styled } from '@mui/material'
+import { Box, Fab, styled, Typography } from '@mui/material'
 import { isEmpty } from 'lodash';
 
 const ColorButtonGroup = ({
@@ -55,10 +55,10 @@ const ColorButtonGroup = ({
           }
           }}>
         <FavoriteRoundedIcon sx={{ color: selectedColor, mr: 1 }} 
-        /> 추가 </CustomFab>
+        /> <SubTypography>추가</SubTypography></CustomFab>
       <CustomFab variant="extended" sx={{ display: isBest ? '' : 'none' }} 
         onClick={() => {dispatch(removeBestColor(selectedColor)); setIsBest(false);}}>
-        <FavoriteRoundedIcon sx={{ color: selectedColor, mr: 1 }} /> 제거 </CustomFab>
+        <FavoriteRoundedIcon sx={{ color: selectedColor, mr: 1 }} /> <SubTypography>제거</SubTypography> </CustomFab>
       {/* worstbtn */}
       <CustomFab variant="extended" sx={{ display: isWorst ? 'none' : '' }} 
         onClick={() => { 
@@ -74,10 +74,10 @@ const ColorButtonGroup = ({
             dispatch(setSnackBarSeverity('error'))
           }
           }}>
-        <HeartBrokenIcon sx={{ color: selectedColor, mr: 1 }} /> 추가 </CustomFab>
+        <HeartBrokenIcon sx={{ color: selectedColor, mr: 1 }} /> <SubTypography>추가</SubTypography> </CustomFab>
       <Fab variant="extended" sx={{ display: isWorst ? '' : 'none' }} 
         onClick={() => { dispatch(removeWorstColor(selectedColor)); setIsWorst(false); }}>
-        <HeartBrokenIcon sx={{ color: selectedColor, mr: 1 }} /> 제거 </Fab>
+        <HeartBrokenIcon sx={{ color: selectedColor, mr: 1 }} /> <SubTypography>제거</SubTypography> </Fab>
     </Div>
   )
 }
@@ -94,6 +94,7 @@ const Div = styled(Box)({
   flexDirection: 'row',
   gap: 3,
 })
+
 const CustomFab = styled(Fab)({
   backgroundColor: '#EFEFEF',
   color: '#5A4D4D',
@@ -103,5 +104,16 @@ const CustomFab = styled(Fab)({
 		color: 'black',
 		fontWeight: 'normal',
   },
-  border: '1px solid #66635C',
+  border: '1px solid #5A4D4D80',
+  borderRadius: '5px',
+  marginTop: '3px',
+  height: '30px',
+})
+
+const SubTypography = styled(Typography)({
+	fontFamily: 'malgunbd !important',
+	fontSize: '15px',
+	letterSpacing: 'var(--font-letter-spacing)',
+	color: '#00000080',
+  padding: 5,
 })

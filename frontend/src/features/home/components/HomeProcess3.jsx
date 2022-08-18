@@ -45,7 +45,7 @@ const Grid2 = styled(Grid)({
 	alignItems: 'center',
 	justifyContent: 'center',
 	flexDirection: 'column',
-  backgroundColor: 'white',
+  // backgroundColor: 'white',
 })
 
 const MainTypography = styled(Typography)({
