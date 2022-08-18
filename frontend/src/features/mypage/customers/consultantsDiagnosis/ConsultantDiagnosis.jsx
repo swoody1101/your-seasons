@@ -106,6 +106,7 @@ const ConsultantDiagnosis = () => {
 
 						<CardActions sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
 							{/* 이미지 모달 */}
+
 							<BasicModal consultingFile={`data:image/jpg;base64,${consultingFile}`} />
 							{/* 리뷰작성 모달 */}
 							<ConsultantDiagnosisReview consultingId={consultingId} consultantNickname={consultantNickname} hasReview={hasReview} />

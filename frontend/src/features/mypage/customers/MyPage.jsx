@@ -30,8 +30,7 @@ const MyPage = () => {
 
   return (
     <>
-      <Img src={adbed2}>
-      </Img>
+      <Img src={adbed2} />
       <Container>
         <CContainer fixed sx={{ mt: '2rem' }}>
           <MyProfile />

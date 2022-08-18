@@ -44,17 +44,18 @@ export default MainColorSet;
 const CustomCard = styled(Card)((props)=>({
 	width: '400px',
 	height: '100%',
+  border: '1px solid #5A4D4D60',
   padding: 'auto',
 }))
 
 const ColorCard = styled(Box)((props)=>({
 	width: '100%',
-	height: '40vh',
-  paddingLeft: '13px',
+	height: '60vh',
+  paddingLeft: '10px',
 	overflow: 'auto',
   margin: 'auto',
   '&::-webkit-scrollbar': {
-    width: '13px'
+    width: '10px'
   },
   '&::-webkit-scrollbar-track': {
     boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
