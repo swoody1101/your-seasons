@@ -24,7 +24,6 @@ export const openConsulting = createAsyncThunk(
   async (reservationId, { rejectWithValue }) => {
     try {
       const response = await Axios.post(`consultings`, { reservationId: reservationId })
-      console.log(response.data)
       return response.data
     } catch (err) {
       return rejectWithValue(err)
@@ -54,11 +53,11 @@ export const postConsultingResult = createAsyncThunk(
       formData.append('consultingFinishRequest', new Blob([JSON.stringify(payload.consultingFinishRequest)], { type: "application/json" }))
       formData.append('file', payload.files[0])
       const response = await imgAxios.post(`consultings/1`, formData)
-      console.log(response.data)
+
       alert('진단 결과가 저장되었습니다. 컨설팅을 종료합니다.')
       return response.data
     } catch (err) {
-      console.log(err)
+
       return rejectWithValue(err)
     }
   }
