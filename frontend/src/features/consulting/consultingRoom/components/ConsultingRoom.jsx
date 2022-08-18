@@ -192,7 +192,6 @@ const ConsultingRoom = () => {
         session.disconnect();
         dispatch(postConsultingResult({ files, consultingFinishRequest }))
           .then(() => {
-            dispatch(setSession(undefined))
             dispatch(changeComment(''))
             dispatch(selectTone(''))
             dispatch(setFiles(''))
@@ -200,14 +199,16 @@ const ConsultingRoom = () => {
             window.location.reload()
           })
       }
-    } else if (role === CUSTOMER && session) {
+    }
+    else if (role === CUSTOMER && session) {
       session.disconnect();
     }
     setOV(null);
     setMySessionId(role === CONSULTANT ? tmp : consultantSessionName)
+    dispatch(setSession(undefined))
+    dispatch(setCustomer(undefined))
     setMyUserName(nickname)
     setConsultant(undefined)
-    setCustomer(undefined)
   }
 
   /**
