@@ -41,14 +41,14 @@ export const ConsultantListFetch = createAsyncThunk(
 	'/consultants?order=popular',
 	async (value) => {
 		return Axios.get(`consultants?order=${value}`)
-		.then(res => {
-			if (res.status === OK) {
-				return res.data
-			} else {
-				alert('컨설턴트 목록을 불러올 수 없습니다.')
-				window.history.go(-1)
-			}
-		})
+			.then(res => {
+				if (res.status === OK) {
+					return res.data
+				} else {
+					alert('컨설턴트 목록을 불러올 수 없습니다.')
+					window.history.go(-1)
+				}
+			})
 	}
 )
 
@@ -184,7 +184,7 @@ const ConsultantListSlice = createSlice({
 			state.status = 'failed';
 		})
 	},
-	reducers :{
+	reducers: {
 		setConValue: (state, action) => {
 			state.conValue = action.payload
 		},

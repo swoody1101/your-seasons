@@ -24,6 +24,7 @@ export const openConsulting = createAsyncThunk(
   async (reservationId, { rejectWithValue }) => {
     try {
       const response = await Axios.post(`consultings`, { reservationId: reservationId })
+      console.log(response.data)
       return response.data
     } catch (err) {
       return rejectWithValue(err)
@@ -50,11 +51,14 @@ export const postConsultingResult = createAsyncThunk(
     try {
       console.log(payload.files[0], JSON.stringify(payload.consultingFinishRequest))
       let formData = new FormData()
+      formData.append('consultingFinishRequest', new Blob([JSON.stringify(payload.consultingFinishRequest)], { type: "application/json" }))
       formData.append('file', payload.files[0])
-      formData.append('consultingFinishRequest', JSON.stringify(payload.consultingFinishRequest))
       const response = await imgAxios.post(`consultings/1`, formData)
+      console.log(response.data)
+      alert('진단 결과가 저장되었습니다. 컨설팅을 종료합니다.')
       return response.data
     } catch (err) {
+      console.log(err)
       return rejectWithValue(err)
     }
   }
@@ -91,9 +95,10 @@ export const consultSlice = createSlice({
       state.consultantSessionName = payload.sessionId
       state.consultingId = payload.consultingId
     },
-    [getConsultantSessionName.rejected]: (state, { payload }) => {
-      state.consultantSessionName = 's-s-s'
-    }, // 임시
+    [openConsulting.fulfilled]: (state, { payload }) => {
+      state.consultantSessionName = payload.sessionId
+      state.consultingId = payload.consultingId
+    },
   }
 })
 export const { settingModalOn, settingModalOff, setSession, setCustomer, appendMessageList } = consultSlice.actions;
