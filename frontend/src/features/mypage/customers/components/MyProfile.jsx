@@ -37,7 +37,6 @@ const MyProfile = () => {
     navigate('/modify')
     dispatch(loadMember(role)).unwrap()
       .then((res) => {
-        // console.log(res)
       })
   }
 

@@ -18,12 +18,11 @@ const CameraTest = () => {
   const [brightness, setBrightness] = useState(0.0);
 
   const handleHSB = () => {
-    console.log(hue, saturation, brightness)
     if (!customer.stream.filter) {
       customer.stream
         .applyFilter("GStreamerFilter", { "command": `videobalance hue=${hue} saturation=${saturation} brightness=${brightness}` })
         .then(() => { })
-        .catch((err) => { console.log(err) });
+        .catch((err) => { });
     } else {
       customer.stream.removeFilter()
         .then(() => {

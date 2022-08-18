@@ -48,16 +48,13 @@ export const postConsultingResult = createAsyncThunk(
   'consult/postConsultingResult',
   async (payload, { rejectWithValue }) => {
     try {
-      console.log(payload.files[0], JSON.stringify(payload.consultingFinishRequest))
       let formData = new FormData()
       formData.append('consultingFinishRequest', new Blob([JSON.stringify(payload.consultingFinishRequest)], { type: "application/json" }))
       formData.append('file', payload.files[0])
       const response = await imgAxios.post(`consultings/1`, formData)
-
       alert('진단 결과가 저장되었습니다. 컨설팅을 종료합니다.')
       return response.data
     } catch (err) {
-
       return rejectWithValue(err)
     }
   }
