@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { Box, Button, styled } from '@mui/material'
+import { Box, Button, styled, Tooltip } from '@mui/material'
 import { changeSelectColor } from './colorSetSlice';
 const ColorPaletteBox = ({ colorSet }) => {
   const colorList = colorSet ? colorSet : []
@@ -10,8 +10,9 @@ const ColorPaletteBox = ({ colorSet }) => {
     const result = [];
     for (let i = 0; i < colorList.length; i++) {
       result.push(
-        <ColorPaletteItem key={i} value={colorList[i]} onClick={() => { dispatch(changeSelectColor(colorList[i])) }}>
-        </ColorPaletteItem>
+        <Tooltip title={colorList[i]} key={i}  placement="top">
+          <ColorPaletteItem  value={colorList[i]} onClick={() => { dispatch(changeSelectColor(colorList[i])) }}>
+        </ColorPaletteItem></Tooltip>
       )
     }
     return result
