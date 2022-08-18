@@ -65,7 +65,6 @@ const ConsultingRoom = () => {
     worstColorSet: worstColor
   }
 
-  console.log(consultingFinishRequest)
 
   const dispatch = useDispatch()
   const navigate = useNavigate();
