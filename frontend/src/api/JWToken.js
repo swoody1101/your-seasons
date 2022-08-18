@@ -8,7 +8,7 @@ export const getToken = () => {
   if (!isEmpty(window.localStorage.getItem(tokenName))) {
     if (date > new Date(window.localStorage.getItem(expireToken))) {
       // window.location.href = 'http://localhost:3000/' + "login"
-      deleteToken()
+      // deleteToken()
       window.location.href = "https://yourseasons.ssafy.io/login"
       return false
     } else {
