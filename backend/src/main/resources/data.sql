@@ -653,6 +653,13 @@ insert into consulting_result(created_date, last_modified_date, consulting_comme
 insert into consulting_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values ('2022-07-23 11:00:00', '2022-07-23 11:00:00', '고객님은 겨울 쿨톤 노노! 쿨톤이긴 하지만 여름 트루톤에요! 빨간 립스틱은 다 넣어두시고 핑크 립스틱 사기로 약속~!', '', 1, 10, 10, 5);
 
 insert into consulting_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values ('2022-07-23 11:00:00', '2022-07-23 11:00:00', '고객님은 쨍한 색이 엄청 잘 어울려요!!', '', 1, 4, 4, 10);
+insert into consulting_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values ('2022-07-24 14:00:00', '2022-07-24 14:00:00', '고객님은 쨍한 색이 엄청 잘 어울려요!!', '', 1, 4, 4, 10);
+insert into consulting_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values ('2022-07-24 15:00:00', '2022-07-24 15:00:00', '고객님은 쨍한 색이 엄청 잘 어울려요!!', '', 1, 4, 4, 10);
+insert into consulting_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values ('2022-07-24 16:00:00', '2022-07-24 16:00:00', '고객님은 쨍한 색이 엄청 잘 어울려요!!', '', 1, 4, 4, 10);
+insert into consulting_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values ('2022-07-24 17:00:00', '2022-07-24 17:00:00', '고객님은 쨍한 색이 엄청 잘 어울려요!!', '', 1, 4, 4, 10);
+
+insert into consulting_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values ('2022-07-24 18:00:00', '2022-07-24 18:00:00', '고객님은 쨍한 색이 엄청 잘 어울려요!!', '', 1, 4, 4, 10);
+insert into consulting_result(created_date, last_modified_date, consulting_comment, consulting_file, is_active, best_color_set_id, worst_color_set_id, tone_id) values ('2022-07-24 19:00:00', '2022-07-24 19:00:00', '고객님은 쨍한 색이 엄청 잘 어울려요!!', '', 1, 4, 4, 10);
 
 -- 컨설팅
 insert into consulting(created_date, last_modified_date, deleted_date, session_id, has_review, is_active, customer_id, consultant_id, consulting_result_id) values ('2022-07-15 15:00:00', '2022-07-15 16:00:00', '2022-07-15 16:00:00', 'bestcon-gmail-com', 1, 0, 1, 1, 1);
