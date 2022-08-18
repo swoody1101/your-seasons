@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { OpenVidu } from 'openvidu-browser';
 import UserVideoComponent from './UserVideoComponent';
 
-import { Box, Button, Grid, styled, Typography, ButtonGroup, IconButton, CircularProgress, Card } from '@mui/material'
+import { Box, Button, Grid, styled, Typography, ButtonGroup, IconButton, CircularProgress } from '@mui/material'
 import { Mic, MicOff, Videocam, VideocamOff } from '@mui/icons-material';
 
 
@@ -43,7 +43,6 @@ const ConsultingRoom = () => {
 
   const [myUserName, setMyUserName] = useState(nickname)
 
-  const [mainStreamManager, setMainStreamManager] = useState(undefined)
   const [publisher, setPublisher] = useState(undefined)
   const [consultant, setConsultant] = useState(undefined)
 
@@ -109,7 +108,6 @@ const ConsultingRoom = () => {
         });
         publisher.subscribeToRemote()
         session.publish(publisher);
-        setMainStreamManager(publisher);
         setPublisher(publisher);
         if (role === CUSTOMER) { dispatch(setCustomer(publisher)) }
         if (role === CONSULTANT) { setConsultant(publisher) }

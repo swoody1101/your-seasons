@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, Box, CardContent, Card, Typography, Avatar, CardActionArea, styled, Grid, CardActions } from '@mui/material';
+import { Button, Box, CardContent, Card, Typography, CardActionArea, styled, Grid, CardActions } from '@mui/material';
 import LyricsOutlinedIcon from '@mui/icons-material/LyricsOutlined';
 import OtherAvatar from 'common/avatar/OtherAvatar';
 import './../mypage.css'
