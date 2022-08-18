@@ -41,17 +41,17 @@ const Login = () => {
 
 
   // 토큰 expire여부 체크 후 삭제, 또는 이미 있으면 이전페이지로 이동
-  useEffect(()=>{
-    if(!isEmpty(window.localStorage.getItem(("Authorization")))){
+  useEffect(() => {
+    if (!isEmpty(window.localStorage.getItem(("Authorization")))) {
       let date = new Date()
-      if(date > new Date(window.localStorage.getItem("expiredTime"))){
+      if (date > new Date(window.localStorage.getItem("expiredTime"))) {
         dispatch(logoutUser())
         alert('자동 로그아웃 되었습니다. 로그인이 필요합니다.')
-      }else{
+      } else {
         alert('이미 로그인이 되어 있습니다. 메인페이지로 이동합니다.')
         navigate('/')
       }
-    }else{
+    } else {
     }
   }, [])
 
@@ -62,10 +62,8 @@ const Login = () => {
       return;
     }
     if (isSaved) {
-      console.log('이메일 쿠키에 저장 : ' + email)
       setCookie('savedEmail', email, { maxAge: 3600 * 24 * 30 });
     } else {
-      console.log('이메일 저장하지 않음')
       removeCookie('savedEmail');
     }
     dispatch(loginUser({ email, password }))
@@ -107,7 +105,7 @@ const Login = () => {
 
 
   return (
-    <Container sx={{ height:"100vh" }}>
+    <Container sx={{ height: "100vh" }}>
       <SGrid container
         direction="row"
         justifyContent="center"
@@ -131,53 +129,53 @@ const Login = () => {
         >
           <Grid item>
             <form onSubmit={handleSubmit} >
-            <Typography
-              component="h1"
-              variant="h5"
-              id="login-text">
-              로그인
-            </Typography>
-            <TextField
-              label="이메일 주소"
-              name="email"
-              value={email}
-              margin="normal"
-              onChange={handleEmail}
-              autoComplete="email"
-              autoFocus
-              required
-              fullWidth />
-            <TextField
-              label="비밀번호"
-              type="password"
-              margin="normal"
-              value={password}
-              onChange={handlePassword}
-              name="password"
-              autoComplete="current-password"
-              required
-              fullWidth />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  // input의 value 연동 외에 모양은 svg파일을 부르는 형식
-                  checked={isSaved}
-                  value={isSaved}
-                  onChange={(e) => setIsSaved(e.target.checked)}
-                  color="primary"
-                />
-              }
-              label="이메일 주소 저장"
-            />
+              <Typography
+                component="h1"
+                variant="h5"
+                id="login-text">
+                로그인
+              </Typography>
+              <TextField
+                label="이메일 주소"
+                name="email"
+                value={email}
+                margin="normal"
+                onChange={handleEmail}
+                autoComplete="email"
+                autoFocus
+                required
+                fullWidth />
+              <TextField
+                label="비밀번호"
+                type="password"
+                margin="normal"
+                value={password}
+                onChange={handlePassword}
+                name="password"
+                autoComplete="current-password"
+                required
+                fullWidth />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    // input의 value 연동 외에 모양은 svg파일을 부르는 형식
+                    checked={isSaved}
+                    value={isSaved}
+                    onChange={(e) => setIsSaved(e.target.checked)}
+                    color="primary"
+                  />
+                }
+                label="이메일 주소 저장"
+              />
 
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              로그인
-            </Button>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                로그인
+              </Button>
             </form>
 
             <Grid container

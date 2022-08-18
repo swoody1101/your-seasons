@@ -36,11 +36,6 @@ const CoverFilter = () => {
     }
   }, [session])
 
-  useEffect(() => {
-    console.log(hvalue)
-    console.log(falue)
-  }, [hvalue, falue])
-
   const handleFilter = () => {
     const data = {
       height: hvalue,

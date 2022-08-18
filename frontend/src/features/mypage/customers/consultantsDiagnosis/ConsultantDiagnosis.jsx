@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Button, Grid, Box, Modal, CardContent, Card, Typography, styled, CardActionArea, CardActions, Tooltip } from '@mui/material';
+import { Button, Grid, Box, Modal, CardContent, Card, Typography, styled, CardActions, Tooltip } from '@mui/material';
 import ConsultantDiagnosisReview from './ConsultantDiagnosisReview';
 import OtherAvatar from 'common/avatar/OtherAvatar';
 import { isEmpty } from 'lodash'
@@ -53,11 +53,10 @@ export const BasicModal = ({ consultingFile }) => {
 const ConsultantDiagnosis = () => {
 	const results = useSelector(state => state.mypage.myConsultantDxData);
 
-
 	return (<>
 		<Div>
 			{isEmpty(results) ? <h2>지난 진단 기록이 없습니다.</h2> : results.map(({ consultingId, tone, consultantNickname,
-				consultantImageUrl, consultingDate, bestColorSet, worstColorSet, consultingFile, comment, hasReview }, index) => (
+				consultantImageUrl, consultingDate, bestColorSet, worstColorSet, consultingFile, consultingComment, hasReview }, index) => (
 				<div key={index}>
 					{/* 카드1 */}
 					<SetCard variant="outlined">
@@ -97,7 +96,7 @@ const ConsultantDiagnosis = () => {
 										{/* 코멘트 */}
 										<CommentBox>
 											<SubText>{consultantNickname}컨설턴트님의 꿀팁 !</SubText>
-											{comment}
+											{consultingComment}
 										</CommentBox>
 									</TextBox>
 								</Grid>
@@ -107,7 +106,8 @@ const ConsultantDiagnosis = () => {
 
 						<CardActions sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
 							{/* 이미지 모달 */}
-							<BasicModal consultingFile={`data:image/jpg;base64,${consultingFile}`} comment={comment} />
+
+							<BasicModal consultingFile={`data:image/jpg;base64,${consultingFile}`} />
 							{/* 리뷰작성 모달 */}
 							<ConsultantDiagnosisReview consultingId={consultingId} consultantNickname={consultantNickname} hasReview={hasReview} />
 						</CardActions>

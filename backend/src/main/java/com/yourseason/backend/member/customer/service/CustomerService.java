@@ -1,10 +1,8 @@
 package com.yourseason.backend.member.customer.service;
 
 import com.yourseason.backend.common.domain.Message;
-import com.yourseason.backend.common.exception.DuplicationException;
-import com.yourseason.backend.common.exception.NotEqualException;
-import com.yourseason.backend.common.exception.NotFoundException;
-import com.yourseason.backend.common.exception.WrongFormException;
+import com.yourseason.backend.common.exception.*;
+import com.yourseason.backend.consulting.consultant.domain.Consulting;
 import com.yourseason.backend.member.common.controller.dto.PasswordUpdateRequest;
 import com.yourseason.backend.member.common.domain.Role;
 import com.yourseason.backend.member.consultant.domain.ConsultantRepository;
@@ -13,9 +11,13 @@ import com.yourseason.backend.member.customer.domain.Customer;
 import com.yourseason.backend.member.customer.domain.CustomerRepository;
 import com.yourseason.backend.reservation.domain.Reservation;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.io.IOUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -32,6 +34,7 @@ public class CustomerService {
     private static final String PASSWORD_WRONG_FORM = "변경할 비밀번호가 현재 비밀번호와 일치합니다.";
     private static final String EMAIL_DUPLICATED = "이메일이 중복됩니다.";
     private static final String NICKNAME_DUPLICATED = "닉네임이 중복됩니다.";
+    private static final String CAN_NOT_LOAD_CONSULTING_FILE = "진단 결과를 로드할 수 없습니다.";
 
     private final PasswordEncoder passwordEncoder;
     private final CustomerRepository customerRepository;
@@ -121,8 +124,8 @@ public class CustomerService {
                                 .stream()
                                 .map(colorColorSet -> colorColorSet.getColor().getHex())
                                 .collect(Collectors.toList()))
-                        .resultImageUrl(consulting.getConsultingResult().getConsultingFile())
-                        .comment(consulting.getConsultingResult().getConsultingComment())
+                        .consultingFile(getConsultingFile(consulting))
+                        .consultingComment(consulting.getConsultingResult().getConsultingComment())
                         .hasReview(consulting.hasReview())
                         .build())
                 .collect(Collectors.toList());
@@ -197,6 +200,17 @@ public class CustomerService {
     private Customer getCustomer(Long customerId) {
         return customerRepository.findById(customerId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
+    }
+
+    private byte[] getConsultingFile(Consulting consulting) {
+        try {
+            InputStream imageFile = new FileInputStream(consulting.getConsultingResult().getConsultingFile());
+            byte[] imageBytes = IOUtils.toByteArray(imageFile);
+            imageFile.close();
+            return imageBytes;
+        } catch (IOException e) {
+            throw new InternalServerErrorException(CAN_NOT_LOAD_CONSULTING_FILE);
+        }
     }
 
     private void checkValidPassword(String loginPassword, String password) {

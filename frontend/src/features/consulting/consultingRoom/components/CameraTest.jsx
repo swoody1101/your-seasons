@@ -21,12 +21,11 @@ const CameraTest = () => {
   const [brightness, setBrightness] = useState(0.0);
 
   const handleHSB = () => {
-    console.log(hue, saturation, brightness)
     if (!customer.stream.filter) {
       customer.stream
         .applyFilter("GStreamerFilter", { "command": `videobalance hue=${hue} saturation=${saturation} brightness=${brightness}` })
         .then(() => { })
-        .catch((err) => { console.log(err) });
+        .catch((err) => { });
     } else {
       customer.stream.removeFilter()
         .then(() => {
@@ -68,7 +67,7 @@ const CameraTest = () => {
               <MainTypography variant="h5">HSB 컨트롤러</MainTypography>
               {/* 마우스가 스크롤에서 벗어나면 적용됩니다. */}
               <CustomTypography>
-                * 클릭 후 커서를 위, 아래로 이동해주세요. <hr/>
+                * 클릭 후 커서를 위, 아래로 이동해주세요. <hr />
               </CustomTypography>
               <MainTypography variant="h6">색조 (HUE)</MainTypography>
               <Slider
@@ -113,7 +112,7 @@ const CameraTest = () => {
             </Controller>
           </SGrid>
         </SGridContainer>
-        <Button onClick={() => { dispatch(settingModalOff()) }} variant="contained" sx={{ xs: { width: "100%" }, width: "40%" , marginTop: 3}}>
+        <Button onClick={() => { dispatch(settingModalOff()) }} variant="contained" sx={{ xs: { width: "100%" }, width: "40%", marginTop: 3 }}>
           세팅완료
         </Button>
       </SContainer>
@@ -180,14 +179,14 @@ const NotiText = styled(Container)({
 
 const CustomTypography = styled(Typography)({
   fontFamily: 'malgunbd !important',
-	fontSize: '20px',
-	letterSpacing: 'var(--font-letter-spacing)',
-	color: '#FFFFFF', 
+  fontSize: '20px',
+  letterSpacing: 'var(--font-letter-spacing)',
+  color: '#FFFFFF',
 })
 
 const MainTypography = styled(Typography)({
   fontFamily: 'malgunbd !important',
-	fontSize: '18px',
-	letterSpacing: '-1px',
-	color: '#000000',
+  fontSize: '18px',
+  letterSpacing: '-1px',
+  color: '#000000',
 })

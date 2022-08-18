@@ -50,7 +50,6 @@ const ModifyPassword = () => {
         alert("수정이 완료되었습니다. 다시 로그인을 해주세요")
       })
       .catch((err) => {
-        console.log(err)
         if (err.status === BAD_REQUEST) {
           alert('적절한 요청이 아닙니다.')
         } else if (err.status === NOT_FOUND) {

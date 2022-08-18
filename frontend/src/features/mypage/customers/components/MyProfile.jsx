@@ -25,13 +25,10 @@ const MyProfile = () => {
     if (tone === '') {
       return (<>
         <Link to="/consultants" variant="body2">진단받으러 가기</Link><br />
-        <Link to="/self" variant="body2">자가진단 하러가기</Link>
       </>)
     } else {
       return (<>
         <Diagnosis>마지막 컨설팅 결과: {tone}톤 입니다.</Diagnosis>
-        <br />
-        <Link to="/self" variant="body2">자가진단 하러가기</Link>
       </>)
     }
   }
@@ -40,7 +37,6 @@ const MyProfile = () => {
     navigate('/modify')
     dispatch(loadMember(role)).unwrap()
       .then((res) => {
-        // console.log(res)
       })
   }
 

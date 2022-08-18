@@ -59,11 +59,12 @@ const ConsultingRoom = () => {
   const files = useSelector(state => state.colorSetList.files)
   const consultingFinishRequest = {
     consultingId: consultingId,
-    comment: comment,
+    consultingComment: comment,
     tone: selectedTone,
     bestColorSet: bestColor,
     worstColorSet: worstColor
   }
+
 
   const dispatch = useDispatch()
   const navigate = useNavigate();
@@ -155,7 +156,6 @@ const ConsultingRoom = () => {
   }
 
   const deleteSubscriber = (streamManager) => {
-    console.log(streamManager)
   }
 
   const joinSession = () => {
@@ -192,7 +192,6 @@ const ConsultingRoom = () => {
         session.disconnect();
         dispatch(postConsultingResult({ files, consultingFinishRequest }))
           .then(() => {
-            dispatch(setSession(undefined))
             dispatch(changeComment(''))
             dispatch(selectTone(''))
             dispatch(setFiles(''))
@@ -201,14 +200,16 @@ const ConsultingRoom = () => {
             // window.location.reload()
           })
       }
-    } else if (role === CUSTOMER && session) {
+    }
+    else if (role === CUSTOMER && session) {
       session.disconnect();
     }
     setOV(null);
     setMySessionId(role === CONSULTANT ? tmp : consultantSessionName)
+    dispatch(setSession(undefined))
+    dispatch(setCustomer(undefined))
     setMyUserName(nickname)
     setConsultant(undefined)
-    setCustomer(undefined)
   }
 
   /**
@@ -240,7 +241,6 @@ const ConsultingRoom = () => {
           },
         })
         .then((response) => {
-          console.log('CREATE SESION', response);
           resolve(response.data.id);
         })
         .catch((response) => {
@@ -248,7 +248,6 @@ const ConsultingRoom = () => {
           if (error?.response?.status === 409) {
             resolve(sessionId);
           } else {
-            console.log(error);
             console.warn(
               'No connection to OpenVidu Server. This may be a certificate error at ' +
               OPENVIDU_SERVER_URL,
@@ -299,7 +298,6 @@ const ConsultingRoom = () => {
           },
         })
         .then((response) => {
-          console.log('TOKEN', response);
           resolve(response.data.token);
         })
         .catch((error) => reject(error));

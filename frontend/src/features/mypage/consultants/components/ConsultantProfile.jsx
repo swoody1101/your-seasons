@@ -16,12 +16,12 @@ const ConsultantProfile = () => {
 	const { role, nickname, introduction, cost, imageUrl } = useSelector(state => state.auth.logonUser)
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const iscost = cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 
 	const handleModify = () => {
 		navigate('/modify')
 		dispatch(loadMember(role)).unwrap()
 			.then((res) => {
-				console.log(res)
 			})
 	}
 	// 마이페이지 접속시 
@@ -47,7 +47,7 @@ const ConsultantProfile = () => {
 						<div>{starAverage === 0 ? '등록된 별점이 없습니다.' : <StarRating starrating={starAverage} />}</div>
 					</MainText>
 					<Introduction>{introduction ? introduction : '등록된 자기소개가 없습니다.'}</Introduction>
-					<p>진단비용 {cost ? cost + '원' : '등록된 비용이 없습니다.'}</p>
+					<p>진단비용 {cost ? iscost + '원' : '등록된 비용이 없습니다.'}</p>
 					<PinkButton variant="contained"
 						isClick={handleModify}
 						width="150"
