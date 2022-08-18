@@ -35,6 +35,7 @@ export const myConsultantDxFetch = createAsyncThunk(
         }
       })
       .catch(error => {
+        console.log('진단',error)
         alert('진단기록을 불러올 수 없습니다.')
         return false
       })
@@ -54,6 +55,7 @@ export const selfDxFetch = createAsyncThunk(
         }
       })
       .catch(error => {
+        console.log('자가진단',error)
         alert('진단기록을 불러올 수 없습니다.')
         return false
       })

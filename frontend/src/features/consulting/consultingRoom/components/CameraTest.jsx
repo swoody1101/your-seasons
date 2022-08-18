@@ -50,11 +50,11 @@ const CameraTest = () => {
                 border: "0.2rem solid black",
                 borderRadius: "100%"
               }} />
-              <Typography variant="h6">
+              <MainTypography>
                 밝기 조절을 최소화 하기 위해<br />
                 본인의 피부톤과 화면의 색상이<br />
                 일치하는 곳에서 촬영해주시기 바랍니다.
-              </Typography>
+              </MainTypography>
             </NotiText>
           </SGrid>
           <SGrid item xs={12} sm={6}>
@@ -65,8 +65,12 @@ const CameraTest = () => {
           </SGrid>
           <SGrid item xs={12} sm={3}>
             <Controller >
-              <Typography variant="h5">HSB 컨트롤러</Typography>
-              <Typography variant="h6">색조 (HUE)</Typography>
+              <MainTypography variant="h5">HSB 컨트롤러</MainTypography>
+              {/* 마우스가 스크롤에서 벗어나면 적용됩니다. */}
+              <CustomTypography>
+                * 클릭 후 커서를 위, 아래로 이동해주세요. <hr/>
+              </CustomTypography>
+              <MainTypography variant="h6">색조 (HUE)</MainTypography>
               <Slider
                 value={hue}
                 size="small"
@@ -79,7 +83,7 @@ const CameraTest = () => {
                   }
                 }}
               />
-              <Typography variant="h6">채도 (SATURATION)</Typography>
+              <MainTypography variant="h6">채도 (SATURATION)</MainTypography>
               <Slider
                 value={saturation}
                 size="small"
@@ -92,7 +96,7 @@ const CameraTest = () => {
                   }
                 }}
               />
-              <Typography variant="h6">밝기 (BRIGHTNESS)</Typography>
+              <MainTypography variant="h6">밝기 (BRIGHTNESS)</MainTypography>
               <Slider
                 value={brightness}
                 size="small"
@@ -105,13 +109,11 @@ const CameraTest = () => {
                   }
                 }}
               />
-              <Typography variant="small">
-                * 마우스가 스크롤에서 벗어나면 적용이 됩니다.
-              </Typography>
+
             </Controller>
           </SGrid>
         </SGridContainer>
-        <Button onClick={() => { dispatch(settingModalOff()) }} variant="contained" sx={{ xs: { width: "100%" }, width: "40%" }}>
+        <Button onClick={() => { dispatch(settingModalOff()) }} variant="contained" sx={{ xs: { width: "100%" }, width: "40%" , marginTop: 3}}>
           세팅완료
         </Button>
       </SContainer>
@@ -174,4 +176,18 @@ const NotiText = styled(Container)({
   width: "90%",
   padding: "1rem",
   textAlign: "center"
+})
+
+const CustomTypography = styled(Typography)({
+  fontFamily: 'malgunbd !important',
+	fontSize: '20px',
+	letterSpacing: 'var(--font-letter-spacing)',
+	color: '#FFFFFF', 
+})
+
+const MainTypography = styled(Typography)({
+  fontFamily: 'malgunbd !important',
+	fontSize: '18px',
+	letterSpacing: '-1px',
+	color: '#000000',
 })
