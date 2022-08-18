@@ -83,7 +83,8 @@ export const deleteResFetch = createAsyncThunk(
   async (reservationId) => {
     return Axios.delete(`reservations/${reservationId}`)
       .then(res => {
-        if (res.status === NO_CONTENT) {
+        console.log(res.status)
+        if (res.status === OK) {
           alert('예약이 취소되었습니다.')
           return true
         } else {

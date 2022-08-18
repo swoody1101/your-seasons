@@ -114,6 +114,8 @@ export default JoinResList
 
 const SBox = styled(Box)({
   width: "100%",
+  maxHeight: "60vh",
+  overflow: "auto",
   height: "100%",
   diplay: "flex",
   flexDirection: "column",
