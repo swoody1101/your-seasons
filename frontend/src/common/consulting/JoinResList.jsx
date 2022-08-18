@@ -94,17 +94,26 @@ const JoinResList = () => {
       <Typography display='inline'>
         나의 예약 정보
       </Typography>
-
-      {
-        role === CUSTOMER
-          ?
-          <Stack>
-            {myResDataList()}
-          </Stack>
-          :
-          <Stack>
-            {reservationsList()}
-          </Stack>
+      {role === CONSULTANT
+        && reservations.length > 0
+        &&
+        <Stack>
+          {reservationsList()}
+        </Stack>
+      }
+      {role === CUSTOMER
+        && myResData.length > 0
+        &&
+        <Stack>
+          {myResDataList()}
+        </Stack>
+      }
+      {reservations.length === 0
+        && myResData.length === 0
+        &&
+        <TextBox>
+          예약 정보가 없습니다.
+        </TextBox>
       }
     </SBox>
   )
@@ -140,4 +149,15 @@ const SButton = styled(Button)({
   ":hover": {
     backgroundColor: "#ffffff30",
   }
+})
+
+const TextBox = styled(Box)({
+  width: "100%",
+  aspectRatio: "2/1",
+  display: "flex",
+  flexDirection: "center",
+  justifyContent: "center",
+  alignItems: "center",
+  backgroundColor: "white",
+  borderRadius: "4px"
 })
