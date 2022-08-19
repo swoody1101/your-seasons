@@ -1,12 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ConsultingResBtnItem from './ConsultingResBtnItem'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { useParams } from "react-router-dom";
 import { Box, Typography, Divider, TextField, Button } from '@mui/material';
 import { createReservation, ConsultantDetailFetch } from 'features/consulting/consultantListSlice';
 
 const ConsultingResBtn = (props) => {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
+  const { role } = useSelector(state => state.auth.logonUser)
+  const [value, setValue] = useState('')
   const [pickedTime, setPickedTime] = useState('')
   const [request, setRequest] = useState('')
   const consultantId = useParams().id
@@ -54,31 +58,45 @@ const ConsultingResBtn = (props) => {
   }
 
   const reservationHandler = () => {
-    const reservation = {
-      reservationDate: props.pickedDate,
-      reservationTime: pickedTime,
-      request: request
+    if (role === 'CUSTOMER') {
+      const reservation = {
+        reservationDate: props.pickedDate,
+        reservationTime: pickedTime,
+        request: request
+      }
+      if (reservation.request.length < 10) {
+        alert('10자이상 입력해 주세요!')
+      } else if (pickedTime === '') {
+        alert('원하는 상담시간을 선택해주세요')
+      }
+      else {
+        dispatch(createReservation({ consultantId, reservation }))
+          .then(() => {
+            dispatch(ConsultantDetailFetch(consultantId))
+          })
+        setRequest('')
+        setValue('')
+      }
+      setPickedTime('')
+    } else if (role === "CONSULTANT") {
+      alert('컨설턴트는 컨설팅 예약을 할 수 없습니다!')
+    } else {
+      alert('로그인이 필요한 기능입니다. 로그인 페이지로 이동합니다.')
+      navigate('/login')
     }
-    if (reservation.request.length < 10) {
-      alert('10자이상 입력해 주세요!')
-    } else if (pickedTime === '') {
-      alert('원하는 상담시간을 선택해주세요')
-    }
-    else {
-      dispatch(createReservation({ consultantId, reservation }))
-        .then(() => {
-          dispatch(ConsultantDetailFetch(consultantId))
-        })
-      setRequest('')
-    }
-    setPickedTime('')
+
   }
 
-  let pickeTimeContent = ''
+  useEffect(() => {
+    setPickedTime('')
+  }, [props.pickedDate])
+
+  let pickeTimeContent = '상담을 원하는 시간을 선택해주세요.'
+  let timeContent = ''
   if (pickedTime === '') {
-    pickeTimeContent = '상담을 원하는 시간을 선택해주세요.'
+    timeContent = ''
   } else if (pickedTime !== '') {
-    pickeTimeContent = pickedTime.slice(0, 2) + '시를 선택하셨습니다.'
+    timeContent = `${props.pickedDate.slice(0, 4)}년 ${props.pickedDate.slice(5, 7)}월 ${props.pickedDate.slice(8, 10)}일 ${pickedTime.slice(0, 2)}시`
   }
 
   if (props.reservations.length > 0) {
@@ -166,7 +184,13 @@ const ConsultingResBtn = (props) => {
       <Box sx={{ px: 1, py: 3 }}>
         <h3>컨설턴트님께 바라는 점</h3>
         <TextField
-          onChange={(e) => setRequest(e.target.value)}
+          onChange={
+            (e) => {
+              setRequest(e.target.value)
+              setValue(e.target.value)
+            }
+          }
+          value={value}
           label="요청사항"
           name="request"
           margin="normal"
@@ -177,8 +201,10 @@ const ConsultingResBtn = (props) => {
           required
           fullWidth />
       </Box>
-      <Box sx={{ display: "flex", justifyContent: "end" }}>
+      <Box sx={{ display: "flex", justifyContent: "end", alignItems: "center", fontWeight: 'bold', fontSize: '14px' }}>
+        {timeContent}
         <Button
+          sx={{ color: "pink" }}
           onClick={reservationHandler}
         >예약 하기</Button>
       </Box>

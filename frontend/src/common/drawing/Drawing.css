@@ -1,0 +1,53 @@
+.canvass-container {
+  width: auto;
+  height: auto;
+  overflow: hidden;
+  position: relative;
+  min-width: 400px;
+  min-height: 360px;
+  background-color: none;
+}
+
+.canvass-container>div {
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px,
+    rgba(0, 0, 0, 0.15) 0px 8px 16px;
+}
+
+.left-container {
+  display: flex;
+  align-items: center;
+  height: auto;
+}
+
+.left-container>div {
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px,
+    rgba(0, 0, 0, 0.15) 0px 8px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.slider-container {
+  padding: 6px;
+  background-color: none;
+  width: 8px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 1rem;
+  max-height: 150px;
+}
+
+.icon-container {
+  padding: 8px;
+}
+
+.canvass-container2 {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+  margin-left: 1rem;
+}

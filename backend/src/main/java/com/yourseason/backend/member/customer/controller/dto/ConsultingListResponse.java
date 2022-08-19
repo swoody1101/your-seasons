@@ -19,7 +19,7 @@ public class ConsultingListResponse {
     private String tone;
     private List<String> bestColorSet;
     private List<String> worstColorSet;
-    private String resultImageUrl;
-    private String comment;
+    private byte[] consultingFile;
+    private String consultingComment;
     private boolean hasReview;
 }

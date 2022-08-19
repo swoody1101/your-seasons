@@ -47,13 +47,46 @@
     - Lodash
     
     ```
-    npm i --save lodash
+    npm install --save lodash
     ```
     
     - react-items-carousel
     
     ```
     npm install react-items-carousel --save
+    ```
+    
+    - react-color/react-canvas-draw
+    
+    ```
+    npm install react-color
+    npm install react-canvas-draw
+    ```
+    
+    - react-input-slider
+    
+    ```
+    npm install react-input-slider
+    ```
+    
+    - react Font Awesome Icon
+    
+    ```
+    npm i @fortawesome/fontawesome-svg-core
+    npm i @fortawesome/free-solid-svg-icons
+    npm i @fortawesome/react-fontawesome
+    ```
+    
+    - reactcss
+    
+    ```
+    npm i reactcss
+    ```
+    
+    - react-component-export-image
+    
+    ```
+    npm i react-component-export-image
     ```
     
     

@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
-  Box, Button,
+  Box, Button, styled
 } from '@mui/material';
 
 const ConsultingResBtnItem = (props) => {
 
   return (
     <Box component="span" sx={{ pr: 1, pb: 1 }}>
-      <Button
+      <CustomBtn
         disabled={props.isReserved}
         value={props.time}
         variant="contained"
@@ -15,9 +15,20 @@ const ConsultingResBtnItem = (props) => {
         sx={{ width: 80 }}
         onClick={props.timeClickHandler}>
         {props.time}
-      </Button>
+      </CustomBtn>
     </Box>
   )
 }
 
 export default ConsultingResBtnItem
+
+const CustomBtn = styled(Button)(() => ({
+  backgroundColor: 'pink',
+  color: 'black',
+  '&:hover': {
+    backgroundColor: 'pink',
+    color: 'white',
+    fontWeight: 'normal',
+  },
+  fontWeight: 'bold',
+}))

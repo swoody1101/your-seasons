@@ -4,7 +4,7 @@ import { styled } from '@mui/material';
 
 const TimeTable = (props) => {
   if (props.timetable.length === 0) {
-    return <StyledDiv>예약불가</StyledDiv>
+    return <StyledDiv>예약가능시간없음</StyledDiv>
   }
   return (
     <div>
@@ -21,7 +21,7 @@ const TimeTable = (props) => {
 export default TimeTable
 
 const StyledDiv = styled('div')({
-  backgroundColor: "#FFE0DF",
+  color: "red",
   textAlign: "center",
   fontSize: "0.7em",
 })

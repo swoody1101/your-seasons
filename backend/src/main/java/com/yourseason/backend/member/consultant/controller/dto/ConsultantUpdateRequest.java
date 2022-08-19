@@ -12,5 +12,5 @@ public class ConsultantUpdateRequest {
     private String contact;
     private String imageUrl;
     private String introduction;
-    private String cost;
+    private int cost;
 }

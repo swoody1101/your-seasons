@@ -4,6 +4,7 @@ import com.yourseason.backend.common.domain.Message;
 import com.yourseason.backend.common.exception.DuplicationException;
 import com.yourseason.backend.common.exception.NotFoundException;
 import com.yourseason.backend.common.exception.WrongAccessException;
+import com.yourseason.backend.member.common.domain.Role;
 import com.yourseason.backend.member.consultant.domain.Consultant;
 import com.yourseason.backend.member.consultant.domain.ConsultantRepository;
 import com.yourseason.backend.member.customer.domain.Customer;
@@ -14,6 +15,8 @@ import com.yourseason.backend.reservation.domain.Reservation;
 import com.yourseason.backend.reservation.domain.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -30,34 +33,23 @@ public class ReservationService {
     private final ConsultantRepository consultantRepository;
     private final ReservationRepository reservationRepository;
 
-    public ReservationCreateResponse createReservation(Long customerId, Long consultantId, ReservationCreateRequest reservationCreateRequest) {
+    public ReservationCreateResponse createReservation(Role role, Long customerId, Long consultantId,
+                                                       ReservationCreateRequest reservationCreateRequest) {
+        if (Role.CONSULTANT.equals(role)) {
+            throw new WrongAccessException(WRONG_ACCESS);
+        }
+
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
         Consultant consultant = consultantRepository.findById(consultantId)
                 .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
 
-        customer.getReservations()
-                .stream()
-                .filter(reservation -> reservation.getDate().isEqual(reservationCreateRequest.getReservationDate()))
-                .filter(reservation -> reservation.getTime().equals(reservationCreateRequest.getReservationTime()))
-                .findAny()
-                .ifPresent(reservation -> {
-                    throw new DuplicationException(RESERVATION_DUPLICATED);
-                });
-
-        consultant.getReservations()
-                .stream()
-                .filter(reservation -> reservation.getDate().isEqual(reservationCreateRequest.getReservationDate()))
-                .filter(reservation -> reservation.getTime().equals(reservationCreateRequest.getReservationTime()))
-                .findAny()
-                .ifPresent(reservation -> {
-                    throw new DuplicationException(RESERVATION_DUPLICATED);
-                });
+        checkReservationDuplication(customer.getReservations(), reservationCreateRequest);
+        checkReservationDuplication(consultant.getReservations(), reservationCreateRequest);
 
         Reservation reservation = reservationCreateRequest.toEntity();
         reservation.register(customer, consultant);
         reservationRepository.save(reservation);
-
         return ReservationCreateResponse.builder()
                 .reservationId(reservation.getId())
                 .message("succeeded")
@@ -79,5 +71,15 @@ public class ReservationService {
         reservation.cancel();
         reservationRepository.save(reservation);
         return new Message("succeeded");
+    }
+
+    private void checkReservationDuplication(List<Reservation> reservations, ReservationCreateRequest reservationCreateRequest) {
+        reservations.stream()
+                .filter(reservation -> reservation.getDate().isEqual(reservationCreateRequest.getReservationDate()))
+                .filter(reservation -> reservation.getTime().equals(reservationCreateRequest.getReservationTime()))
+                .findAny()
+                .ifPresent(reservation -> {
+                    throw new DuplicationException(RESERVATION_DUPLICATED);
+                });
     }
 }

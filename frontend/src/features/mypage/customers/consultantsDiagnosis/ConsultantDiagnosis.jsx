@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Button, Grid, Box, Modal, CardContent, Card, Typography, styled } from '@mui/material';
-import '../mypage.css'
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Button, Grid, Box, Modal, CardContent, Card, Typography, styled, CardActions, Tooltip } from '@mui/material';
 import ConsultantDiagnosisReview from './ConsultantDiagnosisReview';
-import { myConsultantDxFetch } from 'features/mypage/mypageSlice';
-// Todo. 리뷰 작성하기 버튼 활성화
+import OtherAvatar from 'common/avatar/OtherAvatar';
+import { isEmpty } from 'lodash'
+import '../mypage.css'
+
 
 // 진단결과사진 모달
 const style = {
@@ -21,14 +22,14 @@ const style = {
 	overflow: 'scroll',
 };
 
-export const BasicModal = ({ resultImageUrl }) => {
+export const BasicModal = ({ consultingFile }) => {
 	const [open, setOpen] = useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
 
 	return (
 		<div style={{ display: 'flex', justifyContent: 'center', }}>
-			<Button size="medieum" onClick={handleOpen} sx={{ backgroundSize: 'cover', objectFit: 'cover' }}>진단결과 자세히보기</Button>
+			<Button size="medieum" onClick={handleOpen} sx={{ backgroundSize: 'cover', objectFit: 'cover', width: '100vw' }}>진단결과 자세히보기</Button>
 			<Modal
 				open={open}
 				onClose={handleClose}
@@ -39,7 +40,9 @@ export const BasicModal = ({ resultImageUrl }) => {
 					<Typography id="modal-modal-title" variant="span" component="h3">
 						퍼스널컬러 진단결과
 					</Typography>
-					<img src={resultImageUrl} style={{ width: '100%' }} />
+					{consultingFile !== "" ? <img src={consultingFile} style={{ width: '100%' }} />
+						: <><p style={{ margin: '8px 0px' }}>진단결과표를 제공하지 않은 상담입니다.</p></>}
+
 				</Box>
 			</Modal>
 		</div>
@@ -52,62 +55,64 @@ const ConsultantDiagnosis = () => {
 
 	return (<>
 		<Div>
-			{results.map(({ consultingId, tone, consultantNickname, consultantImageUrl, consultingDate, bestColorSet, worstColorSet, resultImageUrl, comment, hasReview }, index) => (
-				<div style={{ display: 'flex', justifyContent: 'center' }} key={index}>
+			{isEmpty(results) ? <h2>지난 진단 기록이 없습니다.</h2> : results.map(({ consultingId, tone, consultantNickname,
+				consultantImageUrl, consultingDate, bestColorSet, worstColorSet, consultingFile, consultingComment, hasReview }, index) => (
+				<div key={index}>
 					{/* 카드1 */}
-					<Card sx={{
-						textAlign: 'center', display: 'flex', justifyContent: 'center', maxWidth: 700, width: 700,
-						boxSizing: 'border-box', flexDirection: "column", marginBottom: 5, padding: 1, borderRadius: 5
-					}} variant="outlined" >
+					<SetCard variant="outlined">
 
-						{/* 진단결과 */}
-						<CardContent sx={{ display: 'flex', textAlign: 'center', justifyContent: 'center', flexDirection: "column" }}>
-							{/* 컨설턴트정보 및 코멘트 */}
-							<Grid container >
-								<Grid item xs={3}>
-									<ConImg src={consultantImageUrl} alt="컨설턴트프로필" />
-									<Typography gutterBottom variant="span" component="div">
-										{consultantNickname}
-										<p>컨설턴트</p>
-									</Typography>
+						<CardContent>
+							<Grid container sx={{ display: 'flex', flexFlow: 'no-wrap' }}>
+								{/* 그리드 1 */}
+								<ImgGrid item xs={12} sm={3}>
+									<OtherAvatar setSize={14} imgUrl={consultantImageUrl} />
+								</ImgGrid>
+
+								{/* 그리드 2 */}
+								<Grid item xs={12} sm={9}>
+									{/* 컨설턴트정보, 날짜 */}
+									<Forflex>
+										<MainText>
+											{consultantNickname}님과의 상담결과 | {tone} | 일시: {consultingDate}일
+										</MainText>
+									</Forflex>
+									<TextBox>
+										{/* 색상결과 */}
+										<Pallete>
+											<PalleteItem sx={{ marginTop: 1 }}>베스트 컬러 |
+												{bestColorSet.map((color, idx) => (
+													<Tooltip title={color} key={idx} placement="top">
+														<Color color={color} /></Tooltip>
+												))}
+											</PalleteItem>
+											<PalleteItem sx={{ marginTop: 1 }}>워스트 컬러 |
+												{worstColorSet.map((color, idx) => (
+													<Tooltip key={idx} title={color} >
+														<Color color={color} /></Tooltip>
+												))}
+											</PalleteItem>
+										</Pallete>
+										<Line></Line>
+										{/* 코멘트 */}
+										<CommentBox>
+											<SubText>{consultantNickname}컨설턴트님의 꿀팁 !</SubText>
+											{consultingComment}
+										</CommentBox>
+									</TextBox>
 								</Grid>
-								<Grid item xs={9} className="task-tooltip">{comment}</Grid>
+
 							</Grid>
-							{/* 날짜 */}
-							<Forflex>
-								<div></div>
-								<Typography gutterBottom component="div" >
-									<span>{tone} |   </span>
-									{consultingDate}일
-								</Typography>
-							</Forflex>
-							{/* 색상결과 */}
-							<Pallete>
-								{/* best */}
-								<Grid container spacing={2} >
-									<Grid item xs={3} sx={{ marginTop: 1 }}>베스트 컬러</Grid>
-									<Grid item xs={9} sx={{ display: 'flex', justifyContent: 'start', alignContent: 'center', maxWidth: 200 }}>
-										{bestColorSet.map(color =>
-											<div style={{ background: color, width: 30, height: 30, borderRadius: 15, margin: 5 }} key={color}></div>)}
-									</Grid>
-								</Grid>
-								{/* worst */}
-								<Grid container spacing={2}>
-									<Grid item xs={3} sx={{ marginTop: 1 }}>워스트 컬러</Grid>
-									<Grid item xs={9} sx={{ display: 'flex', justifyContent: 'start', alignContent: 'flex-end', maxWidth: 200 }}>
-										{worstColorSet.map(color =>
-											<div style={{ background: color, width: 30, height: 30, borderRadius: 15, margin: 5 }} key={color}></div>)}
-									</Grid>
-								</Grid>
-							</Pallete>
 						</CardContent>
 
-						{/* 이미지 모달 */}
-						<BasicModal resultImageUrl={resultImageUrl} />
+						<CardActions sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+							{/* 이미지 모달 */}
 
-						{/* 리뷰작성 모달 */}
-						<ConsultantDiagnosisReview consultingId={consultingId} consultantNickname={consultantNickname} hasReview={hasReview} />
-					</Card>
+							<BasicModal consultingFile={`data:image/jpg;base64,${consultingFile}`} />
+							{/* 리뷰작성 모달 */}
+							<ConsultantDiagnosisReview consultingId={consultingId} consultantNickname={consultantNickname} hasReview={hasReview} />
+						</CardActions>
+
+					</SetCard>
 				</div>
 			))}
 		</Div>
@@ -118,30 +123,86 @@ export default ConsultantDiagnosis
 
 
 const Div = styled('div')({
-	maxWidth: "700px",
-	margin: "auto",
-	display: "flex",
-	flexDirection: "column-reverse"
+	display: 'flex',
+	flexDirection: 'column-reverse',
+	maxWidth: '100%',
+	gap: 10,
 })
 
-const ConImg = styled('img')({
-	width: "100px",
-	height: "100px",
-	borderRadius: "50%"
+const SetCard = styled(Card)({
+	marginBottom: 5,
+	borderRadius: '1rem',
+})
+
+const TextBox = styled(Box)({
+	border: '1px dashed #ADBED2',
+	borderRadius: 5,
+	padding: 10,
+	minHeight: 100,
+	marginTop: 7,
+	fontSize: 15,
+})
+
+const CommentBox = styled(Box)({
+	marginTop: 7,
+	padding: 7,
+	fontSize: 15,
+})
+
+const Line = styled(Typography)({
+	width: '100%',
+	height: 1,
+	border: '1px dashed #ADBED2',
+})
+
+const SubText = styled(Typography)({
+	fontSize: 16,
+	fontWeight: 'bold',
+	marginBottom: 6,
+})
+
+const ImgGrid = styled(Grid)({
+	display: 'flex',
+	justifyContent: 'center',
+	alignItems: 'start',
+})
+
+const MainText = styled(Typography)({
+	fontSize: 20,
+	fontWeight: 'bold',
 })
 
 const Forflex = styled('div')({
-	display: "flex",
-	justifyContent: "space-between",
-	alignItems: "end",
-	padding: "10px"
+	display: 'flex',
+	justifyContent: 'space-between',
+	alignItems: 'end',
+	padding: 10,
 })
 
 const Pallete = styled('div')({
-	display: "flex",
-	justifyContent: "start",
-	flexDirection: "column",
-	border: "1px dashed #ADBED2",
-	borderRadius: "5px",
-	padding: "10px",
+	fontSize: 15,
+	display: 'flex',
+	justifyContent: 'start',
+	flexDirection: 'column',
+	minHeight: 100,
+	maxWidth: 550,
+
 })
+
+const PalleteItem = styled('div')({
+	display: 'flex',
+	justifyContent: 'start',
+	alignItems: 'center',
+	paddingLeft: 7,
+	borderRadius: 5,
+	// border: "1px dashed #ADBED2",
+})
+
+const Color = styled('div')((props) => ({
+	background: `${props.color}`,
+	width: 30,
+	height: 30,
+	borderRadius: 15,
+	margin: 5,
+	cursor: 'pointer',
+}))

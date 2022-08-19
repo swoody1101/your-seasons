@@ -52,6 +52,14 @@ public class Reservation extends BaseTimeEntity {
         setConsultant(consultant);
     }
 
+    public void cancel() {
+        super.delete();
+    }
+
+    public void done() {
+        super.delete();
+    }
+
     private void setCustomer(Customer customer) {
         this.customer = customer;
         customer.getReservations().add(this);
@@ -60,9 +68,5 @@ public class Reservation extends BaseTimeEntity {
     private void setConsultant(Consultant consultant) {
         this.consultant = consultant;
         consultant.getReservations().add(this);
-    }
-
-    public void cancel() {
-        super.delete();
     }
 }
