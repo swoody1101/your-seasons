@@ -21,7 +21,7 @@ public class SelfConsulting extends BaseTimeEntity {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "self_consulting_result_id")
     private SelfConsultingResult selfConsultingResult;
 
