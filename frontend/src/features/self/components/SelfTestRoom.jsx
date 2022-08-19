@@ -138,6 +138,7 @@ const SelfTestRoom = () => {
   const leaveSession = () => {
     if (worstColor.length < 1 | bestColor.length < 1) {
       alert('베스트컬러와 워스트컬러 팔레트를 1개 이상씩 채워주세요')
+      return
     } else if (session) {
       session.disconnect();
       dispatch(selfConsultingClose(dataSet))
@@ -294,7 +295,7 @@ const SelfTestRoom = () => {
         // 세션 연결 안됐을시
         <SpinnerGrid container>
           <SubTypography>
-            연결을 누르면 
+            연결을 누르면
             자가진단 방에 입장합니다.</SubTypography>
         </SpinnerGrid>
       }
@@ -475,9 +476,9 @@ const MicCamExitGroup = styled(Grid)({
 })
 
 const SubTypography = styled(Typography)({
-	fontSize: '35px',
+  fontSize: '35px',
   fontWeight: 'bold',
-	letterSpacing: 'var(--font-letter-spacing)',
-	color: '#003151',
-  padding:'auto',
+  letterSpacing: 'var(--font-letter-spacing)',
+  color: '#003151',
+  padding: 'auto',
 })
