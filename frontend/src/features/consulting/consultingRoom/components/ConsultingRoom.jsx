@@ -181,10 +181,13 @@ const ConsultingRoom = () => {
     if (role === CONSULTANT) {
       if (worstColor.length < 1 | bestColor.length < 1) {
         alert('베스트컬러와 워스트컬러 팔레트를 1개 이상씩 채워주세요.')
+        return;
       } else if (selectedTone === '') {
         alert('톤 정보를 입력해주세요.')
+        return;
       } else if (files === '') {
         alert('진단 결과표를 등록해 주세요.')
+        return;
       } else if (session) {
         session.disconnect();
         dispatch(postConsultingResult({ files, consultingFinishRequest }))
