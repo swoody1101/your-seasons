@@ -1,9 +1,9 @@
 package com.yourseason.backend.util;
 
 import com.yourseason.backend.common.exception.WrongAccessException;
-import com.yourseason.backend.member.common.domain.Member;
 import com.yourseason.backend.member.common.domain.Role;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.AccessLevel;
@@ -19,7 +19,8 @@ import java.util.Map;
 public class JwtUtil {
 
     private static final String SECRET = "ssafy second semester first project - your season";
-    private static final String WRONG_ACCESS = "잘못된 접근입니다.";
+    private static final String WRONG_TOKEN = "잘못된 토큰 값입니다.";
+    private static final String EXPIRED_TOKEN = "로그인 정보가 만료되었습니다.";
     private static final String TYPE = "Bearer";
     private static final String DELIMITER = " ";
     private static final int TOKEN = 1;
@@ -33,30 +34,20 @@ public class JwtUtil {
         return createToken(claims);
     }
 
-    public static Boolean isValidToken(String token, Member member, Role role) {
-        Long id = getMemberId(token);
-        String imageUrl = getImageUrl(token);
-        String nickname = getNickname(token);
-        String roleFromToken = getRole(token);
-        return id.equals(member.getId()) && nickname.equals(member.getNickname())
-                && imageUrl.equals(member.getImageUrl()) && roleFromToken.equals(role)
-                && !isTokenExpired(token);
-    }
-
     public static Long getMemberId(String token) {
         return Long.parseLong((String) getAllClaims(getActualToken(token)).get("id"));
     }
 
-    private static String getImageUrl(String token) {
-        return String.valueOf(getAllClaims(token).get("imageUrl"));
+    public static Role getMemberRole(String token) {
+        return Role.valueOf((String) getAllClaims(getActualToken(token)).get("role"));
     }
 
-    private static String getNickname(String token) {
-        return String.valueOf(getAllClaims(token).get("nickname"));
-    }
-
-    private static String getRole(String token) {
-        return String.valueOf(getAllClaims(token).get("role"));
+    public static void validateToken(String token) {
+        try {
+            getAllClaims(getActualToken(token));
+        } catch (ExpiredJwtException e) {
+            throw new WrongAccessException(EXPIRED_TOKEN);
+        }
     }
 
     private static String createToken(Claims claims) {
@@ -76,15 +67,6 @@ public class JwtUtil {
                 .getBody();
     }
 
-    private static boolean isTokenExpired(String token) {
-        return getExpirationDate(token).before(new Date());
-    }
-
-    private static Date getExpirationDate(String token) {
-        Claims claims = getAllClaims(token);
-        return claims.getExpiration();
-    }
-
     private static String getActualToken(String token) {
         checkValidation(token);
         return token.split(DELIMITER)[TOKEN];
@@ -92,7 +74,7 @@ public class JwtUtil {
 
     private static void checkValidation(String token) {
         if (!token.startsWith(TYPE + DELIMITER)) {
-            throw new WrongAccessException(WRONG_ACCESS);
+            throw new WrongAccessException(WRONG_TOKEN);
         }
     }
 }

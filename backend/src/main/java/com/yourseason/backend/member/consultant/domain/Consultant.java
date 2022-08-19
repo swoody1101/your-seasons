@@ -1,6 +1,6 @@
 package com.yourseason.backend.member.consultant.domain;
 
-import com.yourseason.backend.consulting.domain.Consulting;
+import com.yourseason.backend.consulting.consultant.domain.Consulting;
 import com.yourseason.backend.member.common.domain.Member;
 import com.yourseason.backend.reservation.domain.Reservation;
 import com.yourseason.backend.review.domain.Review;
@@ -24,9 +24,10 @@ import java.util.Objects;
 public class Consultant extends Member {
 
     private String introduction;
-    private String cost;
+    private int cost;
     private double starAverage;
     private int reviewCount;
+    private int consultingCount;
     private String consultingFile;
 
     @NotNull
@@ -46,19 +47,20 @@ public class Consultant extends Member {
     @OneToMany(mappedBy = "consultant", cascade = CascadeType.PERSIST)
     private List<Review> reviews = new ArrayList<>();
 
-    @OneToMany(mappedBy = "consultant", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "consultant", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Consulting> consultings = new ArrayList<>();
 
     @Builder
     public Consultant(Long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, LocalDateTime deletedDate,
                       String email, String password, String name, LocalDate birth, String nickname, String contact, String imageUrl,
                       List<Consulting> consultings, List<Reservation> reservations, List<Review> reviews, String consultingFile,
-                      String introduction, String cost, double starAverage, int reviewCount, License license, String licenseNumber, List<ClosedDay> closedDays) {
+                      String introduction, int cost, double starAverage, int reviewCount, int consultingCount, License license, String licenseNumber, List<ClosedDay> closedDays) {
         super(id, createdTime, lastModifiedTime, deletedDate, email, password, name, birth, nickname, contact, imageUrl);
         this.introduction = introduction;
         this.cost = cost;
         this.starAverage = starAverage;
         this.reviewCount = reviewCount;
+        this.consultingCount = consultingCount;
         this.consultingFile = consultingFile;
         this.license = license;
         this.licenseNumber = licenseNumber;
@@ -72,7 +74,7 @@ public class Consultant extends Member {
         this.license = license;
     }
 
-    public void updateProfile(String nickname, String contact, String imageUrl, String introduction, String cost) {
+    public void updateProfile(String nickname, String contact, String imageUrl, String introduction, int cost) {
         super.updateProfile(nickname, contact, imageUrl);
         this.introduction = introduction;
         this.cost = cost;
@@ -94,6 +96,11 @@ public class Consultant extends Member {
     @Override
     public int hashCode() {
         return Objects.hash(this.getEmail());
+    }
+
+    public void createConsulting(Consulting consulting) {
+        consultings.add(consulting);
+        consultingCount++;
     }
 
     public void addClosedDay(ClosedDay closedDay) {

@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import {
-  Avatar, Button, CssBaseline,
+  Button, CssBaseline,
   FormControlLabel, Checkbox,
   Grid, Container, styled,
 } from '@mui/material'
 
 import regex from '../components/regex';
-import LockIcon from '@mui/icons-material/Lock'
 
 import ValidationInput from '../components/ValidationInput'
 import ComparePasswordInput from '../components/ConfirmPasswordInput'
@@ -18,15 +17,23 @@ import PhoneNumberInput from '../components/PhoneNumberInput'
 import BirthSelectInput from '../components/BirthSelectInput'
 import RoleSelectBox from '../components/RoleSelectBox'
 import LicenseInput from '../components/LicenseInput'
+import EmailAuthentication from '../components/EmailAuthentication'
 
 import Policy from './Policy'
 import { CONSULTANT, CUSTOMER, OK } from 'api/CustomConst'
-import { nicknameCheck, emailCheck, signUpMember } from 'features/auth/authSlice';
+import { nicknameCheck, emailCheck, signUpMember, emailSendCheck, emailAuthCheck, logoutUser } from 'features/auth/authSlice';
 
 
 const SignUp = () => {
   const [userEmail, setUserEmail] = useState('');
   const [isEmailCheck, setIsEmailCheck] = useState(false);
+  // 인증번호 발송 여부
+  const [isEmailSend, setIsEmailSend] = useState(false);
+  // emailauth입력
+  const [emailAuth, setEmailAuth] = useState('');
+  // emailauth true false여부
+  const [isEmailAuthCheck, setIsEmailAuthCheck] = useState(false);
+
   const [password, setPassword] = useState('');
   const [rePassword, setRePassword] = useState('');
   const [nickname, setNickname] = useState('');
@@ -40,6 +47,7 @@ const SignUp = () => {
   let beforeTw = (date.getFullYear() - 20) + '-' + ('0' + (date.getMonth() + 1)).slice(-2)
     + '-' + ('0' + date.getDate()).slice(-2);
   const [birth, setBirth] = useState(beforeTw);
+
 
   const [phoneNumber, setPhoneNumber] = useState('010');
 
@@ -67,10 +75,8 @@ const SignUp = () => {
   }
 
   const handleCheckEmail = () => {
-    console.log(userEmail);
     dispatch(emailCheck(userEmail))
       .then((res) => {
-        console.log(res.payload);
         if (res.payload) {
           alert("인증완료");
           setIsEmailCheck(true);
@@ -80,11 +86,44 @@ const SignUp = () => {
       })
   }
 
+  // 이메일 발송 완료
+  const handleSendEmail = () => {
+    dispatch(emailSendCheck(userEmail))
+      .then((res) => {
+        if (res.payload) {
+          alert('인증번호가 전송되었습니다. 이메일을 확인해주세요.')
+          setIsEmailSend(true)
+        } else {
+          alert('이메일 전송에 실패하였습니다.')
+          setIsEmailSend(false)
+        }
+      })
+  }
+  // 발송된 토큰 체크
+  const handleCheckEmailAuth = () => {
+    const data = {
+      email: userEmail,
+      authToken: emailAuth,
+    }
+    dispatch(emailAuthCheck(data))
+      .then((res) => {
+        if (res.payload) {
+          alert('이메일 인증이 완료되었습니다.')
+          setIsEmailAuthCheck(true)
+          return true
+        } else {
+          alert('이메일 인증에 실패하였습니다.')
+          setIsEmailAuthCheck(false)
+          setEmailAuth('')
+          return false
+        }
+      })
+  }
+
+
   const handleCheckNickname = () => {
-    console.log(nickname);
     dispatch(nicknameCheck(nickname))
       .then((res) => {
-        console.log(res.payload);
         if (res.payload) {
           alert("인증완료");
           setIsNicknameCheck(true);
@@ -98,6 +137,12 @@ const SignUp = () => {
     // email : 중복확인 후 글을 수정하면 해제됨
     if (!isEmailCheck) {
       alert("이메일 중복확인을 해주세요.")
+      return;
+    }
+
+    // emailauthentication: 이메일 인증여부 
+    if (!isEmailAuthCheck) {
+      alert("이메일 인증을 해주세요.")
       return;
     }
 
@@ -141,12 +186,12 @@ const SignUp = () => {
       alert("회원가입 약관에 동의해주세요.");
       return;
     }
-    console.log(data);
     dispatch(signUpMember(data))
       .then((res) => {
-        console.log(res.payload) // 응답 msg  확인
         if (res.payload === OK) {
-          alert("가입에 성공하였습니다.");
+          alert("가입에 성공하였습니다. 로그인 페이지로 이동합니다.");
+          // 로그인상태에서 회원가입으로 이동가능하나, 회원가입시 기존토큰 지워짐
+          dispatch(logoutUser());
           navigate('/login');
         } else {
           alert("가입에 실패하였습니다.");
@@ -155,11 +200,7 @@ const SignUp = () => {
   }
 
   return (
-    <Container sx={{ xs: 'none', sm: 'block' }}>
-      {/* <Avatar
-        sx={{
-          m: "1rem auto", bgcolor: 'primary.main'
-        }} ><LockIcon /></Avatar> */}
+    <Container sx={{ xs: 'none', sm: 'block', height: '100vh' }}>
       <CssBaseline />
       <SGrid container
         direction="column"
@@ -167,6 +208,7 @@ const SignUp = () => {
         alignItems="center">
         <Grid container item xs={12} sx={{}}>
           <Grid item xs={12} sm={6} p={1} >
+
             <ConfirmValidationInput
               autofocus
               label="이메일"
@@ -182,6 +224,28 @@ const SignUp = () => {
               errorText="이메일 양식을 맞춰주세요."
             />
 
+            <EmailAuthentication
+              label="이메일 인증번호 입력"
+              id="emailauth"
+              // email 중복확인 여부
+              isTrueEmail={isEmailCheck}
+              // 인증번호 발송 여부
+              handleSendCheck={handleSendEmail}
+              isSend={isEmailSend}
+              setIsSend={setIsEmailSend}
+              // value, setvalue
+              value={emailAuth}
+              setValue={setEmailAuth}
+              // emailcheck, setemailcheck 이메일 인증번호 여부
+              isEmailAuthCheck={isEmailAuthCheck}
+              setIsEmailAuthCheck={setIsEmailAuthCheck}
+              // 이메일 인증번호 체크
+              handleValueCheck={handleCheckEmailAuth}
+              defaultText="인증번호를 입력해주세요."
+              successText="success"
+              errorText="인증번호가 일치하지 않습니다."
+            />
+
             <ValidationInput
               label="패스워드"
               type="password"
@@ -189,9 +253,9 @@ const SignUp = () => {
               setValue={setPassword}
               regexCheck={regex.password}
               maxValue={20}
-              defaultText="비밀번호를 입력해주세요."
+              defaultText="비밀번호를 입력해주세요. 영문, 숫자, 특수문자를 포함합니다."
               successText="success"
-              errorText="소문자, 특수문자, 8~20글자 이상"
+              errorText="영문, 숫자, 특수문자 필수 8~20글자"
             />
 
             <ComparePasswordInput
@@ -204,9 +268,11 @@ const SignUp = () => {
               defaultText="비밀번호를 다시한번 입력해주세요."
               incorrectText="비밀번호가 일치하지 않습니다."
               successText="success"
-              errorText="소문자, 특수문자, 8~20글자 이상"
+              errorText="영문, 숫자, 특수문자 필수 8~20글자"
             />
 
+          </Grid>
+          <Grid item xs={12} sm={6} p={1}>
             <ConfirmValidationInput
               autofocus
               label="닉네임"
@@ -220,8 +286,6 @@ const SignUp = () => {
               successText="success"
               errorText="닉네임 양식을 맞춰주세요."
             />
-          </Grid>
-          <Grid item xs={12} sm={6} p={1}>
             <Grid container item sx={{ padding: '0' }}>
               <Grid item xs={6} >
                 <ValidationInput
@@ -284,7 +348,6 @@ const SignUp = () => {
             control={
               <Checkbox value={agreeChecked}
                 onChange={() => {
-                  console.log(!agreeChecked)
                   setAgreeChcked(!agreeChecked)
                 }} color="primary"
               />

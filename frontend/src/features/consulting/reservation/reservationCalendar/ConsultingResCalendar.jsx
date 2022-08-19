@@ -8,8 +8,7 @@ import moment from 'moment';
 import { Box, styled, Grid, Typography } from '@mui/material';
 
 
-
-const ConsultingResCalendar = (props) => {
+const ConsultingResCalendar = () => {
   const { reservations, closedDays } = useSelector(state => state.consultantList.consultantDetail)
   const today = new Date()
 
@@ -19,9 +18,11 @@ const ConsultingResCalendar = (props) => {
   const [dateState, setDateState] = useState(new Date())
   const [pickedDate, setPickedDate] = useState(todaydate)
   const dayOff = []
-  closedDays.map((res) => {
+
+  closedDays.forEach((res) => {
     dayOff.push(res.date)
   })
+
   const timeTable = [
     '09:00:00',
     '10:00:00',
@@ -47,7 +48,7 @@ const ConsultingResCalendar = (props) => {
     const newdate = ((date.getFullYear()) + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2))
     // 날짜가 일치할때 시간 정보만 빈 리스트에 저장
     if (newdate === todaydate) {
-      return <StyledDiv>예약불가</StyledDiv>
+      return <StyledDiv>당일예약불가</StyledDiv>
     }
     if (newdate > todaydate) {
       reservations.forEach(res => {
@@ -122,7 +123,7 @@ const ConsultingResCalendar = (props) => {
 }
 
 const StyledDiv = styled('div')({
-  backgroundColor: "#FFE0DF",
+  color: "red",
   textAlign: "center",
   fontSize: "0.7em",
 })

@@ -49,7 +49,6 @@ export const signUpMember = createAsyncThunk(
   'auth/signup',
   async (userInfo, { rejectWithValue }) => {
     try {
-      console.log("비동기 요청 회원가입") // 비동기 위치표시
       let response
 
       if (userInfo.role === CUSTOMER) {
@@ -74,7 +73,6 @@ export const emailCheck = createAsyncThunk(
   'auth/emailcheck',
   async (email, { rejectWithValue }) => {
     try {
-      console.log("비동기 요청 이메일 중복확인") // 비동기 위치표시
       const response = await Axios.get(`members/validation/1?email=${email}`);
       if (response.status === OK) {
         return true;
@@ -85,11 +83,41 @@ export const emailCheck = createAsyncThunk(
   }
 );
 
+// 이메일 발송 코드
+export const emailSendCheck = createAsyncThunk(
+  'members/email/1?email=',
+  async (email, { rejectWithValue }) => {
+    try {
+      const response = await Axios.get(`members/email/1?email=${email}`);
+      if (response.status === OK) {
+        return true;
+      }
+    } catch (err) {
+      return false;
+    }
+  }
+);
+
+// 이메일 발송 후 토큰 체크 
+export const emailAuthCheck = createAsyncThunk(
+  'members/email/2',
+  async (payload, { rejectWithValue }) => {
+    try {
+      const response = await Axios.post('members/email/2', payload)
+      if (response.status === OK) {
+        return true;
+      }
+    } catch (err) {
+      return false
+    }
+  }
+)
+
+
 export const nicknameCheck = createAsyncThunk(
   'auth/nicknamecheck',
   async (nickname, { rejectWithValue }) => {
     try {
-      console.log("비동기 요청 닉네임 중복확인") // 비동기 위치표시
       const response = await Axios.get(`members/validation/2?nickname=${nickname}`);
       if (response.status === OK) {
         return true;
@@ -107,7 +135,7 @@ export const loginUser = createAsyncThunk(
     try {
       // start
       const response = await Axios.post('members/login', userInfo);
-      const token = response.headers["authorization"]; // 헤더로 받을 때   
+      const token = response.headers["authorization"]; // 헤더로 받을 때
       saveToken(token);
       return response;
     } catch (err) {
@@ -117,6 +145,22 @@ export const loginUser = createAsyncThunk(
     }
   }
 );
+
+// 비밀번호 찾기
+export const searchPasswordFetch = createAsyncThunk(
+  'members/email/3?email=member@ssafy.com',
+  async (email, { rejectWithValue }) => {
+    try {
+      const response = await Axios.get(`members/email/3?email=${email}`);
+      if (response.status === OK) {
+        return true;
+      }
+    } catch (err) {
+      return false
+    }
+  }
+)
+
 
 // userSlice actions
 export const loadMember = createAsyncThunk(
@@ -153,7 +197,6 @@ export const modifyMember = createAsyncThunk(
         } // 고객 수정정보
         response = await Axios.patch('customers', modi);
       } else if (payload.role === CONSULTANT) {
-        console.log(payload)
         const modi = {
           nickname: payload.nickname,
           contact: payload.contact,
@@ -161,7 +204,6 @@ export const modifyMember = createAsyncThunk(
           introduction: payload.introduction,
           cost: payload.cost
         } // 컨설턴트 수정정보
-        console.log(modi)
         response = await Axios.patch('consultants', modi);
       }
       const token = response.headers["authorization"]; // 헤더로 받을 때   
@@ -189,6 +231,7 @@ export const modifyPass = createAsyncThunk(
       }
       return response;
     } catch (err) {
+      alert('비밀번호를 잘못 입력하셨습니다.')
       return rejectWithValue(err);
     }
   }
@@ -212,21 +255,19 @@ export const signOut = createAsyncThunk(
 );
 
 // createSlice
-
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
     // login reducers
-    logoutUser: () => {
-      deleteToken();
-    },
-    resetUser: (state) => {
+    logoutUser: (state) => {
       state.logonUser = {
         nickname: '',
         role: '',
         imageUrl: '/images/default/avatar01.png',
       }
+      state.isAuthenticated = false;
+      deleteToken();
     },
     // modify reducers
     modalOn: (state) => {
@@ -266,7 +307,6 @@ const authSlice = createSlice({
     },
     [loadMember.fulfilled]: (state, { payload }) => {
       state.status = 'succeeded';
-      console.log("로드멤버", payload)
       state.logonUser = payload.data
     },
     [loadMember.rejected]: (state) => {
@@ -276,7 +316,7 @@ const authSlice = createSlice({
 })
 
 
-export const { logoutUser, resetUser, modifyLogonUser } = authSlice.actions;
+export const { logoutUser, modifyLogonUser } = authSlice.actions;
 export const { modalOn, modalOff } = authSlice.actions;
 
 export default authSlice.reducer

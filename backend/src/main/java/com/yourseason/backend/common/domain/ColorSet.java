@@ -5,10 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,12 +16,30 @@ import java.util.List;
 @Entity
 public class ColorSet extends BaseTimeEntity {
 
-    @OneToMany(mappedBy = "colorSet")
-    private List<Color> colors = new ArrayList<>();
+    @OneToMany(mappedBy = "colorSet", cascade = CascadeType.PERSIST)
+    private List<ColorColorSet> colorColorSets = new ArrayList<>();
 
     @Builder
-    public ColorSet(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate, List<Color> colors) {
+    public ColorSet(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate) {
         super(id, createdDate, lastModifiedDate, deletedDate, true);
-        this.colors = colors;
+    }
+
+    @Builder
+    public ColorSet(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate, List<ColorColorSet> colorColorSets) {
+        super(id, createdDate, lastModifiedDate, deletedDate, true);
+        this.colorColorSets = colorColorSets;
+    }
+
+    public void addColor(Color color) {
+        ColorColorSet colorColorSet = getNewColorColorSet(color);
+        colorColorSets.add(colorColorSet);
+        color.addColorColorSet(colorColorSet);
+    }
+
+    private ColorColorSet getNewColorColorSet(Color color) {
+        return ColorColorSet.builder()
+                .color(color)
+                .colorSet(this)
+                .build();
     }
 }

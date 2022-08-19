@@ -23,11 +23,9 @@ const ModifyCommon = () => {
   const [isModiNick, setIsModiNick] = useState(false);
   const [isModiPhone, setIsModiPhone] = useState(false);
 
-
   const dispatch = useDispatch();
 
   const handleCheckNickname = () => {
-    console.log(newNick);
     dispatch(nicknameCheck(newNick))
       .then((res) => {
         if (res.payload) {
@@ -179,6 +177,7 @@ const ModifyCommon = () => {
             }}
           >
             <Button
+              color='error'
               onClick={() => {
                 setNewNick('');
                 setIsNickCheck(false);
@@ -189,6 +188,7 @@ const ModifyCommon = () => {
             >취소</Button>
             <Button
               onClick={handleModify}
+              color='error'
             >확인</Button>
           </ButtonGroup>
         }

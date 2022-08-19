@@ -1,11 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Axios from "../../api/Axios";
-import { NO_CONTENT, OK } from '../../api/CustomConst'
+import { OK } from '../../api/CustomConst'
 
 // state
 const initialState = {
   // customer state
   myConsultantDxData: [],
+  selfDxData: [],
   myReviewsData: [],
   myResData: [],
 
@@ -28,12 +29,27 @@ export const myConsultantDxFetch = createAsyncThunk(
         if (res.status === OK) {
           return res.data
         } else {
-          alert('진단기록을 불러올 수 없습니다.')
           return false
         }
       })
       .catch(error => {
-        alert('진단기록을 불러올 수 없습니다.')
+        return false
+      })
+  }
+)
+
+export const selfDxFetch = createAsyncThunk(
+  'mypage/selfDxFetch',
+  async () => {
+    return Axios.get('customers/5')
+      .then(res => {
+        if (res.status === OK) {
+          return res.data
+        } else {
+          return false
+        }
+      })
+      .catch(error => {
         return false
       })
   }
@@ -46,7 +62,6 @@ export const myResFetch = createAsyncThunk(
   async () => {
     return Axios.get('customers/1')
       .then(res => {
-        console.log(res)
         if (res.status === OK) {
           return res.data
         } else {
@@ -63,7 +78,7 @@ export const deleteResFetch = createAsyncThunk(
   async (reservationId) => {
     return Axios.delete(`reservations/${reservationId}`)
       .then(res => {
-        if (res.status === NO_CONTENT) {
+        if (res.status === OK) {
           alert('예약이 취소되었습니다.')
           return true
         } else {
@@ -73,18 +88,6 @@ export const deleteResFetch = createAsyncThunk(
       .catch(error => false)
   }
 )
-
-// put (request 수정//실제사용 x //필요할때 주석처리 해제)
-// export const updateResFetch = createAsyncThunk(
-// 	'mypage/updateResFetch',
-// 	async (reservation) => {
-// 		console.log(reservation)
-// 		return Axios.put('customers/'+ `${reservation.id}`, reservation)
-// 		.then(res=>res.data)
-// 		.catch(error=>false)
-// 	}
-// )
-
 
 
 // 리뷰 FETCH (get, post, put, delete)
@@ -97,12 +100,10 @@ export const myReviewFetch = createAsyncThunk(
         if (res.status === OK) {
           return res.data
         } else {
-          alert('후기를 불러올 수 없습니다.')
           return false
         }
       })
       .catch(error => {
-        alert('후기를 불러올 수 없습니다.')
         return false
       })
   }
@@ -256,7 +257,7 @@ const mypageSlice = createSlice({
   initialState,
   extraReducers: (builder) => {
     // customer extra reducers ==============================
-    // 진단기록 슬라이스
+    // 컨설팅 진단기록 슬라이스
     builder.addCase(myConsultantDxFetch.pending, (state, action) => {
       state.status = 'loading';
     })
@@ -267,6 +268,18 @@ const mypageSlice = createSlice({
     builder.addCase(myConsultantDxFetch.rejected, (state, action) => {
       state.status = 'failed';
     })
+    // 자가진단 기록 슬라이스
+    builder.addCase(selfDxFetch.pending, (state, action) => {
+      state.status = 'loading';
+    })
+    builder.addCase(selfDxFetch.fulfilled, (state, { payload }) => {
+      state.status = 'succeeded';
+      state.selfDxData = payload;
+    })
+    builder.addCase(selfDxFetch.rejected, (state, action) => {
+      state.status = 'failed';
+    })
+
     // 내 예약 슬라이스
     builder.addCase(myResFetch.pending, (state, action) => {
       state.status = 'Loading';

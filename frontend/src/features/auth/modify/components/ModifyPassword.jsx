@@ -9,7 +9,8 @@ import ComparePasswordInput from 'features/auth/components/ConfirmPasswordInput'
 import regex from 'features/auth/components/regex';
 import { BAD_REQUEST, NOT_FOUND, CONFLICT } from 'api/CustomConst'
 
-import { modifyPass } from 'features/auth/authSlice'
+import { logoutUser, modifyPass } from 'features/auth/authSlice'
+import { useNavigate } from 'react-router'
 
 const ModifyPassword = () => {
 
@@ -20,6 +21,7 @@ const ModifyPassword = () => {
   const { role } = useSelector((state) => state.auth.logonUser)
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleModiPass = () => {
     if (beforePassword.length === 0) {
@@ -40,10 +42,12 @@ const ModifyPassword = () => {
     dispatch(modifyPass({ role, beforePassword, afterPassword }))
       .unwrap()
       .then(() => {
-        alert("수정이 완료되었습니다.")
         setBeforePassword('');
         setAfterPassword('');
         setRePassword('');
+        dispatch(logoutUser())
+        navigate('/login')
+        alert("수정이 완료되었습니다. 다시 로그인을 해주세요")
       })
       .catch((err) => {
         if (err.status === BAD_REQUEST) {
@@ -68,7 +72,7 @@ const ModifyPassword = () => {
           maxValue={20}
           defaultText="기존 비밀번호를 입력해주세요."
           successText="success"
-          errorText="소문자, 특수문자, 8~20글자 이상"
+          errorText="영문, 숫자, 특수문자 필수 8~20글자"
         />
 
         <ValidationInput
@@ -80,7 +84,7 @@ const ModifyPassword = () => {
           maxValue={20}
           defaultText="변경하실 비밀번호를 입력해주세요."
           successText="success"
-          errorText="소문자, 특수문자, 8~20글자 이상"
+          errorText="영문, 숫자, 특수문자 필수 8~20글자"
         />
 
         <ComparePasswordInput
@@ -93,7 +97,7 @@ const ModifyPassword = () => {
           defaultText="비밀번호를 다시한번 입력해주세요."
           incorrectText="비밀번호가 일치하지 않습니다."
           successText="success"
-          errorText="소문자, 특수문자, 8~20글자 이상"
+          errorText="영문, 숫자, 특수문자 필수 8~20글자"
         />
 
         <ButtonGroup

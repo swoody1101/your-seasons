@@ -2,21 +2,19 @@ import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import ConsultingResHistory from './ConsultingResHistory';
 import Calendar from 'react-calendar'
-import './ConsultingResCalendar.css';
 import moment from 'moment';
 import { Button, Stack, Box, styled, Grid } from '@mui/material';
 import { ContentPasteOff, ContentPaste } from '@mui/icons-material';
 import { closeDay, deleteClosedDay } from 'features/mypage/mypageSlice';
 import { loadMember } from 'features/auth/authSlice';
+import { isEmpty } from 'lodash';
 
 export default function ConsultingResCalendar(props) {
   const dispatch = useDispatch();
   const today = new Date()
   const { closedDays, role } = useSelector(state => state.auth.logonUser)
   const dayOff = []
-  closedDays.forEach((off) => {
-    dayOff.push(off.date)
-  })
+
   let date = (today.getFullYear()) + '-' + ('0' + (today.getMonth() + 1)).slice(-2)
     + '-' + ('0' + today.getDate()).slice(-2);
 
@@ -54,23 +52,70 @@ export default function ConsultingResCalendar(props) {
       })
   }
 
-  const titleContent = ({ activeStartDate, date, view }) => (
-    (view === "month" && dayOff.includes(((date.getFullYear()) + '-' + ('0' + (date.getMonth() + 1)).slice(-2)
-      + '-' + ('0' + date.getDate()).slice(-2)))) && <StyledDiv>휴무일</StyledDiv>
-  )
+  const titleContent = ({ activeStartDate, date, view }) => {
+    let resTimeTable = []
+    const newdate = ((date.getFullYear()) + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2))
+    if (view === "month" && dayOff.includes(newdate)) {
+      return <PinkdDiv>휴무일</PinkdDiv>
+    }
+    // if문 변경
+
+    if (!isEmpty(props.reservations)) {
+      props.reservations.forEach(res => {
+        resTimeTable.push(res.reservationDate)
+      })
+    } else {
+      return
+    }
+
+    if (view === "month" && resTimeTable.includes(newdate)) {
+      return <BlueDiv>예약 확인</BlueDiv>
+    }
+  }
 
   // const tileDisabled = ({ date, view }) =>
   // (view === "month" && dayOff.includes(((date.getFullYear()) + '-' + ('0' + (date.getMonth() + 1)).slice(-2)
   //   + '-' + ('0' + date.getDate()).slice(-2))))
-  const filteredReservations = props.reservations.filter(res => {
-    return res.reservationDate === pickedDate
-  })
 
+
+
+  // if문이라 아래에서 실행해줌. 기존코드 if문 X ==> if문으로 변경 및 함수실행으로 바꿈
+  // 변경코드 1
+  let filteredReservation = []
+  const filteredReservations = () => {
+    if (!isEmpty(props.reservations)) {
+      filteredReservation = props.reservations.filter(res => {
+        return res.reservationDate === pickedDate
+      })
+    } else {
+      return
+    }
+  }
+  filteredReservations()
+  // 변경코드 2
   let reservedDate = []
   let btn = ''
-  props.reservations.forEach(res => {
-    reservedDate.push(res.reservationDate)
-  })
+  const resdate = () => {
+    if (!isEmpty(props.reservations)) {
+      props.reservations.forEach(res => {
+        reservedDate.push(res.reservationDate)
+      })
+    } else {
+      return
+    }
+  }
+  resdate()
+  // 변경코드 3
+  const closeday = () => {
+    if (!isEmpty(closedDays)) {
+      closedDays.forEach((off) => {
+        dayOff.push(off.date)
+      })
+    } else {
+      return
+    }
+  }
+  closeday()
 
   if (dayOff.includes(pickedDate)) {
     btn = <Button
@@ -120,13 +165,17 @@ export default function ConsultingResCalendar(props) {
 
         </Grid>
         <Grid item xs={12} sm={4}>
-          <ConsultingResHistory reservation={filteredReservations} />
+          <ConsultingResHistory reservation={filteredReservation} />
         </Grid>
       </Grid>
     </Box>
   )
 }
 
-const StyledDiv = styled('div')({
+const PinkdDiv = styled('div')({
   backgroundColor: "#FFE0DF",
+})
+
+const BlueDiv = styled('div')({
+  backgroundColor: "#B2EAFF",
 })

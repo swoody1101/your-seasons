@@ -9,12 +9,12 @@ import {
 import MyAvatar from 'common/avatar/MyAvatar';
 import { modalOn } from 'features/auth/authSlice';
 
-const ModifyAvatar = () => {
+const ModifyAvatar = ({ imageUrl }) => {
   const [isDirect, setIsDirect] = useState(false)
   const dispatch = useDispatch();
+
   const handleChangeImage = (e) => {
     // 파일전송은 추후
-    console.log(e)
   }
 
 
@@ -29,7 +29,9 @@ const ModifyAvatar = () => {
       alignItems="center"
     >
       <MyAvatar
-        setSize={22} />
+        setSize={22}
+        imgUrl={imageUrl}
+      />
       {isDirect
         ?
         <ButtonGroup
@@ -52,12 +54,13 @@ const ModifyAvatar = () => {
           orientation="vertical"
         >
           <Button
-            onClick={() => setIsDirect(!isDirect)}
+            // onClick={() => setIsDirect(!isDirect)}
+            onClick={() => alert('곧 지원될 기능이에요🎵. 먼저 기본 아바타를 선택해주세요.')}
           ><Typography>{"직접등록"}</Typography></Button>
           <Button
             onClick={handleSample}
           >
-            <Typography>{"기본사진"}</Typography>
+            <Typography>{"기본 아바타"}</Typography>
           </Button>
         </ButtonGroup>
       }

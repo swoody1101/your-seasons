@@ -1,8 +1,8 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux/es/exports';
-import { Box, Button, ImageList, Avatar, styled } from '@mui/material'
+import { Box, Button, Avatar, styled } from '@mui/material'
 
-import { BAD_REQUEST, NOT_FOUND, CONFLICT, CONSULTANT } from 'api/CustomConst'
+import { BAD_REQUEST, NOT_FOUND, CONFLICT } from 'api/CustomConst'
 import { modalOff, modifyMember, loadMember } from 'features/auth/authSlice';
 
 const Sample = () => {
@@ -17,9 +17,7 @@ const Sample = () => {
   }
 
   const handleAvatar = (e) => {
-    console.log("선택한 이미지 주소값", e.target.src)
     let url = (e.target.src).slice(-28)
-    console.log("수정할 이미지 url", url)
     const data = {
       role: role,
       nickname: common.nickname,
@@ -32,13 +30,7 @@ const Sample = () => {
       .then(() => {
         dispatch(loadMember(role))
         alert("수정이 완료되었습니다.")
-        const modi = {
-          nickname: common.nickname,
-          role: role,
-          imageUrl: common.imageUrl
-        }
         dispatch(modalOff())
-        console.log("수정후 재로드 요청", modi)
       })
       .catch((err) => {
         if (err.status === BAD_REQUEST) {

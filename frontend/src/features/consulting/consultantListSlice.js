@@ -4,21 +4,27 @@ import { OK } from '../../api/CustomConst'
 
 
 const initialState = {
+	// home -> top10 컨설턴트
+	topTen: [],
+	// 컨설턴트 목록 및 컨설턴트 검색
+	conValue: 'popular',
+	consultants: [],
+
 	//컨설턴트 상세정보
-	consultantDetail: {},
+	consultantDetail: {
+		reservations: [],
+		closedDays: []
+	},
 	// 컨설팅 후기 목록
 	cosultingReview: [],
-	// 컨설턴트 목록
-	consultants: [],
-	status: 'idle'
+	status: 'idle',
 }
 
-
-// 컨설턴트 목록 get
-export const ConsultantListFetch = createAsyncThunk(
-	'consultants',
+// home -> top10 컨설턴트
+export const TopTenListFetch = createAsyncThunk(
+	'consultants/top10',
 	async () => {
-		return Axios.get('consultants')
+		return Axios.get('consultants/top10')
 			.then(res => {
 				if (res.status === OK) {
 					return res.data
@@ -30,9 +36,42 @@ export const ConsultantListFetch = createAsyncThunk(
 	}
 )
 
+// popularConsultants
+export const ConsultantListFetch = createAsyncThunk(
+	'/consultants?order=popular',
+	async (value) => {
+		return Axios.get(`consultants?order=${value}`)
+			.then(res => {
+				if (res.status === OK) {
+					return res.data
+				} else {
+					alert('컨설턴트 목록을 불러올 수 없습니다.')
+					window.history.go(-1)
+				}
+			})
+	}
+)
+
+// 컨설턴트 검색
+export const ConsultantSearchFetch = createAsyncThunk(
+	'/consultants/search?keyword=졸리',
+	async (payload) => {
+		return Axios.get(`consultants/search?keyword=${payload}`)
+			.then(res => {
+				if (res.status === OK) {
+					return res.data
+				} else {
+					alert('검색불가')
+					window.history.go(-1)
+				}
+			})
+	}
+)
+
+
 //컨설턴트 상세정보 get
 export const ConsultantDetailFetch = createAsyncThunk(
-	'consultants/consultantID',
+	'consultants/ConsultantDetailFetch',
 	async (consultantID) => {
 		return Axios.get(`consultants/${consultantID}/1`)
 			.then(res => {
@@ -89,16 +128,40 @@ const ConsultantListSlice = createSlice({
 	name: 'consultantList',
 	initialState,
 	extraReducers: (builder) => {
+		// Top 10 consultant 리스트 패치
+		builder.addCase(TopTenListFetch.pending, (state, action) => {
+			state.status = 'loading';
+		})
+		builder.addCase(TopTenListFetch.fulfilled, (state, { payload }) => {
+			state.status = 'succeeded';
+			state.topTen = payload;
+		})
+		builder.addCase(TopTenListFetch.rejected, (state, action) => {
+			state.status = 'failed';
+		})
+		// 컨설턴트 리스트 패치
 		builder.addCase(ConsultantListFetch.pending, (state, action) => {
 			state.status = 'loading';
 		})
 		builder.addCase(ConsultantListFetch.fulfilled, (state, { payload }) => {
 			state.status = 'succeeded';
-			state.consultants = payload;
+			state.consultants = payload
 		})
 		builder.addCase(ConsultantListFetch.rejected, (state, action) => {
 			state.status = 'failed';
 		})
+		// 컨설턴트 검색
+		builder.addCase(ConsultantSearchFetch.pending, (state, action) => {
+			state.status = 'loading';
+		})
+		builder.addCase(ConsultantSearchFetch.fulfilled, (state, { payload }) => {
+			state.status = 'succeeded';
+			state.consultants = payload
+		})
+		builder.addCase(ConsultantSearchFetch.rejected, (state, action) => {
+			state.status = 'failed';
+		})
+		// 컨설턴트 디테일 패치
 		builder.addCase(ConsultantDetailFetch.pending, (state, action) => {
 			state.status = 'loading';
 		})
@@ -109,6 +172,7 @@ const ConsultantListSlice = createSlice({
 		builder.addCase(ConsultantDetailFetch.rejected, (state, action) => {
 			state.status = 'failed';
 		})
+		// 컨설턴트 디테일 리뷰 패치
 		builder.addCase(ConsultingReviewFetch.pending, (state, action) => {
 			state.status = 'loading';
 		})
@@ -119,7 +183,13 @@ const ConsultantListSlice = createSlice({
 		builder.addCase(ConsultingReviewFetch.rejected, (state, action) => {
 			state.status = 'failed';
 		})
+	},
+	reducers: {
+		setConValue: (state, action) => {
+			state.conValue = action.payload
+		},
 	}
 })
 
+export const { setConValue } = ConsultantListSlice.actions
 export default ConsultantListSlice.reducer

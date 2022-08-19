@@ -1,68 +1,42 @@
 import React, { useRef, useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Box, Button, Container, Grid, styled, Typography, Slider } from '@mui/material'
 
 import { settingModalOff } from 'features/consulting/consultingRoom/consultSlice'
 
+import UserVideoComponent from './UserVideoComponent';
+
 import WarningIcon from '@mui/icons-material/Warning';
-import MicIcon from '@mui/icons-material/Mic';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
 const CameraTest = () => {
-  const myVideo = useRef('');
+  const { customer } = useSelector(state => state.consult)
   const dispatch = useDispatch();
 
-  const [hue, setHue] = useState(50);
-  const [saturation, setSaturation] = useState(50);
-  const [brightness, setBrightness] = useState(50);
+  const [hue, setHue] = useState(0.0);
+  const [saturation, setSaturation] = useState(1.0);
+  const [brightness, setBrightness] = useState(0.0);
 
-  const [micVolume, setMicVolume] = useState(10);
-
+  const handleHSB = () => {
+    if (!customer.stream.filter) {
+      customer.stream
+        .applyFilter("GStreamerFilter", { "command": `videobalance hue=${hue} saturation=${saturation} brightness=${brightness}` })
+        .then(() => { })
+        .catch((err) => { });
+    } else {
+      customer.stream.removeFilter()
+        .then(() => {
+          customer.stream
+            .applyFilter("GStreamerFilter", { "command": `videobalance hue=${hue} saturation=${saturation} brightness=${brightness}` })
+            .then(() => { })
+        })
+    }
+  }
   return (
     <Container sx={{ xs: 'none', sm: 'block', height: '100%', position: 'fixed', top: '0', left: '0', zIndex: '1200' }}>
       <SContainer>
-        <Typography variant="h4">카메라 테스트</Typography>
         <SGridContainer container>
-          <SGrid item xs={12} sm={6}>
-            <VideoContainer>
-              <Typography variant="h6">
-                비디오 확인하기(미구현)
-              </Typography>
-              <Video useref={myVideo} />
-              <Typography variant="h6">
-                색상 | 채도 | 명도
-              </Typography>
-              <Slider
-                size="small"
-                value={hue}
-                onChange={(event, newValue) => {
-                  if (typeof newValue === 'number') {
-                    setHue(newValue);
-                  }
-                }}
-              />
-              <Slider
-                size="small"
-                value={saturation}
-                onChange={(event, newValue) => {
-                  if (typeof newValue === 'number') {
-                    setSaturation(newValue);
-                  }
-                }}
-              />
-              <Slider
-                size="small"
-                value={brightness}
-                onChange={(event, newValue) => {
-                  if (typeof newValue === 'number') {
-                    setBrightness(newValue);
-                  }
-                }}
-              />
-            </VideoContainer>
-          </SGrid>
-          <SGrid item xs={12} sm={6}>
+          <SGrid item xs={12} sm={3}>
             <NotiText>
               <WarningIcon sx={{
                 color: "black",
@@ -72,42 +46,70 @@ const CameraTest = () => {
                 border: "0.2rem solid black",
                 borderRadius: "100%"
               }} />
-              <Typography variant="h5">
+              <MainTypography>
                 밝기 조절을 최소화 하기 위해<br />
                 본인의 피부톤과 화면의 색상이<br />
                 일치하는 곳에서 촬영해주시기 바랍니다.
-              </Typography>
+              </MainTypography>
             </NotiText>
-            <SoundContainer>
-              <Typography variant="h6">
-                음성 확인하기
-              </Typography>
-              <Button variant="contained">
-                <MicIcon />
-                <Typography>
-                  마이크
-                </Typography>
-              </Button>
-              <Button variant="contained">
-                <PlayArrowIcon />
-                <Typography >
-                  재생하기
-                </Typography>
-              </Button>
+          </SGrid>
+          <SGrid item xs={12} sm={6}>
+            <VideoContainer>
+              <UserVideoComponent
+                streamManager={customer} />
+            </VideoContainer>
+          </SGrid>
+          <SGrid item xs={12} sm={3}>
+            <Controller >
+              <MainTypography variant="h5">HSB 컨트롤러</MainTypography>
+              {/* 마우스가 스크롤에서 벗어나면 적용됩니다. */}
+              <CustomTypography>
+                * 클릭 후 커서를 위, 아래로 이동해주세요. <hr />
+              </CustomTypography>
+              <MainTypography variant="h6">색조 (HUE)</MainTypography>
               <Slider
+                value={hue}
                 size="small"
-                value={micVolume}
+                valueLabelDisplay="auto"
+                marks step={0.1} min={-1.0} max={1.0}
+                onMouseLeave={handleHSB}
                 onChange={(event, newValue) => {
                   if (typeof newValue === 'number') {
-                    setMicVolume(newValue);
+                    setHue(newValue);
                   }
                 }}
-                color='secondary'
               />
-            </SoundContainer>
+              <MainTypography variant="h6">채도 (SATURATION)</MainTypography>
+              <Slider
+                value={saturation}
+                size="small"
+                valueLabelDisplay="auto"
+                marks step={0.1} min={0.0} max={2.0}
+                onMouseLeave={handleHSB}
+                onChange={(event, newValue) => {
+                  if (typeof newValue === 'number') {
+                    setSaturation(newValue);
+                  }
+                }}
+              />
+              <MainTypography variant="h6">밝기 (BRIGHTNESS)</MainTypography>
+              <Slider
+                value={brightness}
+                size="small"
+                valueLabelDisplay="auto"
+                marks step={0.1} min={-1.0} max={1.0}
+                onMouseLeave={handleHSB}
+                onChange={(event, newValue) => {
+                  if (typeof newValue === 'number') {
+                    setBrightness(newValue);
+                  }
+                }}
+              />
+
+            </Controller>
           </SGrid>
         </SGridContainer>
-        <Button onClick={() => { dispatch(settingModalOff()) }} variant="contained" sx={{ xs: { width: "100%" }, width: "40%" }}>
+        <Button onClick={() => { dispatch(settingModalOff()) }} variant="contained" sx={{ xs: { width: "100%" }, width: "40%", marginTop: 3 }}>
           세팅완료
         </Button>
       </SContainer>
@@ -150,23 +152,17 @@ const SGrid = styled(Grid)({
 })
 
 const VideoContainer = styled(Box)({
-  width: "90%",
+  width: "100%",
   aspectRatio: "16/9",
   backgroundColor: "#F1F1F190",
   borderRadius: "1rem",
   padding: "1rem",
 })
-const Video = styled('video')({
-  width: "100%",
-  aspectRatio: "16/9",
-  backgroundColor: "#111",
-})
 
-const SoundContainer = styled(Box)({
-  width: "90%",
-  marginTop: "1rem",
+const Controller = styled(Box)({
   backgroundColor: "#F1F1F190",
   borderRadius: "1rem",
+  width: "90%",
   padding: "1rem",
 })
 
@@ -176,4 +172,18 @@ const NotiText = styled(Container)({
   width: "90%",
   padding: "1rem",
   textAlign: "center"
+})
+
+const CustomTypography = styled(Typography)({
+  fontFamily: 'malgunbd !important',
+  fontSize: '20px',
+  letterSpacing: 'var(--font-letter-spacing)',
+  color: '#FFFFFF',
+})
+
+const MainTypography = styled(Typography)({
+  fontFamily: 'malgunbd !important',
+  fontSize: '18px',
+  letterSpacing: '-1px',
+  color: '#000000',
 })

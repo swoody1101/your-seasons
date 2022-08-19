@@ -1,23 +1,14 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-
-import { Avatar, Button, styled } from '@mui/material'
+import { Avatar, styled } from '@mui/material'
 
 const MyAvatar = (
-  setSize,
+  { setSize, imgUrl }
 ) => {
-  const { imageUrl } = useSelector((state) => state.auth.logonUser)
-  const handleAvatar = (e) => {
-    console.log("타겟", e.target.src)
-    console.log("주소", imageUrl)
-  }
+	const tmpImg = '/images/default/avatar20.png'
 
-
-  return (
+	return (
     <SetAvatar si={setSize}>
-      <Button onClick={handleAvatar}>
-        <img src={imageUrl} alt='' />
-      </Button>
+			<img src={imgUrl ? imgUrl : tmpImg} alt='' />
     </SetAvatar>
   )
 }
@@ -25,13 +16,13 @@ const MyAvatar = (
 export default MyAvatar
 
 const SetAvatar = styled(Avatar)((props) => ({
-  backgroundColor: "skyblue",
-  width: `${props.si.setSize * 10}px`,
-  height: `${props.si.setSize * 10}px`,
+  backgroundColor: "#FFB471",
+  width: `${props.si * 10}px`,
+  height: `${props.si * 10}px`,
   img: {
     backgroundColor: 'white',
     borderRadius: "100%",
-    width: `${props.si.setSize * 9}px`,
-    height: `${props.si.setSize * 9}px`,
+    width: `${props.si * 9}px`,
+    height: `${props.si * 9}px`,
   }
 }))

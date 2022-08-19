@@ -2,7 +2,7 @@ import baseAxios from 'axios';
 import { getToken } from './JWToken';
 
 
-const baseURL = 'https://yourseasons.ssafy.io/api/v1/';
+export const baseURL = 'https://yourseasons.ssafy.io/api/v1/';
 
 const Axios = baseAxios.create({
   baseURL: baseURL,
@@ -21,6 +21,13 @@ export const imgAxios = baseAxios.create({
 export default Axios;
 
 Axios.interceptors.request.use((config) => {
+  if (getToken()) {
+    config.headers.Authorization = `Bearer ${getToken()}`;
+  }
+  return config;
+});
+
+imgAxios.interceptors.request.use((config) => {
   if (getToken()) {
     config.headers.Authorization = `Bearer ${getToken()}`;
   }

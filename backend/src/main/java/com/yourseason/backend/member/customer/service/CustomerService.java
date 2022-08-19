@@ -1,22 +1,25 @@
 package com.yourseason.backend.member.customer.service;
 
-import com.yourseason.backend.common.domain.Color;
 import com.yourseason.backend.common.domain.Message;
-import com.yourseason.backend.common.exception.DuplicationException;
-import com.yourseason.backend.common.exception.NotEqualException;
-import com.yourseason.backend.common.exception.NotFoundException;
-import com.yourseason.backend.common.exception.WrongFormException;
+import com.yourseason.backend.common.exception.*;
+import com.yourseason.backend.consulting.consultant.domain.Consulting;
 import com.yourseason.backend.member.common.controller.dto.PasswordUpdateRequest;
 import com.yourseason.backend.member.common.domain.Role;
 import com.yourseason.backend.member.consultant.domain.ConsultantRepository;
 import com.yourseason.backend.member.customer.controller.dto.*;
 import com.yourseason.backend.member.customer.domain.Customer;
 import com.yourseason.backend.member.customer.domain.CustomerRepository;
+import com.yourseason.backend.reservation.domain.Reservation;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.io.IOUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +34,7 @@ public class CustomerService {
     private static final String PASSWORD_WRONG_FORM = "변경할 비밀번호가 현재 비밀번호와 일치합니다.";
     private static final String EMAIL_DUPLICATED = "이메일이 중복됩니다.";
     private static final String NICKNAME_DUPLICATED = "닉네임이 중복됩니다.";
+    private static final String CAN_NOT_LOAD_CONSULTING_FILE = "진단 결과를 로드할 수 없습니다.";
 
     private final PasswordEncoder passwordEncoder;
     private final CustomerRepository customerRepository;
@@ -63,6 +67,9 @@ public class CustomerService {
 
         return customer.getReservations()
                 .stream()
+                .sorted(Comparator.comparing(Reservation::getDate)
+                        .thenComparing(Reservation::getTime))
+                .filter(Reservation::isActive)
                 .filter(reservation -> reservation.getTime()
                         .atDate(reservation.getDate())
                         .isAfter(LocalDateTime.now()))
@@ -108,18 +115,47 @@ public class CustomerService {
                         .consultantNickname(consulting.getConsultant().getNickname())
                         .consultantImageUrl(consulting.getConsultant().getImageUrl())
                         .consultingDate(consulting.getCreatedDate().toLocalDate())
-                        .tone(consulting.getTestResult().getTone().getName())
-                        .bestColorSet(consulting.getTestResult().getBestColorSet().getColorSet().getColors()
+                        .tone(consulting.getConsultingResult().getTone().getName())
+                        .bestColorSet(consulting.getConsultingResult().getBestColorSet().getColorSet().getColorColorSets()
                                 .stream()
-                                .map(Color::getHex)
+                                .map(colorColorSet -> colorColorSet.getColor().getHex())
                                 .collect(Collectors.toList()))
-                        .worstColorSet(consulting.getTestResult().getWorstColorSet().getColorSet().getColors()
+                        .worstColorSet(consulting.getConsultingResult().getWorstColorSet().getColorSet().getColorColorSets()
                                 .stream()
-                                .map(Color::getHex)
+                                .map(colorColorSet -> colorColorSet.getColor().getHex())
                                 .collect(Collectors.toList()))
-                        .resultImageUrl(consulting.getTestResult().getConsultingFile())
-                        .comment(consulting.getComment())
+                        .consultingFile(getConsultingFile(consulting))
+                        .consultingComment(consulting.getConsultingResult().getConsultingComment())
                         .hasReview(consulting.hasReview())
+                        .build())
+                .collect(Collectors.toList());
+    }
+
+    public List<SelfConsultingResultResponse> getMySelfConsultings(Long customerId) {
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
+
+        return customer.getSelfConsultings()
+                .stream()
+                .map(selfConsulting -> SelfConsultingResultResponse.builder()
+                        .selfConsultingId(selfConsulting.getId())
+                        .selfConsultingDate(selfConsulting.getCreatedDate().toLocalDate())
+                        .tone(selfConsulting.getSelfConsultingResult().getTone().getName())
+                        .bestColorSet(selfConsulting.getSelfConsultingResult().getBestColorSet().getColorSet().getColorColorSets()
+                                .stream()
+                                .map(colorColorSet -> colorColorSet.getColor().getHex())
+                                .collect(Collectors.toList()))
+                        .worstColorSet(selfConsulting.getSelfConsultingResult().getWorstColorSet().getColorSet().getColorColorSets()
+                                .stream()
+                                .map(colorColorSet -> colorColorSet.getColor().getHex())
+                                .collect(Collectors.toList()))
+                        .percentages(selfConsulting.getSelfConsultingResult().getPercentages()
+                                .stream()
+                                .map(percentage -> PercentageResponse.builder()
+                                        .tone(percentage.getTone().getName())
+                                        .percentage(percentage.getPercentage())
+                                        .build())
+                                .collect(Collectors.toList()))
                         .build())
                 .collect(Collectors.toList());
     }
@@ -164,6 +200,17 @@ public class CustomerService {
     private Customer getCustomer(Long customerId) {
         return customerRepository.findById(customerId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
+    }
+
+    private byte[] getConsultingFile(Consulting consulting) {
+        try {
+            InputStream imageFile = new FileInputStream(consulting.getConsultingResult().getConsultingFile());
+            byte[] imageBytes = IOUtils.toByteArray(imageFile);
+            imageFile.close();
+            return imageBytes;
+        } catch (IOException e) {
+            throw new InternalServerErrorException(CAN_NOT_LOAD_CONSULTING_FILE);
+        }
     }
 
     private void checkValidPassword(String loginPassword, String password) {

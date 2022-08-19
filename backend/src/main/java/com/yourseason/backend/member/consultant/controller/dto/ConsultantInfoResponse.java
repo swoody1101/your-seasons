@@ -17,7 +17,7 @@ public class ConsultantInfoResponse {
     private String contact;
     private String email;
     private String introduction;
-    private String cost;
+    private int cost;
     private String imageUrl;
     private String consultingFileUrl;
     private String licenseName;
