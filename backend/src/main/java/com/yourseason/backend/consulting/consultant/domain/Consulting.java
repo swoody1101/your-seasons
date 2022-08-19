@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 @Entity
 public class Consulting extends BaseTimeEntity {
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "consulting_result_id")
     private ConsultingResult consultingResult;
 
