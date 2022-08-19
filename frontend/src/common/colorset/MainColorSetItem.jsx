@@ -8,10 +8,6 @@ const Pallete = ({ colorset, tone, setIsBest, setIsWorst }) => {
 
 	const dispatch = useDispatch()
 
-  console.log(selectedColor)
-  console.log(bestColor)
-  console.log(worstColor)
-
   const select = () => {
     if(tone==='spring_bright'){
     return '봄 브라이트'
