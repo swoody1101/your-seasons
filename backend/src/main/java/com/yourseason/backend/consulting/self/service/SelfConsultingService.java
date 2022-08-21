@@ -6,7 +6,6 @@ import com.yourseason.backend.consulting.common.domain.BestColorSet;
 import com.yourseason.backend.consulting.common.domain.WorstColorSet;
 import com.yourseason.backend.consulting.self.controller.dto.SelfConsultingFinishRequest;
 import com.yourseason.backend.consulting.self.domain.SelfConsulting;
-import com.yourseason.backend.consulting.self.domain.SelfConsultingRepository;
 import com.yourseason.backend.consulting.self.domain.result.Percentage;
 import com.yourseason.backend.consulting.self.domain.result.SelfConsultingResult;
 import com.yourseason.backend.member.customer.domain.Customer;
@@ -30,16 +29,11 @@ public class SelfConsultingService {
     private final ColorRepository colorRepository;
     private final CustomerRepository customerRepository;
     private final ToneRepository toneRepository;
-    private final SelfConsultingRepository selfConsultingRepository;
 
     @Transactional
     public Message finishSelfConsulting(Long customerId, SelfConsultingFinishRequest selfConsultingFinishRequest) {
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
-
-        SelfConsulting selfConsulting = getNewSelfConsulting(customer, getSessionId(customer));
-        customer.createSelfConsulting(selfConsulting);
-        customerRepository.save(customer);
 
         ColorSet requestBestColorSet = ColorSet.builder().build();
         toColorColorSet(requestBestColorSet, selfConsultingFinishRequest.getBestColorSet());
@@ -78,8 +72,10 @@ public class SelfConsultingService {
                 .tone(bestTone)
                 .build();
 
-        selfConsulting.done(selfConsultingResult);
-        selfConsultingRepository.save(selfConsulting);
+        SelfConsulting selfConsulting = getNewSelfConsulting(customer, selfConsultingResult, getSessionId(customer));
+        selfConsulting.done();
+        customer.createSelfConsulting(selfConsulting);
+        customerRepository.save(customer);
         return new Message("succeeded");
     }
 
@@ -87,9 +83,10 @@ public class SelfConsultingService {
         return String.join(SESSION_DELIMITER, customer.getEmail().split(EMAIL_FORMAT));
     }
 
-    private SelfConsulting getNewSelfConsulting(Customer customer, String sessionId) {
+    private SelfConsulting getNewSelfConsulting(Customer customer, SelfConsultingResult selfConsultingResult, String sessionId) {
         return SelfConsulting.builder()
                 .customer(customer)
+                .selfConsultingResult(selfConsultingResult)
                 .sessionId(sessionId)
                 .build();
     }

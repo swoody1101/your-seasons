@@ -40,8 +40,7 @@ public class SelfConsulting extends BaseTimeEntity {
         this.customer = customer;
     }
 
-    public void done(SelfConsultingResult selfConsultingResult) {
-        this.selfConsultingResult = selfConsultingResult;
+    public void done() {
         delete();
     }
 }
