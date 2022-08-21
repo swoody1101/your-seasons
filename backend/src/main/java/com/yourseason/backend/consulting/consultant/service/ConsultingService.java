@@ -55,25 +55,6 @@ public class ConsultingService {
     private final ToneRepository toneRepository;
 
     @Transactional
-    public ConsultingCreateResponse createConsulting(Long consultantId, ConsultingRequest consultingRequest) {
-        Reservation reservation = reservationRepository.findById(consultingRequest.getReservationId())
-                .orElseThrow(() -> new NotFoundException(RESERVATION_NOT_FOUND));
-        Consultant consultant = consultantRepository.findById(consultantId)
-                .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
-        if (!consultant.equals(reservation.getConsultant())) {
-            throw new WrongAccessException(CAN_NOT_ENTER_CONSULTING);
-        }
-        String sessionId = getSessionId(consultant);
-        consultant.createConsulting(getConsulting(consultant, sessionId));
-        consultantRepository.save(consultant);
-        return ConsultingCreateResponse.builder()
-                .consultingId(getConsultingId(consultant))
-                .sessionId(sessionId)
-                .sessionCreatedTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
-                .build();
-    }
-
-    @Transactional
     public ConsultingJoinResponse joinConsulting(Long customerId, ConsultingRequest consultingRequest) {
         Reservation reservation = reservationRepository.findById(consultingRequest.getReservationId())
                 .orElseThrow(() -> new NotFoundException(RESERVATION_NOT_FOUND));
@@ -99,11 +80,17 @@ public class ConsultingService {
     public Message finishConsulting(Long consultantId, ConsultingFinishRequest consultingFinishRequest, MultipartFile multipartFile) {
         Consultant consultant = consultantRepository.findById(consultantId)
                 .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
-        Consulting consulting = consultingRepository.findById(consultingFinishRequest.getConsultingId())
-                .orElseThrow(() -> new NotFoundException(CONSULTING_NOT_FOUND));
-        if (!consultant.equals(consulting.getConsultant())) {
+        Reservation reservation = reservationRepository.findById(consultingFinishRequest.getReservationId())
+                .filter(Reservation::isActive)
+                .orElseThrow(() -> new NotFoundException(RESERVATION_NOT_FOUND));
+        if (!consultant.equals(reservation.getConsultant())) {
             throw new WrongAccessException(WRONG_ACCESS);
         }
+
+        String sessionId = getSessionId(consultant);
+        Consulting consulting = getConsulting(consultant, sessionId);
+        consultant.createConsulting(consulting);
+        consultantRepository.save(consultant);
 
         String consultingFile = saveImage(multipartFile);
 
