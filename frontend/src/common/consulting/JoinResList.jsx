@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import OtherAvatar from 'common/avatar/OtherAvatar'
 import { CUSTOMER, CONSULTANT, BAD_REQUEST, NOT_FOUND, CONFLICT } from 'api/CustomConst'
 import { Box, Button, Typography, styled, Stack } from '@mui/material'
-import { getConsultantSessionName, openConsulting } from 'features/consulting/consultingRoom/consultSlice'
+import { getConsultantSessionName, openConsulting, setReservationId } from 'features/consulting/consultingRoom/consultSlice'
 
 const JoinResList = () => {
   const { role } = useSelector(state => state.auth.logonUser)
@@ -16,6 +16,7 @@ const JoinResList = () => {
   const navigate = useNavigate();
 
   const handleJoin = (reservationId) => {
+    dispatch(setReservationId(reservationId))
     dispatch(getConsultantSessionName(reservationId))
       .then((res) => {
         navigate('/consult')
@@ -32,6 +33,7 @@ const JoinResList = () => {
   }
 
   const handleOpen = (reservationId) => {
+    dispatch(setReservationId(reservationId))
     dispatch(openConsulting(reservationId))
       .then((res) => {
         navigate('/consult')

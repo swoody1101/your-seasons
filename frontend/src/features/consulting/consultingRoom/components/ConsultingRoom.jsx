@@ -31,7 +31,7 @@ const OPENVIDU_SERVER_SECRET = 'YOUR_SEASONS_SECRET';
 // rafce Arrow function style 
 const ConsultingRoom = () => {
   const { nickname, email, role } = useSelector(state => state.auth.logonUser)
-  const { session, customer, consultingId, consultantSessionName } = useSelector(state => state.consult)
+  const { session, customer, reservationId, consultantSessionName } = useSelector(state => state.consult)
   const tmp = email?.replace(/[@\.]/g, '-')
   const [mySessionId, setMySessionId] = useState(
     role === CONSULTANT ? tmp : consultantSessionName
@@ -50,14 +50,13 @@ const ConsultingRoom = () => {
 
   const [isMic, setIsMic] = useState(true)
   const [isCam, setIsCam] = useState(true)
-  const { selectedColor, bestColor, worstColor } = useSelector(state => state.colorSetList)
-
   // 코멘트, 진단결과 톤, 진단결과 이미지 정보
-  const comment = useSelector(state => state.colorSetList.consultingComment)
-  const selectedTone = useSelector(state => state.colorSetList.tone)
-  const files = useSelector(state => state.colorSetList.files)
+  const { selectedColor, bestColor, worstColor,
+    comment, selectedTone, files
+  } = useSelector(state => state.colorSetList)
+
   const consultingFinishRequest = {
-    consultingId: consultingId,
+    reservationId: reservationId,
     consultingComment: comment,
     tone: selectedTone,
     bestColorSet: bestColor,
@@ -182,13 +181,16 @@ const ConsultingRoom = () => {
       if (worstColor.length < 1 | bestColor.length < 1) {
         alert('베스트컬러와 워스트컬러 팔레트를 1개 이상씩 채워주세요.')
         return;
-      } else if (selectedTone === '') {
+      }
+      if (selectedTone === '') {
         alert('톤 정보를 입력해주세요.')
         return;
-      } else if (files === '') {
+      }
+      if (files === '') {
         alert('진단 결과표를 등록해 주세요.')
         return;
-      } else if (session) {
+      }
+      if (session) {
         session.disconnect();
         dispatch(postConsultingResult({ files, consultingFinishRequest }))
           .then(() => {
@@ -201,7 +203,7 @@ const ConsultingRoom = () => {
           })
       }
     }
-    else if (role === CUSTOMER && session) {
+    if (role === CUSTOMER && session) {
       session.disconnect();
     }
     setOV(null);

@@ -6,7 +6,7 @@ const initialState = {
   customer: undefined,
   isSetClear: false,
   consultantSessionName: 's-s-s',
-  consultingId: 0,
+  reservationId: 0,
   messageId: 2,
   messageList: [
     {
@@ -51,6 +51,7 @@ export const postConsultingResult = createAsyncThunk(
       let formData = new FormData()
       formData.append('consultingFinishRequest', new Blob([JSON.stringify(payload.consultingFinishRequest)], { type: "application/json" }))
       formData.append('file', payload.files[0])
+      console.log(formData)
       const response = await imgAxios.post(`consultings/1`, formData)
       alert('진단 결과가 저장되었습니다. 컨설팅을 종료합니다.')
       return response.data
@@ -76,6 +77,9 @@ export const consultSlice = createSlice({
     setSession: (state, { payload }) => {
       state.session = payload
     },
+    setReservationId: (state, {payload}) => {
+      state.reservationId = payload
+    },
     appendMessageList: (state, { payload }) => {
       if (payload.id > state.messageId) {
         state.messageId = payload.id + 1
@@ -89,14 +93,12 @@ export const consultSlice = createSlice({
   extraReducers: {
     [getConsultantSessionName.fulfilled]: (state, { payload }) => {
       state.consultantSessionName = payload.sessionId
-      state.consultingId = payload.consultingId
     },
     [openConsulting.fulfilled]: (state, { payload }) => {
       state.consultantSessionName = payload.sessionId
-      state.consultingId = payload.consultingId
     },
   }
 })
-export const { settingModalOn, settingModalOff, setSession, setCustomer, appendMessageList } = consultSlice.actions;
+export const { settingModalOn, settingModalOff, setSession, setCustomer, appendMessageList, setReservationId } = consultSlice.actions;
 
 export default consultSlice.reducer

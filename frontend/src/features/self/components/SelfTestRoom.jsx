@@ -12,8 +12,7 @@ import { Mic, MicOff, Videocam, VideocamOff } from '@mui/icons-material';
 
 import { setSnackbarMessage, setSnackBarOpen } from 'common/snackbar/snackbarSlice';
 import {
-  selfConsulting, selfConsultingClose,
-  settingModalOn, setSession, setCustomer
+  selfConsultingClose, settingModalOn, setSession, setCustomer
 } from 'features/self/selfSlice'
 
 import SelfColorPalette from 'common/colorset/selfcolorset/SelfColorPalette'
@@ -47,7 +46,6 @@ const SelfTestRoom = () => {
   const navigate = useNavigate();
 
   const dataSet = {
-    selfConsultingId: selfConsultingId,
     bestColorSet: bestColor,
     worstColorSet: worstColor
   }
@@ -120,7 +118,6 @@ const SelfTestRoom = () => {
     const getOV = new OpenVidu();
     dispatch(setSession(getOV.initSession()))
     setOV(getOV)
-    dispatch(selfConsulting())
   }
 
   const streamCreated = (event) => {
