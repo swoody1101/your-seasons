@@ -73,7 +73,6 @@ public class SelfConsultingService {
                 .build();
 
         SelfConsulting selfConsulting = getNewSelfConsulting(customer, selfConsultingResult, getSessionId(customer));
-        selfConsulting.done();
         customer.createSelfConsulting(selfConsulting);
         customerRepository.save(customer);
         return new Message("succeeded");
