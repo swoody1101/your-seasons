@@ -108,9 +108,8 @@ public class ConsultingService {
                 .consultingFile(consultingFile)
                 .build();
 
-        Consulting consulting = createNewConsulting(consultant, consultingResult, getSessionId(consultant));
-        consulting.done();
-        consultant.createConsulting(consulting);
+        Consulting consulting = createNewConsulting(consultant, reservation.getCustomer(), consultingResult, getSessionId(consultant));
+        consultant.createConsulting(consulting, reservation);
         consultantRepository.save(consultant);
         return new Message("succeeded");
     }
@@ -156,9 +155,10 @@ public class ConsultingService {
         return String.join(SESSION_DELIMITER, consultant.getEmail().split(EMAIL_FORMAT));
     }
 
-    private Consulting createNewConsulting(Consultant consultant, ConsultingResult consultingResult, String sessionId) {
+    private Consulting createNewConsulting(Consultant consultant, Customer customer, ConsultingResult consultingResult, String sessionId) {
         return Consulting.builder()
                 .consultant(consultant)
+                .customer(customer)
                 .consultingResult(consultingResult)
                 .sessionId(sessionId)
                 .build();
