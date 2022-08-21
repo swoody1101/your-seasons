@@ -64,8 +64,7 @@ public class Consulting extends BaseTimeEntity {
         this.customer = customer;
     }
 
-    public void done(ConsultingResult consultingResult) {
-        this.consultingResult = consultingResult;
+    public void done() {
         endReservation();
         delete();
     }

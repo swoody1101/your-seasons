@@ -83,11 +83,6 @@ public class ConsultingService {
             throw new WrongAccessException(WRONG_ACCESS);
         }
 
-        String sessionId = getSessionId(consultant);
-        Consulting consulting = getConsulting(consultant, sessionId);
-        consultant.createConsulting(consulting);
-        consultantRepository.save(consultant);
-
         String consultingFile = saveImage(multipartFile);
 
         ColorSet requestBestColorSet = ColorSet.builder().build();
@@ -113,8 +108,10 @@ public class ConsultingService {
                 .consultingFile(consultingFile)
                 .build();
 
-        consulting.done(consultingResult);
-        consultingRepository.save(consulting);
+        Consulting consulting = createNewConsulting(consultant, consultingResult, getSessionId(consultant));
+        consulting.done();
+        consultant.createConsulting(consulting);
+        consultantRepository.save(consultant);
         return new Message("succeeded");
     }
 
@@ -159,14 +156,11 @@ public class ConsultingService {
         return String.join(SESSION_DELIMITER, consultant.getEmail().split(EMAIL_FORMAT));
     }
 
-    private Consulting getConsulting(Consultant consultant, String sessionId) {
-        return consultant.getConsultings()
-                .stream()
-                .filter(Consulting::isActive)
-                .findFirst()
-                .orElseGet(() -> Consulting.builder()
-                        .consultant(consultant)
-                        .sessionId(sessionId)
-                        .build());
+    private Consulting createNewConsulting(Consultant consultant, ConsultingResult consultingResult, String sessionId) {
+        return Consulting.builder()
+                .consultant(consultant)
+                .consultingResult(consultingResult)
+                .sessionId(sessionId)
+                .build();
     }
 }
