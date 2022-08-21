@@ -4,7 +4,6 @@ import com.yourseason.backend.common.domain.*;
 import com.yourseason.backend.common.exception.*;
 import com.yourseason.backend.consulting.common.domain.BestColorSet;
 import com.yourseason.backend.consulting.common.domain.WorstColorSet;
-import com.yourseason.backend.consulting.consultant.controller.dto.ConsultingCreateResponse;
 import com.yourseason.backend.consulting.consultant.controller.dto.ConsultingFinishRequest;
 import com.yourseason.backend.consulting.consultant.controller.dto.ConsultingJoinResponse;
 import com.yourseason.backend.consulting.consultant.controller.dto.ConsultingRequest;
@@ -25,7 +24,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RequiredArgsConstructor

@@ -3,7 +3,6 @@ package com.yourseason.backend.consulting.consultant.controller;
 import com.yourseason.backend.common.domain.Message;
 import com.yourseason.backend.consulting.consultant.controller.dto.ConsultingFinishRequest;
 import com.yourseason.backend.consulting.consultant.controller.dto.ConsultingJoinResponse;
-import com.yourseason.backend.consulting.consultant.controller.dto.ConsultingCreateResponse;
 import com.yourseason.backend.consulting.consultant.controller.dto.ConsultingRequest;
 import com.yourseason.backend.consulting.consultant.service.ConsultingService;
 import com.yourseason.backend.util.JwtUtil;
