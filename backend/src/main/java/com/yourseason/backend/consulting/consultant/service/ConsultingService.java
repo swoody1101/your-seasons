@@ -35,10 +35,8 @@ public class ConsultingService {
     private static final String COLOR_NOT_FOUND = "해당 색상을 찾을 수 없습니다.";
     private static final String TONE_NOT_FOUND = "해당 톤을 찾을 수 없습니다.";
     private static final String RESERVATION_NOT_FOUND = "해당 예약을 찾을 수 없습니다.";
-    private static final String CONSULTING_NOT_FOUND = "해당 컨설팅을 찾을 수 없습니다.";
     private static final String CONSULTING_NOT_OPENED = "컨설팅이 개설되지 않았습니다.";
     private static final String CAN_NOT_ENTER_CONSULTING = "해당 컨설팅에 입장하실 수 없습니다.";
-    private static final String FAIL_TO_SAVE_CONSULTING_INFO = "컨설팅 정보 저장에 실패했습니다.";
     private static final String FAIL_TO_SAVE_CONSULTING_FILE = "컨설팅 진단표 저장에 실패했습니다.";
     private static final String WRONG_ACCESS = "잘못된 접근입니다.";
     private static final String WRONG_CONTENT_TYPE = "잘못된 확장자입니다.";
@@ -170,14 +168,5 @@ public class ConsultingService {
                         .consultant(consultant)
                         .sessionId(sessionId)
                         .build());
-    }
-
-    private Long getConsultingId(Consultant consultant) {
-        return consultant.getConsultings()
-                .stream()
-                .filter(Consulting::isActive)
-                .map(Consulting::getId)
-                .findFirst()
-                .orElseThrow(() -> new InternalServerErrorException(FAIL_TO_SAVE_CONSULTING_INFO));
     }
 }
