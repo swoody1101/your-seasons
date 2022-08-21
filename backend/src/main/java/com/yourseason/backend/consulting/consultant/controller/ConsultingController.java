@@ -29,7 +29,7 @@ public class ConsultingController {
                 .body(response);
     }
 
-    @PostMapping("/1")
+    @PostMapping
     public ResponseEntity<Message> finishConsulting(@RequestHeader("Authorization") String token,
                                                     @RequestPart ConsultingFinishRequest consultingFinishRequest,
                                                     @RequestPart("file") MultipartFile multipartFile) {
