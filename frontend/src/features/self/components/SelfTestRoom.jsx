@@ -42,7 +42,7 @@ const SelfTestRoom = () => {
   const [isCam, setIsCam] = useState(true)
   const { bestColor, worstColor } = useSelector(state => state.colorSetList)
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const dataSet = {
