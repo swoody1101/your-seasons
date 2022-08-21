@@ -1,7 +1,10 @@
 package com.yourseason.backend.consulting.consultant.service;
 
 import com.yourseason.backend.common.domain.*;
-import com.yourseason.backend.common.exception.*;
+import com.yourseason.backend.common.exception.InternalServerErrorException;
+import com.yourseason.backend.common.exception.NotFoundException;
+import com.yourseason.backend.common.exception.WrongAccessException;
+import com.yourseason.backend.common.exception.WrongFormException;
 import com.yourseason.backend.consulting.common.domain.BestColorSet;
 import com.yourseason.backend.consulting.common.domain.WorstColorSet;
 import com.yourseason.backend.consulting.consultant.controller.dto.ConsultingFinishRequest;
@@ -35,7 +38,6 @@ public class ConsultingService {
     private static final String COLOR_NOT_FOUND = "해당 색상을 찾을 수 없습니다.";
     private static final String TONE_NOT_FOUND = "해당 톤을 찾을 수 없습니다.";
     private static final String RESERVATION_NOT_FOUND = "해당 예약을 찾을 수 없습니다.";
-    private static final String CONSULTING_NOT_OPENED = "컨설팅이 개설되지 않았습니다.";
     private static final String CAN_NOT_ENTER_CONSULTING = "해당 컨설팅에 입장하실 수 없습니다.";
     private static final String FAIL_TO_SAVE_CONSULTING_FILE = "컨설팅 진단표 저장에 실패했습니다.";
     private static final String WRONG_ACCESS = "잘못된 접근입니다.";
@@ -59,16 +61,8 @@ public class ConsultingService {
         if (!customer.equals(reservation.getCustomer())) {
             throw new WrongAccessException(CAN_NOT_ENTER_CONSULTING);
         }
-        Consultant consultant = reservation.getConsultant();
-        Consulting consulting = consultant.getConsultings()
-                .stream()
-                .filter(Consulting::isActive)
-                .findFirst()
-                .orElseThrow(() -> new BadRequestException(CONSULTING_NOT_OPENED));
-        customer.joinConsulting(consulting);
-        customerRepository.save(customer);
         return ConsultingJoinResponse.builder()
-                .sessionId(getSessionId(consultant))
+                .sessionId(getSessionId(reservation.getConsultant()))
                 .build();
     }
 
