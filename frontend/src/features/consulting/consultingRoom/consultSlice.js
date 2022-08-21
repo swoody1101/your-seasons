@@ -77,7 +77,7 @@ export const consultSlice = createSlice({
     setSession: (state, { payload }) => {
       state.session = payload
     },
-    setReservationId: (state, {payload}) => {
+    setReservationId: (state, { payload }) => {
       state.reservationId = payload
     },
     appendMessageList: (state, { payload }) => {
