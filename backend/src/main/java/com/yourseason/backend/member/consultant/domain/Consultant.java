@@ -98,7 +98,8 @@ public class Consultant extends Member {
         return Objects.hash(this.getEmail());
     }
 
-    public void createConsulting(Consulting consulting) {
+    public void createConsulting(Consulting consulting, Reservation reservation) {
+        reservation.done();
         consultings.add(consulting);
         consultingCount++;
     }
