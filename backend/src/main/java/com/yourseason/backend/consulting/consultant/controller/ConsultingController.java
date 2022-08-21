@@ -21,14 +21,6 @@ public class ConsultingController {
 
     private final ConsultingService consultingService;
 
-    @PostMapping
-    public ResponseEntity<ConsultingCreateResponse> createConsulting(@RequestHeader("Authorization") String token, @RequestBody ConsultingRequest consultingRequest) {
-        ConsultingCreateResponse response = consultingService.createConsulting(JwtUtil.getMemberId(token), consultingRequest);
-        log.info("컨설팅 개설 성공");
-        return ResponseEntity.ok()
-                .body(response);
-    }
-
     @PostMapping("/join")
     public ResponseEntity<ConsultingJoinResponse> joinConsulting(@RequestHeader("Authorization") String token, @RequestBody ConsultingRequest consultingRequest) {
         ConsultingJoinResponse response = consultingService.joinConsulting(JwtUtil.getMemberId(token), consultingRequest);
