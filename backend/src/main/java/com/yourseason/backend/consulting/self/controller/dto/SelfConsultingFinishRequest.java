@@ -10,7 +10,6 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class SelfConsultingFinishRequest {
 
-        private Long selfConsultingId;
         private List<String> bestColorSet;
         private List<String> worstColorSet;
 }

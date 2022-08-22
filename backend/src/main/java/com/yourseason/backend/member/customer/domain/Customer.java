@@ -65,11 +65,6 @@ public class Customer extends Member {
         return Objects.hash(this.getEmail());
     }
 
-    public void joinConsulting(Consulting consulting) {
-        consultings.add(consulting);
-        consulting.enterCustomer(this);
-    }
-
     public void createSelfConsulting(SelfConsulting selfConsulting) {
         selfConsultings.add(selfConsulting);
         selfConsulting.enterCustomer(this);
