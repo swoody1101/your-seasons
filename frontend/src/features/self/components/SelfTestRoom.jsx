@@ -27,7 +27,7 @@ const OPENVIDU_SERVER_SECRET = 'YOUR_SEASONS_SECRET';
 const SelfTestRoom = () => {
   const { nickname, email, role } = useSelector(state => state.auth.logonUser) //nickname, email, role,
   const { session, customer, selfConsultingId } = useSelector(state => state.self)
-  const tmp = email.replace(/[@\.]/g, '-')
+  const tmp = email?.replace(/[@\.]/g, '-')
   const [mySessionId, setMySessionId] = useState(tmp)
 
   const [isBest, setIsBest] = useState(false)
