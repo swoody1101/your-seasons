@@ -19,19 +19,6 @@ const initialState = {
   ]
 }
 
-export const openConsulting = createAsyncThunk(
-  'consult/openConsulting',
-  async (reservationId, { rejectWithValue }) => {
-    try {
-      const response = await Axios.post(`consultings`, { reservationId: reservationId })
-      return response.data
-    } catch (err) {
-      return rejectWithValue(err)
-    }
-  }
-)
-
-
 export const getConsultantSessionName = createAsyncThunk(
   'consult/getConsultantSessionName',
   async (reservationId, { rejectWithValue }) => {
@@ -52,7 +39,7 @@ export const postConsultingResult = createAsyncThunk(
       formData.append('consultingFinishRequest', new Blob([JSON.stringify(payload.consultingFinishRequest)], { type: "application/json" }))
       formData.append('file', payload.files[0])
       console.log(formData)
-      const response = await imgAxios.post(`consultings/1`, formData)
+      const response = await imgAxios.post(`consultings`, formData)
       alert('진단 결과가 저장되었습니다. 컨설팅을 종료합니다.')
       return response.data
     } catch (err) {
@@ -92,9 +79,6 @@ export const consultSlice = createSlice({
   },
   extraReducers: {
     [getConsultantSessionName.fulfilled]: (state, { payload }) => {
-      state.consultantSessionName = payload.sessionId
-    },
-    [openConsulting.fulfilled]: (state, { payload }) => {
       state.consultantSessionName = payload.sessionId
     },
   }
