@@ -72,8 +72,7 @@ public class SelfConsultingService {
                 .tone(bestTone)
                 .build();
 
-        SelfConsulting selfConsulting = getNewSelfConsulting(customer, selfConsultingResult, getSessionId(customer));
-        customer.createSelfConsulting(selfConsulting);
+        customer.createSelfConsulting(createNewSelfConsulting(customer, selfConsultingResult, getSessionId(customer)));
         customerRepository.save(customer);
         return new Message("succeeded");
     }
@@ -82,7 +81,7 @@ public class SelfConsultingService {
         return String.join(SESSION_DELIMITER, customer.getEmail().split(EMAIL_FORMAT));
     }
 
-    private SelfConsulting getNewSelfConsulting(Customer customer, SelfConsultingResult selfConsultingResult, String sessionId) {
+    private SelfConsulting createNewSelfConsulting(Customer customer, SelfConsultingResult selfConsultingResult, String sessionId) {
         return SelfConsulting.builder()
                 .customer(customer)
                 .selfConsultingResult(selfConsultingResult)

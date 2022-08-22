@@ -103,7 +103,7 @@ public class ConsultingService {
                 .build();
 
         Consulting consulting = createNewConsulting(consultant, reservation.getCustomer(), consultingResult, getSessionId(consultant));
-        consultant.createConsulting(consulting, reservation);
+        consultant.registerConsulting(consulting, reservation);
         consultantRepository.save(consultant);
         return new Message("succeeded");
     }
