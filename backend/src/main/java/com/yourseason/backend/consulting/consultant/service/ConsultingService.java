@@ -47,7 +47,6 @@ public class ConsultingService {
 
     private final ConsultantRepository consultantRepository;
     private final CustomerRepository customerRepository;
-    private final ConsultingRepository consultingRepository;
     private final ReservationRepository reservationRepository;
     private final ColorRepository colorRepository;
     private final ToneRepository toneRepository;
