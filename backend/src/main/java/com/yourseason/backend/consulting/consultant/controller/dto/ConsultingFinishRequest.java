@@ -10,7 +10,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ConsultingFinishRequest {
 
-    private Long consultingId;
+    private Long reservationId;
     private String tone;
     private String consultingComment;
     private List<String> bestColorSet;

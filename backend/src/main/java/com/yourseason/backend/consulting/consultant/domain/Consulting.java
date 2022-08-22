@@ -40,7 +40,7 @@ public class Consulting extends BaseTimeEntity {
     @Builder
     public Consulting(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate,
                       ConsultingResult consultingResult, String sessionId, boolean hasReview, Consultant consultant, Customer customer) {
-        super(id, createdDate, lastModifiedDate, deletedDate, true);
+        super(id, createdDate, lastModifiedDate, LocalDateTime.now(), false);
         this.consultingResult = consultingResult;
         this.consultant = consultant;
         this.customer = customer;
@@ -62,19 +62,5 @@ public class Consulting extends BaseTimeEntity {
 
     public void enterCustomer(Customer customer) {
         this.customer = customer;
-    }
-
-    public void done(ConsultingResult consultingResult) {
-        this.consultingResult = consultingResult;
-        endReservation();
-        delete();
-    }
-
-    private void endReservation() {
-        consultant.getReservations()
-                .stream()
-                .filter(Reservation::isActive)
-                .findFirst()
-                .ifPresent(Reservation::done);
     }
 }

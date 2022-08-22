@@ -3,7 +3,6 @@ package com.yourseason.backend.consulting.consultant.controller;
 import com.yourseason.backend.common.domain.Message;
 import com.yourseason.backend.consulting.consultant.controller.dto.ConsultingFinishRequest;
 import com.yourseason.backend.consulting.consultant.controller.dto.ConsultingJoinResponse;
-import com.yourseason.backend.consulting.consultant.controller.dto.ConsultingCreateResponse;
 import com.yourseason.backend.consulting.consultant.controller.dto.ConsultingRequest;
 import com.yourseason.backend.consulting.consultant.service.ConsultingService;
 import com.yourseason.backend.util.JwtUtil;
@@ -21,14 +20,6 @@ public class ConsultingController {
 
     private final ConsultingService consultingService;
 
-    @PostMapping
-    public ResponseEntity<ConsultingCreateResponse> createConsulting(@RequestHeader("Authorization") String token, @RequestBody ConsultingRequest consultingRequest) {
-        ConsultingCreateResponse response = consultingService.createConsulting(JwtUtil.getMemberId(token), consultingRequest);
-        log.info("컨설팅 개설 성공");
-        return ResponseEntity.ok()
-                .body(response);
-    }
-
     @PostMapping("/join")
     public ResponseEntity<ConsultingJoinResponse> joinConsulting(@RequestHeader("Authorization") String token, @RequestBody ConsultingRequest consultingRequest) {
         ConsultingJoinResponse response = consultingService.joinConsulting(JwtUtil.getMemberId(token), consultingRequest);
@@ -37,7 +28,7 @@ public class ConsultingController {
                 .body(response);
     }
 
-    @PostMapping("/1")
+    @PostMapping
     public ResponseEntity<Message> finishConsulting(@RequestHeader("Authorization") String token,
                                                     @RequestPart ConsultingFinishRequest consultingFinishRequest,
                                                     @RequestPart("file") MultipartFile multipartFile) {

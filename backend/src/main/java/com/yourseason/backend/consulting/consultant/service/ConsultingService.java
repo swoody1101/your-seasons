@@ -1,10 +1,12 @@
 package com.yourseason.backend.consulting.consultant.service;
 
 import com.yourseason.backend.common.domain.*;
-import com.yourseason.backend.common.exception.*;
+import com.yourseason.backend.common.exception.InternalServerErrorException;
+import com.yourseason.backend.common.exception.NotFoundException;
+import com.yourseason.backend.common.exception.WrongAccessException;
+import com.yourseason.backend.common.exception.WrongFormException;
 import com.yourseason.backend.consulting.common.domain.BestColorSet;
 import com.yourseason.backend.consulting.common.domain.WorstColorSet;
-import com.yourseason.backend.consulting.consultant.controller.dto.ConsultingCreateResponse;
 import com.yourseason.backend.consulting.consultant.controller.dto.ConsultingFinishRequest;
 import com.yourseason.backend.consulting.consultant.controller.dto.ConsultingJoinResponse;
 import com.yourseason.backend.consulting.consultant.controller.dto.ConsultingRequest;
@@ -25,7 +27,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -37,10 +38,7 @@ public class ConsultingService {
     private static final String COLOR_NOT_FOUND = "해당 색상을 찾을 수 없습니다.";
     private static final String TONE_NOT_FOUND = "해당 톤을 찾을 수 없습니다.";
     private static final String RESERVATION_NOT_FOUND = "해당 예약을 찾을 수 없습니다.";
-    private static final String CONSULTING_NOT_FOUND = "해당 컨설팅을 찾을 수 없습니다.";
-    private static final String CONSULTING_NOT_OPENED = "컨설팅이 개설되지 않았습니다.";
     private static final String CAN_NOT_ENTER_CONSULTING = "해당 컨설팅에 입장하실 수 없습니다.";
-    private static final String FAIL_TO_SAVE_CONSULTING_INFO = "컨설팅 정보 저장에 실패했습니다.";
     private static final String FAIL_TO_SAVE_CONSULTING_FILE = "컨설팅 진단표 저장에 실패했습니다.";
     private static final String WRONG_ACCESS = "잘못된 접근입니다.";
     private static final String WRONG_CONTENT_TYPE = "잘못된 확장자입니다.";
@@ -55,25 +53,6 @@ public class ConsultingService {
     private final ToneRepository toneRepository;
 
     @Transactional
-    public ConsultingCreateResponse createConsulting(Long consultantId, ConsultingRequest consultingRequest) {
-        Reservation reservation = reservationRepository.findById(consultingRequest.getReservationId())
-                .orElseThrow(() -> new NotFoundException(RESERVATION_NOT_FOUND));
-        Consultant consultant = consultantRepository.findById(consultantId)
-                .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
-        if (!consultant.equals(reservation.getConsultant())) {
-            throw new WrongAccessException(CAN_NOT_ENTER_CONSULTING);
-        }
-        String sessionId = getSessionId(consultant);
-        consultant.createConsulting(getConsulting(consultant, sessionId));
-        consultantRepository.save(consultant);
-        return ConsultingCreateResponse.builder()
-                .consultingId(getConsultingId(consultant))
-                .sessionId(sessionId)
-                .sessionCreatedTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
-                .build();
-    }
-
-    @Transactional
     public ConsultingJoinResponse joinConsulting(Long customerId, ConsultingRequest consultingRequest) {
         Reservation reservation = reservationRepository.findById(consultingRequest.getReservationId())
                 .orElseThrow(() -> new NotFoundException(RESERVATION_NOT_FOUND));
@@ -82,16 +61,8 @@ public class ConsultingService {
         if (!customer.equals(reservation.getCustomer())) {
             throw new WrongAccessException(CAN_NOT_ENTER_CONSULTING);
         }
-        Consultant consultant = reservation.getConsultant();
-        Consulting consulting = consultant.getConsultings()
-                .stream()
-                .filter(Consulting::isActive)
-                .findFirst()
-                .orElseThrow(() -> new BadRequestException(CONSULTING_NOT_OPENED));
-        customer.joinConsulting(consulting);
-        customerRepository.save(customer);
         return ConsultingJoinResponse.builder()
-                .sessionId(getSessionId(consultant))
+                .sessionId(getSessionId(reservation.getConsultant()))
                 .build();
     }
 
@@ -99,9 +70,10 @@ public class ConsultingService {
     public Message finishConsulting(Long consultantId, ConsultingFinishRequest consultingFinishRequest, MultipartFile multipartFile) {
         Consultant consultant = consultantRepository.findById(consultantId)
                 .orElseThrow(() -> new NotFoundException(CONSULTANT_NOT_FOUND));
-        Consulting consulting = consultingRepository.findById(consultingFinishRequest.getConsultingId())
-                .orElseThrow(() -> new NotFoundException(CONSULTING_NOT_FOUND));
-        if (!consultant.equals(consulting.getConsultant())) {
+        Reservation reservation = reservationRepository.findById(consultingFinishRequest.getReservationId())
+                .filter(Reservation::isActive)
+                .orElseThrow(() -> new NotFoundException(RESERVATION_NOT_FOUND));
+        if (!consultant.equals(reservation.getConsultant())) {
             throw new WrongAccessException(WRONG_ACCESS);
         }
 
@@ -130,8 +102,9 @@ public class ConsultingService {
                 .consultingFile(consultingFile)
                 .build();
 
-        consulting.done(consultingResult);
-        consultingRepository.save(consulting);
+        Consulting consulting = createNewConsulting(consultant, reservation.getCustomer(), consultingResult, getSessionId(consultant));
+        consultant.registerConsulting(consulting, reservation);
+        consultantRepository.save(consultant);
         return new Message("succeeded");
     }
 
@@ -176,23 +149,12 @@ public class ConsultingService {
         return String.join(SESSION_DELIMITER, consultant.getEmail().split(EMAIL_FORMAT));
     }
 
-    private Consulting getConsulting(Consultant consultant, String sessionId) {
-        return consultant.getConsultings()
-                .stream()
-                .filter(Consulting::isActive)
-                .findFirst()
-                .orElseGet(() -> Consulting.builder()
-                        .consultant(consultant)
-                        .sessionId(sessionId)
-                        .build());
-    }
-
-    private Long getConsultingId(Consultant consultant) {
-        return consultant.getConsultings()
-                .stream()
-                .filter(Consulting::isActive)
-                .map(Consulting::getId)
-                .findFirst()
-                .orElseThrow(() -> new InternalServerErrorException(FAIL_TO_SAVE_CONSULTING_INFO));
+    private Consulting createNewConsulting(Consultant consultant, Customer customer, ConsultingResult consultingResult, String sessionId) {
+        return Consulting.builder()
+                .consultant(consultant)
+                .customer(customer)
+                .consultingResult(consultingResult)
+                .sessionId(sessionId)
+                .build();
     }
 }
