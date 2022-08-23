@@ -16,7 +16,7 @@ import java.util.List;
 @Entity
 public class ColorSet extends BaseTimeEntity {
 
-    @OneToMany(mappedBy = "colorSet", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "colorSet", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ColorColorSet> colorColorSets = new ArrayList<>();
 
     @Builder
