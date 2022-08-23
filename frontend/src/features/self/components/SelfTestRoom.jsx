@@ -144,7 +144,6 @@ const SelfTestRoom = () => {
           dispatch(setSession(undefined))
           alert('상담이 종료되었습니다. 마이페이지에서 진단결과를 확인해주세요.')
           navigate('/')
-          // window.location.reload()
         })
     }
     setOV(null);
