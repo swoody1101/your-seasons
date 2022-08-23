@@ -5,7 +5,7 @@ const initialState = {
   session: undefined,
   customer: undefined,
   isSetClear: false,
-  consultantSessionName: 's-s-s',
+  consultantSessionName: '',
   reservationId: 0,
   messageId: 2,
   messageList: [
@@ -67,6 +67,21 @@ export const consultSlice = createSlice({
     setReservationId: (state, { payload }) => {
       state.reservationId = payload
     },
+    resetSessionName: (state) => {
+      state.consultantSessionName = ''
+    },
+    resetMsg: (state) => {
+      state.messageId = 2;
+      state.messageList = [
+        {
+          id: 1,
+          role: '',
+          imageUrl: '', // '' : mine, '/images/d~' : other
+          side: 'left', // '' : other, 'right' : mine
+          message: '대화를 시작합니다.'
+        }
+      ]
+    },
     appendMessageList: (state, { payload }) => {
       if (payload.id > state.messageId) {
         state.messageId = payload.id + 1
@@ -83,6 +98,7 @@ export const consultSlice = createSlice({
     },
   }
 })
-export const { settingModalOn, settingModalOff, setSession, setCustomer, appendMessageList, setReservationId } = consultSlice.actions;
+export const { settingModalOn, settingModalOff, setSession, setCustomer,
+  resetSessionName, appendMessageList, setReservationId, resetMsg } = consultSlice.actions;
 
 export default consultSlice.reducer
