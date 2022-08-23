@@ -33,7 +33,6 @@ const ConsultantList = () => {
 
 	return (
 		<BackDiv>
-      {/* <Img src={EB8F90} /> */}
 			<Div>
 				<TopDiv>
 					{/* search bar */}
@@ -95,17 +94,7 @@ const ConsultantList = () => {
 
 export default ConsultantList
 
-// const Img = styled('img')({
-// 	position: "absolute",
-//   marginTop: "-70px",
-// 	minWidth: "940px",
-// 	minHeight: "22px",
-// 	height: "500px",
-// 	width: "100vw",
-// })
-
 const BackDiv = styled('div')({
-  // position: "relative",
 	display: 'flex',
 	flexDirection: 'row',
 	justifyContent: 'center',
