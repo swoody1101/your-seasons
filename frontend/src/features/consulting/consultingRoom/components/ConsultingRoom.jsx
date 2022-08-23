@@ -412,14 +412,17 @@ const ConsultingRoom = () => {
           // 세션연결 안됐을시
           !session ?
             <>
-              <BottomBtn variant="contained" onClick={joinSession}>
-                연결
-              </BottomBtn>
-              <BottomBtn variant="contained" onClick={() => {
-                navigate('/')
-              }}>
-                돌아가기
-              </BottomBtn>
+              <p />
+              <ButtonGroup>
+                <BottomBtn variant="contained" onClick={joinSession} sx={{ backgroundColor: "#EB8F90" }}>
+                  연결
+                </BottomBtn>
+                <BottomBtn variant="contained" onClick={() => {
+                  navigate('/')
+                }}>
+                  돌아가기
+                </BottomBtn>
+              </ButtonGroup>
             </>
             :
             // 세션 연결시 
