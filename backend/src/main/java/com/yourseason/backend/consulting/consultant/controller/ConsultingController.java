@@ -20,14 +20,6 @@ public class ConsultingController {
 
     private final ConsultingService consultingService;
 
-    @PostMapping("/join")
-    public ResponseEntity<ConsultingJoinResponse> joinConsulting(@RequestHeader("Authorization") String token, @RequestBody ConsultingRequest consultingRequest) {
-        ConsultingJoinResponse response = consultingService.joinConsulting(JwtUtil.getMemberId(token), consultingRequest);
-        log.info("컨설팅 입장 성공");
-        return ResponseEntity.ok()
-                .body(response);
-    }
-
     @PostMapping
     public ResponseEntity<Message> finishConsulting(@RequestHeader("Authorization") String token,
                                                     @RequestPart ConsultingFinishRequest consultingFinishRequest,
@@ -36,5 +28,13 @@ public class ConsultingController {
         log.info("컨설팅 종료 후 진단 결과 저장 성공");
         return ResponseEntity.ok()
                 .body(message);
+    }
+
+    @PostMapping("/join")
+    public ResponseEntity<ConsultingJoinResponse> joinConsulting(@RequestHeader("Authorization") String token, @RequestBody ConsultingRequest consultingRequest) {
+        ConsultingJoinResponse response = consultingService.joinConsulting(JwtUtil.getMemberId(token), consultingRequest);
+        log.info("컨설팅 입장 성공");
+        return ResponseEntity.ok()
+                .body(response);
     }
 }
