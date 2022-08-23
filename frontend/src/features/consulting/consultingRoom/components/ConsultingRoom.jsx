@@ -199,7 +199,6 @@ const ConsultingRoom = () => {
             dispatch(setFiles(''))
             dispatch(resetColor())
             navigate('/')
-            // window.location.reload()
           })
       }
     }
