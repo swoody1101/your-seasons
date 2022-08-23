@@ -52,13 +52,13 @@ const ConsultingRoom = () => {
   const [isCam, setIsCam] = useState(true)
   // 코멘트, 진단결과 톤, 진단결과 이미지 정보
   const { selectedColor, bestColor, worstColor,
-    comment, selectedTone, files
+    consultingComment, tone, files
   } = useSelector(state => state.colorSetList)
 
   const consultingFinishRequest = {
     reservationId: reservationId,
-    consultingComment: comment,
-    tone: selectedTone,
+    consultingComment: consultingComment,
+    tone: tone,
     bestColorSet: bestColor,
     worstColorSet: worstColor
   }
@@ -182,7 +182,7 @@ const ConsultingRoom = () => {
         alert('베스트컬러와 워스트컬러 팔레트를 1개 이상씩 채워주세요.')
         return;
       }
-      if (selectedTone === '') {
+      if (tone === '') {
         alert('톤 정보를 입력해주세요.')
         return;
       }
