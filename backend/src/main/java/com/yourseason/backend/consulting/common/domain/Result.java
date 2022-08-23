@@ -14,11 +14,11 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 public abstract class Result extends BaseTimeEntity {
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "best_color_set_id")
     private BestColorSet bestColorSet;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "worst_color_set_id")
     private WorstColorSet worstColorSet;
 
