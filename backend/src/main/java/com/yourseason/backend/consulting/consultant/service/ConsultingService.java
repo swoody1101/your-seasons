@@ -114,7 +114,7 @@ public class ConsultingService {
         checkContentType(multipartFile);
 
         StringBuilder imageUploadPath = new StringBuilder(new File("/home/ubuntu").getAbsolutePath());
-        imageUploadPath.append("img");
+        imageUploadPath.append("/img");
         File imageFile = new File(imageUploadPath.toString());
         if (!imageFile.exists()) {
             imageFile.mkdir();
