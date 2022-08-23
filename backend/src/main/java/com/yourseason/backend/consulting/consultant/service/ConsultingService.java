@@ -11,7 +11,6 @@ import com.yourseason.backend.consulting.consultant.controller.dto.ConsultingFin
 import com.yourseason.backend.consulting.consultant.controller.dto.ConsultingJoinResponse;
 import com.yourseason.backend.consulting.consultant.controller.dto.ConsultingRequest;
 import com.yourseason.backend.consulting.consultant.domain.Consulting;
-import com.yourseason.backend.consulting.consultant.domain.ConsultingRepository;
 import com.yourseason.backend.consulting.consultant.domain.result.ConsultingResult;
 import com.yourseason.backend.member.consultant.domain.Consultant;
 import com.yourseason.backend.member.consultant.domain.ConsultantRepository;
@@ -44,10 +43,10 @@ public class ConsultingService {
     private static final String WRONG_CONTENT_TYPE = "잘못된 확장자입니다.";
     private static final String SESSION_DELIMITER = "-";
     private static final String EMAIL_FORMAT = "[@.]";
+    private static final int ADMISSION_TIME = 10;
 
     private final ConsultantRepository consultantRepository;
     private final CustomerRepository customerRepository;
-    private final ConsultingRepository consultingRepository;
     private final ReservationRepository reservationRepository;
     private final ColorRepository colorRepository;
     private final ToneRepository toneRepository;
@@ -58,7 +57,10 @@ public class ConsultingService {
                 .orElseThrow(() -> new NotFoundException(RESERVATION_NOT_FOUND));
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new NotFoundException(CUSTOMER_NOT_FOUND));
-        if (!customer.equals(reservation.getCustomer())) {
+        if (!customer.equals(reservation.getCustomer())
+                || !LocalDateTime.now().toLocalDate().isEqual(reservation.getDate())
+                || LocalDateTime.now().toLocalTime().isBefore(reservation.getTime().minusMinutes(ADMISSION_TIME))
+                || LocalDateTime.now().toLocalTime().isAfter(reservation.getTime().plusHours(1))) {
             throw new WrongAccessException(CAN_NOT_ENTER_CONSULTING);
         }
         return ConsultingJoinResponse.builder()
