@@ -11,7 +11,10 @@ import { Mic, MicOff, Videocam, VideocamOff } from '@mui/icons-material';
 
 
 import { setSnackbarMessage, setSnackBarOpen } from 'common/snackbar/snackbarSlice';
-import { settingModalOn, setSession, setCustomer, postConsultingResult } from 'features/consulting/consultingRoom/consultSlice'
+import {
+  settingModalOn, setSession, setCustomer,
+  postConsultingResult, resetSessionName, resetMsg
+} from 'features/consulting/consultingRoom/consultSlice'
 
 import { CONSULTANT, CUSTOMER } from 'api/CustomConst'
 import { sharedColorSet, changeComment, selectTone, setFiles, resetColor } from 'common/colorset/colorSetSlice'
@@ -77,6 +80,17 @@ const ConsultingRoom = () => {
         onbeforeunload);
     }
   }, [])
+
+  useEffect(() => {
+    if (role === CUSTOMER) {
+      if (!consultantSessionName) {
+        alert('요청된 세션이 없거나 공란입니다. 종료 후 정상접근 바랍니다.')
+      }
+      else {
+        console.log(consultantSessionName)
+      }
+    }
+  }, [consultantSessionName])
 
 
   useEffect(() => {
@@ -163,8 +177,9 @@ const ConsultingRoom = () => {
 
   const streamCreated = (event) => {
     const subscriber = session.subscribe(event.stream, undefined);
-    if (role === CONSULTANT) { dispatch(setCustomer(subscriber)) }
-    else if (role === CUSTOMER) { setConsultant(subscriber) }
+    const subRole = JSON.parse(event.stream.connection.data).clientRole
+    if (role === CONSULTANT && subRole === CUSTOMER) { dispatch(setCustomer(subscriber)) }
+    else if (role === CUSTOMER && subRole === CONSULTANT) { setConsultant(subscriber) }
   }
 
   const streamDestroyed = (event) => {
@@ -209,6 +224,7 @@ const ConsultingRoom = () => {
     setMySessionId(role === CONSULTANT ? tmp : consultantSessionName)
     dispatch(setSession(undefined))
     dispatch(setCustomer(undefined))
+    dispatch(resetMsg())
     setMyUserName(nickname)
     setConsultant(undefined)
   }
@@ -418,6 +434,7 @@ const ConsultingRoom = () => {
                 </BottomBtn>
                 <BottomBtn variant="contained" onClick={() => {
                   navigate('/')
+                  dispatch(resetSessionName())
                 }}>
                   돌아가기
                 </BottomBtn>

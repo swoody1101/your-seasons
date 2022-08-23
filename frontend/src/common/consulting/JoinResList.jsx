@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux/es/exports';
 import { useNavigate } from 'react-router-dom';
 
 import OtherAvatar from 'common/avatar/OtherAvatar'
-import { CUSTOMER, CONSULTANT, BAD_REQUEST, NOT_FOUND, CONFLICT } from 'api/CustomConst'
+import { CUSTOMER, CONSULTANT, BAD_REQUEST, FOBIDDEN, NOT_FOUND, CONFLICT } from 'api/CustomConst'
 import { Box, Button, Typography, styled, Stack } from '@mui/material'
 import { getConsultantSessionName, setReservationId } from 'features/consulting/consultingRoom/consultSlice'
 
@@ -18,8 +18,13 @@ const JoinResList = () => {
   const handleJoin = (reservationId) => {
     dispatch(setReservationId(reservationId))
     dispatch(getConsultantSessionName(reservationId))
-      .then((res) => {
-        navigate('/consult')
+      .then(({ payload }) => {
+        const { response: { status, data: { message } } } = payload
+        if (status === FOBIDDEN) {
+          alert(message)
+        } else {
+          navigate('/consult')
+        }
       })
       .catch((err) => {
         if (err.response.status === BAD_REQUEST) {
