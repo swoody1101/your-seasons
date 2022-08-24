@@ -51,7 +51,7 @@ const CoverFilter = () => {
     }
   }, [selectedColor])
 
-  const handelFabric = () => {
+  const handleFabric = () => {
     const value = falue + 1
     if (value > 2) {
       const f = fabric[0]
@@ -83,7 +83,8 @@ const CoverFilter = () => {
             <GradientIcon />
           </SIconButton>
           <SIconButton
-            onClick={() => { handelFabric(); handleFilter() }}
+            onClick={handleFabric}
+            onMouseLeave={handleFilter}
           >
             <WifiProtectedSetupIcon />
           </SIconButton>
