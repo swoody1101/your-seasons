@@ -18,13 +18,8 @@ const JoinResList = () => {
   const handleJoin = (reservationId) => {
     dispatch(setReservationId(reservationId))
     dispatch(getConsultantSessionName(reservationId))
-      .then(({ payload }) => {
-        const { response: { status, data: { message } } } = payload
-        if (status === FOBIDDEN) {
-          alert(message)
-        } else {
+      .then(() => {      
           navigate('/consult')
-        }
       })
       .catch((err) => {
         if (err.response.status === BAD_REQUEST) {
