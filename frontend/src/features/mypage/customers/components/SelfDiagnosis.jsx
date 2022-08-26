@@ -24,7 +24,7 @@ const SelfDiagnosis = () => {
 					<SetCard variant="outlined">
 						<CardContent>
 							<Grid container sx={{ display: 'flex', flexFlow: 'no-wrap' }}>
-								<Grid item>
+								<Grid item sx={{width: '100%'}}>
 									{/* 컨설턴트정보, 날짜 */}
 									<Forflex>
 										<MainText>
@@ -56,7 +56,7 @@ const SelfDiagnosis = () => {
 														<SubText>
 															{res.tone}톤
 														</SubText>
-														<Box sx={{ position: 'relative', display: 'inline-flex' }}>
+														<Box sx={{ position: 'relative', display: 'inline-flex', alignItems: 'center' }}>
 															<CircularProgress variant="determinate" value={res.percentage} color='success' />
 															<Box
 																sx={{
@@ -97,7 +97,7 @@ const Div = styled('div')({
 	display: 'flex',
 	flexDirection: 'column-reverse',
 	maxWidth: '100%',
-	gap: 10,
+	gap: 10,  
 })
 
 const SetCard = styled(Card)({
@@ -154,7 +154,6 @@ const Pallete = styled('div')({
 	flexDirection: 'column',
 	minHeight: 100,
 	maxWidth: 550,
-
 })
 
 const PalleteItem = styled('div')({
@@ -178,5 +177,5 @@ const Color = styled('div')((props) => ({
 const FlexDiv = styled('div')({
 	display: 'flex',
 	marginBottom: '8px',
-	marginRight: '16px'
+	marginRight: '16px',
 })

@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux/es/exports';
 import { useNavigate } from 'react-router-dom';
 
 import OtherAvatar from 'common/avatar/OtherAvatar'
-import { CUSTOMER, CONSULTANT, BAD_REQUEST, NOT_FOUND, CONFLICT } from 'api/CustomConst'
+import { CUSTOMER, CONSULTANT, BAD_REQUEST, FOBIDDEN, NOT_FOUND, CONFLICT } from 'api/CustomConst'
 import { Box, Button, Typography, styled, Stack } from '@mui/material'
-import { getConsultantSessionName, openConsulting } from 'features/consulting/consultingRoom/consultSlice'
+import { getConsultantSessionName, setReservationId } from 'features/consulting/consultingRoom/consultSlice'
 
 const JoinResList = () => {
   const { role } = useSelector(state => state.auth.logonUser)
@@ -16,9 +16,10 @@ const JoinResList = () => {
   const navigate = useNavigate();
 
   const handleJoin = (reservationId) => {
+    dispatch(setReservationId(reservationId))
     dispatch(getConsultantSessionName(reservationId))
-      .then((res) => {
-        navigate('/consult')
+      .then(() => {      
+          navigate('/consult')
       })
       .catch((err) => {
         if (err.response.status === BAD_REQUEST) {
@@ -32,19 +33,8 @@ const JoinResList = () => {
   }
 
   const handleOpen = (reservationId) => {
-    dispatch(openConsulting(reservationId))
-      .then((res) => {
-        navigate('/consult')
-      })
-      .catch((err) => {
-        if (err.response.status === BAD_REQUEST) {
-          alert('적절한 요청이 아닙니다.')
-        } else if (err.response.status === NOT_FOUND) {
-          alert('개설된 세션이 없습니다.')
-        } else if (err.response.status === CONFLICT) {
-          alert('이미 중복으로 접속된 세션입니다.')
-        }
-      })
+    dispatch(setReservationId(reservationId))
+    navigate('/consult')
   }
 
   const myResDataList = () => {

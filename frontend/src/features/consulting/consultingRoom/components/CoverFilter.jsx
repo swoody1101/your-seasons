@@ -9,9 +9,6 @@ import { getFilter } from './rgbConverter'
 import FABRIC0 from 'assets/fabric/fabric000.png'
 import FABRIC1 from 'assets/fabric/fabric001.png'
 import FABRIC2 from 'assets/fabric/fabric002.png'
-import FABRIC3 from 'assets/fabric/fabric003.png'
-import FABRIC4 from 'assets/fabric/fabric004.png'
-import FABRIC5 from 'assets/fabric/fabric005.png'
 
 const CoverFilter = () => {
   const { selectedColor } = useSelector(state => state.colorSetList)
@@ -20,7 +17,7 @@ const CoverFilter = () => {
   const [isFilter, setIsFilter] = useState(false)
   const [hvalue, setHvalue] = useState(4.0)
   const [falue, setFalue] = useState(0)
-  const fabric = [FABRIC0, FABRIC1, FABRIC2, FABRIC3, FABRIC4, FABRIC5]
+  const fabric = [FABRIC0, FABRIC1, FABRIC2]
   const [colorString, setColorString] = useState('opacity(1.0)')
 
   useEffect(() => {
@@ -54,9 +51,9 @@ const CoverFilter = () => {
     }
   }, [selectedColor])
 
-  const handelFabric = () => {
+  const handleFabric = () => {
     const value = falue + 1
-    if (value > 5) {
+    if (value > 2) {
       const f = fabric[0]
       setImg(f)
       setFalue(0)
@@ -86,7 +83,7 @@ const CoverFilter = () => {
             <GradientIcon />
           </SIconButton>
           <SIconButton
-            onClick={handelFabric}
+            onClick={handleFabric}
             onMouseLeave={handleFilter}
           >
             <WifiProtectedSetupIcon />

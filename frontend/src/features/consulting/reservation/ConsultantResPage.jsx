@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ConsultantProfile from "./components/ConsultantProfile";
 import Container from '@mui/material/Container';
 import ConsultantResPageTab from "./reservationCalendar/ConsultantResPageTab";
@@ -6,6 +6,10 @@ import adbed2 from 'assets/images/ADBED2.jpg'
 import { styled } from '@mui/material'
 
 const ConsultantResPage = () => {
+
+  useEffect(()=>{
+    window.scrollTo(0, 0);
+  },[])
 
 	return (
 		<>

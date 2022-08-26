@@ -11,7 +11,10 @@ import { Mic, MicOff, Videocam, VideocamOff } from '@mui/icons-material';
 
 
 import { setSnackbarMessage, setSnackBarOpen } from 'common/snackbar/snackbarSlice';
-import { settingModalOn, setSession, setCustomer, postConsultingResult } from 'features/consulting/consultingRoom/consultSlice'
+import {
+  settingModalOn, setSession, setCustomer,
+  postConsultingResult, resetSessionName, resetMsg
+} from 'features/consulting/consultingRoom/consultSlice'
 
 import { CONSULTANT, CUSTOMER } from 'api/CustomConst'
 import { sharedColorSet, changeComment, selectTone, setFiles, resetColor } from 'common/colorset/colorSetSlice'
@@ -23,15 +26,15 @@ import SelectedColorSet from 'common/colorset/SelectedColorSet';
 import ConSelectedColorSet from 'common/colorset/ConSelectedColorSet';
 import ColorButtonGroup from 'common/colorset/ColorButtonGroup'
 
-const OPENVIDU_SERVER_URL = 'https://yourseasons.anveloper.kr:8443';
-const OPENVIDU_SERVER_SECRET = 'YOUR_SEASONS_SECRET';
+const OPENVIDU_SERVER_URL = 'https://[도메인]:8443';
+const OPENVIDU_SERVER_SECRET = '[오픈비두시크릿]';
 
 
 
 // rafce Arrow function style 
 const ConsultingRoom = () => {
   const { nickname, email, role } = useSelector(state => state.auth.logonUser)
-  const { session, customer, consultingId, consultantSessionName } = useSelector(state => state.consult)
+  const { session, customer, reservationId, consultantSessionName } = useSelector(state => state.consult)
   const tmp = email?.replace(/[@\.]/g, '-')
   const [mySessionId, setMySessionId] = useState(
     role === CONSULTANT ? tmp : consultantSessionName
@@ -50,22 +53,21 @@ const ConsultingRoom = () => {
 
   const [isMic, setIsMic] = useState(true)
   const [isCam, setIsCam] = useState(true)
-  const { selectedColor, bestColor, worstColor } = useSelector(state => state.colorSetList)
-
   // 코멘트, 진단결과 톤, 진단결과 이미지 정보
-  const comment = useSelector(state => state.colorSetList.consultingComment)
-  const selectedTone = useSelector(state => state.colorSetList.tone)
-  const files = useSelector(state => state.colorSetList.files)
+  const { selectedColor, bestColor, worstColor,
+    consultingComment, tone, files
+  } = useSelector(state => state.colorSetList)
+
   const consultingFinishRequest = {
-    consultingId: consultingId,
-    consultingComment: comment,
-    tone: selectedTone,
+    reservationId: reservationId,
+    consultingComment: consultingComment,
+    tone: tone,
     bestColorSet: bestColor,
     worstColorSet: worstColor
   }
 
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -78,6 +80,17 @@ const ConsultingRoom = () => {
         onbeforeunload);
     }
   }, [])
+
+  useEffect(() => {
+    if (role === CUSTOMER) {
+      if (!consultantSessionName) {
+        alert('요청된 세션이 없거나 공란입니다. 종료 후 정상접근 바랍니다.')
+      }
+      else {
+        console.log(consultantSessionName)
+      }
+    }
+  }, [consultantSessionName])
 
 
   useEffect(() => {
@@ -164,8 +177,9 @@ const ConsultingRoom = () => {
 
   const streamCreated = (event) => {
     const subscriber = session.subscribe(event.stream, undefined);
-    if (role === CONSULTANT) { dispatch(setCustomer(subscriber)) }
-    else if (role === CUSTOMER) { setConsultant(subscriber) }
+    const subRole = JSON.parse(event.stream.connection.data).clientRole
+    if (role === CONSULTANT && subRole === CUSTOMER) { dispatch(setCustomer(subscriber)) }
+    else if (role === CUSTOMER && subRole === CONSULTANT) { setConsultant(subscriber) }
   }
 
   const streamDestroyed = (event) => {
@@ -182,13 +196,16 @@ const ConsultingRoom = () => {
       if (worstColor.length < 1 | bestColor.length < 1) {
         alert('베스트컬러와 워스트컬러 팔레트를 1개 이상씩 채워주세요.')
         return;
-      } else if (selectedTone === '') {
+      }
+      if (tone === '') {
         alert('톤 정보를 입력해주세요.')
         return;
-      } else if (files === '') {
+      }
+      if (files === '') {
         alert('진단 결과표를 등록해 주세요.')
         return;
-      } else if (session) {
+      }
+      if (session) {
         session.disconnect();
         dispatch(postConsultingResult({ files, consultingFinishRequest }))
           .then(() => {
@@ -197,17 +214,17 @@ const ConsultingRoom = () => {
             dispatch(setFiles(''))
             dispatch(resetColor())
             navigate('/')
-            // window.location.reload()
           })
       }
     }
-    else if (role === CUSTOMER && session) {
+    if (role === CUSTOMER && session) {
       session.disconnect();
     }
     setOV(null);
     setMySessionId(role === CONSULTANT ? tmp : consultantSessionName)
     dispatch(setSession(undefined))
     dispatch(setCustomer(undefined))
+    dispatch(resetMsg())
     setMyUserName(nickname)
     setConsultant(undefined)
   }
@@ -410,14 +427,18 @@ const ConsultingRoom = () => {
           // 세션연결 안됐을시
           !session ?
             <>
-              <BottomBtn variant="contained" onClick={joinSession}>
-                연결
-              </BottomBtn>
-              <BottomBtn variant="contained" onClick={() => {
-                navigate('/')
-              }}>
-                돌아가기
-              </BottomBtn>
+              <p />
+              <ButtonGroup>
+                <BottomBtn variant="contained" onClick={joinSession} sx={{ backgroundColor: "#EB8F90" }}>
+                  연결
+                </BottomBtn>
+                <BottomBtn variant="contained" onClick={() => {
+                  navigate('/')
+                  dispatch(resetSessionName())
+                }}>
+                  돌아가기
+                </BottomBtn>
+              </ButtonGroup>
             </>
             :
             // 세션 연결시 

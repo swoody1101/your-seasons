@@ -12,8 +12,7 @@ import { Mic, MicOff, Videocam, VideocamOff } from '@mui/icons-material';
 
 import { setSnackbarMessage, setSnackBarOpen } from 'common/snackbar/snackbarSlice';
 import {
-  selfConsulting, selfConsultingClose,
-  settingModalOn, setSession, setCustomer
+  selfConsultingClose, settingModalOn, setSession, setCustomer
 } from 'features/self/selfSlice'
 
 import SelfColorPalette from 'common/colorset/selfcolorset/SelfColorPalette'
@@ -21,14 +20,14 @@ import SelectedColorSet from 'common/colorset/SelectedColorSet';
 import ColorButtonGroup from 'common/colorset/ColorButtonGroup'
 import { resetColor } from 'common/colorset/colorSetSlice';
 
-const OPENVIDU_SERVER_URL = 'https://yourseasons.anveloper.kr:8443';
-const OPENVIDU_SERVER_SECRET = 'YOUR_SEASONS_SECRET';
+const OPENVIDU_SERVER_URL = 'https://[도메인]:8443';
+const OPENVIDU_SERVER_SECRET = '[오픈비두시크릿]';
 
 // rafce Arrow function style 
 const SelfTestRoom = () => {
   const { nickname, email, role } = useSelector(state => state.auth.logonUser) //nickname, email, role,
   const { session, customer, selfConsultingId } = useSelector(state => state.self)
-  const tmp = email.replace(/[@\.]/g, '-')
+  const tmp = email?.replace(/[@\.]/g, '-')
   const [mySessionId, setMySessionId] = useState(tmp)
 
   const [isBest, setIsBest] = useState(false)
@@ -43,11 +42,10 @@ const SelfTestRoom = () => {
   const [isCam, setIsCam] = useState(true)
   const { bestColor, worstColor } = useSelector(state => state.colorSetList)
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const dataSet = {
-    selfConsultingId: selfConsultingId,
     bestColorSet: bestColor,
     worstColorSet: worstColor
   }
@@ -120,7 +118,6 @@ const SelfTestRoom = () => {
     const getOV = new OpenVidu();
     dispatch(setSession(getOV.initSession()))
     setOV(getOV)
-    dispatch(selfConsulting())
   }
 
   const streamCreated = (event) => {
@@ -147,7 +144,6 @@ const SelfTestRoom = () => {
           dispatch(setSession(undefined))
           alert('상담이 종료되었습니다. 마이페이지에서 진단결과를 확인해주세요.')
           navigate('/')
-          // window.location.reload()
         })
     }
     setOV(null);
@@ -308,14 +304,17 @@ const SelfTestRoom = () => {
           // 세션연결 안됐을시
           !session ?
             <>
-              <BottomBtn variant="contained" onClick={joinSession}>
-                연결
-              </BottomBtn>
-              <BottomBtn variant="contained" onClick={() => {
-                navigate('/')
-              }}>
-                돌아가기
-              </BottomBtn>
+              <p />
+              <ButtonGroup>
+                <BottomBtn variant="contained" onClick={joinSession} sx={{ backgroundColor:"#EB8F90"}}>
+                  연결
+                </BottomBtn>
+                <BottomBtn variant="contained" onClick={() => {
+                  navigate('/')
+                }}>
+                  돌아가기
+                </BottomBtn>
+              </ButtonGroup>
             </>
             :
             // 세션 연결시 
