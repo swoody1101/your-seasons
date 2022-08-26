@@ -30,7 +30,7 @@ public class SelfConsulting extends BaseTimeEntity {
     @Builder
     public SelfConsulting(Long id, LocalDateTime createdDate, LocalDateTime lastModifiedDate, LocalDateTime deletedDate,
                           Customer customer, SelfConsultingResult selfConsultingResult, String sessionId) {
-        super(id, createdDate, lastModifiedDate, deletedDate, true);
+        super(id, createdDate, lastModifiedDate, LocalDateTime.now(), false);
         this.customer = customer;
         this.selfConsultingResult = selfConsultingResult;
         this.sessionId = sessionId;
@@ -38,10 +38,5 @@ public class SelfConsulting extends BaseTimeEntity {
 
     public void enterCustomer(Customer customer) {
         this.customer = customer;
-    }
-
-    public void done(SelfConsultingResult selfConsultingResult) {
-        this.selfConsultingResult = selfConsultingResult;
-        delete();
     }
 }

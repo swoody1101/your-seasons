@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "homepage": "https://yourseasons.ssafy.io/",
+  "homepage": "https://[도메인]/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

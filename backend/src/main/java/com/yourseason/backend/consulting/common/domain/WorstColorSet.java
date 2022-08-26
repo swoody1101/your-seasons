@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Entity
 public class WorstColorSet extends BaseTimeEntity {
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "color_set_id")
     private ColorSet colorSet;
 

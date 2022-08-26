@@ -160,7 +160,7 @@ const divolicy = () => {
             <li>성명 :안성진</li>
             <li>직책 :FE</li>
             <li>직급 :팀장</li>
-            <li>연락처 :01041756780, hitedin@gmail.com, </li>
+            <li>연락처 :[연락처], [이메일], </li>
           </ul>
           <div className='sub_div'>※ 개인정보 보호 담당부서로 연결됩니다.
             <div />

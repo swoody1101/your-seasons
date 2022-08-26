@@ -43,7 +43,7 @@ public class MemberService {
     private static final String EMAIL_DUPLICATED = "이메일이 중복됩니다.";
     private static final String NICKNAME_DUPLICATED = "닉네임이 중복됩니다.";
     private static final String TOKEN_NOT_EQUAL = "이메일 인증 토큰이 일치하지 않습니다.";
-    private static final String ADMIN_EMAIL = "yourseasons305@naver.com";
+    private static final String ADMIN_EMAIL = "[email]";
 
     private final PasswordEncoder passwordEncoder;
     private final CustomerRepository customerRepository;

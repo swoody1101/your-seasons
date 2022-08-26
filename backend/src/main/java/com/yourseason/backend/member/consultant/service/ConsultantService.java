@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -196,6 +197,10 @@ public class ConsultantService {
                 .stream()
                 .sorted(Comparator.comparing(Reservation::getDate)
                         .thenComparing(Reservation::getTime))
+                .filter(Reservation::isActive)
+                .filter(reservation -> reservation.getTime()
+                        .atDate(reservation.getDate())
+                        .isAfter(LocalDateTime.now()))
                 .map(reservation -> ReservationDetailListResponse.builder()
                         .reservationId(reservation.getId())
                         .reservationDate(reservation.getDate())
