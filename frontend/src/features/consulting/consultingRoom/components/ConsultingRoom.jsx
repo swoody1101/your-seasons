@@ -26,8 +26,8 @@ import SelectedColorSet from 'common/colorset/SelectedColorSet';
 import ConSelectedColorSet from 'common/colorset/ConSelectedColorSet';
 import ColorButtonGroup from 'common/colorset/ColorButtonGroup'
 
-const OPENVIDU_SERVER_URL = 'https://yourseasons.anveloper.kr:8443';
-const OPENVIDU_SERVER_SECRET = 'YOUR_SEASONS_SECRET';
+const OPENVIDU_SERVER_URL = 'https://[도메인]:8443';
+const OPENVIDU_SERVER_SECRET = '[오픈비두시크릿]';
 
 
 

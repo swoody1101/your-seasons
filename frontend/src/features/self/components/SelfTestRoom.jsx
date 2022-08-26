@@ -20,8 +20,8 @@ import SelectedColorSet from 'common/colorset/SelectedColorSet';
 import ColorButtonGroup from 'common/colorset/ColorButtonGroup'
 import { resetColor } from 'common/colorset/colorSetSlice';
 
-const OPENVIDU_SERVER_URL = 'https://yourseasons.anveloper.kr:8443';
-const OPENVIDU_SERVER_SECRET = 'YOUR_SEASONS_SECRET';
+const OPENVIDU_SERVER_URL = 'https://[도메인]:8443';
+const OPENVIDU_SERVER_SECRET = '[오픈비두시크릿]';
 
 // rafce Arrow function style 
 const SelfTestRoom = () => {

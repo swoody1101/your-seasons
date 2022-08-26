@@ -9,7 +9,7 @@ export const getToken = () => {
     if (date > new Date(window.localStorage.getItem(expireToken))) {
       // window.location.href = 'http://localhost:3000/' + "login"
       // deleteToken()
-      window.location.href = "https://yourseasons.ssafy.io/login"
+      window.location.href = "https://[도메인]/login"
       return false
     } else {
       return window.localStorage.getItem(tokenName);
